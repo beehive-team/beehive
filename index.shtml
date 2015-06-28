@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    <!--#include file="inc_common_head.html"-->
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<script type="text/javascript" src="files/js/jquery.bxslider.min.js"></script>
+		<script type="text/javascript">
+			
+		</script>
+		<!-- END 自定义 head -->
+	</head>
+	<body class="home-page">
+		<div id="wrap">
+			<!-- START header -->
+			    <!--#include file="inc_header.html"-->
+			<!-- END header -->
+			<!-- START navigation -->
+			    <!--#include file="inc_navigation.html"-->
+			<!-- END navigation -->
+			<div id="main">
+				
+
+			</div>
+		</div>
+		<!-- START footer -->
+		    <!--#include file="inc_footer.html"-->
+		<!-- END footer -->
+	</body>
+</html>

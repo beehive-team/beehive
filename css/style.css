@@ -1,0 +1,25 @@
+/*css reset*/
+html,body,p{ padding: 0; margin: 0; font-family: "微软雅黑",Arial,"宋体",sans-serif;font-size: 12px;} 
+ol, ul {list-style: none; padding: 0; margin: 0;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none; }
+table {border-collapse: collapse; border-spacing: 0;}
+th,td { vertical-align: middle;}
+a{text-decoration:none;	outline: none;hlbr:expression(this.onFocus=this.blur());}
+input, select {vertical-align: middle;}
+img, iframe {border: none; text-decoration:none;} 
+strong {font-weight: bold;}
+h1,h2,h3,h4,h5,h6{padding: 0; margin: 0; font-family: "微软雅黑",Arial,"宋体",sans-serif;}
+:focus {outline: 0;}
+/*css common*/
+.f-left {float: left;}
+.f-right {float: right;}
+.clearfix:after{content: "";display: block;clear: both;visibility: hidden;line-height: 0;height: 0;font-size:0;}
+.clearfix{*zoom:1;}
+.nodisplay{display: none;}
+html, body, #wrap {height: 100%;min-width: 1024px;}
+body > #wrap {height: auto; min-height: 100%;}
+#main {padding-bottom: 65px;}  /* 必须使用和footer相同的高度 */
+#footer {position: relative;margin-top: -65px; /* footer高度的负值 */clear:both;}
+.inner {width: 1024px;margin: 0 auto;}
+

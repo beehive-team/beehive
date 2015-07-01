@@ -40,13 +40,52 @@
 								</div>
 							</form>
 						</div>
-						<div class="f-right title ">
+						<div class="f-right title">
 							<h1>蜂巢</h1>
 							<p>你想要的都有</p>
 						</div>
 					</div>
 				</div>
-
+				<div class="section sec-2">
+					<div class="inner">
+						<h2>热点内容 ·······</h2>
+						<div class="img-box">
+							<ul>
+								<li>
+									<a href="">
+										<img src=""/>
+										<span><strong></strong></span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<img src=""/>
+										<span><strong></strong></span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<img src=""/>
+										<span><strong></strong></span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<img src=""/>
+										<span><strong></strong></span>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="list-box">
+							<ul>
+								<li><a href=""></a><p></p></li>
+								<li><a href=""></a></li>
+								<li><a href=""></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- START footer -->

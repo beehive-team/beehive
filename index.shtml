@@ -20,7 +20,32 @@
 			    <!--#include file="inc_navigation.html"-->
 			<!-- END navigation -->
 			<div id="main">
-				
+				<div class="section sec-1">
+					<div class="inner"/>
+						<div class="f-left form-box">
+							<form>
+								<div class="input-box">
+									<input type="text" name="name"/><span></span>
+								</div>
+								<div class="input-box">
+									<input type="password" name="psw"/><span></span>
+								</div>
+								<div class="radio-box">
+									<input type="checkbox" name="rember"/><label for="rember">记住我</label>
+									<a href="">忘记密码</a>
+								</div>
+								<div class="btn-box">
+									<input type="submit" value="登录">
+									<a href="">注册</a>
+								</div>
+							</form>
+						</div>
+						<div class="f-right title ">
+							<h1>蜂巢</h1>
+							<p>你想要的都有</p>
+						</div>
+					</div>
+				</div>
 
 			</div>
 		</div>

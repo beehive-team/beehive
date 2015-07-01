@@ -1,0 +1,125 @@
+<?php include './View/common.html';?>
+	<body>	
+		<div class="content">
+			<div class="inner">
+				<div class="img-box">
+					<img id="flower"src="./View/images/flower.png">
+					<img id="l-g"src="./View/images/l-g.png">
+					<img id="r-g"src="./View/images/r-g.png">
+				</div>
+				<div class="form-box">
+					<form onsubmit="return sub()" action="index.php?c=user&a=login" method="post">
+						<div class="input">
+							<div class="input-box">
+								<input type="text" class="name" name="name" placeholder="请输入用户名" /><label>hehe</label>
+							</div>
+							<div class="input-box">
+								<input type="password" class="pwd"name="pwd" placeholder="请输入密码"/><label>hehe</label>
+							</div>
+						</div>
+						<div class="button-box">
+							<a href="">注册</a>
+							<input type="submit" value="登录">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var nameInput = document.forms[0].elements[0];
+			var n_type = 0;
+			var p_type = 0;
+			var psw = document.forms[0].elements[1];
+			var img_f = document.getElementById('flower');
+			var img_l_g = document.getElementById('l-g');
+			var img_r_g = document.getElementById('r-g');
+
+
+
+			var p = nameInput.parentNode
+				
+			del_ff(p);
+			
+			lab = p.lastChild;
+
+			nameInput.onblur = function(){
+				//alert(this.value);
+				
+				
+				
+				nameTest();
+				
+			}
+
+			
+			function nameTest(){
+				if(!is_name(nameInput.value)){
+					lab.innerHTML = '您输入的用户名不合法';
+					lab.style.visibility="visible";
+				}else if(!is_exists(nameInput.value)){
+					lab.innerHTML = '用户名不存在';
+					lab.style.visibility="visible";
+					
+				}else{
+					lab.style.visibility="hidden";
+					n_type=1
+					
+
+				}
+
+			}
+
+			nameTest();
+			
+			psw.onfocus = function(){
+				var psw_value = this.value;
+				
+				img_f.setAttribute('class','move');
+				img_l_g.setAttribute('class','move');
+				img_r_g.setAttribute('class','move');
+				
+
+			}
+			psw.onchange = function(){
+				
+				var p = this.parentNode
+				
+				del_ff(p);
+					
+				
+				pwdlab = p.lastChild;
+				if(is_pwd(nameInput.value,this.value)){
+					pwdlab.style.visibility="hidden";
+
+					p_type=1;
+					//alert(p_type);
+					//alert(n_type);
+				}else{
+					
+					//alert(pwdlab)
+					pwdlab.innerHTML = '密码不正确';
+					pwdlab.style.visibility="visible";
+				}
+				
+
+			}
+
+			psw.onblur = function(){
+				img_f.removeAttribute('class','move');
+				img_l_g.removeAttribute('class','move');
+				img_r_g.removeAttribute('class','move');
+			}
+
+			function sub(){
+
+				if(n_type&&p_type){
+					//alert(1)
+					return true;
+				}else{
+					return false;
+				}
+			}
+
+		</script>
+	</body>
+</html>

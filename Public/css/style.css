@@ -21,7 +21,7 @@ html, body, #wrap {height: 100%;min-width: 1024px;}
 body > #wrap {height: auto; min-height: 100%;}
 #main {padding-bottom: 65px;}  /* 必须使用和footer相同的高度 */
 #footer {position: relative;margin-top: -65px; /* footer高度的负值 */clear:both;}
-.inner {width: 900px;margin: 0 auto;}
+.inner {width: 950px;margin: 0 auto;}
 
 /*  header css*/
 #header{
@@ -70,13 +70,13 @@ body > #wrap {height: auto; min-height: 100%;}
 	color:#339868;
 }
 #header .list-box a.second{
-	color:#f37125
+	color:#a11715
 }
 #header .list-box a.third{
 	color:#2a6f7e;
 }
 #header .list-box a.forth{
-	color:#a11715;
+	color:#f37125;
 }
 /* homepage css*/
 .home-page .sec-1{
@@ -160,10 +160,214 @@ body > #wrap {height: auto; min-height: 100%;}
 	padding-right: 115px;
 }
 .home-page .section h2{
-	color: #ffba00;
-	line-height: 60px;
+	color: #9a633c;
+	font-weight: normal;
+
+	line-height: 40px;
+	font-size: 16px;
 }
-.home-page .sec-2 .img-box li{
+.home-page .section h4{
+	color: #9a633c;
+	font-weight: normal;
+	display: inline-block;
+	line-height: 40px;
+	padding-top: 20px;
+	font-size: 16px;
+}
+.home-page .sec-2 img{
+	width: 950px;
+}
+.home-page .section{
+	padding-bottom: 40px;
+	overflow: hidden;
+}
+.home-page .sec-2{
+	padding-bottom: 0px;
+	margin-top: 40px;
+}
+
+.home-page .sec-3 .img-box{
+	width: 360px;
 	float: left;
-	margin: 10px;
+	overflow: hidden;
+}
+.home-page .sec-3 .img-box li{
+	float: left;
+	width: 170px;
+	margin: 0 10px 20px 0;
+}
+.home-page .sec-3 .img-box a{
+	display: inline-block;
+	color: #9a633c;
+
+}
+.home-page .sec-3 .img-box a:hover{
+	color: #fff;
+	background-color: #9a633c;
+}
+.home-page .sec-3 .img-box span{
+	color: #999;
+	font-size: 12px;
+	padding-left: 4px;
+}
+.home-page .sec-3 .img-box img{
+	width: 170px;
+	height: 170px;
+}
+.home-page .sec-3 .list-box{
+	float: left;
+	width: 281px;
+	height: 384px;
+	overflow: hidden;
+	padding-right:10px;
+}
+.home-page .sec-3 .list-box img{
+	width: 265px;
+}
+.home-page .sec-3 .list-box li{
+	padding-bottom: 20px;
+}
+.home-page .sec-3 .list-box a{
+	display: inline-block;
+	color: #9a633c;
+}
+.home-page .sec-3 .list-box a:hover{
+	color: #fff;
+	background-color: #9a633c;
+}
+.home-page .sec-3 .list-box span{
+	display: block;
+	line-height: 20px;
+	color: #999;
+}
+.home-page .sec-3 .list-box p{
+	color: #ccc;
+	line-height: 20px;
+}
+.home-page .sec-4{
+	background-color: #f7f7f7;
+}
+.home-page .section h3{
+	font-size: 26px;
+	font-weight: normal;
+	line-height: 80px;
+}
+.home-page .sec-4 h3{
+	color: #339868;
+}
+.home-page .section .list{
+	width: 109px;
+}
+.home-page .sec-4 a{
+	color: #339868;
+	font-size: 14px;
+}
+.home-page .sec-4 a:hover{
+	color: #fff;
+	background-color: #339868;
+}
+.home-page .section .new .pic a:hover{
+	background-color: transparent;
+}
+.home-page .section .list li{
+	padding-bottom: 10px;
+}
+.home-page .section .new{
+	width: 520px;
+	padding-right: 30px;
+}
+.home-page .section .new li{
+	float: left;
+	padding: 15px;
+}
+.home-page .section .new li .pic{
+	height: 148px;
+	width: 100px;
+	overflow: hidden;
+}
+.home-page .section .new li .pic img{
+	width: 100px;
+}
+.home-page .section .new p{
+	line-height:30px; 
+	width: 100px;
+	color: #999;
+	text-align: center;
+}
+.home-page .section .tags li{
+	width: 290px;
+}
+.home-page .section .tags li {
+	padding-bottom: 14px;
+	border-bottom: 1px solid #ddd;
+}
+.home-page .section .tags li a{
+	font-size: 12px;
+	margin: 0 5px;
+}
+
+.home-page .section .tags span{
+	color: #999;
+}
+.home-page .sec-5 .list h3{
+	color: #a11715;
+}
+.home-page .sec-5 a{
+	color: #a11715;
+	font-size: 14px;
+}
+.home-page .sec-5 a:hover{
+	color: #fff;
+	background-color: #a11715;
+}
+.home-page .sec-5 .new span{
+	display: inline-block;
+	height: 11px;
+	background: url(../images/midstars.gif);
+	overflow: hidden;
+	width: 55px;
+	margin: 0 8px;
+}
+.home-page .sec-5 .new .allstar00{
+	background-position: 0 -110px;
+}
+
+.home-page .sec-5 .new .allstar05{
+	background-position: 0 -88px;
+}
+.home-page .sec-5 .new .allstar15{
+	background-position: 0 -77px;
+}
+.home-page .sec-5 .new .allstar20{
+	background-position: 0 -66px;
+}
+.home-page .sec-5 .new .allstar25{
+	background-position: 0 -55px;
+}
+.home-page .sec-5 .new .allstar30{
+	background-position: 0 -44px;
+}
+.home-page .sec-5 .new .allstar35{
+	background-position: 0 -33px;
+}
+.home-page .sec-5 .new .allstar40{
+	background-position: 0 -22px;
+}
+.home-page .sec-5 .new .allstar45{
+	background-position: 0 -11px;
+}
+.home-page .sec-5 .new .allstar50{
+	background-position: 0 0px;
+}
+.home-page .sec-5 .new i{
+	color: #f40;
+}
+.home-page .sec-5 .right{
+	width: 291px;
+}
+.home-page .sec-5 .right li{
+	border-bottom: 1px solid #ddd;
+}
+.home-page .sec-5 .right li a{
+	line-height: 40px;
 }

@@ -1,11 +1,12 @@
-<div id="header">
+<div class="header">
 	<div class="inner">
     	<div class="logo">
 	    	<img src="Public/images/logo.png"/>
 	    </div> 
 	    <div class="search-box">
 	    	<form>
-	    		<input name="search" type="text"/>
+	    		<input class="search"name="search" type="text"/>
+	    		<input class="button"type="submit" />
 	    	</form>
 	    </div>
 	    <div class="list-box">
@@ -18,9 +19,9 @@
 	<script type="text/javascript">
 	$(function(){
 		$('input').focusin(function(){
-			$(this).addClass('active');
+			$('input').addClass('active');
 		}).focusout(function(){
-			$(this).removeClass('active');
+			$('input').removeClass('active');
 		})
 	})
 	</script>

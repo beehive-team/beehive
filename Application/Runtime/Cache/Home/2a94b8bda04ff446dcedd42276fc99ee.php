@@ -30,14 +30,15 @@
 	<body class="home-page">
 		<div id="wrap">
 			<!-- START header -->
-		    <div id="header">
+		    <div class="header">
 	<div class="inner">
     	<div class="logo">
 	    	<img src="Public/images/logo.png"/>
 	    </div> 
 	    <div class="search-box">
 	    	<form>
-	    		<input name="search" type="text"/>
+	    		<input class="search"name="search" type="text"/>
+	    		<input class="button"type="submit" />
 	    	</form>
 	    </div>
 	    <div class="list-box">
@@ -50,9 +51,9 @@
 	<script type="text/javascript">
 	$(function(){
 		$('input').focusin(function(){
-			$(this).addClass('active');
+			$('input').addClass('active');
 		}).focusout(function(){
-			$(this).removeClass('active');
+			$('input').removeClass('active');
 		})
 	})
 	</script>
@@ -302,10 +303,79 @@
 						</div>
 					</div>
 				</div>
+				<div class="section sec-6">
+					<div class="inner">
+						<div class="f-left list">
+							<h3>小组</h3>
+							<ul>
+								<li><a href="">精选</a></li>
+								<li><a href="">分化</a></li>
+								<li><a href="">行摄</a></li>
+								<li><a href="">娱乐</a></li>
+								<li><a href="">时尚</a></li>
+								<li><a href="">生活</a></li>
+								<li><a href="">科技</a></li>
+							</ul>
+						</div>
+						<div class="f-left hot">
+							<h4>热门小组 ·······</h4><a href="">（更多）</a>
+							<ul>
+								<li>
+									<a class="img-box">
+										<img src="Public/images/group1.jpg"/>
+									</a>
+									<p><a href="">你荒废时间的时候会有多少人在拼命</a></p>
+									<p>119343 个成员</p>
+								</li>
+								<li>
+									<a class="img-box">
+										<img src="Public/images/group1.jpg"/>
+									</a>
+									<p><a href="">你荒废时间的时候会有多少人在拼命</a></p>
+									<p>119343 个成员</p>
+								</li>
+								<li>
+									<a class="img-box">
+										<img src="Public/images/group1.jpg"/>
+									</a>
+									<p><a href="">你荒废时间的时候会有多少人在拼命</a></p>
+									<p>119343 个成员</p>
+								</li>
+								<li>
+									<a class="img-box">
+										<img src="Public/images/group1.jpg"/>
+									</a>
+									<p><a href="">你荒废时间的时候会有多少人在拼命</a></p>
+									<p>119343 个成员</p>
+								</li>
+
+							</ul>
+						</div>
+						<div class="f-left right">
+							<h4>小组分类 ·······</h4>
+								<div class="classify">
+									<ul>
+										<li>
+											<p><a class="parents" href="">兴趣》</a></p>
+											<a href="">小说</a>
+											<a href="">随笔</a>
+										</li>
+									</ul>
+								</div>
+
+							
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- START footer -->
-		    <!--#include file="inc_footer.html"-->
+		    
+<div id="footer">
+	<p>version 1.0.0</p>
+</div>
+
+
 		<!-- END footer -->
 
 	</body>

@@ -699,6 +699,213 @@ body > #wrap {height: auto; min-height: 100%;}
 	width: 55px;
 	margin: 0 8px;
 }
+.movie-page .sec-4 li{
+    padding:20px 0 10px;
+    border-bottom:1px solid #ddd;
+    overflow: hidden;
+    margin-right: 35px;
+} 
+.movie-page .sec-4 li .img-box{
+    padding-right:20px;
+    
+}
+.movie-page .sec-4 li .text-box{
+	width: 490px;
+}
+.movie-page .sec-4 li .text-box h5 a{  
+   font-size:14px;
+   font-weight:normal;
+   line-height:26px;
+   color:#a11715;
+}
+.movie-page .sec-4 li .text-box p a{  
+   color:#666; 
+}
+.movie-page .sec-4 li .text-box p {  
+   color:#666; 
+   line-height: 20px;
+}
+.movie-page .sec-4 li .text-box p a:hover {
+    color:#fff;
+    background-color:#a11715;
+}
+.movie-page .sec-4 li .text-box a:hover {
+    color:#fff;
+    background-color:#a11715;
+}
+.movie-page .sec-4 li .text-box p.detail {
+	color: #111;  
+	padding-top: 5px;
+}
+.movie-page .sec-4 li .text-box a.all{
+	color: #a11715;
+}
+.movie-page .sider{
+	width: 313px;
+}
+.movie-page .sider .ad{
+
+	padding-top: 50px;
+	margin-bottom: 20px;
+}
+.movie-page .sider .ad img{
+	width: 300px;
+	height: 250px;
+}
+.movie-page .sider .hot{
+	background-color: #fbecc9;
+	border-radius: 3px;
+	padding: 10px;
+
+}
+.movie-page .sider .hot h3{
+	color:#9a633c;
+	font-size: 16px;
+	line-height: 30px;
+	font-weight: normal;
+}
+.movie-page .sider .hot li a{
+	line-height: 26px;
+	margin-left: 20px;
+	color: #a11715;
+
+}
+.movie-page .sider .hot li a:hover{
+	color: #fff;
+	background-color: #a11715;
+}
+.movie-page .sider .list-box h3{
+	color: #111;
+    float: left;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 40px;
+    padding-right: 20px;
+}
+.movie-page .sider .list-box .title{
+	overflow: hidden;
+	padding-top: 20px;
+	line-height: 40px;
+	border-bottom: 1px solid #ddd;
+}
+.movie-page .sider .list-box .title a{
+	color: #a11715;
+    line-height: 40px;
+    margin-right: 10px;
+}
+.movie-page .sider .list-box .title a:hover{
+	color: #fff;
+	background-color: #a11715;
+}
+.movie-page .sider .list-box li{
+	border-bottom: 1px solid #ddd;
+	padding-left: 10px;
+	line-height: 40px;
+}
+.movie-page .sider .list-box li a{
+	color: #a11715;
+	margin-left: 10px;
+
+}
+.movie-page .sider .list-box li a:hover{
+	color: #fff;
+	background-color: #a11715;
+}
+
+/*css movie ranking*/
+.movie-ranking-page .con .sec-4 .top{
+	border-bottom: 1px dashed #ddd;
+}
+.movie-ranking-page .con .sec-4 h2{
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 34px;
+}
+.movie-ranking-page .con .sec-4 h3{
+	padding-bottom: 5px;
+}
+.movie-ranking-page .con .text-box{
+	width: 490px;
+}
+.movie-ranking-page .con .text-box p{
+	padding-bottom: 10px;
+}
+.movie-ranking-page .con span{
+	margin:0 8px 0 0;
+}
+.movie-ranking-page .con i{
+	color: #f40;
+	margin-right: 8px;
+}
+.movie-ranking-page .sider h4{
+
+	color: #111;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 40px;
+    padding-right: 20px;
+}
+.movie-ranking-page .sider .classify a{
+	color: #a11715;
+	padding: 0 10px;
+	margin-right: 5px;
+}
+.movie-ranking-page .sider .classify a:hover{
+	color:#fff;
+	background-color: #a11715;
+}
+.movie-ranking-page .sider h5{
+	color: #666;
+	font-weight: normal;
+	float: right;
+	font-size: 10px;
+}
+.movie-ranking-page .sider .list-box{
+	padding-bottom: 20px;
+}
+.movie-ranking-page .sider .list-box .title{
+	border-bottom: 1px dashed #ddd;
+
+}
+.movie-ranking-page .sider .list-box li{
+	border-bottom: 1px dashed #ddd;
+	line-height: 30px;
+}
+.movie-ranking-page .sider .top250 .title{
+	overflow: hidden;
+	padding-bottom: 10px;
+}
+.movie-ranking-page .sider .top250 h3{
+	color: #111;
+    float: left;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 40px;
+    padding-right: 20px;
+}
+.movie-ranking-page .sider .top250 .title a{
+
+	color: #a11715;
+    line-height: 40px;
+    margin-right: 10px;
+}
+.movie-ranking-page .sider .top250 .title a:hover{
+	color: #fff;
+	background-color: #a11715;
+}
+.movie-ranking-page .sider .top250 li{
+	float: left;
+	margin: 0 13px 10px 0; 
+	width: 65px;
+}
+.movie-ranking-page .sider .top250 p a{
+	color: #a11715;
+}
+.movie-ranking-page .sider .top250 p a:hover{
+	background-color: #a11715;
+	color: #fff;
+}
+
 .allstar00{
 	background-position: 0 -110px;
 }

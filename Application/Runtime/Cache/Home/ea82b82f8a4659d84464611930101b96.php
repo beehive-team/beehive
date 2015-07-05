@@ -17,23 +17,7 @@
 		<script type="text/javascript" src="Public/js/jquery.bxslider.min.js"></script>
 
 		<script type="text/javascript">
-			$(function(){
-				$('.slider').bxSlider({
-					auto:true,
-					pager:true,
-					controls:true,
-					minSlides:1,
-					maxSlides:4,
-					moveSlides:4,
-					slideWidth:128,
-					slideMargin:20
-				});
-				$('.big-slider ul').bxSlider({
-					auto:true,
-					pager:true,
-					controls:true,
-				});
-			})
+
 		</script>
 		<!-- END 自定义 head -->
 	</head>
@@ -92,52 +76,7 @@
 			<div id="main">
 				<div class="inner">
 					<div class="f-left con">
-						<div class="section sec-1">
-							<div class="top">
-								<h3>正在热映</h3>
-								<a href="">全部正在热映》</a>
-								<a href="">即将上映》</a>
-							</div>
-							<div class="bottom">
-								<ul class="slider">
-									<li>
-										<a href="">
-											<img src="Public/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="Public/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="Public/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="Public/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>									
-									<li>
-										<a href="">
-											<img src="Public/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
+						
 						<div class="section sec-2">
 							<div class="top">
 								<h3>选电影</h3>
@@ -215,92 +154,17 @@
 								</div>
 							</div>
 						</div>
-						<div class="section sec-3">
-							<div class="top">
-								<h3>热门推荐</h3>
-							</div>
-							<div class="big-slider">
-								<ul class="big-slider">
-									<li>
-										<a href="">
-											<div class="img-box f-left"><img src="Public/images/movie4.jpg"/></div>
-											<div class="text-box f-left">
-												<h4>2015年口碑电影</h4>
-												<p>来自<span>heheda</span></p>
-												<p>sss</p>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<div class="img-box f-left"><img src="Public/images/movie4.jpg"/></div>
-											<div class="text-box f-left">
-												<h4>2015年口碑电影</h4>
-												<p>来自<span>heheda</span></p>
-												<p>sss</p>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<div class="img-box f-left"><img src="Public/images/movie4.jpg"/></div>
-											<div class="text-box f-left">
-												<h4>2015年口碑电影</h4>
-												<p>来自<span>heheda</span></p>
-												<p>sss</p>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<div class="img-box f-left"><img src="Public/images/movie4.jpg"/></div>
-											<div class="text-box f-left">
-												<h4>2015年口碑电影</h4>
-												<p>来自<span>heheda</span></p>
-												<p>sss</p>
-											</div>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="section sec-4">
-							<div class="top">
-								<h3>最受欢迎的影评</h3>
-								<a href="">更多热门影评》</a>
-								<a href="">新片影评》</a>
-							</div>
-							<div class="bottom">
-								<ul>
-									<li>
-										<div class="img-box f-left"><a href=""><img src="Public/images/movie6.jpg"/></a></div>
-										<div class="text-box f-left">
-											<h5><a href="">标题</a></h5>
-                                            <p><a href="">作者&nbsp;</a>评论&nbsp;<a href="">电影名</a><span class="allstar40"></span></p>
-                                            <p class="detail"> 
-                                                fjdklsfjdlsflsdkjflkjdfslfjdl<a class="all"href="">(全文)</a>
-                                            </p> 
-										</div>
-									</li>
-								</ul> </div>
-						</div>
+
+						
 					</div>
 					<div class="f-left sider">
 						<div class="ad">
 							<a href=""><img src="Public/images/ad4.jpg"/></a>
 						</div>
-						<div class="hot">
-                            <h3>热门推荐</h3>
-                            <ul>
-                                <li><a href="">2015年上xxbannian</a></li>                          
-                                <li><a href="">2015年上xxbannian</a></li>                          
-                                <li><a href="">2015年上xxbannian</a></li>                          
-                            </ul> 
-                        </div>
 
                         <div class="list-box">
                         	<div class="title">
-                        		<h3>本周口碑榜</h3><a href="">更多榜单》</a>
+                        		<h3>热门蜂蜜</h3>
                         	</div>
                             <ul>
                                 <li>1<a href=""> 风快的麦克斯</a></li>

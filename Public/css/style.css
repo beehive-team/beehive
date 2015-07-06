@@ -906,6 +906,74 @@ body > #wrap {height: auto; min-height: 100%;}
 	color: #fff;
 }
 
+/*css movie-classify-page*/
+.movie-classify-page .con .section h3 {
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 40px;
+}
+.movie-classify-page .con .list-box h4{
+	color: #111;
+	font-weight: normal;
+	line-height: 30px;
+	font-size: 14px;
+}
+.movie-classify-page .con .list-box li{
+	float: left;
+}
+.movie-classify-page .con .list-box li a{
+	color: #a11715;
+	padding: 0 10px;
+	margin-right: 35px;
+	line-height: 20px;
+	display: block;
+	border-radius: 3px;
+}
+.movie-classify-page .con .list-box li a:hover{
+	color: #fff;
+	background-color: #a11715;
+}
+
+.movie-comment-page .section .bottom h5{
+	padding-left: 10px;
+	height: 24px;
+	line-height: 24px;
+	margin-bottom: 4px;
+	background-color: #f5f5f5;
+}
+.movie-comment-page .section .bottom h5 .icon{
+	background:url(../images/triangle.png) no-repeat 1px 5px ;
+	float: right;
+	display: block;
+	text-indent: 100px;
+	width: 46px;
+	overflow: hidden;
+	height: 20px;
+}
+.movie-comment-page .section .bottom h5 .icon:hover{
+	background-color: transparent;
+}
+.movie-comment-page .section .bottom h5 .icon.active{
+	background-position: 1px -9px;
+}
+.movie-comment-page .section .bottom p{
+	padding-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .allstar00{
 	background-position: 0 -110px;
 }

@@ -11,4 +11,7 @@ class MovieController extends Controller {
     public function ranking(){
     	$this->display();
     }
+    public function comment(){
+    	$this->display();
+    }
 }

@@ -10,9 +10,9 @@
 	<body>
 		<form class="form-horizontal" style="margin-top:20px;margin-left:120px;" role="form">
 		  	<div class="form-group">
-			    <label for="inputEmail3" class="col-sm-2 control-label">影片名称</label>
+			    <label for="inputEmail3" class="col-sm-2 control-label">图书名称</label>
 			    <div class="col-sm-10">
-			      	<input type="text" style="width:30%;" class="form-control" id="inputEmail3" placeholder="请输入影片名称">
+			      	<input type="text" style="width:30%;" class="form-control" id="inputEmail3" placeholder="请输入图书名称">
 			    </div>
 		  	</div>
 		  	<p><input type="file" name="file0"><input type="button" onclick="add(this)" value="继续上传" /></p>

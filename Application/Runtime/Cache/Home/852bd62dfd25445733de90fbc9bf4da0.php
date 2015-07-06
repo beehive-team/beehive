@@ -8,13 +8,13 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>beehive</title>
-<link rel="stylesheet" type="text/css" href="Public/css/style.css"/>
-<script type="text/javascript" src="Public/js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="Public/js/script.common.js"></script>
+<link rel="stylesheet" type="text/css" href="/beehive/Public/css/style.css"/>
+<script type="text/javascript" src="/beehive/Public/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/beehive/Public/js/script.common.js"></script>
 
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
-		<script type="text/javascript" src="Public/js/jquery.bxslider.min.js"></script>
+		<script type="text/javascript" src="/beehive/Public/js/jquery.bxslider.min.js"></script>
 
 		<script type="text/javascript">
 			$(function(){
@@ -102,35 +102,35 @@
 								<ul class="slider">
 									<li>
 										<a href="">
-											<img src="Public/images/movie2.jpg"/>
+											<img src="/beehive/Public/images/movie2.jpg"/>
 											<p>惊魂电影院</p>
 											<span class="allstar40"></span><i>3.7</i>
 										</a>
 									</li>
 									<li>
 										<a href="">
-											<img src="Public/images/movie2.jpg"/>
+											<img src="/beehive/Public/images/movie2.jpg"/>
 											<p>惊魂电影院</p>
 											<span class="allstar40"></span><i>3.7</i>
 										</a>
 									</li>
 									<li>
 										<a href="">
-											<img src="Public/images/movie2.jpg"/>
+											<img src="/beehive/Public/images/movie2.jpg"/>
 											<p>惊魂电影院</p>
 											<span class="allstar40"></span><i>3.7</i>
 										</a>
 									</li>
 									<li>
 										<a href="">
-											<img src="Public/images/movie2.jpg"/>
+											<img src="/beehive/Public/images/movie2.jpg"/>
 											<p>惊魂电影院</p>
 											<span class="allstar40"></span><i>3.7</i>
 										</a>
 									</li>									
 									<li>
 										<a href="">
-											<img src="Public/images/movie2.jpg"/>
+											<img src="/beehive/Public/images/movie2.jpg"/>
 											<p>惊魂电影院</p>
 											<span class="allstar40"></span><i>3.7</i>
 										</a>
@@ -181,31 +181,31 @@
 								<ul>
 									<li>
 										<a href="">
-											<img src="Public/images/movie3.jpg"/>
+											<img src="/beehive/Public/images/movie3.jpg"/>
 											<p>疯狂的麦克斯<i>7.8</i></p>
 										</a>
 									</li>
 									<li>
 										<a href="">
-											<img src="Public/images/movie3.jpg"/>
+											<img src="/beehive/Public/images/movie3.jpg"/>
 											<p>疯狂的麦克斯<i>7.8</i></p>
 										</a>
 									</li>
 									<li>
 										<a href="">
-											<img src="Public/images/movie3.jpg"/>
+											<img src="/beehive/Public/images/movie3.jpg"/>
 											<p>疯狂的麦克斯<i>7.8</i></p>
 										</a>
 									</li>
 									<li>
 										<a href="">
-											<img src="Public/images/movie3.jpg"/>
+											<img src="/beehive/Public/images/movie3.jpg"/>
 											<p>疯狂的麦克斯<i>7.8</i></p>
 										</a>
 									</li>
 									<li>
 										<a href="">
-											<img src="Public/images/movie3.jpg"/>
+											<img src="/beehive/Public/images/movie3.jpg"/>
 											<p>疯狂的麦克斯<i>7.8</i></p>
 										</a>
 									</li>
@@ -223,7 +223,7 @@
 								<ul class="big-slider">
 									<li>
 										<a href="">
-											<div class="img-box f-left"><img src="Public/images/movie4.jpg"/></div>
+											<div class="img-box f-left"><img src="/beehive/Public/images/movie4.jpg"/></div>
 											<div class="text-box f-left">
 												<h4>2015年口碑电影</h4>
 												<p>来自<span>heheda</span></p>
@@ -233,7 +233,7 @@
 									</li>
 									<li>
 										<a href="">
-											<div class="img-box f-left"><img src="Public/images/movie4.jpg"/></div>
+											<div class="img-box f-left"><img src="/beehive/Public/images/movie4.jpg"/></div>
 											<div class="text-box f-left">
 												<h4>2015年口碑电影</h4>
 												<p>来自<span>heheda</span></p>
@@ -243,7 +243,7 @@
 									</li>
 									<li>
 										<a href="">
-											<div class="img-box f-left"><img src="Public/images/movie4.jpg"/></div>
+											<div class="img-box f-left"><img src="/beehive/Public/images/movie4.jpg"/></div>
 											<div class="text-box f-left">
 												<h4>2015年口碑电影</h4>
 												<p>来自<span>heheda</span></p>
@@ -253,7 +253,7 @@
 									</li>
 									<li>
 										<a href="">
-											<div class="img-box f-left"><img src="Public/images/movie4.jpg"/></div>
+											<div class="img-box f-left"><img src="/beehive/Public/images/movie4.jpg"/></div>
 											<div class="text-box f-left">
 												<h4>2015年口碑电影</h4>
 												<p>来自<span>heheda</span></p>
@@ -273,7 +273,7 @@
 							<div class="bottom">
 								<ul>
 									<li>
-										<div class="img-box f-left"><a href=""><img src="Public/images/movie6.jpg"/></a></div>
+										<div class="img-box f-left"><a href=""><img src="/beehive/Public/images/movie6.jpg"/></a></div>
 										<div class="text-box f-left">
 											<h5><a href="">标题</a></h5>
                                             <p><a href="">作者&nbsp;</a>评论&nbsp;<a href="">电影名</a><span class="allstar40"></span></p>
@@ -287,7 +287,7 @@
 					</div>
 					<div class="f-left sider">
 						<div class="ad">
-							<a href=""><img src="Public/images/ad4.jpg"/></a>
+							<a href=""><img src="/beehive/Public/images/ad4.jpg"/></a>
 						</div>
 						<div class="hot">
                             <h3>热门推荐</h3>

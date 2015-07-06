@@ -1,0 +1,177 @@
+/*css reset*/
+html,body,p{ padding: 0; margin: 0; font-family: "Î¢ÈíÑÅºÚ",Arial,"ËÎÌå",sans-serif;font-size: 12px;} 
+ol, ul {list-style: none; padding: 0; margin: 0;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none; }
+table {border-collapse: collapse; border-spacing: 0;}
+th,td { vertical-align: middle;}
+a{text-decoration:none;	outline: none;hlbr:expression(this.onFocus=this.blur());font-size: 14px;color: #666;}
+input, select {vertical-align: middle;}
+img, iframe {border: none; text-decoration:none;} 
+strong {font-weight: bold;}
+h1,h2,h3,h4,h5,h6{padding: 0; margin: 0; font-family: "Î¢ÈíÑÅºÚ",Arial,"ËÎÌå",sans-serif;}
+:focus {outline: 0;}
+/*css common*/
+.f-left {float: left;}
+.f-right {float: right;}
+.clearfix:after{content: "";display: block;clear: both;visibility: hidden;line-height: 0;height: 0;font-size:0;}
+.clearfix{*zoom:1;}
+.nodisplay{display: none;}
+body > #wrap {height: auto; min-height: 100%;}
+
+.inner {width: 1024px;margin: 0 auto;}
+@font-face {        
+	font-family: 'heroLight';        
+	src: url('../fonts/hero_light.eot') format('embedded-opentype'),url('../fonts/hero_light.woff') format('woff'), url('../fonts/hero_light.ttf') format('truetype'),url('../fonts/hero_light.svg') format('svg');
+}
+
+/* css admin*/
+.index-page .main{
+    width: 100%;
+    height: 100%;
+    background:url(../images/login_bkg.jpg) no-repeat center center;
+}
+.index-page .img-box{
+    text-align:center;
+    padding-top:10%;
+    margin-bottom: 5%;
+}
+.index-page .admin-box{
+    width:465px;
+    background:url(../images/admin_bkg.png) no-repeat center top;
+
+    margin:0 auto;
+
+}
+.index-page .admin-box .input-box{
+    height:80px;
+    line-height:80px;
+    width: 462px;
+    margin: 0 auto;
+}
+.index-page .admin-box .input-box input{
+    height:26px;
+    background:none;
+    color: #fff;
+    padding: 0 24px;
+    font-size: 24px;
+    border:0 none;
+    border-left: 1px solid #fff;
+    line-height:26px;
+    margin-top: 29px;
+}
+.index-page .admin-box .input-box.name{
+    border-bottom: 1px solid #a29da6;
+}
+
+.index-page .admin-box label{
+    display:inline-block;
+    height: 80px;
+    line-height: 80px;
+    float: left;
+    font-size:16px;
+    width:100px;
+    background:url(../images/admin_icon.png) no-repeat 23px 26px;
+}
+.index-page .admin-box .input-box.password label{
+    background-position: 23px -55px;
+}
+.index-page .btn-box {
+    padding-top:15px;
+    margin:0 auto;
+    width:460px;
+}
+.index-page .btn-box input{
+	line-height: 70px;
+    width: 460px;
+    display: inline-block;
+	text-align: center;
+
+	font-size: 22px;
+	border:1px solid #ddd;
+	background-color: #ededed;
+	border-radius: 10px;
+	cursor: pointer;
+    height:70px;
+}
+.index-page .btn-box input:hover {
+    color: #fff;
+	background-color: #eb655a;
+	border:1px solid #eb655a;
+}
+.top-page{
+    background-color:#fafafa;
+}
+.top-page .title h2{
+    color:#fff;
+    font-size:24px;
+    padding:30px 0 30px 95px;
+    float: left;
+
+}
+.menu-page{
+    background-color:#353535;
+}
+.menu-page .img-box{
+    text-align: center;
+    width: 100%;
+    padding: 53px 0 56px;
+}
+
+.menu-page li{
+    width: 100%;
+    text-align: center;
+}
+.menu-page li .item{
+    display: none;
+}
+.menu-page li a{
+    height: 62px;
+    display: block;
+    color: #fff;
+    font-size: 20px;
+    line-height: 62px;
+}
+
+.menu-page li a.nav.active{
+    background-color: #ff2738;
+}
+.menu-page ul li a.sub-nav{
+    display:block;
+    background-color: #414141;
+    
+}
+.menu-page li a:hover{
+    background-color: #4a4a4a;
+}
+.menu-page li a.sub-nav:hover,.menu-page li a.sub-nav.active{
+    background-color: #4a4a4a;
+}
+.top-page{
+    background:url(../images/top_bkg.jpg) top left;
+}
+.top-page .login p{
+    color:#bfbfbf;
+    padding-top: 38px;
+    font-size:16px;
+    margin-right:100px;
+}
+.top-page .login p span{
+    font-weight: bold;
+}
+.top-page .login a{
+    color: #bfbfbf; 
+    margin-left: 30px;
+}
+.top-page .login a:hover{
+    color: #ff2738;
+}
+frameset{
+    border:0 none;
+}
+frameset frame{
+    overflow:hidden;
+    border:0 none;
+}
+
+

@@ -8,13 +8,13 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>beehive</title>
-<link rel="stylesheet" type="text/css" href="Public/css/style.css"/>
-<script type="text/javascript" src="Public/js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="Public/js/script.common.js"></script>
+<link rel="stylesheet" type="text/css" href="/beehive/Public/css/style.css"/>
+<script type="text/javascript" src="/beehive/Public/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/beehive/Public/js/script.common.js"></script>
 
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
-		<script type="text/javascript" src="Public/js/jquery.bxslider.min.js"></script>
+		<script type="text/javascript" src="/beehive/Public/js/jquery.bxslider.min.js"></script>
 
 		<script type="text/javascript">
 			$(function(){
@@ -33,7 +33,7 @@
 		    <div class="header">
 	<div class="inner">
     	<div class="logo">
-	    	<img src="Public/images/logo.png"/>
+	    	<img src="/beehive/Public/images/logo.png"/>
 	    </div> 
 	    <div class="search-box">
 	    	<form>
@@ -92,8 +92,8 @@
 				<div class="section sec-2">
 					<div class="inner">
 						<ul>
-							<li><a href=""><img src="Public/images/ad1.jpg"></a></li>
-							<li><a href=""><img src="Public/images/ad2.jpg"></a></li>
+							<li><a href=""><img src="/beehive/Public/images/ad1.jpg"></a></li>
+							<li><a href=""><img src="/beehive/Public/images/ad2.jpg"></a></li>
 						</ul>
 					</div>
 				</div>
@@ -104,13 +104,13 @@
 							<ul>
 								<li>
 									<a href="">
-										<img src="Public/images/photo1.jpg"/>
+										<img src="/beehive/Public/images/photo1.jpg"/>
 									</a>
 									<a href="">听写和诶插</a><span>86张照片</span>
 								</li>
 								<li>
 									<a href="">
-										<img src="Public/images/photo2.jpg"/>
+										<img src="/beehive/Public/images/photo2.jpg"/>
 							
 									</a>
 									<a href="">听写和诶插</a><span>86张照片</span>
@@ -118,14 +118,14 @@
 								</li>
 								<li>
 									<a href="">
-										<img src="Public/images/photo3.jpg"/>
+										<img src="/beehive/Public/images/photo3.jpg"/>
 									</a>
 									<a href="">听写和诶插</a><span>86张照片</span>
 
 								</li>
 								<li>
 									<a href="">
-										<img src="Public/images/photo4.jpg"/>
+										<img src="/beehive/Public/images/photo4.jpg"/>
 									</a>
 									<a href="">听写和诶插</a><span>86张照片</span>
 
@@ -151,7 +151,7 @@
 						</div>
 						<div class="list-box">
 							<ul>
-								<li><img src="Public/images/ad3.jpg"></li>
+								<li><img src="/beehive/Public/images/ad3.jpg"></li>
 
 								<li class="first"><a href="">题目</a><span>谁谁的日记</span><p>丙戌年，也即一衣带水的邻国平成十八年间，国境东隅的姑苏城一如两千五百年前建城...</p></li>
 								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
@@ -176,37 +176,37 @@
 							<ul>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/book1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/book1.jpg"/></a>
 									</div>
 									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
 								</li>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/book1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/book1.jpg"/></a>
 									</div>
 									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
 								</li>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/book1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/book1.jpg"/></a>
 									</div>
 									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
 								</li>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/book1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/book1.jpg"/></a>
 									</div>
 									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
 								</li>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/book1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/book1.jpg"/></a>
 									</div>
 									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
 								</li>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/book1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/book1.jpg"/></a>
 									</div>
 									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
 								</li>
@@ -240,7 +240,7 @@
 							<ul>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/movie1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/movie1.jpg"/></a>
 
 									</div>
 									<p><a href="">新手</a></p>
@@ -249,7 +249,7 @@
 								</li>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/movie1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/movie1.jpg"/></a>
 									</div>
 									<p><a href="">新手</a></p>
 									<span class=""></span><i>7.9</i>
@@ -257,7 +257,7 @@
 								</li>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/movie1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/movie1.jpg"/></a>
 									</div>
 									<p><a href="">新手</a></p>
 									<span class=""></span><i>7.9</i>
@@ -265,7 +265,7 @@
 								</li>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/movie1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/movie1.jpg"/></a>
 									</div>
 									<p><a href="">新手</a></p>
 									<span class=""></span><i>7.9</i>
@@ -273,7 +273,7 @@
 								</li>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/movie1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/movie1.jpg"/></a>
 									</div>
 									<p><a href="">新手</a></p>
 									<span class="allstar15"></span><i>7.9</i>
@@ -281,7 +281,7 @@
 								</li>
 								<li>
 									<div class="pic">
-										<a href=""><img src="Public/images/movie1.jpg"/></a>
+										<a href=""><img src="/beehive/Public/images/movie1.jpg"/></a>
 									</div>
 									<p><a href="">新手</a></p>
 									<span class=""></span><i>7.9</i>
@@ -322,28 +322,28 @@
 							<ul>
 								<li>
 									<a class="img-box">
-										<img src="Public/images/group1.jpg"/>
+										<img src="/beehive/Public/images/group1.jpg"/>
 									</a>
 									<p><a href="">你荒废时间的时候会有多少人在拼命</a></p>
 									<p>119343 个成员</p>
 								</li>
 								<li>
 									<a class="img-box">
-										<img src="Public/images/group1.jpg"/>
+										<img src="/beehive/Public/images/group1.jpg"/>
 									</a>
 									<p><a href="">你荒废时间的时候会有多少人在拼命</a></p>
 									<p>119343 个成员</p>
 								</li>
 								<li>
 									<a class="img-box">
-										<img src="Public/images/group1.jpg"/>
+										<img src="/beehive/Public/images/group1.jpg"/>
 									</a>
 									<p><a href="">你荒废时间的时候会有多少人在拼命</a></p>
 									<p>119343 个成员</p>
 								</li>
 								<li>
 									<a class="img-box">
-										<img src="Public/images/group1.jpg"/>
+										<img src="/beehive/Public/images/group1.jpg"/>
 									</a>
 									<p><a href="">你荒废时间的时候会有多少人在拼命</a></p>
 									<p>119343 个成员</p>

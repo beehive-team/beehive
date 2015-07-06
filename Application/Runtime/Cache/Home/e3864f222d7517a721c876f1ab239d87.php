@@ -8,13 +8,13 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>beehive</title>
-<link rel="stylesheet" type="text/css" href="Public/css/style.css"/>
-<script type="text/javascript" src="Public/js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="Public/js/script.common.js"></script>
+<link rel="stylesheet" type="text/css" href="/beehive/Public/css/style.css"/>
+<script type="text/javascript" src="/beehive/Public/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/beehive/Public/js/script.common.js"></script>
 
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
-		<script type="text/javascript" src="Public/js/jquery.bxslider.min.js"></script>
+		<script type="text/javascript" src="/beehive/Public/js/jquery.bxslider.min.js"></script>
 
 		<script type="text/javascript">
 			$(function(){
@@ -103,7 +103,7 @@
 							<div class="bottom">
 								<ul>
 									<li>
-										<div class="img-box f-left"><a href=""><img src="Public/images/movie6.jpg"/></a></div>
+										<div class="img-box f-left"><a href=""><img src="/beehive/Public/images/movie6.jpg"/></a></div>
 										<div class="text-box f-left">
 											<h5><a href="">电影名</a></h5>
                                             <p>2015-05-15(美国) / 2015-05-14(澳大利亚) / 汤姆·哈迪 / 查理兹·塞隆 / 尼古拉斯·霍尔特 / 休·基斯-拜恩 / 乔什·赫尔曼 / 内森·琼斯 / 佐伊·克罗维兹 / 罗茜·汉丁顿-惠特莉 / 丽莉·克亚芙 / 阿比·丽 / 考特尼·伊顿 / 安格斯·桑普森 / 理查德·卡特...</p>
@@ -126,7 +126,7 @@
 							
 						</div>
 						<div class="ad">
-							<a href=""><img src="Public/images/ad4.jpg"/></a>
+							<a href=""><img src="/beehive/Public/images/ad4.jpg"/></a>
 						</div>
                         <div class="list-box">
                         	<div class="title">
@@ -152,23 +152,23 @@
                         	</div>
                             <ul>
                                 <li>
-                                	<a href=""><img src="Public/images/movie6.jpg"/></a>
+                                	<a href=""><img src="/beehive/Public/images/movie6.jpg"/></a>
                                 	<p><a href="">出门的世界</a></p>
                                 </li>
                                 <li>
-                                	<a href=""><img src="Public/images/movie6.jpg"/></a>
+                                	<a href=""><img src="/beehive/Public/images/movie6.jpg"/></a>
                                 	<p><a href="">出门的世界</a></p>
                                 </li>
                                 <li>
-                                	<a href=""><img src="Public/images/movie6.jpg"/></a>
+                                	<a href=""><img src="/beehive/Public/images/movie6.jpg"/></a>
                                 	<p><a href="">出门的世界</a></p>
                                 </li>
 								<li>
-                                	<a href=""><img src="Public/images/movie6.jpg"/></a>
+                                	<a href=""><img src="/beehive/Public/images/movie6.jpg"/></a>
                                 	<p><a href="">出门的世界</a></p>
                                 </li>
                                 <li>
-                                	<a href=""><img src="Public/images/movie6.jpg"/></a>
+                                	<a href=""><img src="/beehive/Public/images/movie6.jpg"/></a>
                                 	<p><a href="">出门的世界</a></p>
                                 </li>
                             </ul>

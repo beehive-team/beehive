@@ -31,6 +31,7 @@
 							}
 						break;
 						case 'key':
+
 							if(!is_key(value)){
 								$(this).siblings('span').html('密码不合法');
 								email_flag = 0;
@@ -44,7 +45,8 @@
 						break;
 
 						case 'nickname':
-							if(is_nickname(value)){
+							alert(is_nickname(value))
+							if(is_nickname(value)=='true'){
 								$(this).siblings('span').html('用户名已存在');
 								nickname_flag =0;
 							}else{
@@ -54,7 +56,8 @@
 							}
 						break;
 						case 'mobile':
-							if(is_phone(value)){
+
+							if(!is_phone(value)){
 								$(this).siblings('span').html('请输入正确的手机号');
 								phone_flag =0;
 							}else{
@@ -64,8 +67,12 @@
 							}
 						break;
 						case 'vcode':
-							if(is_vcode(value)){
+							//alert(is_vcode(value))
+							if(!is_vcode(value)){
+
 								$(this).siblings('span').html('请输入正确的验证码');
+
+								alert(1)
 								vcode_flag =0;
 							}else{
 								$(this).siblings('span').html('');

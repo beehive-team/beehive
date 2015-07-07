@@ -34,6 +34,18 @@ class CommonController extends Controller{
         $Verify = new \Think\Verify();
         $Verify->entry();
     }
+
+    public function doVcode(){
+        $data = $_POST;
+        $data = $data['vcode'];
+        
+        $verify = new \Think\Verify();
+        if($verify->check($data,'')){
+            echo 'true';
+        }else{
+            echo 'false';
+        }
+    }
     public function register(){
 
         $this->display();

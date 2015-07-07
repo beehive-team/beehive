@@ -19,7 +19,14 @@ function is_email(str){
 }
 
 function is_nickname(str){
-	$.post("exits",{name:str},function(data){return data});
+	$.post("exits",{name:str},function(data){
+		if(data=='true'){
+			return true; 
+		}
+		else{
+			return false;
+		}
+	});
 }
 
 function is_phone(str){
@@ -30,4 +37,15 @@ function is_phone(str){
 	}else{
 		return true;
 	}
+}
+
+function is_vcode(str){
+	$.post("doVcode",{vcode:str},function(data){
+
+		if(data=='true'){
+			return true;
+		}else{
+			return false;
+		}
+	});
 }

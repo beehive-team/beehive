@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<!-- START 公用 head -->
-		    <include file="./Application/Home/View/Index/inc_common_head.html" />
+		    {:W('Common/commonHead')}
+		    
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
 		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
@@ -21,7 +22,7 @@
 	<body class="home-page">
 		<div id="wrap">
 			<!-- START header -->
-		    <include file="./Application/Home/View/Index/inc_header.html" />
+		    {:W('Common/indexHeader')}
 			    
 			<!-- END header -->
 			

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    <include file="./Application/Home/View/Index/inc_common_head.html" />
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+
+		<script type="text/javascript">
+			$(function(){
+				$('.sec-2 ul').bxSlider({
+					auto:true,
+					pager:false,
+					controls:false
+				});
+			})
+		</script>
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-index-page">
+		<div id="wrap">
+			<!-- START header -->
+		    <include file="./Application/Home/View/Common/inc_header.html" />
+
+		    <include file="./Application/Home/View/User/header.html" />
+			    
+			<!-- END header -->
+			
+			<div id="main">
+				
+			</div>
+		</div>
+		<!-- START footer -->
+		    <include file="./Application/Home/View/Index/inc_footer.html" />
+		<!-- END footer -->
+
+	</body>
+</html>

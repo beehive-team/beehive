@@ -961,11 +961,92 @@ body > #wrap {height: auto; min-height: 100%;}
 }
 
 
+/*user-page css*/
+.user-page .header img{
+	float: left;
 
+}
+.user-page .header h2{
+	color: #9A633C;
+	float: left;
+	font-size: 28px;
+	padding-top: 40px;
+	padding-left: 20px;
+	font-weight: normal;
+}
+.user-page h3{
+	color: #111;
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 50px;
+}
+.user-page .form-box{
+	float: left;
+	width:600px;
+}
+.user-page .form-box .input-box{
+	padding:15px;
+}
+.user-page .form-box .input-box label{
+	color: #111;
+	font-size: 14px;
+	padding-right: 10px;
 
+}
+.user-page .form-box .input-box input{
+	width:200px;
+	padding: 0 10px;
 
+	height:24px;
+	line-height: 24px;
+	border:1px solid #ccc;
+	border-radius: 3px;
 
+}
+.user-page .form-box .input-box input.active{
 
+}
+.user-page .form-box .check-box{
+	padding:20px 40px;
+
+}
+.user-page .form-box .check-box a{
+	color: #9A633C;
+}
+.user-page .form-box .check-box a:hover{
+	color: #fff;
+	background-color: #9A633C;
+}
+.user-page .form-box .button-box{
+	padding:20px 40px;
+}
+.user-page .form-box .button-box input{
+	width:70px;
+	height: 30px;
+	line-height: 30px;
+	border:1px solid #666;
+	border-radius: 3px;
+	color: #666;
+	font-size: 16px;
+	background-color: #ddd;
+}
+
+.user-page .sider{
+	float: left;
+	
+}
+.user-page .sider p{
+	padding-top: 40px;
+	color: #111;
+
+}
+.user-page .sider p a{
+	color: #9A633C;
+}
+.user-page .sider p a:hover{
+	color: #fff;
+	background-color: #9A633C;
+}
 
 
 

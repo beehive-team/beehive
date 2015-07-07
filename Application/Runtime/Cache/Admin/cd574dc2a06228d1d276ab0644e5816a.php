@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap.min.css">
-		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap-theme.min.css">
-		<script src="__PUBLIC__/css/bootstraps/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/beehive/Public/CSS/bootstraps/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/beehive/Public/CSS/bootstraps/css/bootstrap-theme.min.css">
+		<script src="/beehive/Public/css/bootstraps/js/bootstrap.min.js"></script>
 		<title>Document</title>
 		<style>
 			.brief-left{
@@ -27,7 +27,7 @@
 
 		<h3 style="margin-left:220px;">别名/简介管理</h3> 
 		<div style="float:left;">
-			<a class="btn btn-success" style="margin-left:25px;margin-top:20px;" href="__MODULE__/movie/index">返回上级</a>
+			<a class="btn btn-success" style="margin-left:25px;margin-top:20px;" href="/beehive/index.php/Admin/movie/index">返回上级</a>
 		</div>
 		<br/>
 		<div class="brief-left">

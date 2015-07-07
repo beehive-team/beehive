@@ -32,7 +32,7 @@
     </script>
     <body class="menu-page">
         <div class="img-box">
-            <img src="/beehive/Public/images/logo_small.png"/>
+            <img src="/beehive/Public/images/logo_small.jpg"/>
         </div>
         <ul>
             <li>
@@ -42,6 +42,7 @@
                     <a class="sub-nav" href="/beehive/index.php/Admin/movie/index" target="content">电影信息</a>
                     <a class="sub-nav" href="/beehive/index.php/Admin/movie/add" target="content">添加电影</a>
                     <a class="sub-nav" href="/beehive/index.php/Admin/movie/classify" target="content">分类管理</a>
+
                 </div>
                 
             </li>

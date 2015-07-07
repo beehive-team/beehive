@@ -4,7 +4,6 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap.min.css">
 		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap-theme.min.css">
-		<script src="__PUBLIC__/css/bootstraps/js/bootstrap.min.js"></script>
 		<title>电影列表</title>
 	</head>
 	<body>
@@ -26,7 +25,7 @@
                 <th>国外上映时间</th>
                 <th>导演</th>
                 <th>编剧</th>
-				<th>国家/地区</th>
+				
 				<th>片长</th>         				
 				<th>影片年份</th>
 				<th>简介/别名</th>
@@ -34,26 +33,26 @@
 				<th>操作</th>
 			</tr>
 
-			
+			<foreach name="list" item="vo">
             <tr>
-	            <td>1</td>
-	            <td><a class="btn btn-default" href="">哆啦A梦</a></td>
-	            <td>2015-05-28</td>
-	            <td>2014-08-08</td>
-	            <td>八木龙一</td>
-	            <td>山崎贵</td>
-				<td>日本</td>
-				<td>95分钟</td>		           	           
-	            <td>2014</td>
+	            <td>{$vo.id}</td>
+	            <td><a class="btn btn-default" href="">{$vo.name}</a></td>
+	            <td>{$vo.crelease_t}</td>
+	            <td>{$vo.orelease_t}</td>
+	            <td>{$vo.director}</td>
+	            <td>{$vo.writer}</td>
+				
+				<td>{$vo.tlong}</td>		           	           
+	            <td>{$vo.year}</td>
 	            <td><a class="btn btn-primary" href="__MODULE__/movie/brief">查看</a></td>
-	            <td><a class="btn btn-info" href="">添加</a></td>
+	            <td><a class="btn btn-info" href="__MODULE__/movie/addImage">添加</a></td>
 				<td>					
-					<a class="btn btn-success" href="">编辑</a>
-					<a class="btn btn-danger" href="">删除</a>  
+					<a class="btn btn-success" href="__CONTROLLER__/edit/id/{$vo.id}">编辑</a>
+					<a class="btn btn-danger" href="__CONTROLLER__/del/id/{$vo.id}"">删除</a>  
 				
 				</td>
             </tr>
-           
+           </foreach>
         </table>
 	</body>
 </html>

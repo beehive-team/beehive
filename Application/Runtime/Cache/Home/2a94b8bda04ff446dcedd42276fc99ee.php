@@ -2,16 +2,8 @@
 <html>
 	<head>
 		<!-- START 公用 head -->
+		    <?php echo W('Common/commonHead');?>
 		    
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="Content-Language" content="zh-CN" />
-<meta http-equiv="Content-Script-Type" content="text/javascript" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>beehive</title>
-<link rel="stylesheet" type="text/css" href="/beehive/Public/css/style.css"/>
-<script type="text/javascript" src="/beehive/Public/js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="/beehive/Public/js/script.common.js"></script>
-
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
 		<script type="text/javascript" src="/beehive/Public/js/jquery.bxslider.min.js"></script>
@@ -30,35 +22,7 @@
 	<body class="home-page">
 		<div id="wrap">
 			<!-- START header -->
-		    <div class="header">
-	<div class="inner">
-    	<div class="logo">
-	    	<img src="/beehive/Public/images/logo.png"/>
-	    </div> 
-	    <div class="search-box">
-	    	<form>
-	    		<input class="search"name="search" type="text"/>
-	    		<input class="button"type="submit" />
-	    	</form>
-	    </div>
-	    <div class="list-box">
-	    	<a class="first"href="">读书</a>
-	    	<a class="second"href="">电影</a>
-	    	<a class="third"href="">小组</a>
-	    	<a class="forth"href="">提问</a>
-	    </div>
-	</div>
-	<script type="text/javascript">
-	$(function(){
-		$('input').focusin(function(){
-			$('input').addClass('active');
-		}).focusout(function(){
-			$('input').removeClass('active');
-		})
-	})
-	</script>
-</div>
-
+		    <?php echo W('Common/indexHeader');?>
 			    
 			<!-- END header -->
 			
@@ -371,11 +335,6 @@
 		</div>
 		<!-- START footer -->
 		    
-<div id="footer">
-	<p>version 1.0.0</p>
-</div>
-
-
 		<!-- END footer -->
 
 	</body>

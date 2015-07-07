@@ -32,36 +32,35 @@
     </script>
     <body class="menu-page">
         <div class="img-box">
-            <img src="/beehive/Public/images/logo_small.jpg"/>
+            <img src="/beehive/Public/images/logo_small.png"/>
         </div>
         <ul>
             <li>
                 
                 <a class="nav"href="javascript:;">电影信息管理</a>
                 <div class="item">
-                    <a class="sub-nav" href="/beehive/index.php/Admin/movie/index" target="content">电影信息</a>
-                    <a class="sub-nav" href="/beehive/index.php/Admin/movie/add" target="content">添加电影</a>
-                    <a class="sub-nav" href="/beehive/index.php/Admin/movie/classify" target="content">分类管理</a>
-
+                    <a class="sub-nav" href="<?php echo U('Movie/index');?>" target="content">电影信息</a>
+                    <a class="sub-nav" href="<?php echo U('Movie/add');?>" target="content">添加电影</a>
+                    <a class="sub-nav" href="<?php echo U('Movie/classify');?>" target="content">分类管理</a>
                 </div>
                 
             </li>
             <li>
                 <a class="nav"href="javascript:;">电影图片管理</a>
                 <div class="item">
-                    <a class="sub-nav"href="/beehive/index.php/Admin/movie/image" target="content">电影图片</a>
-                    <a class="sub-nav"href="/beehive/index.php/Admin/movie/addImage" target="content">添加图片</a>
+                    <a class="sub-nav"href="<?php echo U('Movie/image');?>" target="content">电影图片</a>
+                    <a class="sub-nav"href="<?php echo U('Movie/addImage');?>" target="content">添加图片</a>
                     <a class="sub-nav"href="hotel/room_info.php" target="content">更多信息</a>
                 </div>
             </li>
             <li>
                 <a class="nav"href="javascript:;">图书信息管理</a>
                 <div class="item">
-                    <a class="sub-nav"href="/beehive/index.php/Admin/book/index" target="content">显示图书信息</a>
-                    <a class="sub-nav"href="/beehive/index.php/Admin/book/classify" target="content">添加分类信息</a>
-                    <a class="sub-nav"href="/beehive/index.php/Admin/book/add" target="content">添加图片信息</a>
-                    <a class="sub-nav"href="/beehive/index.php/Admin/book/cover" target="content">显示封面信息</a>
-                    <a class="sub-nav"href="/beehive/index.php/Admin/book/addCover" target="content">添加封面信息</a>
+                    <a class="sub-nav"href="<?php echo U('Book/index');?>" target="content">显示图书信息</a>
+                    <a class="sub-nav"href="<?php echo U('Book/classify');?>" target="content">添加分类信息</a>
+                    <a class="sub-nav"href="<?php echo U('Book/add');?>" target="content">添加图片信息</a>
+                    <a class="sub-nav"href="<?php echo U('Book/cover');?>" target="content">显示封面信息</a>
+                    <a class="sub-nav"href="<?php echo U('Book/addCover');?>" target="content">添加封面信息</a>
                 </div>
             </li>
             <li>

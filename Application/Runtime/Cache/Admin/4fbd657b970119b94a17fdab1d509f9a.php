@@ -5,10 +5,10 @@
         <link rel="stylesheet" type="text/css" href="/beehive/Public/css/admin.css"/>
     </head>
     <frameset frameborder="0" cols="20%,*" name="view">
-        <frame src="menu.html">
+        <frame src="<?php echo U('menu');?>">
         </frame>
         <frameset rows="10%,*">
-            <frame scrolling="no" src="top.html"></frame>
+            <frame scrolling="no" src="<?php echo U('top');?>"></frame>
             <frame name="content"></frame>
         </frameset>
         

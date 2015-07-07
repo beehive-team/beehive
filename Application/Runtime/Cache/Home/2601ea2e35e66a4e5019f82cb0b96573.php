@@ -1,11 +1,12 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html>
 	<head>
 		<!-- START 公用 head -->
-		    <include file="./Application/Home/View/Index/inc_common_head.html" />
+		    <?php echo W('Common/commonHead');?>
+		    
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
-		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script type="text/javascript" src="/beehive/Public/js/jquery.bxslider.min.js"></script>
 
 		<script type="text/javascript">
 			
@@ -15,8 +16,8 @@
 	<body class="user-page user-login-page">
 		<div id="wrap">
 			<!-- START header -->
-		    <include file="./Application/Home/View/User/inc_header.html" />
-			    
+		    <?php echo W('Common/accountHeader');?>
+		    			    
 			<!-- END header -->
 			
 			<div id="main">
@@ -53,7 +54,7 @@
 			</div>
 		</div>
 		<!-- START footer -->
-		    <include file="./Application/Home/View/User/inc_footer.html" />
+		    <?php echo W('Common/commonFooter');?>
 		<!-- END footer -->
 
 	</body>

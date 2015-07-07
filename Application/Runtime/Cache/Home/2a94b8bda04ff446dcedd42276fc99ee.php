@@ -43,7 +43,7 @@
 								</div>
 								<div class="btn-box">
 									<input type="submit" value="登录">
-									<a href="">注册</a>
+									<a href="<?php echo U('Common/register');?>">注册</a>
 								</div>
 							</form>
 						</div>
@@ -334,6 +334,7 @@
 			</div>
 		</div>
 		<!-- START footer -->
+		    <?php echo W('Common/commonFooter');?>
 		    
 		<!-- END footer -->
 

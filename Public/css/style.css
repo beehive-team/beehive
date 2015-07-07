@@ -1003,11 +1003,20 @@ body > #wrap {height: auto; min-height: 100%;}
 	border-radius: 3px;
 
 }
+.user-page .form-box .input-box input.vcode{
+	width: 70px;
+}
+.user-page .form-box .input-box img{
+	width: 110px;
+	margin-right: 300px;
+	display: block;
+	float: right;
+}
 .user-page .form-box .input-box input.active{
 
 }
 .user-page .form-box .check-box{
-	padding:20px 40px;
+	padding:20px 16px;
 
 }
 .user-page .form-box .check-box a{

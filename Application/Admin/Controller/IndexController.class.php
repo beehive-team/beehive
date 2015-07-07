@@ -8,4 +8,10 @@ class IndexController extends Controller {
    	public function view(){
     	$this->display();    
    	}
+   	public function top(){
+    	$this->display();    
+   	}
+   	public function menu(){
+    	$this->display();    
+   	}
 }

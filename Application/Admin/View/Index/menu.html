@@ -32,36 +32,35 @@
     </script>
     <body class="menu-page">
         <div class="img-box">
-            <img src="__PUBLIC__/images/logo_small.jpg"/>
+            <img src="__PUBLIC__/images/logo_small.png"/>
         </div>
         <ul>
             <li>
                 
                 <a class="nav"href="javascript:;">电影信息管理</a>
                 <div class="item">
-                    <a class="sub-nav" href="__MODULE__/movie/index" target="content">电影信息</a>
-                    <a class="sub-nav" href="__MODULE__/movie/add" target="content">添加电影</a>
-                    <a class="sub-nav" href="__MODULE__/movie/classify" target="content">分类管理</a>
-
+                    <a class="sub-nav" href="{:U('Movie/index')}" target="content">电影信息</a>
+                    <a class="sub-nav" href="{:U('Movie/add')}" target="content">添加电影</a>
+                    <a class="sub-nav" href="{:U('Movie/classify')}" target="content">分类管理</a>
                 </div>
                 
             </li>
             <li>
                 <a class="nav"href="javascript:;">电影图片管理</a>
                 <div class="item">
-                    <a class="sub-nav"href="__MODULE__/movie/image" target="content">电影图片</a>
-                    <a class="sub-nav"href="__MODULE__/movie/addImage" target="content">添加图片</a>
+                    <a class="sub-nav"href="{:U('Movie/image')}" target="content">电影图片</a>
+                    <a class="sub-nav"href="{:U('Movie/addImage')}" target="content">添加图片</a>
                     <a class="sub-nav"href="hotel/room_info.php" target="content">更多信息</a>
                 </div>
             </li>
             <li>
                 <a class="nav"href="javascript:;">图书信息管理</a>
                 <div class="item">
-                    <a class="sub-nav"href="__MODULE__/book/index" target="content">显示图书信息</a>
-                    <a class="sub-nav"href="__MODULE__/book/classify" target="content">添加分类信息</a>
-                    <a class="sub-nav"href="__MODULE__/book/add" target="content">添加图片信息</a>
-                    <a class="sub-nav"href="__MODULE__/book/cover" target="content">显示封面信息</a>
-                    <a class="sub-nav"href="__MODULE__/book/addCover" target="content">添加封面信息</a>
+                    <a class="sub-nav"href="{:U('Book/index')}" target="content">显示图书信息</a>
+                    <a class="sub-nav"href="{:U('Book/classify')}" target="content">添加分类信息</a>
+                    <a class="sub-nav"href="{:U('Book/add')}" target="content">添加图片信息</a>
+                    <a class="sub-nav"href="{:U('Book/cover')}" target="content">显示封面信息</a>
+                    <a class="sub-nav"href="{:U('Book/addCover')}" target="content">添加封面信息</a>
                 </div>
             </li>
             <li>

@@ -1,7 +1,6 @@
 <?php
 namespace Home\Controller;
-use Think\Controller;
-class MovieController extends Controller {
+class MovieController extends CommonController {
     public function index(){
     	$this->display();
     }

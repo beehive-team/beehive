@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<!-- START 公用 head -->
-		    <include file="./Application/Home/View/Movie/inc_common_head.html" />
+		    {:W('Common/commonHead')}
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
 		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
@@ -15,8 +15,10 @@
 	<body class="movie-page">
 		<div id="wrap">
 			<!-- START header -->
-		    <include file="./Application/Home/View/Common/inc_header.html" />
-		    <include file="./Application/Home/View/Movie/inc_header.html" />
+		    {:W('Common/allHeader')}
+		    
+		    {:W('Common/movieHeader')}
+		    
 			    
 			<!-- END header -->
 			
@@ -130,7 +132,8 @@
 			</div>
 		</div>
 		<!-- START footer -->
-		    <include file="./Application/Home/View/Movie/inc_footer.html" />
+		    {:W('Common/commonFooter')}
+		    
 		   	
 		<!-- END footer -->
 

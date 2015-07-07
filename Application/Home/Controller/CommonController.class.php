@@ -23,9 +23,9 @@ class CommonController extends Controller{
         $model = M('User');
         $result = $model->where($date)->find();
         if(!empty($reuslt)){
-            echo  true;
+            echo  'true';
         }else{
-            echo  false;
+            echo 'false';
         }
         // var_dump($date);
 

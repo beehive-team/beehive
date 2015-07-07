@@ -19,5 +19,15 @@ function is_email(str){
 }
 
 function is_nickname(str){
-	$.post("exits",{name:str});
+	$.post("exits",{name:str},function(data){return data});
+}
+
+function is_phone(str){
+	
+	reg = /^1[3|4|5|8][0-9]\d{4,8}$/;
+	if(!reg.test(str)){
+		return false;
+	}else{
+		return true;
+	}
 }

@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html>
 	<head>
 		<!-- START 公用 head -->
-		    {:W('Common/commonHead')}
+		    <?php echo W('Common/commonHead');?>
 		    
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
-		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script type="text/javascript" src="/beehive/Public/js/jquery.bxslider.min.js"></script>
 
 		<script type="text/javascript">
 			$(function(){
@@ -84,7 +84,7 @@
 	<body class="user-page user-register-page">
 		<div id="wrap">
 			<!-- START header -->
-		    {:W('Common/accountHeader')}
+		    <?php echo W('Common/accountHeader');?>
 		    
 			    
 			<!-- END header -->
@@ -96,7 +96,7 @@
 
 					<h3>欢迎加入蜂巢</h3>
 					<div class="form-box">
-						<form action="{:U('Common/doreg')}" method="post">
+						<form action="<?php echo U('Common/doreg');?>" method="post">
 							<div class="input-box">
 								<label for="youxiang">邮&nbsp;&nbsp;&nbsp;箱</label><input type="text" class="youxiang" name="youxiang"/><span></span>
 							</div>
@@ -113,7 +113,7 @@
 								<label for="mobile">手机号</label><input type="text" name="mobile"/><span></span>
 							</div>
 							<div class="input-box">	
-								<label for="vcode">验证码</label><input class="vcode"type="text" name="vcode"/><img onclick="this.src=this.src+'?i='+Math.random()"src="{:U('Common/vcode')}"/><span></span>
+								<label for="vcode">验证码</label><input class="vcode"type="text" name="vcode"/><img onclick="this.src=this.src+'?i='+Math.random()"src="<?php echo U('Common/vcode');?>"/><span></span>
 							</div>
 							<div class="check-box">
 
@@ -134,7 +134,7 @@
 			</div>
 		</div>
 		<!-- START footer -->
-		    {:W('Common/commonFooter')}
+		    <?php echo W('Common/commonFooter');?>
 		    
 		<!-- END footer -->
 

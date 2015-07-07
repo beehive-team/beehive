@@ -17,5 +17,7 @@ class MovieController extends Controller {
    	public function addImage(){
     	$this->display();    
    	}
-   	
+   	public function brief(){
+      $this->display();
+    }
 }

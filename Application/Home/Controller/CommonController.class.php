@@ -21,8 +21,12 @@ class CommonController extends Controller{
     public function exits(){
         $date = $_POST;
         $model = M('User');
-        $result = $model->where($date)->find()->select();
-        // echo $model->getLastSql();
+        $result = $model->where($date)->find();
+        if(!empty($reuslt)){
+            echo  true;
+        }else{
+            echo  false;
+        }
         // var_dump($date);
 
     }

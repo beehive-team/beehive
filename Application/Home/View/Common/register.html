@@ -44,7 +44,7 @@
 						break;
 
 						case 'nickname':
-							if(!is_nickname(value)){
+							if(is_nickname(value)){
 								$(this).siblings('span').html('用户名已存在');
 							}else{
 								$(this).siblings('span').html('');

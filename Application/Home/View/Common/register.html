@@ -10,80 +10,140 @@
 
 		<script type="text/javascript">
 			$(function(){
-				var key_flag = 0;
-				var email_flag = 0;
-				var nickname_flag = 0;
-				var phone_flag = 0;
-				var vcode_flag = 0;
+				key_flag = false;
+				email_flag = false;
+				nickname_flag = false;
+				phone_flag = false;
+				vcode_flag = false;
+				agreement_flag = true;
 
-				$('input').blur(function(){
+				$('input').change(function(){
 					var value = $(this).val();
 					var name = $(this).attr('name');
 					switch(name){
 						case 'youxiang':
 							if(!is_email(value)){
-								$(this).siblings('span').html('邮箱不合法');
-								key_flag = 0;
+								$('.espan').html('邮箱不合法');
+								email_flag = false;
 							}else{
-								$(this).siblings('span').html('');
-								key_flag = 1;
+								$.post("exits",{email:value},function(data){
 
+									if(data=='true'){
+										
+										$('.espan').html('邮箱已被注册');
+
+										email_flag =false;
+
+									}else{
+										$('.espan').html('');
+										
+										email_flag =true;
+										
+
+									}	
+
+								})
+								
 							}
 						break;
 						case 'key':
-
+							//alert(is_key(value));
 							if(!is_key(value)){
 								$(this).siblings('span').html('密码不合法');
-								email_flag = 0;
+								key_flag = false;
 
 							}else{
 								$(this).siblings('span').html('');
-								email_flag = 1;
+								key_flag = true;
 
 
 							}
 						break;
 
 						case 'nickname':
-							alert(is_nickname(value))
-							if(is_nickname(value)=='true'){
-								$(this).siblings('span').html('用户名已存在');
-								nickname_flag =0;
-							}else{
-								$(this).siblings('span').html('');
-								nickname_flag =1;
+							$.post("exits",{name:value},function(data){
 
-							}
+								if(data=='true'){
+									
+									$('.nspan').html('用户名已存在');
+
+									nickname_flag =false;
+
+								}else{
+									$('.nspan').html('');
+									
+									nickname_flag =true;
+									
+
+								}	
+
+							})
 						break;
 						case 'mobile':
 
 							if(!is_phone(value)){
 								$(this).siblings('span').html('请输入正确的手机号');
-								phone_flag =0;
+								phone_flag =false;
 							}else{
 								$(this).siblings('span').html('');
-								phone_flag =1;
+
+								$.post("exits",{phone:value},function(data){
+
+									if(data=='true'){
+										
+										$('.mspan').html('手机号已注册');
+
+										phone_flag =false;
+
+									}else{
+										$('.mspan').html('');
+										
+										phone_flag =true;
+										
+
+									}	
+
+								})
+
+
+
+
+								
 
 							}
 						break;
 						case 'vcode':
-							//alert(is_vcode(value))
-							if(!is_vcode(value)){
+							
+							$.post("doVcode",{vcode:value},function(data){
 
-								$(this).siblings('span').html('请输入正确的验证码');
+								if(data=='false'){
+									
+									$('.vspan').html('请输入正确的验证码');
 
-								alert(1)
-								vcode_flag =0;
+									vcode_flag =false;
+
+								}else{
+									$('.vspan').html('');
+									$('.vcode').attr('readonly','readonly');
+									vcode_flag =true;
+									
+
+								}	
+
+							})
+						break;
+						case 'agreement':
+
+							if($(this).attr('checked')){
+								agreement_flag = true;
+								
 							}else{
-								$(this).siblings('span').html('');
-								vcode_flag =1;
-
+								agreement_flag = false;
 							}
+
 						break;
 					}
-					
 				})
-				
 			});
 		</script>
 		<!-- END 自定义 head -->
@@ -103,9 +163,9 @@
 
 					<h3>欢迎加入蜂巢</h3>
 					<div class="form-box">
-						<form action="{:U('Common/doreg')}" method="post">
+						<form action="{:U('Common/doreg')}" method="post"  onsubmit="return sub();">
 							<div class="input-box">
-								<label for="youxiang">邮&nbsp;&nbsp;&nbsp;箱</label><input type="text" class="youxiang" name="youxiang"/><span></span>
+								<label for="youxiang">邮&nbsp;&nbsp;&nbsp;箱</label><input type="text" class="youxiang" name="youxiang"/><span class="espan"></span>
 							</div>
 							<div class="input-box">
 								<label for="key">密&nbsp;&nbsp;&nbsp;码</label><input type="password" class="key" name="key"/><span></span>
@@ -113,21 +173,21 @@
 							<div class="input-box">
 
 							
-								<label for="nickname">昵&nbsp;&nbsp;&nbsp;称</label><input type="text" name="nickname"/><span></span>
+								<label for="nickname">昵&nbsp;&nbsp;&nbsp;称</label><input type="text" name="nickname"/><span class="nspan"></span>
 							</div>
 							<div class="input-box">
 
-								<label for="mobile">手机号</label><input type="text" name="mobile"/><span></span>
+								<label for="mobile">手机号</label><input type="text" name="mobile"/><span class="mspan"></span>
 							</div>
 							<div class="input-box">	
-								<label for="vcode">验证码</label><input class="vcode"type="text" name="vcode"/><img onclick="this.src=this.src+'?i='+Math.random()"src="{:U('Common/vcode')}"/><span></span>
+								<label for="vcode">验证码</label><input class="vcode"type="text" name="vcode"/><img onclick="this.src=this.src+'?i='+Math.random()"src="{:U('Common/vcode')}"/><span class="vspan"></span>
 							</div>
 							<div class="check-box">
 
-								<input type="checkbox" name="agreement"/> <label for="agreement">我已经认真阅读并同意豆瓣的<a href="">《使用协议》</a>。 </label>
+								<input type="checkbox" name="agreement" checked="checked"/> <label for="agreement">我已经认真阅读并同意豆瓣的<a href="">《使用协议》</a>。 </label>
 							</div>
 							<div class="button-box">
-								<input type="button" value="注册"/>
+								<input type="submit" value="注册"/><span class="dospan"></span>
 							</div>
 						</form>
 					</div>
@@ -144,6 +204,23 @@
 		    {:W('Common/commonFooter')}
 		    
 		<!-- END footer -->
+		<script type="text/javascript">
+			function sub(){
+				if(key_flag&&email_flag&&nickname_flag&&phone_flag&&vcode_flag&&agreement_flag){
+					
+					return true;
+				}else{
+					$('.dospan').html('请输入正确的信息才能注册');
+					return false;
+				}
+
+				
+				
+				
+				
+				
+			}
+		</script>
 
 	</body>
 </html>

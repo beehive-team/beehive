@@ -105,15 +105,55 @@ body > #wrap {height: auto; min-height: 100%;}
 }
 .common_header{
 	background-color: #545652;
-	overflow: hidden;
+	
 }
 .common_header a{
 	line-height: 26px;
 	color: #d5d5d5;
 	margin: 0 12px;
 }
+.common_header .right{
+	margin-right: 20px;
+}
+.common_header a:hover{
+	color: #fff;
+}
+.common_header li{
+	display: inline-block;
+	position: relative;
+	margin: 0 10px;
+}
+.common_header span.arrow{
+	
+	
+	border-color: #d5d5d5 transparent transparent;
+    border-style: solid dashed dashed;
+    border-width: 3px 3px 0;
+    font-size: 0;
+    height: 0;
+    left: 2px;
+    line-height: 0;
+    position: relative;
+    top: -2px;
+    width: 0
+}
+.common_header a:hover span.arrow{
+	border-color: #fff transparent transparent;
+}
+.common_header .item{
+	position: absolute;
+	width: 80px;
+	right: 4px;
+	display: none;
+	background: #fff;
+}
+.common_header .item a{
+	display: block;
+	text-align: center;
+	color: #444;
+}
 .same_header{
-	background-color: #E3EBEC;
+	background-color: #E3EBEC ;
 }
 .same_header .top{
 	border-bottom: 1px solid #ddd;
@@ -1056,14 +1096,90 @@ body > #wrap {height: auto; min-height: 100%;}
 	color: #fff;
 	background-color: #9A633C;
 }
+.user-page .form-box span{
+	color: red;
+	padding-left: 20px;
+} 
 
+/*css user_header*/
+.user_header .list-box li{
+	float: left;
+}
+.user_header .list-box li a{
+	color: #9A633C;
+}
+.user_header .list-box li a:hover{
+	color: #fff;
+	background: #9A633C;
+}
+.user_header .search-box{
+	padding-top: 49px;
+}
 
-
-
-
-
-
-
+/*css user-page*/
+.user-page #main{
+	padding-top: 30px;
+}
+.user-page .con {
+	width:570px;
+	margin-right: 30px;
+}
+.user-page .con .top{
+	overflow: hidden;
+}
+.user-page .con .top ul{
+	float: left;
+}
+.user-page .con .top li{
+	display: inline-block;
+	margin-right: 20px;
+	
+}
+.user-page .con .top li span{
+	background:url(../images/icon_all.png) no-repeat 0 -302px;
+	display: inline-block;
+	width: 21px;
+	height: 24px;
+}
+.user-page .con .top li span.second{
+	background-position: -83px -298px
+}
+.user-page .con .top li span.third{
+	background-position: -4px -1106px
+}
+.user-page .con .top li a{
+	color: #9A633C;
+}
+.user-page .con .top .setting {
+	float: right;
+	width: 100%;
+	padding-top: 10px;
+}
+.user-page .con .top .setting a.set{
+	color: #ccc;
+	margin-bottom: 20px;
+	display: block;
+	float: right;
+}
+.user-page .con .top .interesting{
+	clear:both;
+	overflow: hidden;
+	background-color: #f4cd93;
+}
+.user-page .con .top .interesting h2{
+	color: #111;
+	font-weight: normal;
+	line-height: 60px;
+}
+.user-page .con .top .theme a{
+	color: #9A633C;
+	display: block;
+	float: left;
+	padding: 0 20px;
+	line-height: 20px;
+	font-size: 14px;
+	background-color: #fff;
+}
 .allstar00{
 	background-position: 0 -110px;
 }

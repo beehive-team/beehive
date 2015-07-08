@@ -11,6 +11,12 @@ class CommonWidget extends Controller {
      
     }
     public function allHeader(){
+
+        if(!empty($_SESSION['home'])){
+            //var_dump($_SESSION);
+
+            $this->assign('user',$_SESSION['home']);
+        }
 		$this->display('Public:allHeader');
      
     }
@@ -26,7 +32,8 @@ class CommonWidget extends Controller {
 		$this->display('Public:accountHeader');
      
     }
-    public function bookHeader(){
-        $this->display('Public:bookHeader');
+    public function userHeader(){
+        $this->display('Public:userHeader');
+     
     }
 }

@@ -26,21 +26,21 @@
 				<div class="inner">
 
 					<h3>登录蜂巢</h3>
-					<div class="form-box">
-						<form>
+					<div class="form-box" >
+						<form method="post" action="{:U('Common/dologin')}">
 							<div class="input-box">
-								<label for="email">账&nbsp;&nbsp;&nbsp;号</label><input type="text" name="email"/>
+								<label for="info">账&nbsp;&nbsp;&nbsp;号</label><input type="text" placeholder="手机号/邮箱" name="info"/>
 							</div>
 							<div class="input-box">
-								<label for="psw">密&nbsp;&nbsp;&nbsp;码</label><input type="text" name="psw"/>
+								<label for="key">密&nbsp;&nbsp;&nbsp;码</label><input type="password" placeholder="密码"name="key"/>
 							</div>
 							
 							<div class="check-box">
 
-								<input type="checkbox" name="agreement"/> <label for="agreement">下次自动登录|<a href="">忘记密码了</a> </label>
+								<input type="checkbox" name="auto"/> <label for="agreement">下次自动登录|<a href="">忘记密码了</a> </label>
 							</div>
 							<div class="button-box">
-								<input type="button" value="登录"/>
+								<input type="submit" value="登录"/>
 							</div>
 						</form>
 					</div>

@@ -8,8 +8,12 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<a class="btn btn-success" style="margin-left:50px;margin-top:20px;" href="__MODULE__/movie/addclassify">添加一级分类</a>
-		<table class="table table-bordered" style="width:75%;margin:20px auto;">
+		<if condition="empty($_GET['id'])">
+		<a class="btn btn-success" style="margin-left:50px;margin-top:30px;" href="__MODULE__/movie/addclassify">添加一级分类</a>
+		<else />
+		<a class="btn btn-primary" style="margin-left:50px;margin-top:30px;" href="__MODULE__/movie/classify">返回上级</a>
+		</if>
+		<table class="table table-bordered" style="width:75%;margin:35px auto;">
             <tr>
                 <th>编号</th>
                 <th>分类名称</th>
@@ -19,23 +23,28 @@
                 <th>操作</th>
 				
 			</tr>
-
-			
+			<if condition="empty($list)">
+			<tr>
+				<td colspan="6" style="font-size:20px;text-align:center;">没有更多子类了</td>
+			</tr>
+			<else />
+			<foreach name="list" item="vo">
             <tr>
-	            <td>1</td>
-	            <td>国家</td>
-	            <td>0</td>
-	            <td>0,</td>
+	            <td>{$vo.id}</td>
+	            <td>{$vo.name}</td>
+	            <td>{$vo.pid}</td>
+	            <td>{$vo.path}</td>
 	            <td>是</td>
 				<td>
-					<a class="btn btn-info" href="">查看子类</a>
-					<a class="btn btn-info" href="__MODULE__/movie/addc_classify">添加子类</a>
-					<a class="btn btn-success" href="">编辑</a>
-					<a class="btn btn-danger" href="">删除</a> 
+					<a class="btn btn-info" href="__CONTROLLER__/classify/id/{$vo.id}">查看子类</a>
+					<a class="btn btn-info" href="__MODULE__/movie/addclassify/id/{$vo.id}">添加子类</a>
+					<a class="btn btn-success" href="__CONTROLLER__/editclassify/id/{$vo.id}">编辑</a>
+					<a class="btn btn-danger" href="__CONTROLLER__/delclassify/id/{$vo.id}">删除</a> 
 				
 				</td>
             </tr>
-           
+           </foreach>
+           </if>
         </table>
 	</body>
 </html>

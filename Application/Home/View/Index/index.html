@@ -30,15 +30,15 @@
 				<div class="section sec-1">
 					<div class="inner"/>
 						<div class="f-left form-box">
-							<form>
+							<form method="post" action="{:U('Common/dologin')}">
 								<div class="input-box">
-									<input type="text" name="name"/><span></span>
+									<label for="info">账号</label><input type="text" name="info"/>
 								</div>
 								<div class="input-box">
-									<input type="password" name="psw"/><span></span>
+									<label for="key">密码</label><input type="password" name="key"/>
 								</div>
 								<div class="radio-box">
-									<input type="checkbox" name="rember"/><label for="rember">记住我</label>
+									<input type="checkbox" name="auto"/><label for="rember">记住我</label>
 									<a href="">忘记密码</a>
 								</div>
 								<div class="btn-box">

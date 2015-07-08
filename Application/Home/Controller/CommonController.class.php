@@ -83,7 +83,7 @@ class CommonController extends Controller{
             $_SESSION['home']['name']=$data['name'];
             $_SESSION['home']['user_id']= $result;
 
-            $this->success('注册成功','../Home/User/index');
+            $this->success('注册成功',U('Home/User/index'));
         }else{
             $this->error('注册失败');
         }
@@ -115,7 +115,7 @@ class CommonController extends Controller{
             $_SESSION['home']['name']=$result['name'];
             $_SESSION['home']['user_id']= $result['id'];
             
-            $this->success('登录成功','../Home/User/index');
+            $this->success('登录成功',U('Home/User/index'));
             //var_dump($_SESSION);
         }else{
             $this->error('登录失败');

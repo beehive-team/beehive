@@ -30,12 +30,12 @@
 				<div class="section sec-1">
 					<div class="inner"/>
 						<div class="f-left form-box">
-							<form method="post" action="<?php echo U('Common/dologin');?>">
+							<form method="post" onsubmit="return sub()"action="<?php echo U('Common/dologin');?>">
 								<div class="input-box">
-									<label for="info">账号</label><input type="text" name="info"/>
+									<label for="info">账号</label><input class="info" type="text" name="info"/>
 								</div>
 								<div class="input-box">
-									<label for="key">密码</label><input type="password" name="key"/>
+									<label for="key">密码</label><input  class="key"type="password" name="key"/>
 								</div>
 								<div class="radio-box">
 									<input type="checkbox" name="auto"/><label for="rember">记住我</label>
@@ -337,6 +337,6 @@
 		    <?php echo W('Common/commonFooter');?>
 		    
 		<!-- END footer -->
-
+		
 	</body>
 </html>

@@ -8,8 +8,67 @@
 		<!-- START 自定义 head -->
 		<script type="text/javascript" src="/beehive/Public/js/jquery.bxslider.min.js"></script>
 
+		
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-register-page">
+		<div id="wrap">
+			<!-- START header -->
+		    <?php echo W('Common/accountHeader');?>
+		    
+			    
+			<!-- END header -->
+			
+			<div id="main">
+				
+				
+				<div class="inner">
+
+					<h3>欢迎加入蜂巢</h3>
+					<div class="form-box">
+						<form action="<?php echo U('Common/doreg');?>" method="post"  onsubmit="return sub();">
+							<div class="input-box">
+								<label for="youxiang">邮&nbsp;&nbsp;&nbsp;箱</label><input type="text" class="youxiang" name="youxiang"/><span class="espan"></span>
+							</div>
+							<div class="input-box">
+								<label for="key">密&nbsp;&nbsp;&nbsp;码</label><input type="password" class="key" name="key"/><span></span>
+							</div>
+							<div class="input-box">
+
+							
+								<label for="nickname">昵&nbsp;&nbsp;&nbsp;称</label><input type="text" name="nickname"/><span class="nspan"></span>
+							</div>
+							<div class="input-box">
+
+								<label for="mobile">手机号</label><input type="text" name="mobile"/><span class="mspan"></span>
+							</div>
+							<div class="input-box">	
+								<label for="vcode">验证码</label><input class="vcode"type="text" name="vcode"/><img onclick="this.src=this.src+'?i='+Math.random()"src="<?php echo U('Common/vcode');?>"/><span class="vspan"></span>
+							</div>
+							<div class="check-box">
+
+								<input type="checkbox" name="agreement" checked="checked"/> <label for="agreement">我已经认真阅读并同意豆瓣的<a href="">《使用协议》</a>。 </label>
+							</div>
+							<div class="button-box">
+								<input type="submit" value="注册"/><span class="dospan"></span>
+							</div>
+						</form>
+					</div>
+					<div class="sider">
+						<p>> 已经拥有豆瓣帐号? <a href="">直接登录</a></p>						
+					</div>
+				</div>
+
+				
+				
+			</div>
+		</div>
+		<!-- START footer -->
+		    <?php echo W('Common/commonFooter');?>
+		    
+		<!-- END footer -->
 		<script type="text/javascript">
-			$(function(){
+			
 				key_flag = false;
 				email_flag = false;
 				nickname_flag = false;
@@ -85,7 +144,7 @@
 								$(this).siblings('span').html('请输入正确的手机号');
 								phone_flag =false;
 							}else{
-								$(this).siblings('span').html('');
+								
 
 								$.post("exits",{phone:value},function(data){
 
@@ -144,80 +203,17 @@
 						break;
 					}
 				})
-			});
-		</script>
-		<!-- END 自定义 head -->
-	</head>
-	<body class="user-page user-register-page">
-		<div id="wrap">
-			<!-- START header -->
-		    <?php echo W('Common/accountHeader');?>
-		    
-			    
-			<!-- END header -->
 			
-			<div id="main">
-				
-				
-				<div class="inner">
 
-					<h3>欢迎加入蜂巢</h3>
-					<div class="form-box">
-						<form action="<?php echo U('Common/doreg');?>" method="post"  onsubmit="return sub();">
-							<div class="input-box">
-								<label for="youxiang">邮&nbsp;&nbsp;&nbsp;箱</label><input type="text" class="youxiang" name="youxiang"/><span class="espan"></span>
-							</div>
-							<div class="input-box">
-								<label for="key">密&nbsp;&nbsp;&nbsp;码</label><input type="password" class="key" name="key"/><span></span>
-							</div>
-							<div class="input-box">
 
-							
-								<label for="nickname">昵&nbsp;&nbsp;&nbsp;称</label><input type="text" name="nickname"/><span class="nspan"></span>
-							</div>
-							<div class="input-box">
-
-								<label for="mobile">手机号</label><input type="text" name="mobile"/><span class="mspan"></span>
-							</div>
-							<div class="input-box">	
-								<label for="vcode">验证码</label><input class="vcode"type="text" name="vcode"/><img onclick="this.src=this.src+'?i='+Math.random()"src="<?php echo U('Common/vcode');?>"/><span class="vspan"></span>
-							</div>
-							<div class="check-box">
-
-								<input type="checkbox" name="agreement" checked="checked"/> <label for="agreement">我已经认真阅读并同意豆瓣的<a href="">《使用协议》</a>。 </label>
-							</div>
-							<div class="button-box">
-								<input type="submit" value="注册"/><span class="dospan"></span>
-							</div>
-						</form>
-					</div>
-					<div class="sider">
-						<p>> 已经拥有豆瓣帐号? <a href="">直接登录</a></p>						
-					</div>
-				</div>
-
-				
-				
-			</div>
-		</div>
-		<!-- START footer -->
-		    <?php echo W('Common/commonFooter');?>
-		    
-		<!-- END footer -->
-		<script type="text/javascript">
 			function sub(){
-				if(key_flag&&email_flag&&nickname_flag&&phone_flag&&vcode_flag&&agreement_flag){
+				if(key_flag){
 					
 					return true;
 				}else{
 					$('.dospan').html('请输入正确的信息才能注册');
 					return false;
 				}
-
-				
-				
-				
-				
 				
 			}
 		</script>

@@ -26,4 +26,7 @@ class CommonWidget extends Controller {
 		$this->display('Public:accountHeader');
      
     }
+    public function bookHeader(){
+        $this->display('Public:bookHeader');
+    }
 }

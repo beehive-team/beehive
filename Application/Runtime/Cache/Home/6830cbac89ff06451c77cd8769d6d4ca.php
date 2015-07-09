@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html>
 	<head>
 		<!-- START 公用 head -->
-		    {:W('Common/commonHead')}
+		    <?php echo W('Common/commonHead');?>
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
-		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
-		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
-		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
-		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
-		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
-		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script> 
+		<link rel="stylesheet" href="/beehive/Public/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="/beehive/Public/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<script type="text/javascript" src="/beehive/Public/js/jquery.bxslider.min.js"></script>
+		<script src="/beehive/Public/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="/beehive/Public/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		<script src="/beehive/Public/js/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script> 
 
 		<script type="text/javascript">
 			$(function(){
@@ -157,8 +157,8 @@
 	<body class="user-page user-index-page">
 		<div id="wrap">
 			<!-- START header -->
-		    {:W('Common/allHeader')}
-		    {:W('Common/userHeader')}
+		    <?php echo W('Common/allHeader');?>
+		    <?php echo W('Common/userHeader');?>
 
 			<!-- END header -->
 			
@@ -200,9 +200,9 @@
 								</div>
 								<div class="list-box f-left">
 									<ul>
-										<li class="first"><a href="javascript:;"><span></span>说句话</a><img src="__PUBLIC__/images/tri.png"/></li>
-										<li class="sec"><a href="javascript:;"><span class="second"></span>发照片</a><img src="__PUBLIC__/images/tri.png"/></li>
-										<li><a class="thir"href="javascript:;"><span class="third"></span>写日记</a><img src="__PUBLIC__/images/tri.png"/></li>
+										<li class="first"><a href="javascript:;"><span></span>说句话</a><img src="/beehive/Public/images/tri.png"/></li>
+										<li class="sec"><a href="javascript:;"><span class="second"></span>发照片</a><img src="/beehive/Public/images/tri.png"/></li>
+										<li><a class="thir"href="javascript:;"><span class="third"></span>写日记</a><img src="/beehive/Public/images/tri.png"/></li>
 									</ul>
 							</div>
 							</div>
@@ -220,7 +220,7 @@
 									
 										
 										<div class="upload-box">
-											<span>+<input type="file" data-url="__CONTROLLER__/imgUpload" multiple name="myfile[]"/></span>
+											<span>+<input type="file" data-url="/beehive/index.php/Home/User/imgUpload" multiple name="myfile[]"/></span>
 										</div>
 										
 									</div>	
@@ -236,7 +236,7 @@
 							<ul>
 								<li>
 									<div class="face-box">
-										<img src="__PUBLIC__/images/face1.jpg">
+										<img src="/beehive/Public/images/face1.jpg">
 									</div>
 									<div class="diary info">
 										<p><a href="">马提尼</a>的日记: </p>
@@ -257,17 +257,17 @@
 								</li>
 								<li>
 									<div class="face-box">
-										<img src="__PUBLIC__/images/face1.jpg">
+										<img src="/beehive/Public/images/face1.jpg">
 									</div>
 									<div class="album info">
 										<p><a href="">马提尼</a>的相册: </p>
 										<div class="detail">
 											<div class="img-box">
 												<a href="">
-													<img src="__PUBLIC__/images/photo5.jpg"/>
-													<img src="__PUBLIC__/images/photo5.jpg"/>
-													<img src="__PUBLIC__/images/photo5.jpg"/>
-													<img src="__PUBLIC__/images/photo5.jpg"/>
+													<img src="/beehive/Public/images/photo5.jpg"/>
+													<img src="/beehive/Public/images/photo5.jpg"/>
+													<img src="/beehive/Public/images/photo5.jpg"/>
+													<img src="/beehive/Public/images/photo5.jpg"/>
 
 												</a>
 											</div>
@@ -296,20 +296,20 @@
 							</ul>
 						</div>
 						<div class="ad">
-							<img src="__PUBLIC__/images/ad4.jpg">
+							<img src="/beehive/Public/images/ad4.jpg">
 						</div>
 						<div class="a-box">
 							<a href="">> 申请创建小组</a>
 						</div>
 						<div class="ad">
-							<img src="__PUBLIC__/images/ad4.jpg">
+							<img src="/beehive/Public/images/ad4.jpg">
 						</div>
 					</div>
 				</div>
 				</div>
 		</div>
 		<!-- START footer -->
-		    {:W('Common/commonFooter')}
+		    <?php echo W('Common/commonFooter');?>
 		<!-- END footer -->
 
 		<script type="text/javascript">

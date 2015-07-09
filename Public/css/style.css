@@ -1082,6 +1082,8 @@ body > #wrap {height: auto; min-height: 100%;}
 
 .user-page .sider{
 	float: left;
+	padding-top: 24px;
+	padding-left: 20px;
 	
 }
 .user-page .sider p{
@@ -1166,7 +1168,7 @@ body > #wrap {height: auto; min-height: 100%;}
 }
 .user-page .con .top .setting a.set{
 	color: #aaa;
-	margin-bottom: 8px;
+	margin-top: 13px;
 	display: block;
 	float: right;
 }
@@ -1364,13 +1366,15 @@ body > #wrap {height: auto; min-height: 100%;}
 }
 .user-page .info-box li{
 	padding-top: 20px;
+	margin-bottom: 20px;
+	overflow: hidden;
 }
-.user-page .info-box li .img-box{
+.user-page .info-box li .face-box{
 	float: left;
 	width: 82px;
 	height: 100%;
 }
-.user-page .info-box li .img-box img{
+.user-page .info-box li .face-box img{
 	width: 48px;
 	height: 48px;
 }
@@ -1383,41 +1387,126 @@ body > #wrap {height: auto; min-height: 100%;}
 	color: #666;
 	line-height: 26px;
 	font-size: 12px;
+	padding-bottom: 10px;
 }
 .user-page .info-box li .info a{
 	color: #666;
 }
+.user-page .info-box li .info .detail p{
+	padding-bottom: 30px;
 
+}
 .user-page .info-box li .info .detail{
 	padding: 10px 20px;
 	background-color: #fafafa;
+	overflow: hidden;
 
 }
-.user-page .info-box li .info .detail a{
+.user-page .info-box li .info .detail a.title{
 	color: #9A633C;
 	font-size: 14px;
 	margin-bottom: 5px;
-	display: block;
+	display: inline-block;
 }
 .user-page .info-box li .info .detail p{
 	line-height: 20px;
 }
-.user-page .info-box li .info a:hover{
+.user-page .info-box li .info a.title:hover{
 	color: #fff;
 	background: #9A633C;
 }
+.user-page .info-box li .info .detail a.like{
+	display: block;
+	text-align: center;
+	float: left;
+	width: 63px;
+	height: 26px;
+	font-size: 14px;	
+	border-radius: 3px;
+	line-height: 26px;
+	border:1px solid #ff7f72;
+	color:#ff7f72;
+}
+.user-page .info-box li .info .detail a.like span{
+	display: block;
+	float: left;
+	text-indent: 100px;
+	height: 26px;
+	width: 23px;
+	overflow: hidden;
+	background:url(../images/icon_all.png) no-repeat 5px -364px;
+}
+.user-page .info-box li .info .detail a.like:hover{
+	background-color: #fff;
+}
+.user-page .info-box li .info .detail a.like:hover span{
+	background-position: -103px -364px;
+}
+.user-page .info-box li .info .detail a.like.active span{
+	background-position: -81px -364px;
+}
+.user-page .info-box li .info .time{
+	border-bottom :1px solid #ddd;
+}
+.user-page .info-box li .info .time p{
+	color: #aaa;
+	padding: 7px 0 25px 10px;
+	
+
+}
+.user-page .info-box li .info .list-box{
+	color: #999;
+	line-height: 26px;
+	margin-left: 26px;
+	border-left: 3px solid #ddd;
+	float: left;
+	padding-left: 10px;
+}
+.user-page .info-box li .info .list-box a{
+	color: #999;
+	margin-right: 10px;
+}
+.user-page .info-box li .album img{
+	width: 100px;
+	margin-right: 7px;
+	margin-bottom: 20px;
+}
 
 
+.user-page .hot {
+	background-color: #fbecc9;
+	padding-left: 20px;
+	width: 280px;
+	padding-bottom: 20px;
+	margin-bottom: 30px;
+}
+.user-page .hot h2{
+	color: #9A633C;
 
+	font-weight: normal;
 
+	line-height: 40px;
 
+}
+.user-page .hot a{
+	color: #9A633C;
+	line-height: 24px;
 
-
-
-
-
-
-
+}
+.user-page .hot a:hover{
+	color: #fff;
+	background-color: #9A633C;
+}
+.user-page .a-box{
+	padding:20px 0;
+}
+.user-page .a-box a{
+	color:#9A633C;
+}
+.user-page .a-box a:hover{
+	color: #fff;
+	background-color: #9A633C
+}
 
 
 

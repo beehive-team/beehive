@@ -27,4 +27,7 @@ class UserController extends CommonController {
         }  
         
     }
+    public function myHome(){
+        $this->display();
+    }
 }

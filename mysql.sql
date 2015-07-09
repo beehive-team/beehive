@@ -79,13 +79,6 @@ create table bee_bclassify(
 	path varchar(255)               -- 路径
 )engine=InnoDB default charset=utf8;
 
--- 图书分类
-create table bee_bclassify(
-	id int unsigned not null auto_increment primary key, 
-	name  varchar(255) not null,  -- 图书分类名
-	pid int unsigned,             -- 父id
-	path varchar(255)             -- 路径
-)engine=InnoDB default charset=utf8;
 
 -- 图书表
 create table bee_book(

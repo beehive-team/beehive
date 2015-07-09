@@ -36,4 +36,8 @@ class CommonWidget extends Controller {
         $this->display('Public:userHeader');
      
     }
+    public function bookHeader(){
+        $this->display('Public:bookHeader');
+     
+    }
 }

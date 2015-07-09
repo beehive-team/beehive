@@ -16,8 +16,29 @@ class MovieController extends Controller {
    	}
    	
     public function add(){
-    	  $this->display();    
+    	  $m = M('mclassify');
+
+        $list = $m -> where('pid=2') -> select();
+        $li = $m -> where('pid=3') -> select();
+        $this->assign('list',$list);
+        $this->assign('li',$li);
+        //var_dump($li);
+        //var_dump($list);exit; 
+        $this->display();    
    	}
+    public function doadd(){    
+        $_POST['crelease_t'] = strtotime($_POST['crelease_t']);
+        $_POST['orelease_t'] = strtotime($_POST['orelease_t']);
+        //var_dump($_POST);
+        $m = M('movie');
+        if($m->add($_POST)){
+            $this->success('添加成功', U('Movie/index'));
+        }else{
+            $this->error('添加失败');
+        }
+
+
+    }
    	
     public function classify(){
         if(empty($_GET['id'])){
@@ -25,13 +46,23 @@ class MovieController extends Controller {
         }else{
             $id=$_GET['id'];
         }
-        $m = M('mclassify');
+
+        $User = M('mclassify');
+        $count = $User->where("pid=$id")->count();
+        $Page = new \Think\Page($count,5);
+        $show = $Page->show();
+        $list = $User->where("pid=$id")->order()->limit($Page->firstRow.','.$Page->listRows)->select();
+        $this->assign('list',$list);
+        $this->assign('page',$show);
+        $this->display();
+
+        /*$m = M('mclassify');
 
         $list = $m->where("pid=$id")->select();
         
         $this->assign('list',$list);
         
-      	$this->display();    
+      	$this->display();  */  
    	}
    	
     public function image(){

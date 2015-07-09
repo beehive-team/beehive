@@ -2,6 +2,8 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+
 		<link rel="stylesheet" href="__PUBLIC__/css/bootstraps/css/bootstrap.min.css">
 		<link rel="stylesheet" href="__PUBLIC__/css/bootstraps/css/bootstrap-theme.min.css">
 		<script src="__PUBLIC__/css/bootstraps/js/bootstrap.min.js"></script>
@@ -11,7 +13,7 @@
 		<if condition="empty($_GET['id'])">
 		<a class="btn btn-success" style="margin-left:50px;margin-top:30px;" href="__MODULE__/movie/addclassify">添加一级分类</a>
 		<else />
-		<a class="btn btn-primary" style="margin-left:50px;margin-top:30px;" href="__MODULE__/movie/classify">返回上级</a>
+		<a class="btn btn-primary" style="margin-left:50px;margin-top:30px;" href="__MODULE__/movie/classify/">返回上级</a>
 		</if>
 		<table class="table table-bordered" style="width:75%;margin:35px auto;">
             <tr>
@@ -46,6 +48,8 @@
            </foreach>
            </if>
         </table>
+        <div id="pager">
         {$page}
+        </div>
 	</body>
 </html>

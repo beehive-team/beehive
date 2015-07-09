@@ -5,16 +5,21 @@ class MovieController extends Controller {
     public function index(){
       	$m = M('movie');
 
-        $list = $m->select();
-
-        $list[0]['crelease_t'] = date('Y-m-d',$list[0]['crelease_t']);
-        $list[0]['orelease_t'] = date('Y-m-d',$list[0]['orelease_t']);
+        $list = $m->table('bee_movie m,bee_mclassify f')->field('f.name fname,m.*')->where('m.year=f.id')->select();
+        //echo $m->getLastsql();
+        //var_dump($list);exit;
+        for($i=0;$i< count($list);$i++){
+          $list[$i]['crelease_t'] = date('Y-m-d',$list[$i]['crelease_t']);
+          $list[$i]['orelease_t'] = date('Y-m-d',$list[$i]['orelease_t']);
+        }
+        // echo count($list);
         //var_dump($list);
         $this->assign('list',$list);
 
         $this->display();    
    	}
-   	
+
+   
     public function add(){
     	  $m = M('mclassify');
 
@@ -36,10 +41,45 @@ class MovieController extends Controller {
         }else{
             $this->error('添加失败');
         }
-
-
     }
-   	
+   	public function edit($id){
+        $m = M('movie');
+        $row = $m->table('bee_movie m,bee_mclassify f')->field('f.name fname,m.*')->where('m.year=f.id and m.id='.$id)->find();
+        //echo $m->getLastsql();     
+        $row['crelease_t'] = date('Y-m-d',$row['crelease_t']);
+        $row['orelease_t'] = date('Y-m-d',$row['orelease_t']);
+        //var_dump($row); 
+        $this->assign('row',$row);
+
+        $m = M('mclassify');
+        $list = $m -> where('pid=2') -> select();
+        $li = $m -> where('pid=3') -> select();
+        $this->assign('list',$list);
+        $this->assign('li',$li);
+        
+        $this->display();
+    }
+    public function doedit(){
+        $_POST['crelease_t'] = strtotime($_POST['crelease_t']);
+        $_POST['orelease_t'] = strtotime($_POST['orelease_t']);
+        //var_dump($_POST);
+        $id= $_POST['id'];
+        $m = M('movie');
+        if($m->where("id=$id")->save($_POST)){
+            $this->success('更新成功',U('Movie/index'));
+        }else{
+            $this->error('更新失败');
+        }
+    }
+    public function del($id){
+        $m = M('movie');
+        if($m->delete($id)){
+            $this->success('删除成功',U('Movie/index'));
+        }else{
+            $this->erroe('删除失败');
+        }
+    }
+                     
     public function classify(){
         if(empty($_GET['id'])){
             $id= 0;
@@ -66,15 +106,29 @@ class MovieController extends Controller {
    	}
    	
     public function image(){
-    	$this->display();    
+    	 $this->display();    
    	}
    	public function addImage(){
     	$this->display();    
    	}
-   	public function brief(){
-      $this->display();
+   	public function brief($id){
+        $m = M('movie');
+        $row = $m ->where("id=$id")->find();
+        //var_dump($row);
+        $this->assign("row",$row);
+        $this->display();
     }
-    
+    public function editbrief(){
+        var_dump($_POST);
+        $id=$_POST['id'];
+        $m = M('movie');
+        if($m->where("id=$id")->save($_POST)){
+            $this->success('更新成功',U('Movie/brief',"id=$id"));
+        }else{
+            $this->error('更新失败');
+        }
+
+    }
     public function addclassify(){
         if(empty($_GET['id'])){
             $row['path'] = '0,'; 

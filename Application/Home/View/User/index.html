@@ -5,7 +5,12 @@
 		    {:W('Common/commonHead')}
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
 		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script> 
 
 		<script type="text/javascript">
 			$(function(){
@@ -15,6 +20,7 @@
 					controls:false
 				});
 				var int_show = false;
+				var status = false;
 				$('.setting a.set').click(function(){
 					if(!int_show){
 						$('.interesting').slideDown();
@@ -47,9 +53,37 @@
 				$('.top li a').click(function(){
 					$('.top li img').hide();
 					$(this).parents('li').find('img').show();
+					$('.text .input-box textarea').addClass('active');
+					if($(this).parents('li').hasClass('sec')){
+						$('.file-image').addClass('hide');
+						$('.file-image').removeClass('active');
+						$('.img-upload').addClass('show');
+						status = true;
+					}else{
+						$('.file-image').addClass('active');
+						$('.img-upload').removeClass('show');
+						$('.file-image').removeClass('hide');
+
+					}
+					$('.publish').show();
 				})
 
-				var status = false;
+				$('.file-image a').click(function(){
+
+					$(this).parents('span').addClass('hide');
+					$('.img-upload').addClass('show');
+					if(!status){
+						$('.top li.sec').find('img').show();
+						status = true;
+						
+						$(this).siblings('.file-image').addClass('active');
+						$('.publish').show();
+					}else{
+
+					}
+				})
+
+				
 				$('.text .input-box textarea').focus(function(){
 					if(!status){
 						$('.top li.first').find('img').show();
@@ -62,6 +96,52 @@
 					}
 
 				})
+				var img_all = new Array();
+				
+				$('.upload-box input').fileupload({  
+					autoUpload: true,
+				    autoUpload: true,
+				    acceptFileTypes:  /(\.|\/)(gif|jpe?g|png)$/i,
+				    maxNumberOfFiles : 1,
+				    
+				    add: function (e, data) {
+				        data.submit(); //this will 'force' the submit in IE < 10
+				    },
+				   
+				    done:function(e,result){ 
+				    	//完成后进行的操作	 
+				    	var img_src = JSON.stringify(result.result);
+				    	//alert(img_src);
+				    	$('.upload-box').before('<div class="img-box">')
+				    	     
+				    	var new_div = $('.img-upload div.img-box').last(); 
+				    	$(new_div).append('<img src='+img_src+'/>');
+				    	$(new_div).append('<span><a href="javascript:;"></a></span>');
+				    	img_all.push(img_src);
+				    	
+				    },
+				    fail: function(e, data) {
+			                  //错误提示
+				    	  alert('Fail!');
+				    }
+				}); 
+
+				$('.img-box span a').on('click','.img-upload',function(){
+					
+				});
+				$(document).on('click','.img-box span a',function(){
+					var img_box = $(this).parents('.img-box');
+					var i = $(img_box).index();
+					
+					img_all.splice(i,1);
+					$(img_box).remove();
+
+					// alert(img_all);
+
+				})
+
+
+
 			})
 		</script>
 		<!-- END 自定义 head -->
@@ -71,10 +151,7 @@
 			<!-- START header -->
 		    {:W('Common/allHeader')}
 		    {:W('Common/userHeader')}
-		    
 
-		    
-			    
 			<!-- END header -->
 			
 			<div id="main">
@@ -114,36 +191,66 @@
 									</form>
 								</div>
 							</div>
-
-							<ul>
-								<li class="first"><a href="javascript:;"><span></span>说句话</a><img src="__PUBLIC__/images/tri.png"/></li>
-								<li><a href="javascript:;"><span class="second"></span>发照片</a><img src="__PUBLIC__/images/tri.png"/></li>
-								<li><a href="javascript:;"><span class="third"></span>写日记</a><img src="__PUBLIC__/images/tri.png"/></li>
-							</ul>
+							<div class="list-box">
+								<ul>
+									<li class="first"><a href="javascript:;"><span></span>说句话</a><img src="__PUBLIC__/images/tri.png"/></li>
+									<li class="sec"><a href="javascript:;"><span class="second"></span>发照片</a><img src="__PUBLIC__/images/tri.png"/></li>
+									<li><a class="thir"href="javascript:;"><span class="third"></span>写日记</a><img src="__PUBLIC__/images/tri.png"/></li>
+								</ul>
+							</div>
 							<form>
 								<div class="text">
 								
 									<div class="input-box">
 										<textarea class="say" placeholder="分享生活点滴"name="text"/></textarea>
 										<span class="file-image">
-											<input class="file"type="file" name="myfile"/>
+											<a href="javascript:;"></a>
 										</span>
-									</div>									
+									</div>
+									<div class="img-upload">
+									
+										
+										<div class="upload-box">
+											<span>+<input type="file" data-url="__CONTROLLER__/imgUpload" multiple name="myfile[]"/></span>
+										</div>
+										
+									</div>	
 								
 								</div>
+
 								<div class="btn-box publish">
 									<input type="submit" value="发布"/>	
 								</div>
 							</form>
 						</div>
+						<div class="info-box">
+							<ul>
+								<li>
+									<div class="img-box">
+										<img src="__PUBLIC__/images/face1.jpg">
+									</div>
+									<div class="diary info">
+										<p><a href="">马提尼</a>的日记: </p>
+										<div class="detail">
+											<a href="">了解金融和投资15本有趣的书籍</a>
+											<p>十五本关于金融和投资的有趣又有益的书 欢迎大家关注我的微信公众号：理财课堂（Lckt168） 私人微信号：topok11 如果一个人要对金融和投资方面的实际知识得到比较深入的了解，十五本书无疑是... </p>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
 					</div>
 					<div class="f-left sider"></div>
 				</div>
-			</div>
+				</div>
 		</div>
 		<!-- START footer -->
 		    {:W('Common/commonFooter')}
 		<!-- END footer -->
+
+		<script type="text/javascript">
+			
+		</script>
 
 	</body>
 </html>

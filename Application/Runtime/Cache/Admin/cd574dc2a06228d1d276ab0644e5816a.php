@@ -41,7 +41,7 @@
 				
 	            <tr class="active">
 		            <td><?php echo ($row["id"]); ?></td>
-		            <td><img src="/beehive/Public/images/cnlzd.jpg" alt="" class="img-responsive" alt="Responsive image"></td>
+		            <td><img src="/beehive/Public<?php echo ($r["path"]); ?>" alt="" class="img-responsive" alt="Responsive image"></td>
 		            <td><?php echo ($row["name"]); ?></td>
 		                   
 	            </tr>

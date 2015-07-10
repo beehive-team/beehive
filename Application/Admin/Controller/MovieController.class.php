@@ -65,6 +65,7 @@ class MovieController extends Controller {
         $data['name']=$file['savename'];
         $data['m_id']=$insertId;
         $data['is_cover']='1';
+        $data['i_path']=ltrim($file['savepath'],'.');
         //var_dump($data);
         $m = M('mimage');
         if($m->add($data)){      
@@ -138,7 +139,12 @@ class MovieController extends Controller {
    	}
    	
     public function image(){
-    	 $this->display();    
+        $m = M('movie');
+        $list = $m->table('bee_movie m,bee_mimage i')->field('i.id,i.name iname,i.i_path,i.is_cover,m.name')->where('m.id=i.m_id')->select();
+        //$list['path'] = $list['i_path'].$list['iname'];
+        //var_dump($list);
+        $this->assign('list',$list);
+    	  $this->display();    
    	}
    	public function addImage($id){
         $m = M('movie');
@@ -149,15 +155,56 @@ class MovieController extends Controller {
         $m1 = M('mimage');
         $r = $m1->where('is_cover=1 and m_id='.$id)->find();
         //echo $m1->getLastsql();
-        //var_dump($r);
+        $r['path'] = $r['i_path'].$r['name'];
+        //var_dump($r);     
         $this->assign('r',$r);
+
         $this->display();    
    	}
+    public function doaddimage(){      
+        //var_dump($_FILES);
+        $id = $_POST['id'];
+        $upload = new \Think\Upload();
+        $upload->maxSize = 0;
+        $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
+        $upload->rootPath  = './Public';
+        $upload->savePath  = './Uploads/movie/';
+        $info   =   $upload->upload();
+        //var_dump($info);
+        //echo '<hr/>';
+        
+        if(!$info){   
+            $this->error($upload->getError());
+        }else{            
+            foreach($info as $file){
+                $data['name']=$file['savename'];
+                $data['m_id']=$id;
+                //$data['is_cover']='1';
+                $data['i_path']=ltrim($file['savepath'],'.');
+                //var_dump($data);
+                $m = M('mimage');
+                if(!$m->add($data)){    
+                    $this->error('上传失败');
+                }
+            }        
+          $this->success('上传成功',U('Movie/addimage',"id=$id"));            
+        }
+
+    }
+  
+
    	public function brief($id){
         $m = M('movie');
         $row = $m ->where("id=$id")->find();
         //var_dump($row);
         $this->assign("row",$row);
+
+        $m1 = M('mimage');
+        $r = $m1->where('is_cover=1 and m_id='.$id)->find();
+        //echo $m1->getLastsql();
+        $r['path'] = $r['i_path'].$r['name'];   //拼接图片路径
+        //var_dump($r);     
+        $this->assign('r',$r);
         $this->display();
     }
     public function editbrief(){

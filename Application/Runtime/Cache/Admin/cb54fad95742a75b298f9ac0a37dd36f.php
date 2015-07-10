@@ -25,29 +25,18 @@
 				
 			</tr>
 
-			
-            <tr>
-	            <td>1</td>
-	            <td><img src="/beehive/Public/images/dlam.jpg" alt="" class="img-responsive" alt="Responsive image"></td>
-	            <td>哆啦A梦</td>
+			<?php if(is_array($list)): foreach($list as $key=>$vo): ?><tr>
+	            <td><?php echo ($vo["id"]); ?></td>
+
+	            <td><img src="/beehive/Public<?php echo ($vo["i_path"]); echo ($vo["iname"]); ?>" alt="" class="img-responsive" alt="Responsive image"></td>
+	            <td><?php echo ($vo["name"]); ?></td>
 	            <td>是</td>            
 				<td>
 					<a class="btn btn-success" href="">编辑</a>
 					<a class="btn btn-primary" href="">删除</a> 
 				
 				</td>
-            </tr>
-            <tr>
-	            <td>2</td>
-	            <td><img src="/beehive/Public/images/cnlzd.jpg" alt=""></td>
-	            <td>超能陆战队</td>
-	            <td>是</td>            
-				<td>
-					<a class="btn btn-success" href="">编辑</a>
-					<a class="btn btn-primary" href="">删除</a> 
-				
-				</td>
-            </tr>
+            </tr><?php endforeach; endif; ?>
            
         </table>
 

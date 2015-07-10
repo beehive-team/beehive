@@ -25,11 +25,12 @@
 				
 			</tr>
 
-			
+			<foreach name="list" item="vo">
             <tr>
-	            <td>1</td>
-	            <td><img src="__PUBLIC__/images/dlam.jpg" alt="" class="img-responsive" alt="Responsive image"></td>
-	            <td>哆啦A梦</td>
+	            <td>{$vo.id}</td>
+
+	            <td><img src="__PUBLIC__{$vo.i_path}{$vo.iname}" alt="" class="img-responsive" alt="Responsive image"></td>
+	            <td>{$vo.name}</td>
 	            <td>是</td>            
 				<td>
 					<a class="btn btn-success" href="">编辑</a>
@@ -37,17 +38,7 @@
 				
 				</td>
             </tr>
-            <tr>
-	            <td>2</td>
-	            <td><img src="__PUBLIC__/images/cnlzd.jpg" alt=""></td>
-	            <td>超能陆战队</td>
-	            <td>是</td>            
-				<td>
-					<a class="btn btn-success" href="">编辑</a>
-					<a class="btn btn-primary" href="">删除</a> 
-				
-				</td>
-            </tr>
+           </foreach>
            
         </table>
 

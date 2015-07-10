@@ -173,7 +173,9 @@ frameset frame{
     overflow:hidden;
     border:0 none;
 }
-
+#pager {
+	margin-left: 135px;
+}
 #pager a {
 	display: inline-block;
 	width: 20px;

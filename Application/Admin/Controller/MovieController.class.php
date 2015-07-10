@@ -16,7 +16,8 @@ class MovieController extends Controller {
         //var_dump($list);
         $this->assign('list',$list);
 
-        $this->display();    
+        $this->display();
+
    	}
 
    
@@ -31,16 +32,47 @@ class MovieController extends Controller {
         //var_dump($list);exit; 
         $this->display();    
    	}
-    public function doadd(){    
+    public function doadd(){ 
+
         $_POST['crelease_t'] = strtotime($_POST['crelease_t']);
         $_POST['orelease_t'] = strtotime($_POST['orelease_t']);
         //var_dump($_POST);
         $m = M('movie');
-        if($m->add($_POST)){
+        $result=$m->add($_POST);
+        if($result){
+            $insertId = $result;
+            //echo $insertId;
             $this->success('添加成功', U('Movie/index'));
+
         }else{
             $this->error('添加失败');
         }
+
+        $upload = new \Think\Upload();
+        $upload->maxSize = 0;
+        $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
+        $upload->rootPath  = './Public';
+        $upload->savePath  = './Uploads/movie/';
+        $info   =   $upload->upload();
+        if(!$info){   
+            $this->error($upload->getError());
+        }else{   
+            foreach($info as $file){
+                $file['savepath'].$file['savename'];    
+            }
+        }
+        
+        $data['name']=$file['savename'];
+        $data['m_id']=$insertId;
+        $data['is_cover']='1';
+        //var_dump($data);
+        $m = M('mimage');
+        if($m->add($data)){      
+          $this->success('成功');
+        }else{
+          $this->error('上传失败');
+        }
+        
     }
    	public function edit($id){
         $m = M('movie');
@@ -102,14 +134,24 @@ class MovieController extends Controller {
         
         $this->assign('list',$list);
         
-      	$this->display();  */  
+      	$this->display(); */  
    	}
    	
     public function image(){
     	 $this->display();    
    	}
-   	public function addImage(){
-    	$this->display();    
+   	public function addImage($id){
+        $m = M('movie');
+        $row = $m->where("id=$id")->find();
+        //var_dump($row);
+        $this->assign('row',$row);
+        
+        $m1 = M('mimage');
+        $r = $m1->where('is_cover=1 and m_id='.$id)->find();
+        //echo $m1->getLastsql();
+        //var_dump($r);
+        $this->assign('r',$r);
+        $this->display();    
    	}
    	public function brief($id){
         $m = M('movie');

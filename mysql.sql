@@ -33,8 +33,8 @@ create table bee_movie(
     year int unsigned,                  -- 年份
     hot int,                            -- 热度
     score int,                          -- 得分
-    foreign key (country) references bee_mclassify(id) on update cascade on delete restrict,
-    foreign key (year) references bee_mclassify(id) on update cascade on delete restrict 
+    foreign key (country) references bee_mclassify(id) on update cascade on delete CASCADE,
+    foreign key (year) references bee_mclassify(id) on update cascade on delete CASCADE 
 )engine=InnoDB default charset=utf8;
 
 -- 电影_分类映射表
@@ -42,8 +42,8 @@ create table bee_m_c(
 	id int unsigned not null auto_increment primary key, 
 	m_id int unsigned,              -- 电影id
 	c_id int unsigned,              -- 分类id
-	foreign key (m_id) references bee_movie(id) on update cascade on delete restrict,
-	foreign key (c_id) references bee_mclassify(id) on update cascade on delete restrict
+	foreign key (m_id) references bee_movie(id) on update cascade on delete CASCADE,
+	foreign key (c_id) references bee_mclassify(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 -- 电影标签表
@@ -57,8 +57,8 @@ create table bee_m_t(
 	id int unsigned not null auto_increment primary key, 
 	m_id int unsigned,              -- 电影id
 	t_id int unsigned,              -- 标签id
-	foreign key (m_id) references bee_movie(id) on update cascade on delete restrict,
-	foreign key (t_id) references bee_mtag(id) on update cascade on delete restrict
+	foreign key (m_id) references bee_movie(id) on update cascade on delete CASCADE,
+	foreign key (t_id) references bee_mtag(id) on update cascade on delete CASCADE
 
 )engine=InnoDB default charset=utf8;
 
@@ -68,7 +68,7 @@ create table bee_mimage(
 	name varchar(255),               -- 电影图片名
 	m_id int unsigned,               -- 电影id
 	is_cover tinyint default 0,      -- 封面
-	foreign key (m_id) references bee_movie(id) on update cascade on delete restrict
+	foreign key (m_id) references bee_movie(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 -- 图书分类表
@@ -100,8 +100,8 @@ create table bee_b_c(
 	id int unsigned not null auto_increment primary key, 
 	b_id int unsigned,  					-- 图书id
 	c_id int unsigned,						-- 分类id
-	foreign key (b_id) references bee_book(id) on update cascade on delete restrict,
-	foreign key (c_id) references bee_bclassify(id) on update cascade on delete restrict
+	foreign key (b_id) references bee_book(id) on update cascade on delete CASCADE,
+	foreign key (c_id) references bee_bclassify(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 --图书标签表
@@ -117,8 +117,8 @@ create table bee_b_t(
 	id int unsigned not null auto_increment primary key, 
 	b_id int unsigned,						-- 图书id
 	t_id int unsigned,						-- 标签id
-	foreign key (b_id) references bee_book(id) on update cascade on delete restrict,
-	foreign key (t_id) references bee_btag(id) on update cascade on delete restrict
+	foreign key (b_id) references bee_book(id) on update cascade on delete CASCADE,
+	foreign key (t_id) references bee_btag(id) on update cascade on delete CASCADE
 
 )engine=InnoDB default charset=utf8;
 
@@ -128,7 +128,7 @@ create table bee_bimage(
 	name varchar(255),						-- 图片名
 	b_id int unsigned,						-- 图书id
 	is_cover tinyint default 0,				-- 是封面吗
-	foreign key (b_id) references bee_book(id) on update cascade on delete restrict
+	foreign key (b_id) references bee_book(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 -- 用户表
@@ -161,7 +161,7 @@ create table bee_diary(
 	browse tinyint,							-- 设置可见
     hot int,								-- 点赞个数
  	tolist tinyint							-- 创建到蜂蜜
-	foreign key (u_id) references bee_user(id) on update cascade on delete restrict
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE
 
 )engine=InnoDB default charset=utf8;
 
@@ -170,8 +170,8 @@ create table bee_d_t(
 	id int unsigned not null auto_increment primary key,
 	d_id int unsigned,						-- 日记id
 	t_id int unsigned,						-- 标签id
-	foreign key (d_id) references bee_diary(id) on update cascade on delete restrict,
-	foreign key (t_id) references bee_dtag(id) on update cascade on delete restrict
+	foreign key (d_id) references bee_diary(id) on update cascade on delete CASCADE,
+	foreign key (t_id) references bee_dtag(id) on update cascade on delete CASCADE
 
 )engine=InnoDB default charset=utf8;
 -- 日记图片表
@@ -193,7 +193,7 @@ create table bee_d_image(
  	browse tinyint,							-- 浏览设置
  	tolist tinyint,							-- 创建到蜂蜜
  	hot int,								-- 点赞个数
-	foreign key (a_id) references bee_album(id) on update cascade on delete restrict
+	foreign key (a_id) references bee_album(id) on update cascade on delete CASCADE
 
  )engine=InnoDB default charset=utf8;
 
@@ -203,7 +203,7 @@ create table bee_d_image(
  	name varchar(255),						-- 照片名
     time varchar(13),						-- 时间戳
  	a_id int unsigned,						-- 相册id
-	foreign key (a_id) references bee_album(id) on update cascade on delete restrict
+	foreign key (a_id) references bee_album(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 -- 用户关注表
@@ -212,8 +212,8 @@ create table bee_u_f(
     u_id int unsigned,						-- 用户id
     f_id int unsigned,						-- 关注者id
     time varchar(13),						-- 时间戳
-	foreign key (u_id) references bee_user(id) on update cascade on delete restrict,
-	foreign key (f_id) references bee_user(id) on update cascade on delete restrict
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+	foreign key (f_id) references bee_user(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 -- 用户喜欢表
@@ -232,7 +232,7 @@ create table bee_u_q(
     title varchar(255) not null,			-- 提问标题
     content varchar(255) not null,			-- 提问内容
     time varchar(13),						-- 时间戳
-	foreign key (u_id) references bee_user(id) on update cascade on delete restrict
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 -- 提问回答表
@@ -243,8 +243,8 @@ create table bee_q_a(
     content varchar(255) not null,			-- 回答的内容
     hot int,								-- 点赞个数
     time varchar(13),						-- 回答时间戳
-	foreign key (u_id) references bee_user(id) on update cascade on delete restrict,
-	foreign key (q_id) references bee_u_q(id) on update cascade on delete restrict
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+	foreign key (q_id) references bee_u_q(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 -- 小组表
@@ -255,7 +255,7 @@ create table bee_group(
     brief varchar(255) not null,			-- 简要
     time varchar(13),						-- 时间戳
     status tinyint,							-- 状态
-	foreign key (u_id) references bee_user(id) on update cascade on delete restrict
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 -- 加入小组表
@@ -264,8 +264,8 @@ create table bee_add_g(
     u_id int unsigned,						-- 用户id
     g_id int unsigned,						-- 小组id
     time varchar(13),						-- 时间戳
-	foreign key (u_id) references bee_user(id) on update cascade on delete restrict,
-	foreign key (g_id) references bee_group(id) on update cascade on delete restrict
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+	foreign key (g_id) references bee_group(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 -- 小组话题表
@@ -275,6 +275,6 @@ create table bee_g_topic(
     u_id int unsigned,						-- 用户id
     title varchar(255),						-- 话题标题
     content varchar(255),					-- 话题内容
-	foreign key (g_id) references bee_group(id) on update cascade on delete restrict
-	foreign key (u_id) references bee_user(id) on update cascade on delete restrict,
+	foreign key (g_id) references bee_group(id) on update cascade on delete CASCADE
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
 )engine=InnoDB default charset=utf8;

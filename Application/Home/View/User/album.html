@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    {:W('Common/commonHead')}
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		
+
+		<script type="text/javascript">
+			$(function(){
+				$('.primary a.icon').click(function(){
+					if(!$(this).hasClass('active')){
+						$(this).parents('.primary').siblings('.sub').show();
+						$(this).addClass('active');
+					}else{
+						$(this).parents('.primary').siblings('.sub').hide();
+						$(this).removeClass('active');
+					}
+				})
+				
+			})
+		</script>
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-album-page">
+		<div id="wrap">
+			<!-- START header -->
+		    {:W('Common/allHeader')}
+		    {:W('Common/userHeader')}
+
+			<!-- END header -->
+			
+			<div id="main">
+				<div class="inner clearfix">
+					{:W('Common/userTitle')}
+
+					<div class="f-left con">
+						<div class="clearfix album-list">
+							<ul>
+								<li>
+									<div class="img-box">
+										<a href="">
+											<img src="__PUBLIC__/images/photo7.jpg"/>
+										</a>
+									</div>
+									<div class="info">
+										<a href="">第一个相册</a>
+										<p>1张照片<span>2015-7-10更新</span></p>
+									</div>
+								</li>
+								<li>
+									<div class="img-box">
+										<a href="">
+											<img src="__PUBLIC__/images/photo7.jpg"/>
+										</a>
+									</div>
+									<div class="info">
+										<a href="">第一个相册</a>
+										<p>1张照片<span>2015-7-10更新</span></p>
+									</div>
+								</li>
+								<li>
+									<div class="img-box">
+										<a href="">
+											<img src="__PUBLIC__/images/photo7.jpg"/>
+										</a>
+									</div>
+									<div class="info">
+										<a href="">第一个相册</a>
+										<p>1张照片<span>2015-7-10更新</span></p>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="f-right sider">
+						<div class="top">
+							<ul>
+								<li>
+									<a class="btn" href="{:U('Home/User/publishPhoto#1')}">+发照片</a>
+								</li>
+							
+								<li>
+									<a class="btn" href="{:U('Home/User/publishPhoto#2')}">+创建相册</a>
+								</li>
+							</ul>
+						</div>
+
+						
+					</div>
+				</div>
+				</div>
+		</div>
+		<!-- START footer -->
+		    {:W('Common/commonFooter')}
+		<!-- END footer -->
+
+		<script type="text/javascript">
+			
+		</script>
+
+	</body>
+</html>

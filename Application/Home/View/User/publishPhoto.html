@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    {:W('Common/commonHead')}
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		
+
+		<script type="text/javascript">
+			$(function(){
+				$('.primary a.icon').click(function(){
+					if(!$(this).hasClass('active')){
+						$(this).parents('.primary').siblings('.sub').show();
+						$(this).addClass('active');
+					}else{
+						$(this).parents('.primary').siblings('.sub').hide();
+						$(this).removeClass('active');
+					}
+				})
+
+				var i = 0;
+				$('.input-box input').fileupload({  
+					autoUpload: true,
+				    autoUpload: true,
+				    acceptFileTypes:  /(\.|\/)(gif|jpe?g|png)$/i,
+				    maxNumberOfFiles : 1,
+				    
+				    add: function (e, data) {
+				        data.submit(); //this will 'force' the submit in IE < 10
+				    },
+				   
+				    done:function(e,result){ 
+				    	//完成后进行的操作	 
+				    	var img_src = JSON.stringify(result.result);
+				    	//alert(img_src);
+				    	// alert(img_src);
+				    	if(img_src=='"0"'){
+				    		//alert(1)
+				    		return;
+				    	}
+				    	var node='<li><input class="hid" type="hidden" name="imgName" /><div class="pic"></div><div class="textarea-box"><textarea placeholder="增加描述"></textarea></div><div class="cover-btn"><label><input type="radio" name="iscover" value="1">设为封面</label></div></li>';
+				    	$('.show-box ul').append(node);
+				    	var last = $('.show-box ul li').last();
+				    	$(last).find('.hid').attr('value',img_src);
+
+				    	$(last).find('.pic').css({background:'url('+img_src+') no-repeat center center #fff'});
+				    	$('.tip').hide();
+				    	i++;
+				    	$('strong').html('已上传'+i+'张');
+
+				    	
+				    },
+				    fail: function(e, data) {
+			                  //错误提示
+				    	  alert('Fail!');
+				    }
+				}); 
+				
+
+				$('.tab a').click(function(){
+
+					var index =  $(this).attr('rel');
+					var subIndex = '.sub'+index;
+					$('.sub').hide();
+					$(subIndex).show();
+					$('.tab a').removeClass('active').attr('href','javascript:;');
+					$(this).addClass('active');
+					$('.tab li i').hide();
+					$(this).siblings('i').show();
+
+				})
+
+				var url = window.location.hash;
+				//alert(url);
+				if(url=='#1'){
+					$('.sub2').hide();
+					$('.sub1').show();
+					$('.tab a.tab2').removeClass('active').attr('href','javascript:;');
+					$('.tab a.tab1').addClass('active').attr('href','#');
+					$('.tab a.tab1').siblings('i').show();				
+					$('.tab a.tab2').siblings('i').hide();		
+				}else if(url=='#2'){
+					$('.sub1').hide();
+					$('.sub2').show();
+					$('.tab a.tab1').removeClass('active').attr('href','javascript:;').hide();
+					$('.tab a.tab2').addClass('active').attr('href','#');
+					$('.tab a.tab2').siblings('i').show();				
+					$('.tab a.tab1').siblings('i').hide();
+
+				}
+				
+			})
+		</script>
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-album-page">
+		<div id="wrap">
+			<!-- START header -->
+		    {:W('Common/allHeader')}
+		    {:W('Common/userHeader')}
+
+			<!-- END header -->
+			
+			<div id="main">
+				<div class="inner clearfix">
+					<div class="content">
+						<h2>上传照片</h2>
+						<div class="photo-box">
+							<div class="input-box">
+								
+								<span><input data-url="__CONTROLLER__/photoUpload" multiple name="myfile[]"type="file"/>选择图片上传</span>
+								<strong>已上传0张</strong>
+							</div>
+
+							<div class="show-box">
+								<p class="tip">现在还没有照片哦~请添加</p>
+								<ul>
+
+								</ul>	
+
+							</div>
+
+						</div>
+						<h3>上传照片：</h3>
+						<div class="tab">
+							<ul>
+								<li><a class="tab1"rel="1"href="javascript:;">已有相册</a><i></i></li>
+								<li><a class="tab2"rel="2"href="javascript:;">新建相册</a><i></i></li>
+							</ul>
+						</div>
+						<div class="sub1 sub">
+							<form>
+								<div class="radio-box">
+									<label><input type="radio" name="album" value="1">第一个相册</label>
+									
+								</div>
+								<div class="checkbox">
+									<label><input type="checkbox" name="bee"/>创建并同步到豆列</label>
+								</div>
+								<div class="btn-box">
+									<input type="submit" value="保存"/>
+								</div>
+							</form>
+						</div>
+						<div class="sub2 sub">
+							<form>
+								<p><label for="title">相册名称（必填）</label></p>
+								<div class="input-box">
+									<input type="text" name="title" />
+								</div>
+								<p><label for="title">相册描述</label></p>
+								<div class="textarea-box">
+									<textarea name="content"></textarea>
+								</div>
+								<p><label for="tag">标签(用逗号分隔)</label></p>
+								<div class="input-box">
+									<input type="text" name="tag" />
+									
+								</div>
+								<p><label for="show">设置可见：</label></p>
+								<label><input type="radio" name="show" value="1">所有人可见</label>
+								<label><input type="radio" name="show" value="0">仅朋友可见</label>
+								<label><input type="radio" name="show" value="2">仅自己可见</label>
+								<p><label>权限设置：</label></p>
+								<div class="checkbox">
+									<label><input type="checkbox" name="authority"/>不允许回应</label>
+								</div>
+								<div class="checkbox">
+									<label><input type="checkbox" name="bee"/>创建并同步到豆列</label>
+								</div>
+								<div class="btn-box">
+									<input type="submit" value="保存"/>
+								</div>
+							</form>
+						</div>
+					</div>
+
+			
+				</div>
+		</div>
+		<!-- START footer -->
+		    {:W('Common/commonFooter')}
+		<!-- END footer -->
+
+		<script type="text/javascript">
+			
+		</script>
+
+	</body>
+</html>

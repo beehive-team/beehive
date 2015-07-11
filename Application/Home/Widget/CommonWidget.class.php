@@ -20,7 +20,7 @@ class CommonWidget extends Controller {
 		$this->display('Public:allHeader');
      
     }
-     public function movieHeader(){
+    public function movieHeader(){
 		$this->display('Public:movieHeader');
      
     }
@@ -38,6 +38,10 @@ class CommonWidget extends Controller {
     }
     public function bookHeader(){
         $this->display('Public:bookHeader');
+     
+    }
+    public function userTitle(){
+        $this->display('Public:userTitle');
      
     }
 }

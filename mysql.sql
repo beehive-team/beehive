@@ -295,11 +295,11 @@ create table bee_s_i(
 -- 动态表
 create table trend(
 	id int unsigned not null auto_increment primary key,
-	action varchr(255) not null,
-	time varchar(13),
-	u_id int unsigned,
-	do_id int unsigned,
-	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+	action varchar(255) not null,
+	time varchar(13) not null,
+	u_id int unsigned not null,
+	do_id int unsigned not null,
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 

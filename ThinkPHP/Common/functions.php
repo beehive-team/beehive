@@ -1548,3 +1548,11 @@ function think_filter(&$value){
 function in_array_case($value,$array){
     return in_array(strtolower($value),array_map('strtolower',$array));
 }
+
+//截取字符串
+function subtext($text, $length)
+{
+    if(mb_strlen($text, 'utf8') > $length) 
+    return mb_substr($text, 0, $length, 'utf8').'...';
+    return $text;
+}

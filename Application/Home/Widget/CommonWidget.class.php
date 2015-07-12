@@ -41,6 +41,18 @@ class CommonWidget extends Controller {
      
     }
     public function userTitle(){
+
+
+        $model = D('User');
+        $id = $_SESSION['home']['user_id'];
+        $data = $model->where("id=$id")->find();
+        
+        
+        
+        $this->assign('data',$data);
+
+
+      
         $this->display('Public:userTitle');
      
     }

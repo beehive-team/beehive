@@ -51,7 +51,13 @@
 										</div>
 										<div class="sub">
 											<div class="tags">
-												<p>标签：<a href="">趣味</a><a href="">趣味</a><a href="">趣味</a></p>
+
+												<p>标签：
+													<foreach name="vo.tag" item="va" key="ke">
+														<a href="">{$va.name}</a>
+													</foreach>	
+												<p>
+
 											</div>
 											<div class="bro">
 												<a href="">0回应</a>

@@ -1815,6 +1815,9 @@ a.like.active span{
 	float: right;
 	margin-right: 50px;
 }
+.user-diary-page .diary-list li{
+	padding-bottom: 20px;
+}
 .user-diary-page .diary-list .primary h4{
 	background-color: #fbecc9;
 	height: 28px;

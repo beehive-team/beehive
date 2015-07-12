@@ -41,7 +41,7 @@
 							<p><label for="text">正文：</label></p>
 						
     						<script id="editor" type="text/plain" name="content" style="height:500px;"></script>
-							<p><label for="text">标签：(用逗号隔开)</label></p>
+							<p><label for="text">标签：(用空格隔开)</label></p>
 							<input type="text" name="tags" class="text">
 
 							<p><label for="show">设置可见：</label></p>
@@ -50,10 +50,10 @@
 							<label><input type="radio" name="show" value="2">仅自己可见</label>
 							<p><label>权限设置：</label></p>
 							<div class="checkbox">
-								<label><input type="checkbox" name="authority"/>不允许回应</label>
+								<label><input type="checkbox" value="1"name="authority"/>不允许回应</label>
 							</div>
 							<div class="checkbox">
-								<label><input type="checkbox" name="bee"/>创建并同步到豆列</label>
+								<label><input type="checkbox" value="1"name="bee"/>创建并同步到豆列</label>
 							</div>
 							<div class="btn-box">
 								<input type="submit" value="发表"/>

@@ -1,16 +1,16 @@
 <?php
 namespace Home\Model;
 use Think\Model;
-class UserModel extends Model{
+class DiaryModel extends Model{
     // 字段映射
     protected $_map = array(
-        'nickname'=>'name',
-        'youxiang'=>'email',
-        'key'=>'password',
-        'mobile'=>'phone',
+        'authority'=>'power',
+        'show'=>'browse',
+        'bee'=>'tolist', 
         'ctime'=>'time',
-        'intro'=>'introduce',
-        'brief'=>'sign'
+        'name'=>'title',
+        'user'=>'u_id'
+       
     );
     
     // // 自动验证
@@ -21,9 +21,9 @@ class UserModel extends Model{
     //     array('email','/.*@.*/','邮箱格式不正确！'), //默认情况下用正则进行验证
     // );
 
-    // 自动完成
+    //自动完成
     protected $_auto = array(
-        array('password','md5',3,'function'),
+        array('update_time','time',2,'function'),
     );
 }
 

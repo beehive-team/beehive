@@ -142,6 +142,7 @@ create table bee_user(
     sex tinyint,							-- 性别
     image varchar(255),						-- 头像名
     time varchar(13),						-- 注册时间
+    sign varchar(255),
     introduce varchar(255)					-- 一句话介绍
 )engine=InnoDB default charset=utf8;
 
@@ -161,7 +162,8 @@ create table bee_diary(
 	power tinyint,							-- 权限设置（可回复）
 	browse tinyint,							-- 设置可见
     hot int,								-- 点赞个数
- 	tolist tinyint							-- 创建到蜂蜜
+ 	tolist tinyint, 						-- 创建到蜂蜜
+	update_time varchar(13),				-- 日记修改时间	
 	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE
 
 )engine=InnoDB default charset=utf8;
@@ -175,13 +177,7 @@ create table bee_d_t(
 	foreign key (t_id) references bee_dtag(id) on update cascade on delete CASCADE
 
 )engine=InnoDB default charset=utf8;
--- 日记图片表
-create table bee_d_image(
-	id int unsigned not null auto_increment primary key,
-	d_id int unsigned,						-- 日记id
-	name varchar(255),						-- 图片名
-	is_cover tinyint default 0				-- 是封面吗
-)engine=InnoDB default charset=utf8;
+
 
 -- 相册表
  create table bee_album(
@@ -193,9 +189,7 @@ create table bee_d_image(
     time varchar(13),						-- 时间戳
  	browse tinyint,							-- 浏览设置
  	tolist tinyint,							-- 创建到蜂蜜
- 	hot int,								-- 点赞个数
-	foreign key (a_id) references bee_album(id) on update cascade on delete CASCADE
-
+ 	hot int 								-- 点赞个数
  )engine=InnoDB default charset=utf8;
 
  -- 照片表
@@ -279,3 +273,34 @@ create table bee_g_topic(
 	foreign key (g_id) references bee_group(id) on update cascade on delete CASCADE
 	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
 )engine=InnoDB default charset=utf8;
+
+
+-- 用户说说表
+create table bee_say(
+	id int unsigned not null auto_increment primary key,
+	u_id int unsigned,
+	content varchar(255),
+	time varchar(13),
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE
+)engine=InnoDB default charset=utf8;
+
+-- 用户说说图片表
+create table bee_s_i(
+	id int unsigned not null auto_increment primary key,
+	s_id int unsigned,
+	name varchar(255),
+	foreign key (s_id) references bee_say(id) on update cascade on delete CASCADE
+)engine=InnoDB default charset=utf8;
+
+-- 动态表
+create table trend(
+	id int unsigned not null auto_increment primary key,
+	action varchr(255) not null,
+	time varchar(13),
+	u_id int unsigned,
+	do_id int unsigned,
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+)engine=InnoDB default charset=utf8;
+
+
+

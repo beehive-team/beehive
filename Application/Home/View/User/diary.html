@@ -42,27 +42,29 @@
 						{:W('Common/userTitle')}
 						<div class="clearfix diary-list">
 							<ul>
-								<li>
-									<div class="primary">
-										<h4><a class="title"href="">heheheda</a><a class="icon"href="javascript:;"></a></h4>
-										<p class="time">2015-07-10 10:38:49</p>
-										<p>fdsfds</p>
-									</div>
-									<div class="sub">
-										<div class="tags">
-											<p>标签：<a href="">趣味</a><a href="">趣味</a><a href="">趣味</a></p>
+								<foreach name="data" item="vo" key="k">
+									<li>
+										<div class="primary">
+											<h4><a class="title"href="">{$vo.title}</a><a class="icon"href="javascript:;"></a></h4>
+											<p class="time">{$vo.time|date='Y-m-d H:i:s',###}</p>
+											<p>{$vo.content|subtext=40}</p>
 										</div>
-										<div class="bro">
-											<a href="">0回应</a>
-											<span>0人浏览</span>
-											<a href="">>修改标签</a>
-											<a href="">>修改</a>
-											<a href="">>删除</a>
-											<strong>仅朋友可见</strong>
+										<div class="sub">
+											<div class="tags">
+												<p>标签：<a href="">趣味</a><a href="">趣味</a><a href="">趣味</a></p>
+											</div>
+											<div class="bro">
+												<a href="">0回应</a>
+												<span>0人浏览</span>
+												<a href="">>修改标签</a>
+												<a href="">>修改</a>
+												<a href="">>删除</a>
+												<strong>仅朋友可见</strong>
+											</div>
+											<a class="like" href="javascript:;"><span></span>喜欢</a>  
 										</div>
-										<a class="like" href="javascript:;"><span></span>喜欢</a>  
-									</div>
-								</li>
+									</li>
+								</foreach>
 							</ul>
 						</div>
 					</div>

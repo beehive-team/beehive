@@ -1389,9 +1389,13 @@ body > #wrap {height: auto; min-height: 100%;}
 	font-size: 12px;
 	padding-bottom: 10px;
 }
-.user-page .info-box li .info a{
+.user-page .info-box li .info .list-box  a{
 	color: #666;
 }
+.user-page .info-box li .info p  a{
+	color: #666;
+}
+
 .user-page .info-box li .info .detail p{
 	padding-bottom: 30px;
 
@@ -1415,7 +1419,7 @@ body > #wrap {height: auto; min-height: 100%;}
 	color: #fff;
 	background: #9A633C;
 }
-.user-page .info-box li .info .detail a.like{
+a.like{
 	display: block;
 	text-align: center;
 	float: left;
@@ -1427,7 +1431,7 @@ body > #wrap {height: auto; min-height: 100%;}
 	border:1px solid #ff7f72;
 	color:#ff7f72;
 }
-.user-page .info-box li .info .detail a.like span{
+a.like span{
 	display: block;
 	float: left;
 	text-indent: 100px;
@@ -1436,13 +1440,13 @@ body > #wrap {height: auto; min-height: 100%;}
 	overflow: hidden;
 	background:url(../images/icon_all.png) no-repeat 5px -364px;
 }
-.user-page .info-box li .info .detail a.like:hover{
+a.like:hover{
 	background-color: #fff;
 }
-.user-page .info-box li .info .detail a.like:hover span{
+a.like:hover span{
 	background-position: -103px -364px;
 }
-.user-page .info-box li .info .detail a.like.active span{
+a.like.active span{
 	background-position: -81px -364px;
 }
 .user-page .info-box li .info .time{
@@ -1507,9 +1511,646 @@ body > #wrap {height: auto; min-height: 100%;}
 	color: #fff;
 	background-color: #9A633C
 }
+.user-page .user-info{
+	overflow: hidden;
+	padding-bottom: 20px;
+}
+.user-page .user-info img{
+	width: 48px;
+	height: 48px;
+}
+.user-page .user-name {
+	padding-left: 20px;
+}
+.user-page .user-name p.bri{
+	display: none;
+	float: left;
+}
+.user-page .user-name i.signnull{
+	display: none;
+}
+.user-page .user-name .edit{
+	display: none;
+}
+.user-page .user-name h3{
+	font-size: 24px;
+	color: #444;
+	font-weight: bold; 
+	line-height: 32px;
+}
+.user-page #main .link-box {
+	overflow: hidden;
+	padding-bottom: 20px;
+}
+.user-page #main .link-box li{
+	float: left;
+	padding-right: 20px;
+}
+.user-page #main .link-box li a{
+	color: #444;
+}
+.user-page #main .link-box li a:hover{
+	color: #fff;
+	background-color: #9A633C;
+}
+.user-page .user-name i a{
+	color: #666;
+}
+.user-page .user-name .brief{
+	display: none;
+}
+.user-home-page .set-info{
+	background-color: #f5f5f5;
+	padding: 30px 20px;
+}
+.user-home-page .set-info h4{
+	font-weight: normal;
+	font-size: 16px;
+	color: #444;
+	padding-bottom: 15px;
+	line-height: 26px;
+}
+.user-home-page .set-info .list-box {
+	margin-left: 30px;
+}
+.user-home-page .set-info .list-box a{
+	display: block;
+	background:url(../images/step_icon.gif) no-repeat 0 1px;
+	height: 24px;
+	font-size: 16px;
+	color: #9A633C;
+	line-height: 24px;
+	margin-bottom: 10px;
+	padding-left: 30px;
+}
+.user-home-page .set-info .list-box a.active{
+	background-position: 0 -21px;
+	color: #999;
+}
+.user-home-page .set-info .list-box a.sec{
+	background-position: 0 -43px;
+}
+.user-home-page .set-info .list-box a.sec.active{
+	background-position: 0 -66px;
+}
+.user-home-page .set-info p{
+	color: #666;
+	line-height: 10px;
+	padding-left: 30px;
+	padding-top: 30px;
+}
+
+.user-home-page .section {
+	padding-top: 25px;
+}
+.user-home-page .section h2{
+	color: #9A633C;
+	padding-bottom: 10px;
+}
+.user-home-page .section h2 span{
+	width: 23px;
+	display: inline-block;
+	height: 23px;
+	background: url(../images/icon_all.png) no-repeat -81px -364px;
+}
+.user-home-page .section h2 a{
+	font-size: 12px;
+	color: #666;
+	margin-left: 20px;
+}
+.user-home-page .section .list {
+	padding-bottom: 10px;
+	border-bottom:1px dashed #ddd;
+}
+.user-home-page .section .list a{
+	color: #9A633C;
+	margin:0 5px;
+}
+.user-home-page .section a.btn{
+	border: 1px solid #ddd;
+	display: block;
+	float: right;
+	height: 24px;
+	line-height: 24px;
+	background-color: #f5f5f5;
+	padding: 0 10px;
+}
+.user-home-page .section .empty{
+	color: #666;
+}
+.user-home-page .sec-2 p.time{
+	color: #666;
+}
+.user-home-page .sec-2 p{
+	line-height: 20px;
+}
+.user-home-page .sec-3 .empty a{
+	display: block;
+	border:3px dashed #ddd;
+	width: 50px;
+	height: 50px;
+	font-size: 40px;
+	text-align: center;
+	line-height: 50px;
+	color: #ddd;
+}
+.user-home-page .sec-3 .list {
+	overflow: hidden;
+}
+.user-home-page .sec-3 .list li{
+	float: left;
+	overflow: hidden;
+	width: 115px;
+}
+.user-home-page .sec-3 .list li p{
+	line-height: 30px;
+}
+.user-home-page .sec-3 .list a{
+	display: block;
+	text-align: center;
+}
+.user-home-page .sec-3 .list a.img{
+	border:3px dashed #ddd;
+	width: 100px;
+	height: 100px;
+	margin: 0 auto;
+	float: left;
+}
+.user-home-page .sider .info-box{
+	padding: 10px 0;
+	width: 280px;
+	border-bottom: 1px dashed #ddd;
+	overflow: hidden;
+
+}
+.user-home-page .sider .info-box .img-box{
+	float: left;
+	padding-top: 10px;
+	margin-left: 10px;
+}
+.user-home-page .sider .info-box .info{
+	float: left;
+	padding-top: 16px;
+	padding-left: 15px;
+}
+.user-home-page .sider .info-box .info h5{
+	color: #666;
+	font-size: 16px;
+	font-weight: normal;	
+}
+.user-home-page .sider .info-box .info h6{
+	font-weight: normal;
+	font-size: 12px;
+	color: #666;
+	line-height: 30px;
+}
+.user-home-page .sider .top{
+	background-color: #fbecc9;
+	overflow: hidden;
+}
+.user-home-page .sider .brief a{
+	display: inline-block;
+	margin: 10px 0 10px 10px;
+	margin-left: 10px;
+	color: #9A633C;
+}
+.user-home-page .sider .brief a:hover{
+	color: #fff;
+	background-color: #9A633C;
+}
+.user-home-page .sider .brief .intro-form {
+	display: none;
+}
+.user-home-page .sider .brief .intro-form textarea{
+	resize:none;
+	margin:0 auto;
+	width: 250px;
+	height: 70px;
+	display: block;
+	margin-bottom: 20px;
+}
+.user-home-page .sider .brief .intro-form input{
+	width: 70px;
+	height: 24px;
+	line-height: 24px;
+	font-size: 14px;
+	margin: 0 10px;
+}
+.user-home-page .sider .radio,.user-home-page .sider .bee {
+	padding-top: 20px;
+}
+.user-home-page .sider .radio h2,.user-home-page .sider .bee h2{
+	color: #9A633C;
+	font-size: 14px;
+}
+.user-home-page .sider .radio h2 a,.user-home-page .sider .bee h2 a{
+	color: #9A633C;
+	margin-left: 20px;
+	font-size: 12px;
+}
+.user-home-page .sider .radio h2 a:hover,.user-home-page .sider .bee h2 a:hover{
+	color: #fff;
+	background-color: #9A633C;
+}
+.user-home-page .sider .radio p{
+	padding-top: 20px;
+}
+.user-home-page .sider .radio p a{
+	margin :0 10px;
+}
+.user-home-page .sider .bee h2 a.btn{
+	border: 1px solid #ddd;
+	display: block;
+	color: #666;
+	float: right;
+	height: 24px;
+	line-height: 24px;
+	background-color: #f5f5f5;
+	padding: 0 10px;
+}
+.user-home-page .sider .bee li{
+	padding: 10px 0;
+}
+.user-home-page .sider .bee li a{
+	color: #9A633C;
+	line-height: 20px;
+}
+.user-home-page .sider .bee li a:hover{
+	color: #fff;
+	background-color: #9A633C;
+
+}
+.user-home-page .face-box{
+	background-color: #fff;
+	overflow: hidden;
+	display: none;
+}
+.user-home-page .face-box .img-box{
+	float: left;
+}
+.user-home-page .face-box .img-box img{
+	width: 160px;
+}
+.user-home-page .face-box .small-img{
+	
+}
+.user-home-page .face-box .small-img img{
+	width: 50px;
+}
+.user-home-page .face-box input{
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.user-home-page .set-info .textarea{
+	display: none;
+}
+.user-home-page .set-info .textarea textarea{
+	resize:none;
+	margin-bottom: 20px;
+	width: 450px;
+	height: 100px;
+}
+.user-home-page .set-info .textarea input{
+	display: block;
+	float: right;
+	margin-right: 50px;
+}
+.user-diary-page .diary-list .primary h4{
+	background-color: #fbecc9;
+	height: 28px;
+	line-height: 28px;
+}
+.user-diary-page .diary-list .primary h4{
+	padding-left: 4px;
+}
+.user-diary-page .diary-list .primary a.title{
+	color: #9A633C;
+}
+.user-diary-page .diary-list .primary a.icon{
+	display: block;
+	float: right;
+	width: 40px;
+	background: #f5f5f5;
+	height: 28px;
+	background: url(../images/triangle.png) no-repeat -5px -27px;
+}
+.user-diary-page .diary-list .primary a.icon.active{
+	background-position: -5px -58px;
+}
+.user-diary-page .diary-list .primary a.title:hover{
+	background: #9A633C;
+	color: #fff;
+}
+.user-diary-page .diary-list .primary p{
+	padding-left: 4px;
+	line-height: 30px;
+}
+.user-diary-page .diary-list .primary p.time{
+	color: #666;
+	line-height: 20px;
+}
+
+.user-diary-page .diary-list .sub{
+	overflow: hidden;
+	display: none;
+}
 
 
 
+.user-diary-page .diary-list .sub .tags p{
+	color: #666;
+	line-height: 26px;
+}
+.user-diary-page .diary-list .sub .tags p a{
+	color: #9A633C;
+	margin: 0 10px;
+	padding: 0 10px;
+	height: 26px;
+	display: inline-block;
+	background-color: #f0f0f0;
+}
+.user-diary-page .diary-list .sub .tags p a:hover{
+	background-color: #f9f9f9;
+}
+.user-diary-page .diary-list .sub .bro{
+	padding: 24px 0;
+	color: #666;
+}
+.user-diary-page .diary-list .sub .bro a{
+	color: #9A633C;
+	margin-left: 5px;
+}
+.user-diary-page .diary-list .sub .bro strong{
+	display: inline-block;
+	font-weight: normal;
+	float: right;
+}
+.user-diary-page .diary-list .sub .bro a:hover{
+	color: #fff;
+	background-color: #9A633C;
+}
+.user-page .sider .top{
+	padding-bottom: 40px;
+}
+.user-page .sider a.btn{
+	background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    color: #666;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 10px;
+}
+.user-page .sider h2{
+	 color: #9a633c;
+    font-size: 14px;
+}
+.user-diary-page .sider .btn-list {
+	padding: 10px 0;
+}
+.user-diary-page .sider .btn-list a{
+	display: block;
+	float: left;
+	padding: 0 10px;
+	margin-right: 10px;
+	background-color: #f5f5f5;
+	color: #9A633C;
+	line-height: 20px;
+	height: 20px;
+}
+.user-diary-page .sider .btn-list a:hover{
+	background-color: #ddd;
+}
+
+.user-diary-page .write{
+	padding-bottom: 50px;
+	clear: both;
+}
+.user-diary-page .write h3{
+	font-size: 24px;
+
+}
+.user-diary-page .write p{
+	padding: 10px 0;
+}
+.user-diary-page .write p label{
+	font-size: 14px;
+	line-height: 24px;
+
+}
+.user-diary-page .write input.text{
+	width: 930px;
+	height: 24px;
+	line-height: 24px;
+	border:1px solid #ddd;
+	padding: 0 10px;
+}
+.user-diary-page .write #editor{
+	width: 100%;
+}
+.user-diary-page .write .checkbox{
+	padding: 10px 0;
+	clear: both;
+}
+.user-diary-page .write .btn-box{
+	float: right;
+}
+.user-diary-page .write .btn-box input{
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #9A633C;
+	border:1px solid #9A633C;
+	color: #fff;
+	font-size: 16px;
+	border-radius: 3px;
+}
+.user-diary-page .write .btn-box input:hover{
+	background-color: #af7349;
+}
+.user-album-page .album-list li{
+	float: left;
+	margin-right: 18px;
+	border: 1px solid #fff;
+}
+.user-album-page .album-list li:hover{
+	border:1px solid #ddd;
+}
+.user-album-page .album-list li img{
+	width: 170px;
+}
+.user-album-page .album-list li .info p{
+	clear: both;
+}
+.user-album-page .album-list li .info a{
+	color: #9A633C;
+	float: left;
+	display: block;
+	margin-bottom: 5px;
+}
+.user-album-page .album-list li .info a:hover{
+	color: #fff;
+	background-color: #9A633C;
+}
+.user-album-page .album-list li .info p{
+	line-height: 20px;
+	color: #666;
+}
+.user-album-page .album-list li .info p span{
+	padding-left: 10px;
+}
+.user-album-page .sider li{
+	margin-bottom: 10px;
+}
+.user-album-page h2{
+	padding-bottom: 20px;
+}
+.user-album-page .photo-box {
+	background-color: #f5f5f5;
+	overflow: hidden;
+	padding: 20px;
+}
+.user-album-page .photo-box .input-box{
+	padding-bottom: 20px;
+
+}
+.user-album-page .photo-box .input-box span{
+	color: #666;
+	border:1px solid #ddd;
+	width: 100px;
+	background-color: #fff;
+	height: 26px;
+	line-height: 26px;
+	position: relative;
+	text-align: center;
+	border-radius: 3px;
+	display: block;
+
+}
+.user-album-page .photo-box .input-box input{
+	background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 29px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+}
+.user-album-page .show-box{
+	width: 100%;
+	overflow: hidden;
+	min-height: 246px;
+	padding-top: 20px;
+}
+.user-album-page .photo-box strong{
+	float: right;
+	font-weight: normal;
+	color: #666;
+	display: block;
+}
+.user-album-page .show-box li{
+	float: left;
+	width: 168px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	background-color: #fff;
+	border:1px solid #ddd;
+}
+.user-album-page .show-box li .pic{
+	width: 168px;
+
+	height: 168px;
+	background: url(../images/ad1.jpg) no-repeat center center #fff;
+}
+.user-album-page .show-box li textarea{
+	resize:none;
+	width: 166px;
+	height: 60px;
+	border:1px solid #ddd;
+	margin: 0;
+	padding: 0;
+}
+.user-album-page .cover-btn{
+	line-height: 30px;
+}
+.user-album-page .tab{
+	padding-bottom: 20px;
+	height: 28px;
+	border-bottom: 1px solid #ddd;
+}
+.user-album-page .tab li{
+	float: left;
+	padding-right: 20px;
+	position: relative;
+}
+.user-album-page .tab li a{
+	display: block;
+	width: 100px;
+	text-align: center;
+	border: 1px solid #ddd;
+	height: 26px;
+	line-height: 26px;
+	color: #9A633C;
+}
+.user-album-page .tab li a.active{
+	background-color: #f5f5f5;
+	color: #666;
+}
+.user-album-page .tab li i{
+	background: none repeat scroll 0 0 #fff;
+    border-left: 1px solid #ddd;
+    border-radius: 2px;
+    border-top: 1px solid #ddd;
+    bottom: -27px;
+    display: none;
+    height: 10px;
+    left: 50%;
+    line-height: 10em;
+    margin-left: -15px;
+    overflow: hidden;
+    position: absolute;
+    transform: rotate(45deg);
+    width: 10px;
+}
+.user-album-page .sub{
+	padding: 20px 0;
+	overflow: hidden;
+}
+.user-album-page .sub p label{
+	line-height: 30px;
+}
+.user-album-page .sub .input-box input{
+	width: 700px;
+	height: 20px;
+	line-height: 20px;
+	border:1px solid #ddd;
+}
+.user-album-page .sub .textarea-box textarea{
+	resize:none;
+	border:1px solid #ddd;
+
+	width: 700px;
+	height: 60px;
+	line-height: 30px;
+}
+.user-album-page .sub .btn-box{
+	float: right;
+}
+.user-album-page .sub .btn-box input{
+	background-color: #9A633C;
+	color: #fff;
+	width: 100px;
+	height: 34px;
+	line-height: 34px;
+	font-size: 14px;
+	border-radius: 5px;
+	border:1px solid #ddd;
+	margin-right: 246px;
+}
+.user-album-page .sub .btn-box input:hover{
+	background-color: #af7349;
+}
 .allstar00{
 	background-position: 0 -110px;
 }

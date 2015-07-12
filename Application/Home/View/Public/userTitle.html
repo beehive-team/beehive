@@ -1,14 +1,57 @@
+<script type="text/javascript">
+
+	function signUpdate(obj){
+		var info = $(obj).find('.info').val();
+		
+		$.post('updateSign',{brief:info},function(data){
+			$(obj).parents('.brief').hide();
+
+			$('p.bri').show().html(data).siblings('a').show();
+			signNull();
+			
+		})
+
+		return false;
+
+	}
+
+
+	function signNull(){
+		$.post('signNull',function(data){
+			if(!data==''){
+				$('p.bri').show();
+				$('i.edit').show();
+
+			}else{
+				$('i.edit').hide();
+				$('p.bri').siblings('i.signnull').show();
+			}
+
+		})
+	}
+
+	signNull();
+
+
+</script>
+
 <div class="user-info">
 	<div class="info-box f-left">
 		<img src="__PUBLIC__/images/face2.jpg"/>
 	</div>
 	<div class="user-name f-left">
 		<h3>Leevian</h3>
-		<p></p>
-		<i><a href="javascript:;">(添加签名档)</a></i>
+		
+		
+		
+
+		<i class="signnull"><a href="javascript:;">(添加签名档)</a></i>
+		
+		<p class="bri">{$data.sign}</p><i class="edit"><a href="javascript:;">(编辑)</a></i>
+		
 		<div class="brief">
-			<form>
-				<input type="text" name="introduce"/>
+			<form onsubmit="return signUpdate(this)">
+				<input class="info"type="text" name="introduce"/>
 				<input type="submit" value="修改"> 
 				<input type="button" value="取消"> 
 			</form>
@@ -27,8 +70,9 @@
 </div>
 <script type="text/javascript">
 
-	$('.user-name i a').click(function(){
-		$(this).hide();
-		$(this).parents('i').siblings('.brief').show();
+	$('.user-name a').click(function(){
+		$(this).parents('i').hide();
+		$('.brief').show();
+		$('p.bri').hide();
 	})
 </script>

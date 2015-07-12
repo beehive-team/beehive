@@ -47,9 +47,7 @@
 				    }
 				}); 
 
-				$('.img-box span a').on('click','.img-upload',function(){
-					
-				});
+				
 				$(document).on('click','.img-box span a',function(){
 					var img_box = $(this).parents('.img-box');
 					var i = $(img_box).index();
@@ -82,7 +80,48 @@
 					$(this).hide();
 				})
 
+
+
 			})
+
+
+			function faceUpdate(obj){
+
+				var faceImage = $(obj).siblings('.img-box').find('.big-img img').attr('src');
+				// alert(faceImage);
+				$.post('__CONTROLLER__/updateFace',{name:faceImage},function(data){
+					if(data=='true'){
+
+						$('.list-box a.face').unbind('click').addClass('active').find('span').html('（上传成功）');
+						$('.list-box .face-box').hide();
+
+					}
+
+				});
+
+
+				return false;
+			}
+
+			function introUpdate(obj){
+
+				var introInfo = $(obj).find('textarea').val();
+				
+				// alert(faceImage);
+				$.post('__CONTROLLER__/updateIntro',{intro:introInfo},function(data){
+					if(data=='true'){
+						$('.list-box a.sec').addClass('active').find('span').html('(更新成功)').unbind('click');
+						$('.list-box .textarea').hide();
+
+						
+					}
+
+				});
+
+
+				return false;
+			}
+
 		</script>
 		<!-- END 自定义 head -->
 	</head>
@@ -98,35 +137,38 @@
 				<div class="inner clearfix">
 					<div class="f-left con">
 						{:W('Common/userTitle')}
-						
-						<div class="set-info">
-							<h4>leevian,这里是你的主页，用来展示你的生活和发现，也是别人认识你的地方。完善你的个人资料，开始全新的豆瓣之旅吧。</h4>
-							<div class="list-box">
-								<a class="face" href="javascript:;">上传头像</a>
-								<div class="face-box">
-									<div class="img-box">
-										<div class="big-img">
-											<img src="__PUBLIC__/images/face3.jpg"/>
+
+						<empty name="$exits">
+
+							<div class="set-info">
+								<h4>leevian,这里是你的主页，用来展示你的生活和发现，也是别人认识你的地方。完善你的个人资料，开始全新的豆瓣之旅吧。</h4>
+								<div class="list-box">
+									<a class="face" href="javascript:;">上传头像<span></span></a>
+									<div class="face-box">
+										<div class="img-box">
+											<div class="big-img">
+												<img src="__PUBLIC__/images/face3.jpg"/>
+											</div>
+											<div class="small-img">
+												<img src="__PUBLIC__/images/face3.jpg"/>
+											</div>
 										</div>
-										<div class="small-img">
-											<img src="__PUBLIC__/images/face3.jpg"/>
-										</div>
+										<form onsubmit="return faceUpdate(this)">
+											<input class="face-upload"type="file" name="myfile"  data-url="__CONTROLLER__/faceUpload" multiple />
+											<input type="submit" value="更新"/>
+										</form>
 									</div>
-									<form>
-										<input class="face-upload"type="file" name="myfile"  data-url="__CONTROLLER__/faceUpload" multiple />
-										<input type="submit" value="更新"/>
-									</form>
+									<a class="sec"href="javascript:;">写一段自我介绍<span></span></a>
+									<div class="textarea">
+										<form onsubmit="return introUpdate(this)">
+											<textarea></textarea>
+											<input type="submit" value="更新"/>
+										</form>
+									</div>
 								</div>
-								<a class="sec"href="javascript:;">写一段自我介绍</a>
-								<div class="textarea">
-									<form>
-										<textarea></textarea>
-										<input type="submit" value="更新"/>
-									</form>
-								</div>
+								<p>以上选项也可以在页面右上角你的帐号中找到。</p>
 							</div>
-							<p>以上选项也可以在页面右上角你的帐号中找到。</p>
-						</div>
+						</empty>
 						<div class="section sec-1">
 							<h2><span></span>我喜欢<a href="">(全部)</a></h2>
 							<div class="list">

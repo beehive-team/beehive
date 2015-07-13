@@ -21,40 +21,40 @@
 		<table class="table table-bordered" style="width:75%;margin:10px auto;">
             <tr>
                 <th>编号</th>
-                <th>图书名</th>
-                <th>国内发行时间</th>
-                <th>国外发行时间</th>
+                <th>图书名称</th>
+                <th>出版时间</th>
                 <th>作者</th>
-				<th>国家/地区</th>
-				<th>字数</th>         
-                <th>简介</th>
-				<th>别名</th>
-				<th>年份</th>
-				<th>热销</th>
+                <th>出版社</th>
+				<th>ISBN</th>
+				<th>翻译者</th>         
+				<th>作者简介</th>
+				<th>封面</th>
 				<th>操作</th>
 			</tr>
 
 			
+			<foreach name="list" item="vo">
             <tr>
-	            <td>1</td>
-	            <td>细说PHP</td>
-	            <td>2015-05-28</td>
-	            <td>2014-08-08</td>
-	            <td>高罗峰</td>
-				<td>中国</td>
-				<td>XXXX</td>	
-	            <td>简介</td>
-	            <td>PHP</td>
-	            <td>2014</td>
-	            <td>是</td>
-				<td>
-					
-					<a class="btn btn-success" href="">编辑</a>
-					<a class="btn btn-primary" href="">删除</a>  
+	            <td>{$vo.id}</td>
+	            <td><a class="btn btn-default" href="">{$vo.name}</a></td>
+	            <td>{$vo.release_t}</td>
+	            <td>{$vo.writer}</td>
+	            <td>{$vo.publisher}</td>
+				
+				<td>{$vo.isbn}</td>		           	           
+	            <td>{$vo.translater}</td>
+	            <td>{$vo.w_brief}</td>
+	            <td>{$vo.book_cover}</td>
+
+
+				<td>					
+	            	<a class="btn btn-primary" href="__MODULE__/book/brief/id/{$vo.id}">查看</a>
+					<a class="btn btn-success" href="__CONTROLLER__/edit/id/{$vo.id}">编辑</a>
+					<a class="btn btn-danger" href="__CONTROLLER__/del/id/{$vo.id}">删除</a>  
 				
 				</td>
             </tr>
-           
+           </foreach>
         </table>
 	</body>
 </html>

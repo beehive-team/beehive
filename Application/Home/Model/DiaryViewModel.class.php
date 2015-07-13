@@ -9,5 +9,9 @@ class DiaryViewModel extends ViewModel {
     );
  
 
-   
+   protected $_auto = array(
+        
+        array('power','emp',3,'function'),
+        array('tolist','emp',3,'function')
+    );
 }

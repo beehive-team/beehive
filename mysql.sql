@@ -189,7 +189,8 @@ create table bee_d_t(
     time varchar(13),						-- 时间戳
  	browse tinyint,							-- 浏览设置
  	tolist tinyint,							-- 创建到蜂蜜
- 	hot int 								-- 点赞个数
+ 	hot int, 								-- 点赞个数
+ 	update_time varchar(13)					-- 修改时间
  )engine=InnoDB default charset=utf8;
 
  -- 照片表
@@ -198,6 +199,7 @@ create table bee_d_t(
  	name varchar(255),						-- 照片名
     time varchar(13),						-- 时间戳
  	a_id int unsigned,						-- 相册id
+ 	is_cover tinyint default 0,				-- 封面
 	foreign key (a_id) references bee_album(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 

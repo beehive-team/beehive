@@ -1556,3 +1556,11 @@ function subtext($text, $length)
     return mb_substr($text, 0, $length, 'utf8').'...';
     return $text;
 }
+
+function emp($field){
+    if(empty($field)){
+        return '0';
+    }else{
+        return '1';
+    }
+}

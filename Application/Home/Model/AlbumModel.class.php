@@ -24,6 +24,7 @@ class AlbumModel extends Model{
 
     //自动完成
     protected $_auto = array(
+        array('update_time','time',3,'function'),
         array('power','emp',3,'function'),
         array('tolist','emp',3,'function')
     );

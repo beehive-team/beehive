@@ -22,8 +22,6 @@ class UserModel extends Model{
     // );
 
     // 自动完成
-    protected $_auto = array(
-        array('password','md5',3,'function'),
-    );
+   
 }
 

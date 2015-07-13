@@ -6,8 +6,8 @@
 			</div>
 			<div class="list-box">
 				<ul>
-					<li><a href="">首页</a></li>
-					<li><a href="">我的蜂巢</a></li>
+					<li><a href="<?php echo U('Home/User/index');?>">首页</a></li>
+					<li><a href="<?php echo U('Home/User/myhome');?>">我的蜂巢</a></li>
 					<li><a href="">浏览发现</a></li>
 				</ul>
 			</div>

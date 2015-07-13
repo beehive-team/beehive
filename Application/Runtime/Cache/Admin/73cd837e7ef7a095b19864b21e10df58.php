@@ -76,6 +76,12 @@
 			      	<input name="file" type="file" style="width:35%;" >
 			    </div>
 		  	</div>
+		  	<div class="form-group">
+			   	<label for="inputEmail3" class="col-sm-2 control-label">选择类型</label>		    
+			        <div class="col-sm-10">
+			        	<?php if(is_array($lis)): foreach($lis as $key=>$vo): ?><input name="c_id[]" style="margin:6px 2px;"  type="checkbox" value="<?php echo ($vo["id"]); ?>"><?php echo ($vo["name"]); endforeach; endif; ?>
+			   	    </div>
+			</div>
 			
 			<label for="inputEmail3" class="col-sm-2 control-label">影片简介</label>
 		  	<textarea name="brief" value="" style="width:35%;margin-bottom:10px;" class="form-control" rows="3"></textarea>

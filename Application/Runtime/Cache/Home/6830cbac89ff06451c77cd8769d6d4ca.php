@@ -50,7 +50,7 @@
 						$(this).addClass('on');
 					}
 				})
-				$('.top li a').click(function(){
+				$('.top li a.icon').click(function(){
 					$('.top li img').hide();
 					$(this).parents('li').find('img').show();
 					$('.text .input-box textarea').addClass('active');
@@ -140,13 +140,7 @@
 
 				})
 
-				$('.info-box .info a.like').click(function(){
-					if($(this).hasClass('active')){
-						$(this).removeClass('active');
-					}else{
-						$(this).addClass('active');
-					}
-				})
+				
 
 
 
@@ -154,7 +148,7 @@
 		</script>
 		<!-- END 自定义 head -->
 	</head>
-	<body class="user-page user-index-page">
+	<body class="user-page user-home-page">
 		<div id="wrap">
 			<!-- START header -->
 		    <?php echo W('Common/allHeader');?>
@@ -200,9 +194,9 @@
 								</div>
 								<div class="list-box f-left">
 									<ul>
-										<li class="first"><a href="javascript:;"><span></span>说句话</a><img src="/beehive/Public/images/tri.png"/></li>
-										<li class="sec"><a href="javascript:;"><span class="second"></span>发照片</a><img src="/beehive/Public/images/tri.png"/></li>
-										<li><a class="thir"href="javascript:;"><span class="third"></span>写日记</a><img src="/beehive/Public/images/tri.png"/></li>
+										<li class="first"><a class="icon" href="javascript:;"><span></span>说句话</a><img src="/beehive/Public/images/tri.png"/></li>
+										<li class="sec"><a class="icon"href="javascript:;"><span class="second"></span>发照片</a><img src="/beehive/Public/images/tri.png"/></li>
+										<li><a class="thir"href=""><span class="third"></span>写日记</a><img src="/beehive/Public/images/tri.png"/></li>
 									</ul>
 							</div>
 							</div>

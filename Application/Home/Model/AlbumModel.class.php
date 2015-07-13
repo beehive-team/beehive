@@ -1,15 +1,16 @@
 <?php
 namespace Home\Model;
 use Think\Model;
-class DiaryModel extends Model{
+class AlbumModel extends Model{
     // 字段映射
     protected $_map = array(
         'authority'=>'power',
         'show'=>'browse',
         'bee'=>'tolist', 
         'ctime'=>'time',
-        'name'=>'title',
-        'user'=>'u_id'
+        'title'=>'name',
+        'user'=>'u_id',
+        'content'=>'des'
        
     );
     
@@ -23,10 +24,10 @@ class DiaryModel extends Model{
 
     //自动完成
     protected $_auto = array(
-        array('update_time','time',2,'function'),
         array('power','emp',3,'function'),
         array('tolist','emp',3,'function')
     );
+
 
     
 }

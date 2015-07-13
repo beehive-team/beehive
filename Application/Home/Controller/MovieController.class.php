@@ -13,4 +13,7 @@ class MovieController extends CommonController {
     public function comment(){
     	$this->display();
     }
+    public function detail(){
+        $this->display();
+    }
 }

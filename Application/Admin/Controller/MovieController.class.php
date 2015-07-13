@@ -22,21 +22,24 @@ class MovieController extends Controller {
 
    
     public function add(){
-    	  $m = M('mclassify');
+    	$m = M('mclassify');
 
         $list = $m -> where('pid=2') -> select();
         $li = $m -> where('pid=3') -> select();
+        $lis = $m -> where('pid=1') -> select();
         $this->assign('list',$list);
         $this->assign('li',$li);
+        $this->assign('lis',$lis);
         //var_dump($li);
         //var_dump($list);exit; 
+        //var_dump($lis);
         $this->display();    
    	}
     public function doadd(){ 
 
         $_POST['crelease_t'] = strtotime($_POST['crelease_t']);
         $_POST['orelease_t'] = strtotime($_POST['orelease_t']);
-        //var_dump($_POST);
+        var_dump($_POST);exit;
         $m = M('movie');
         $result=$m->add($_POST);
         if($result){

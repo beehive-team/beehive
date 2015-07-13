@@ -7,9 +7,14 @@
 		<!-- START 自定义 head -->
 		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
 		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/fancybox/jquery.fancybox.css" />
+
 		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
 		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
 		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		<script type="text/javascript" src="__PUBLIC__/js/fancybox/jquery.fancybox.js"></script>
+
+
 		
 
 		<script type="text/javascript">
@@ -23,6 +28,25 @@
 						$(this).removeClass('active');
 					}
 				})
+
+
+				$('a.modifytag').click(function(){
+					var diaryId =$(this).attr('rel');
+					$('#pop-1').find('.hid').val(diaryId);
+					$.post('__CONTROLLER__/getTag',{diaryId:diaryId},function(data){
+						var info='';
+						for(var o in data){
+							info += data[o].name;
+							info +=' ';
+							$('#pop-1').find('.input-box .tag').val(info);
+						}
+					},'json')
+				})
+
+				$('a.modifytag').fancybox({
+            
+            	})
+
 				
 			})
 		</script>
@@ -60,12 +84,12 @@
 
 											</div>
 											<div class="bro">
-												<a href="">0回应</a>
+												{$vo.power}
 												<span>0人浏览</span>
-												<a href="">>修改标签</a>
-												<a href="">>修改</a>
-												<a href="">>删除</a>
-												<strong>仅朋友可见</strong>
+												<a class="modifytag"href="#pop-1" rel="{$vo.diaryid}">>修改标签</a>
+												<a href="{:U('/Home/User/modifyDiary')}?id={$vo.diaryid}">>修改</a>
+												<a href="{:U('/Home/User/deleteDiary')}?id={$vo.diaryid}">>删除</a>
+												<strong>{$vo.browse}</strong>
 											</div>
 											<a class="like" href="javascript:;"><span></span>喜欢</a>  
 										</div>
@@ -89,8 +113,29 @@
 						</div>
 						
 					</div>
+					
 				</div>
+				<div class="inner">
+					<div id="pop-1">
+						<div class="cont">
+							<div class="title">
+								<h4>修改标签</h4>
+							</div>
+							<div class="form">
+								<form action="__CONTROLLER__/modifyTag" method="post">
+									<div class="input-box">
+										<input type="hidden" name="diaryId"class="hid"/>
+										<input type="text"class="tag" name="tags" placeholder="用逗号隔开"/>
+									</div>
+									<div class="btn-box">
+										<input type="submit" value="保存"/>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 				</div>
+			</div>
 		</div>
 		<!-- START footer -->
 		    {:W('Common/commonFooter')}

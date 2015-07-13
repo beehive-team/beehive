@@ -159,8 +159,8 @@ create table bee_diary(
 	content longtext,						-- 日记内容
 	time varchar(13),						-- 日记发表时间
 	u_id int unsigned,						-- 用户id
-	power tinyint,							-- 权限设置（可回复）
-	browse tinyint,							-- 设置可见
+	power tinyint,							-- 权限设置（可回复） 1为不可回复
+	browse tinyint,							-- 设置可见 1为所有人可见 0 为仅朋友可见 2仅自己可见
     hot int,								-- 点赞个数
  	tolist tinyint, 						-- 创建到蜂蜜
 	update_time varchar(13),				-- 日记修改时间	
@@ -199,6 +199,22 @@ create table bee_d_t(
     time varchar(13),						-- 时间戳
  	a_id int unsigned,						-- 相册id
 	foreign key (a_id) references bee_album(id) on update cascade on delete CASCADE
+)engine=InnoDB default charset=utf8;
+
+-- 相册标签表
+create table bee_atag(
+	id int unsigned not null auto_increment primary key,
+	name varchar(255) unique				-- 相册标签名
+)engine=InnoDB default charset=utf8;
+
+-- 相册标签映射表
+create table bee_a_t(
+	id int unsigned not null auto_increment primary key,
+	a_id int unsigned,						-- 日记id
+	t_id int unsigned,						-- 标签id
+	foreign key (a_id) references bee_album(id) on update cascade on delete CASCADE,
+	foreign key (t_id) references bee_atag(id) on update cascade on delete CASCADE
+
 )engine=InnoDB default charset=utf8;
 
 -- 用户关注表
@@ -293,7 +309,7 @@ create table bee_s_i(
 )engine=InnoDB default charset=utf8;
 
 -- 动态表
-create table trend(
+create table bee_trend(
 	id int unsigned not null auto_increment primary key,
 	action varchar(255) not null,
 	time varchar(13) not null,

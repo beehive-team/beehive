@@ -5,12 +5,26 @@ class UserController extends CommonController {
     protected $faceName;
     protected $facePath;
     protected $userId;
+    protected $time;
 
     public function __construct(){
-
+        
         parent::__construct();
         $this->userId = $_SESSION['home']['user_id'];
+        $this->time=time();
     }
+
+    //  个人动态保存
+    public function trend($action,$time,$do_id){
+        $model = M('trend');
+        $data['action']=$action;
+        $data['time']=$time;
+        $data['u_id']=$this->userId;
+        $data['do_id']=$do_id;
+        $model->add($data);
+
+    }
+
 
 
     // 显示首页
@@ -102,10 +116,35 @@ class UserController extends CommonController {
             $tag[] = $model->field('name')->where("d_id=$did")->select();
             $data[$key]['tag'] = $tag;
             $data[$key]['tag'] = $data[$key]['tag'][0];
+
+            switch ($data[$key]['browse']) {
+                case '0':
+                    $data[$key]['browse']='仅朋友可见';
+                    break;
+                case '1':
+                    $data[$key]['browse']='所有人可见';
+                    break;
+                case '2':
+                    $data[$key]['browse']='仅自己可见';
+                    break;
+                
+            }
+            switch ($data[$key]['power']) {
+                case '1':
+                    $data[$key]['power'] = '不能回应';
+                    break;
+                
+                case '0' :
+                    $data[$key]['power'] = '<a href="">回应</a>';
+                    break;
+            }
+
         }
     
-        
-        var_dump($data);
+       
+        // var_dump($data);
+
+
         $this->assign('data',$data);
         // var_dump($data);
         $this->display();
@@ -124,11 +163,18 @@ class UserController extends CommonController {
         $arr = array();
         //var_dump($_POST);
         $data =$_POST;
+        if(empty($data['power'])){
+            $data['power']='0';
+        }
+        if(empty($data['tolist'])){
+            $data['tolist']='0';
+        }
+        
         $tags = $data['tags'];
         unset($data['tags']);
         
         
-        $data['ctime'] = time();
+        $data['ctime'] = $this->time;
         // var_dump($data);
         
         $tags = explode(' ',$tags);
@@ -149,8 +195,8 @@ class UserController extends CommonController {
 
         $diary = D('diary');
         $data = $diary->create($data);
-        var_dump($data);
-        var_dump($id_arr);
+        //var_dump($data);
+        // var_dump($id_arr);
         $data['u_id'] = $this->userId;
         if($d_id = $diary->add($data)){
                 
@@ -162,7 +208,10 @@ class UserController extends CommonController {
                 $dtarr['t_id'] = $id_arr[$i];
                 $model->add($dtarr);
             }
+
+            $this->trend('diary',$this->time,$d_id);
             $this->success('日记发表成功',U('Home/User/diary'));
+
 
         }else{
             $this->error('日记发表失败,请重试');
@@ -232,6 +281,8 @@ class UserController extends CommonController {
         
         // var_dump($_SESSION);
         
+
+
         $model->image = $_POST['name'];
         if($model->where("id=$this->userId")->save()){
             echo 'true';
@@ -281,6 +332,155 @@ class UserController extends CommonController {
             echo $result;
         }
         
+    }
+
+    //返回当前日记的标签
+    public function getTag(){
+        $diaryid = $_POST['diaryId'];
+        $model = D('DiaryView');
+        $result =$model->field('name,tagId')->where("diary.id=$diaryid")->select();
+
+        $this->ajaxReturn($result);
+    }
+
+
+    // 修改当前日记的标签
+    public function modifyTag(){
+        $arr = array();
+        $data = $_POST;
+        $d_id = $_POST['diaryId'];
+        // var_dump($data);
+        $tags = $data['tags'];
+        $tags = explode(' ',$tags);
+        $model = M('dtag');
+        $id_arr = array();
+        for($i = 0;$i<count($tags);$i++){
+            
+            $arr['name'] = $tags[$i];
+            if(!$id = $model->where($arr)->getField('id')){
+                $insert_id = $model->add($arr);
+                // echo $insert_id;
+                array_push($id_arr,$insert_id);
+            }else{
+                array_push($id_arr,$id);
+            }
+        }
+        // var_dump($id_arr);
+
+        $dtarr = array();
+        $model= M('d_t');
+        $model->where("d_id=$d_id")->delete();
+        for($i=0;$i<count($id_arr);$i++){
+            $dtarr['d_id'] = $d_id;
+            $dtarr['t_id'] = $id_arr[$i];
+            $model->add($dtarr);
+        }
+    }
+
+    // 修改日记页面显示
+    public function modifyDiary(){
+        $diaryId = $_GET['id'];
+        $model = M('diary');
+        $result = $model->where("id=$diaryId")->find();
+        // var_dump($result);
+        $this->assign('data',$result);
+        $this->display();
+    }
+
+    //更新日记
+    public function updateDiary(){
+        // var_dump($_POST);
+
+        $data = $_POST;
+        // if(empty($data['power'])){
+        //     $data['power']='0';
+        // }
+        $id = $data['id'];
+        $model = D('diary');
+        $data = $model->create($data);
+        // var_dump($data);
+        
+        if($model->where("id=$id")->save()){
+            $this->success('修改成功',U('Home/User/diary'));
+        }else{
+            $this->error('保存失败');
+        }
+        
+    }
+
+    //删除日记
+    public function deleteDiary(){
+        $data = $_POST;
+        $id = $_GET['id'];
+        $model = D('diary');
+        if($model->where("id=$id")->delete()){
+            $this->success('删除成功');
+        }else{
+            $this->error('删除失败');
+
+        }
+    }
+
+    //创建新相册 
+    public function newAlbum(){
+        $data = $_POST;
+        $data['ctime']=$this->time;
+
+        
+        
+        $tags = $data['tag'];
+        unset($data['tag']);
+        
+        
+        $data['ctime'] = $this->time;
+        // var_dump($data);
+        
+        $tags = explode(' ',$tags);
+       // var_dump($tags);
+        $model = M('atag');
+        $id_arr = array();
+        for($i = 0;$i<count($tags);$i++){
+            
+            $arr['name'] = $tags[$i];
+            if(!$id = $model->where($arr)->getField('id')){
+                $insert_id = $model->add($arr);
+                // echo $insert_id;
+                array_push($id_arr,$insert_id);
+            }else{
+                array_push($id_arr,$id);
+            }
+        }
+        var_dump($data);
+        $album = D('album');
+        $data = $album->create($data);
+        var_dump($data);
+        
+        // var_dump($id_arr);
+        $data['u_id'] = $this->userId;
+        if($a_id = $album->add($data)){
+                
+            $dtarr = array();
+            $model= M('a_t');
+            for($i=0;$i<count($id_arr);$i++){
+                
+                $dtarr['a_id'] = $a_id;
+                $dtarr['t_id'] = $id_arr[$i];
+                $model->add($dtarr);
+            }
+
+            $this->trend('album',$this->time,$a_id);
+            $this->success('相册添加成功',U("Home/User/photoList?id=$a_id"));
+
+
+        }else{
+            $this->error('相册添加失败,请重试');
+        }        
+
+    }
+
+    public function photoList(){
+        
+        $this->display();
     }
 
 

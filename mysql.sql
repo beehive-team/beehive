@@ -199,7 +199,9 @@ create table bee_d_t(
  	name varchar(255),						-- 照片名
     time varchar(13),						-- 时间戳
  	a_id int unsigned,						-- 相册id
+ 	path varchar(255),						-- 图片路径名
  	is_cover tinyint default 0,				-- 封面
+ 	descr varchar(255),						-- 图片描述
 	foreign key (a_id) references bee_album(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 

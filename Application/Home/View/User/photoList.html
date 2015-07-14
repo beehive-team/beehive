@@ -20,7 +20,7 @@
 		</script>
 		<!-- END 自定义 head -->
 	</head>
-	<body class="user-page user-album-page">
+	<body class="user-page user-photo-page">
 		<div id="wrap">
 			<!-- START header -->
 		    {:W('Common/allHeader')}
@@ -32,18 +32,42 @@
 				<div class="inner clearfix">
 					<div class="right">
 						<div class="title">
-							<h3>我的相册-第一个相册</h3>
+							<h3>我的相册-{$data['0']['album_name']}</h3>
 							<div class="bread-box">
 								<ul>
 									<li>><a href="">修改相册属性</a></li>
-									<li>><a href="">添加照片</a></li>
+									<li>><a href="{:U('Home/User/addPhoto')}?id={$a_id}">添加照片</a></li>
 									<li>><a href="">返回我的相册首页</a></li>
 								</ul>
 							</div>
 						</div>
-						<div class="photo-list">
-							<p>这个相册现在还没有照片 , 你可以<a href="">添加照片</a></p>
+						<div class="show-photo">
+							<empty name="photo">
+								现在还没有照片 , 你可以<a href="{:U('Home/User/addPhoto')}?id={$a_id}">添加照片</a></p>
+							<else/>
+								<ul>
+
+									<foreach name="photo" item="vo" key="k">
+									<li><a href=""><img src="__PUBLIC__{$vo['path']}/{$vo['name']}"></a></li>
+									</foreach>
+								</ul>
+							</empty>
 						</div>
+						<div class="con">
+							<p>{$data['0']['des']}</p>
+							标签：<foreach name="tags" item="vo" key="k"><a href="">{$vo['atag_name']}</a></foreach>
+						</div>
+						<div class="share-box">
+							<a class="share"href="">分享</a>
+							<a href="javascript:;" class="like"><span></span>喜欢</a>
+						</div>
+						<div class="info-box">
+							<p>1人浏览&nbsp;{$p_n}张照片&nbsp;&nbsp;{$data['0']['time']}&nbsp;创建</p>
+							<a href="javascript:;">>添加标签</a>
+							
+							<a class="f-right"href="">>删除相册</a>
+						</div>
+						
 					</div>
 					
 				</div>

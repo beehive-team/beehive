@@ -61,37 +61,7 @@
 				}); 
 				
 
-				$('.tab a').click(function(){
-
-					var index =  $(this).attr('rel');
-					var subIndex = '.sub'+index;
-					$('.sub').hide();
-					$(subIndex).show();
-					$('.tab a').removeClass('active').attr('href','javascript:;');
-					$(this).addClass('active');
-					$('.tab li i').hide();
-					$(this).siblings('i').show();
-
-				})
-
-				var url = window.location.hash;
-				//alert(url);
-				if(url=='#1'){
-					$('.sub2').hide();
-					$('.sub1').show();
-					$('.tab a.tab2').removeClass('active').attr('href','javascript:;');
-					$('.tab a.tab1').addClass('active').attr('href','#');
-					$('.tab a.tab1').siblings('i').show();				
-					$('.tab a.tab2').siblings('i').hide();		
-				}else if(url=='#2'){
-					$('.sub1').hide();
-					$('.sub2').show();
-					$('.tab a.tab1').removeClass('active').attr('href','javascript:;').hide();
-					$('.tab a.tab2').addClass('active').attr('href','#');
-					$('.tab a.tab2').siblings('i').show();				
-					$('.tab a.tab1').siblings('i').hide();
-
-				}
+				
 
 				$(document).on('click','.cover-btn a',function(){
 					$(this).parents('li').remove();
@@ -124,7 +94,7 @@
 							<input type="hidden" name="count" class="upload"/>
 							<div class="photo-box">
 								<div class="input-box">
-									
+									<input type="hidden" name="album" value="{$a_id}" />
 									<span><input data-url="__CONTROLLER__/photoUpload" multiple name="myfile[]"type="file"/>选择图片上传</span>
 									<strong>已上传0张</strong>
 								</div>
@@ -138,59 +108,15 @@
 								</div>
 
 							</div>
-							<h3 id="2">上传照片：</h3>
-							<div class="tab">
-								<ul>
-									<li><a class="tab1"rel="1"href="javascript:;">已有相册</a><i></i></li>
-									<li><a class="tab2"rel="2"href="javascript:;">新建相册</a><i></i></li>
-								</ul>
-							</div>
-							<div class="sub1 sub">
-								<foreach name="data" item="vo" key="k">
-									<div class="radio-box">
-										<label><input type="radio" checked name="album" value="{$vo[id]}">{$vo[name]}</label>
-									
-									</div>
-								</foreach>
-								<div class="checkbox">
-									<label><input type="checkbox" name="bee"/>创建并同步到豆列</label>
-								</div>
+				
+								
+							<div class="sub">
 								<div class="btn-box">
 									<input type="submit" name="old"value="保存"/>
 								</div>
-								
 							</div>
-							<div class="sub2 sub">
-								
-								<p><label for="title">相册名称（必填）</label></p>
-								<div class="input-box">
-									<input type="text" name="title" />
-								</div>
-								<p><label for="title">相册描述</label></p>
-								<div class="textarea-box">
-									<textarea name="content"></textarea>
-								</div>
-								<p><label for="tag">标签(用逗号分隔)</label></p>
-								<div class="input-box">
-									<input type="text" name="tag" />
-									
-								</div>
-								<p><label for="show">设置可见：</label></p>
-								<label><input type="radio"checked name="show" value="1">所有人可见</label>
-								<label><input type="radio" name="show" value="0">仅朋友可见</label>
-								<label><input type="radio" name="show" value="2">仅自己可见</label>
-								<p><label>权限设置：</label></p>
-								<div class="checkbox">
-									<label><input type="checkbox" value="1" name="authority"/>不允许回应</label>
-								</div>
-								<div class="checkbox">
-									<label><input type="checkbox" value="1" name="bee"/>创建并同步到豆列</label>
-								</div>
-								<div class="btn-box">
-									<input type="submit"name="new" value="保存"/>
-								</div>
-								
-							</div>
+							
+						
 						</form>
 					</div>
 

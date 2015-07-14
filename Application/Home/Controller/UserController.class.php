@@ -481,11 +481,17 @@ class UserController extends CommonController {
                 $album = D('album');
                 $image = $data;
                 $data = $album->create($data);
-                var_dump($data);
-                var_dump($image);
+                // var_dump($data);
+                
             
                 unset($image['myfile']);
-                var_dump($image);
+                unset($image['title']);
+                unset($image['authority']);
+                unset($image['bee']);
+                unset($image['ctime']);
+                unset($image['album']);
+                unset($image['content']);
+                $image['time'] = $this->time;
                 
                 // var_dump($id_arr);
                 $data['u_id'] = $this->userId;
@@ -500,7 +506,19 @@ class UserController extends CommonController {
                         $model->add($dtarr);
                     }
 
-                    exit;
+                    $image['a_id'] = $a_id;
+                    var_dump($image);
+                    $arr = array();
+                    $j=0;
+                    foreach ($image as $key => $value) {
+                        $arr[$j] = explode('_',$key);
+                        $arr[$j][] = $value;
+                        $j++;
+                    }
+                    // var_dump($arr);
+                    $this->insertPhoto($arr,$a_id);
+
+                    
                     $this->trend('album',$this->time,$a_id);
 
                     $this->success('相册添加成功',U("Home/User/photoList?id=$a_id"));
@@ -519,7 +537,7 @@ class UserController extends CommonController {
             unset($data['title']);
             unset($data['tag']);
             unset($data['content']);
-            var_dump($data);
+            // var_dump($data);
             $arr = array();
             $j=0;
             foreach ($data as $key => $value) {
@@ -527,42 +545,9 @@ class UserController extends CommonController {
                 $arr[$j][] = $value;
                 $j++;
             }
-            var_dump($arr);
+            // var_dump($arr);
             
-            foreach($arr as $key=>$value){
-                if($value['1']=='imgName'){
-                    $imgId = $value['0']; 
-                    $imgName= $value['2'];
-                    $imgName = explode('_',$imgName);
-                    $imgName[0]=rtrim($imgName[0],'/thumb');
-                    // var_dump($imgName);
-                    $photo = M('photo');
-                    $p['path']=$imgName['0'];
-                    $p['name']=$imgName['1'];
-                    $p['a_id']=$data['album'];
-                    
-                    for($i=0;$i<count($arr);$i++){
-                        if($arr[$i]['1']=='desc'&&$arr[$i]['0']==$imgId){
-                            $p['descr'] = $arr[$i]['2'];
-                        }
-
-                        if($arr[$i]['0']=='cover'&&$arr[$i]['1']==$imgId){
-                            $p['is_cover']='1';
-                        }
-                    }
-                    // var_dump($p);
-
-                    exit;                   
-                    $photo = M('photo');
-                    if($photo->add($p)){
-                        $this->success('照片发布成功');
-                    }else{
-                        $this->error('照片发布失败');
-
-                    }
-
-                }
-            }
+            $this->insertPhoto($arr,$data['album']);
 
             
 
@@ -573,13 +558,74 @@ class UserController extends CommonController {
 
     }
 
+    //处理照片数据
+    public function insertPhoto($arr,$a_id){
+        var_dump($arr);
+        foreach($arr as $key=>$value){
+            if($value['1']=='imgName'){
+                $imgId = $value['0']; 
+                $imgName= $value['2'];
+                $imgName = explode('_',$imgName);
+                $imgName[0]=rtrim($imgName[0],'/thumb');
+                // var_dump($imgName);
+                $photo = M('photo');
+                $p['path']=$imgName['0'];
+                $p['name']=$imgName['1'];
+                $p['a_id']=$a_id;
+                $p['time']=$this->time;
+                
+                for($i=0;$i<count($arr);$i++){
+                    if($arr[$i]['1']=='desc'&&$arr[$i]['0']==$imgId){
+                        $p['descr'] = $arr[$i]['2'];
+                    }
 
-    public function getPhotoArray($arr){
+                    if($arr[$i]['0']=='cover'&&$arr[$i]['1']==$imgId){
+                        $p['is_cover']='1';
+                    }
+                    
+                    $photo = M('photo');
+                    // var_dump($p);
+                }
+                if($insert_id = $photo->add($p)){
+                    $this->trend('photo',$this->time,$insert_id);
+                    $this->success('照片发布成功',U("Home/User/PhotoList/id/$a_id"));
+                }else{
+                    $this->error('照片发布失败');
+
+                }
+
+
+            }
+        }
+       
 
     }
+    //显示相应相册的照片列表
     public function photoList(){
-        
+        $a_id = $_GET['id'];
+        $album = D('AlbumView');
+        $result =$album->field('album_name,des,power,u_id,a_time,hot,browse')->where("album.id=$a_id")->select();
+        // var_dump($result);
+        $photo = M('photo');
+        $p_d = $photo->where("a_id=$a_id")->select();
+        $p_n = count($p_d);
+        // var_dump($p_d);
+        $tags = $album->field('atag_name,atag_id')->where("album.id=$a_id")->select();
+        var_dump($tags);
+        $this->assign('tags',$tags);
+        $this->assign('p_n',$p_n);
+        $this->assign('photo',$p_d);
+        $this->assign('data',$result);
+        $this->assign('a_id',$a_id);
         $this->display();
+    }
+
+    //添加照片
+    public function addPhoto(){
+        $a_id = $_GET['id'];
+        $this->assign('a_id',$a_id);
+        $this->display();
+
     }
 
 

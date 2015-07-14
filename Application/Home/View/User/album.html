@@ -35,30 +35,33 @@
 		    {:W('Common/userHeader')}
 
 			<!-- END header -->
-			
 			<div id="main">
 				<div class="inner clearfix">
 					{:W('Common/userTitle')}
 
 					<div class="f-left con">
 						<div class="clearfix album-list">
-							<ul>
-								<foreach name="data" item="vo" key="k">
-								<li>
-									<div class="img-box">
-										<a href="{:U('Home/User/photoList')}?id={$vo.album_id}">
-										
-											<img src="__PUBLIC__{$vo['cover']}"/>
-										
-										</a>
-									</div>
-									<div class="info">
-										<a href="{:U('Home/User/photoList')}?id={$vo.album_id}">{$vo.album_name}</a>
-										<p>{$vo.count}张照片<span>{$vo.update_time|date='Y-m-d',###}更新</span></p>
-									</div>
-								</li>
-								</foreach>
-							</ul>
+                            <notempty name="data">
+                                <ul>
+                                    <foreach name="data" item="vo" key="k">
+                                    <li>
+                                        <div class="img-box">
+                                            <a href="{:U('Home/User/photoList')}?id={$vo.album_id}">
+                                            
+                                                <img src="__PUBLIC__{$vo['cover']}"/>
+                                            
+                                            </a>
+                                        </div>
+                                        <div class="info">
+                                            <a href="{:U('Home/User/photoList')}?id={$vo.album_id}">{$vo.album_name}</a>
+                                            <p>{$vo.count}张照片<span>{$vo.update_time|date='Y-m-d',###}更新</span></p>
+                                        </div>
+                                    </li>
+                                    </foreach>
+                                </ul>
+                            <else />
+                                <p>您还没有相册 创建看看！</p>
+                            </notempty>
 						</div>
 					</div>
 					<div class="f-right sider">

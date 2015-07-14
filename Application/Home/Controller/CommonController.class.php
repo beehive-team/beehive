@@ -72,8 +72,10 @@ class CommonController extends Controller{
 
         $data['ctime'] = time();
         //var_dump($data);
+        $data['key'] = md5($data['key']);
         $data = $model->create($data);
-        //var_dump($data);
+        // var_dump($data);
+        // exit;
         if(!$data){
             $this->error($model->getError());
             exit;
@@ -102,6 +104,7 @@ class CommonController extends Controller{
         }else{
             $method = 'youxiang';
         }
+        $data['key']=md5($data['key']);
         $data[$method]=$info;
         $model = D('User');
         $data = $model->create($data);

@@ -2026,6 +2026,7 @@ a.like.active span{
 }
 .user-album-page .album-list li img{
 	width: 170px;
+	height: 170px;
 }
 .user-album-page .album-list li .info p{
 	clear: both;
@@ -2110,7 +2111,7 @@ a.like.active span{
 	width: 168px;
 
 	height: 168px;
-	background: url(../images/ad1.jpg) no-repeat center center #fff;
+	background: url(../images/photo_album.png) no-repeat center center #fff;
 }
 .user-album-page .show-box li textarea{
 	resize:none;
@@ -2119,6 +2120,14 @@ a.like.active span{
 	border:1px solid #ddd;
 	margin: 0;
 	padding: 0;
+}
+.user-album-page .cover-btn a{
+	color: #9A633C;
+	float: right;
+}
+.user-album-page .cover-btn a:hover{
+	color: #fff;
+	background-color: #9A633C;
 }
 .user-album-page .cover-btn{
 	line-height: 30px;

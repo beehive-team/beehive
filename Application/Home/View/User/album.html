@@ -48,13 +48,13 @@
 									<div class="img-box">
 										<a href="{:U('Home/User/photoList')}?id={$vo.album_id}">
 										
-											<img src="__PUBLIC__{$vo['p_cover']}"/>
+											<img src="__PUBLIC__{$vo['cover']}"/>
 										
 										</a>
 									</div>
 									<div class="info">
 										<a href="{:U('Home/User/photoList')}?id={$vo.album_id}">{$vo.album_name}</a>
-										<p>{$vo.count_p}张照片<span>{$vo.update_time|date='Y-m-d',###}更新</span></p>
+										<p>{$vo.count}张照片<span>{$vo.update_time|date='Y-m-d',###}更新</span></p>
 									</div>
 								</li>
 								</foreach>

@@ -44,15 +44,22 @@
 				    		//alert(1)
 				    		return;
 				    	}
-				    	var node='<li><input class="hid" type="hidden" name="imgName" /><div class="pic"></div><div class="textarea-box"><textarea placeholder="增加描述"></textarea></div><div class="cover-btn"><label><input type="radio" name="iscover" value="1">设为封面</label></div></li>';
+				    	img_src = img_src.replace(/"/g,'');
+				    	var img_name = i+'_imgName';
+				    	var desc =i+'_desc';
+				    	
+				    	var node='<li><input class="hid" type="hidden" name="'+img_name+'" /><div class="pic"></div><div class="textarea-box"><textarea placeholder="增加描述" name="'+desc+'"></textarea></div><div class="cover-btn"><label><input type="radio" checked  name="cover" value='+i+'>设为封面</label><a class="del" href="javascript:;">删除</a></div></li>';
 				    	$('.show-box ul').append(node);
 				    	var last = $('.show-box ul li').last();
 				    	$(last).find('.hid').attr('value',img_src);
+				    	img = '__PUBLIC__'+img_src;
+				    	// alert(img);
 
-				    	$(last).find('.pic').css({background:'url('+img_src+') no-repeat center center #fff'});
+				    	$(last).find('.pic').css({background:'url(__PUBLIC__/'+img_src+') no-repeat center center #fff'});
 				    	$('.tip').hide();
 				    	i++;
 				    	$('strong').html('已上传'+i+'张');
+				    	$('input.upload').val(i);
 
 				    	
 				    },
@@ -94,6 +101,17 @@
 					$('.tab a.tab1').siblings('i').hide();
 
 				}
+
+				$(document).on('click','.cover-btn a',function(){
+					$(this).parents('li').remove();
+					i--;
+				   	$('strong').html('已上传'+i+'张');
+
+				   	$('input.upload').val(i);
+
+					// alert(img_all);
+
+				})
 				
 			})
 		</script>
@@ -111,45 +129,48 @@
 				<div class="inner clearfix">
 					<div class="content">
 						<h2>上传照片</h2>
-						<div class="photo-box">
-							<div class="input-box">
-								
-								<span><input data-url="__CONTROLLER__/photoUpload" multiple name="myfile[]"type="file"/>选择图片上传</span>
-								<strong>已上传0张</strong>
-							</div>
-
-							<div class="show-box">
-								<p class="tip">现在还没有照片哦~请添加</p>
-								<ul>
-
-								</ul>	
-
-							</div>
-
-						</div>
-						<h3 id="2">上传照片：</h3>
-						<div class="tab">
-							<ul>
-								<li><a class="tab1"rel="1"href="javascript:;">已有相册</a><i></i></li>
-								<li><a class="tab2"rel="2"href="javascript:;">新建相册</a><i></i></li>
-							</ul>
-						</div>
-						<div class="sub1 sub">
-							<form>
-								<div class="radio-box">
-									<label><input type="radio" name="album" value="1">第一个相册</label>
+						<form action="__CONTROLLER__/newAlbum" method="post">
+							<input type="hidden" name="count" class="upload"/>
+							<div class="photo-box">
+								<div class="input-box">
 									
+									<span><input data-url="__CONTROLLER__/photoUpload" multiple name="myfile[]"type="file"/>选择图片上传</span>
+									<strong>已上传0张</strong>
 								</div>
+
+								<div class="show-box">
+									<p class="tip">现在还没有照片哦~请添加</p>
+									<ul>
+
+									</ul>	
+
+								</div>
+
+							</div>
+							<h3 id="2">上传照片：</h3>
+							<div class="tab">
+								<ul>
+									<li><a class="tab1"rel="1"href="javascript:;">已有相册</a><i></i></li>
+									<li><a class="tab2"rel="2"href="javascript:;">新建相册</a><i></i></li>
+								</ul>
+							</div>
+							<div class="sub1 sub">
+								<foreach name="data" item="vo" key="k">
+									<div class="radio-box">
+										<label><input type="radio" checked name="album" value="{$vo[id]}">{$vo[name]}</label>
+									
+									</div>
+								</foreach>
 								<div class="checkbox">
 									<label><input type="checkbox" name="bee"/>创建并同步到豆列</label>
 								</div>
 								<div class="btn-box">
-									<input type="submit" value="保存"/>
+									<input type="submit" name="old"value="保存"/>
 								</div>
-							</form>
-						</div>
-						<div class="sub2 sub">
-							<form action="__CONTROLLER__/newAlbum" method="post">
+								
+							</div>
+							<div class="sub2 sub">
+								
 								<p><label for="title">相册名称（必填）</label></p>
 								<div class="input-box">
 									<input type="text" name="title" />
@@ -164,7 +185,7 @@
 									
 								</div>
 								<p><label for="show">设置可见：</label></p>
-								<label><input type="radio" name="show" value="1">所有人可见</label>
+								<label><input type="radio"checked name="show" value="1">所有人可见</label>
 								<label><input type="radio" name="show" value="0">仅朋友可见</label>
 								<label><input type="radio" name="show" value="2">仅自己可见</label>
 								<p><label>权限设置：</label></p>
@@ -175,10 +196,11 @@
 									<label><input type="checkbox" value="1" name="bee"/>创建并同步到豆列</label>
 								</div>
 								<div class="btn-box">
-									<input type="submit" value="保存"/>
+									<input type="submit"name="new" value="保存"/>
 								</div>
-							</form>
-						</div>
+								
+							</div>
+						</form>
 					</div>
 
 			

@@ -24,7 +24,15 @@
 					pager:true,
 					controls:true,
 				});
+				$('.tab a').click(function(){
+					var c_id = $(this).attr('rel');
+					$.post('__CONTROLLER__/getCata',{c_id:c_id},function(data){
+						alert(data);
+					})
+				})
+			
 			})
+			
 		</script>
 		<!-- END 自定义 head -->
 	</head>
@@ -92,23 +100,11 @@
 							<form>
 								<div class="tab">
 									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
+									<a href="">最新</a>
+									<foreach name="list" item="vo">
+									<a class="oa1" rel="{$vo.id}" href="javascript:;">{$vo.name}</a>
+									</foreach>
+									
 								</div>
 								<div class="chose">
 									<div class="sort f-left">

@@ -39,9 +39,10 @@ class MovieController extends Controller {
 
         $_POST['crelease_t'] = strtotime($_POST['crelease_t']);
         $_POST['orelease_t'] = strtotime($_POST['orelease_t']);
-        var_dump($_POST);exit;
+        //var_dump($_POST);
         $m = M('movie');
-        $result=$m->add($_POST);
+        $insertId=$m->add($_POST);
+        /*
         if($result){
             $insertId = $result;
             //echo $insertId;
@@ -50,35 +51,62 @@ class MovieController extends Controller {
         }else{
             $this->error('添加失败');
         }
-
+        */
+         
         $upload = new \Think\Upload();
         $upload->maxSize = 0;
         $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
         $upload->rootPath  = './Public';
         $upload->savePath  = './Uploads/movie/';
-        $info   =   $upload->upload();
+        //上传单个文件
+        $info   =   $upload->uploadOne($_FILES['file']);
+        
+
+        //实例化图像类
+        $image = new \Think\Image(); 
+        //拼接图片路径
+        $info['savepath'] = ltrim($info['savepath'],'.');
+        $path = 'Public'.$info['savepath'].$info['savename'];
+        //打开图像
+        $image->open($path);
+        //echo $info['savepath'].'148_'.$info['savename'];exit;
+        //按照原图的比例生成缩略图并保存 三种size
+        $image->thumb(100, 148,\Think\Image::IMAGE_THUMB_FIXED)->save('Public'.$info['savepath'].'148_'.$info['savename']);
+        //再次打开路径
+        $image->open($path);
+
+        $image->thumb(128, 180,\Think\Image::IMAGE_THUMB_FIXED)->save('Public'.$info['savepath'].'180_'.$info['savename']);
+        $image->open($path);
+        
+        $image->thumb(140, 207,\Think\Image::IMAGE_THUMB_FIXED)->save('Public'.$info['savepath'].'207_'.$info['savename']);
+
         if(!$info){   
             $this->error($upload->getError());
-        }else{   
-            foreach($info as $file){
-                $file['savepath'].$file['savename'];    
-            }
+        }else{//上传成功 获取文件信息   
+            $info['savepath'].$info['savename'];
         }
-        
-        $data['name']=$file['savename'];
+       
+        $data['name']=$info['savename'];
         $data['m_id']=$insertId;
         $data['is_cover']='1';
-        $data['i_path']=ltrim($file['savepath'],'.');
+        $data['i_path']=ltrim($info['savepath'],'.');
         //var_dump($data);
         $m = M('mimage');
         if($m->add($data)){      
-          $this->success('成功');
+          $this->success('添加成功');
         }else{
-          $this->error('上传失败');
+          $this->error('添加失败');
         }
         
+        $m = M('m_c');
+        foreach ($_POST['c_id'] as $val){
+            $d['m_id']=$insertId;
+            $d['c_id']=$val;
+            $m->add($d);
+        }
     }
-   	public function edit($id){
+   	
+    public function edit($id){
         $m = M('movie');
         $row = $m->table('bee_movie m,bee_mclassify f')->field('f.name fname,m.*')->where('m.year=f.id and m.id='.$id)->find();
         //echo $m->getLastsql();     
@@ -143,22 +171,28 @@ class MovieController extends Controller {
    	
     public function image(){
         $m = M('movie');
-        $list = $m->table('bee_movie m,bee_mimage i')->field('i.id,i.name iname,i.i_path,i.is_cover,m.name')->where('m.id=i.m_id')->select();
-        //$list['path'] = $list['i_path'].$list['iname'];
+        //查询信息
+        $list1 = $m->table('bee_movie m,bee_mimage i')->field('i.id,i.name iname,i.i_path,i.is_cover,m.name')->where('m.id=i.m_id')->select();
+        //通过遍历将path添加到数组
+        foreach ($list1 as $val){
+            $val['path'] = $val['i_path'].'148_'.$val['iname'];
+            //var_dump($val);
+            $list[]=$val;
+        }     
         //var_dump($list);
-        $this->assign('list',$list);
-    	  $this->display();    
+        $this->assign('list',$list);   
+    	$this->display();    
    	}
    	public function addImage($id){
         $m = M('movie');
         $row = $m->where("id=$id")->find();
-        //var_dump($row);
+        //var_dump($row);exit;
         $this->assign('row',$row);
         
         $m1 = M('mimage');
         $r = $m1->where('is_cover=1 and m_id='.$id)->find();
         //echo $m1->getLastsql();
-        $r['path'] = $r['i_path'].$r['name'];
+        $r['path'] = $r['i_path'].'180_'.$r['name'];
         //var_dump($r);     
         $this->assign('r',$r);
 
@@ -205,7 +239,7 @@ class MovieController extends Controller {
         $m1 = M('mimage');
         $r = $m1->where('is_cover=1 and m_id='.$id)->find();
         //echo $m1->getLastsql();
-        $r['path'] = $r['i_path'].$r['name'];   //拼接图片路径
+        $r['path'] = $r['i_path'].'180_'.$r['name'];   //拼接图片路径
         //var_dump($r);     
         $this->assign('r',$r);
         $this->display();

@@ -118,10 +118,23 @@ class MovieController extends Controller {
         $m = M('mclassify');
         $list = $m -> where('pid=2') -> select();
         $li = $m -> where('pid=3') -> select();
+        $lis = $m -> where('pid=1') -> select();
         $this->assign('list',$list);
         $this->assign('li',$li);
+        $this->assign('lis',$lis);
+        //var_dump($lis);
         
+        $m = M('m_c');
+        $row1=$m->where("m_id=$id")->select();
+        var_dump($row1);
+        // foreach($row1 as $r){
+        //     $r[]=$r['c_id'];
+        // }
+        // var_dump($r);
+        //$this->assign('row1',$row1);
+
         $this->display();
+ 
     }
     public function doedit(){
         $_POST['crelease_t'] = strtotime($_POST['crelease_t']);

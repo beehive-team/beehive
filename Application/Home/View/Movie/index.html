@@ -27,12 +27,16 @@
 				$('.tab a').click(function(){
 					var c_id = $(this).attr('rel');
 					$.post('__CONTROLLER__/getCata',{c_id:c_id},function(data){
-						alert(data);
-					})
+						//alert(data[0]['mname']);
+						$('#dys').empty();
+						for(var tmp in data)
+						{
+							$('#dys').append('<li><a href=""><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
+						}
+					},'json')
 				})
 			
 			})
-			
 		</script>
 		<!-- END 自定义 head -->
 	</head>
@@ -55,41 +59,15 @@
 							</div>
 							<div class="bottom">
 								<ul class="slider">
+									<foreach name="row" item="vo">
 									<li>
 										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
+											<img src="__PUBLIC__/{$vo.i_path}180_{$vo.name}"/>
+											<p>{$vo.mname}</p>
 											<span class="allstar40"></span><i>3.7</i>
 										</a>
 									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>									
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
+									</foreach>
 								</ul>
 							</div>
 						</div>
@@ -99,8 +77,7 @@
 							</div>
 							<form>
 								<div class="tab">
-									<a href="">热门</a>
-									<a href="">最新</a>
+									<a rel="hot" href="javascript:;">热门</a>
 									<foreach name="list" item="vo">
 									<a class="oa1" rel="{$vo.id}" href="javascript:;">{$vo.name}</a>
 									</foreach>
@@ -121,7 +98,7 @@
 								<p>注册登录后可以保存自己的观影记录,快快登录吧！<a href="">登录</a><a href="">注册</a></p>
 							</div>
 							<div class="movies">
-								<ul>
+								<ul id="dys">
 									<li>
 										<a href="">
 											<img src="__PUBLIC__/images/movie3.jpg"/>

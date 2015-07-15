@@ -38,7 +38,11 @@
 
 <div class="user-info">
 	<div class="info-box f-left">
-		<img src="__PUBLIC__/images/face2.jpg"/>
+		<empty name="face['image']">
+			<img src="__PUBLIC__/images/default_face.jpg"/>
+		<else />
+			<img src="{$face['image']}"/>
+		</empty>
 	</div>
 	<div class="user-name f-left">
 		<h3>{$data['name']}</h3>

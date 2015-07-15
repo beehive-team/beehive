@@ -71,15 +71,18 @@ class UserController extends CommonController {
         $user = M('user');
         $userInfo = $user->where("id=$this->userId")->find();
         // echo $user->getLastsql();
-        // var_dump($userInfo);
+        var_dump($userInfo);
 
-        $model = D('DiaryView');
+        $diaryView = D('DiaryView');
         
 
-        $diary = $model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->order('time')->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $diary = $diaryView->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->order('time')->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
 
         var_dump($diary);
         array_splice($diary,0,3);
+        $face = $model->field('image')->where("id=$this->userId")->find();
+        var_dump($face);
+        $this->assign('face',$face);
         $this->assign('diary',$diary);
         $this->assign('userInfo',$userInfo);
         $this->assign('exits',$info);
@@ -332,8 +335,21 @@ class UserController extends CommonController {
         // var_dump($_SESSION);
         
 
-
-        $model->image = $_POST['name'];
+        $face  = $_POST['name'];
+        $face = trim($face,'"');
+        $arr = explode('/',$face);
+        $path = $arr['5'];
+        $name = $arr['6'];
+        // echo $face;
+        
+        // var_dump($_POST['name']);
+        $open = 'Public/Uploads/User/'.$path.'/'.$name;
+        // echo $open;
+        $save = 'Public/Uploads/User/'.$path.'/cut_'.$name;
+        $model->image = '/beehive/'.$save;
+        $image = new \Think\Image(); 
+        $image->open($open);
+        $image->crop(400, 400)->save($save);
         if($model->where("id=$this->userId")->save()){
             echo 'true';
         }else{

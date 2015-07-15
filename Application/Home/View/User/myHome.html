@@ -17,7 +17,8 @@
 				
 
 				
-				
+				var face_flag = false;
+				var sign_flag = false;
 				
 				var img_all = new Array();
 				
@@ -36,7 +37,8 @@
 				    	var img_src = JSON.stringify(result.result);
 				    	//alert(img_src);
 				    	img_src = img_src.replace(/"/g,'');
-				    	//alert(img_src);
+				    	var path = "__PUBLIC__";
+				    	img_src = path+img_src;				    	//alert(img_src);
 				    	$('.face-box .big-img img').attr('src',img_src);
 				    	$('.face-box .small-img img').attr('src',img_src);
 				    	
@@ -94,6 +96,8 @@
 
 						$('.list-box a.face').unbind('click').addClass('active').find('span').html('（上传成功）');
 						$('.list-box .face-box').hide();
+						face_flag = true;
+						pleaseRelode();
 
 					}
 
@@ -112,6 +116,8 @@
 					if(data=='true'){
 						$('.list-box a.sec').addClass('active').find('span').html('(更新成功)').unbind('click');
 						$('.list-box .textarea').hide();
+						sign_flag = true;
+						pleaseRelode();
 
 						
 					}
@@ -120,6 +126,12 @@
 
 
 				return false;
+			}
+
+			function pleaseRelode(){
+				if(sign_flag && face_flag){
+					location.reload([true]);
+				}
 			}
 
 		</script>
@@ -143,14 +155,19 @@
 							<div class="set-info">
 								<h4>{$userInfo['name']},这里是你的主页，用来展示你的生活和发现，也是别人认识你的地方。完善你的个人资料，开始全新的豆瓣之旅吧。</h4>
 								<div class="list-box">
-									<a class="face" href="javascript:;">上传头像<span></span></a>
+									<empty name="face['image']">
+										<a class="face" href="javascript:;">上传头像<span></span></a>
+									<else/>
+										<a class="face active" >上传头像<span></span></a>
+
+									</empty>
 									<div class="face-box">
 										<div class="img-box">
 											<div class="big-img">
-												<img src="__PUBLIC__/images/face3.jpg"/>
+												<img src="__PUBLIC__/images/default_face.jpg"/>
 											</div>
 											<div class="small-img">
-												<img src="__PUBLIC__/images/face3.jpg"/>
+												<img src="__PUBLIC__/images/default_face.jpg"/>
 											</div>
 										</div>
 										<form onsubmit="return faceUpdate(this)">
@@ -158,7 +175,13 @@
 											<input type="submit" value="更新"/>
 										</form>
 									</div>
-									<a class="sec"href="javascript:;">写一段自我介绍<span></span></a>
+									<empty name="userInfo['introduce']">
+
+										<a class="sec"href="javascript:;">写一段自我介绍<span></span></a>
+									<else/>
+										<a class="sec active">写一段自我介绍<span></span></a>
+
+									</empty>
 									<div class="textarea">
 										<form onsubmit="return introUpdate(this)">
 											<textarea></textarea>
@@ -216,11 +239,16 @@
 						<div class="top">
 							<div class="info-box">
 								<div class="img-box">
-									<img src="__PUBLIC__/images/face3.jpg"/>
+									<empty name="face['image']">
+										<img src="__PUBLIC__/images/default_face.jpg"/>
+									<else/>
+										<img src="{$face['image']}"/>
+
+									</empty>
 								</div>
 								<div class="info">
-									<h5>leevian</h5>
-									<h6>2014-7-10加入</h6>
+									<h5>{$userInfo['name']}</h5>
+									<h6>{$userInfo['time']|date='Y-m-d',###}加入</h6>
 								</div>
 							</div>
 							<div class="brief clearfix">

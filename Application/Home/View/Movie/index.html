@@ -9,6 +9,15 @@
 
 		<script type="text/javascript">
 			$(function(){
+				var c_id
+				var i=4;
+				c_id='hot';
+				$.post('__CONTROLLER__/getCata',{c_id:'hot',num:i},function(data){
+					for(var tmp in data){
+						$('#dys').append('<li><a href=""><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
+						}
+				},'json')
+
 				$('.slider').bxSlider({
 					auto:true,
 					pager:true,
@@ -24,18 +33,33 @@
 					pager:true,
 					controls:true,
 				});
+				//var i=2;
+				//var c_id
 				$('.tab a').click(function(){
-					var c_id = $(this).attr('rel');
-					$.post('__CONTROLLER__/getCata',{c_id:c_id},function(data){
+					i=4;
+					c_id = $(this).attr('rel');
+					$.post('__CONTROLLER__/getCata',{c_id:c_id,num:i},function(data){
 						//alert(data[0]['mname']);
 						$('#dys').empty();
-						for(var tmp in data)
-						{
-							$('#dys').append('<li><a href=""><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
+						for(var tmp in data){
+							$('#dys').append('<li><a href=""><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</ i></p></a></li>');
 						}
 					},'json')
 				})
-			
+
+				$('.ajax-button a').click(function(){
+					//alert(c_id);
+					i=i+4;
+					$.post('__CONTROLLER__/getCata',{c_id:c_id,num:i},function(data){
+						$('#dys').empty();
+						for(var tmp in data){
+							$('#dys').append('<li><a href=""><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
+						}
+
+					},'json')
+					
+				})
+				
 			})
 		</script>
 		<!-- END 自定义 head -->
@@ -47,7 +71,6 @@
 		    {:W('Common/movieHeader')}
 			    
 			<!-- END header -->
-			
 			<div id="main">
 				<div class="inner">
 					<div class="f-left con">
@@ -99,39 +122,15 @@
 							</div>
 							<div class="movies">
 								<ul id="dys">
-									<li>
+									<!--<li>
 										<a href="">
 											<img src="__PUBLIC__/images/movie3.jpg"/>
 											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
+										</a>									
+									</li>-->
 								</ul>
 								<div class="ajax-button">
-									<a href="">加载更多</a>
+									<a href="javascript:;">加载更多</a>
 								</div>
 							</div>
 						</div>

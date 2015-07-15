@@ -13,6 +13,8 @@
 		
 
 		<script type="text/javascript">
+
+			
 			$(function(){
 				
 				
@@ -35,9 +37,9 @@
 							<h3>我的相册-{$data['0']['album_name']}</h3>
 							<div class="bread-box">
 								<ul>
-									<li>><a href="">修改相册属性</a></li>
-									<li>><a href="{:U('Home/User/addPhoto')}?id={$a_id}">添加照片</a></li>
-									<li>><a href="">返回我的相册首页</a></li>
+									<li>><a href="{:U('modifyAlbum')}?id={$a_id}">修改相册属性</a></li>
+									<li>><a href="{:U('User/addPhoto')}?id={$a_id}">添加照片</a></li>
+									<li>><a href="{:U('User/album')}">返回我的相册首页</a></li>
 								</ul>
 							</div>
 						</div>
@@ -62,11 +64,14 @@
 							<a href="javascript:;" class="like"><span></span>喜欢</a>
 						</div>
 						<div class="info-box">
-							<p>1人浏览&nbsp;{$p_n}张照片&nbsp;&nbsp;{$data['0']['time']}&nbsp;创建</p>
+							<p>1人浏览&nbsp;{$p_n}张照片&nbsp;&nbsp;{$data['0']['a_time']|date='Y-m-d H:i:s',###}&nbsp;创建</p>
 							<a href="javascript:;">>添加标签</a>
 							
-							<a class="f-right"href="">>删除相册</a>
+							<a class="f-right" onclick="return confirm('确定要删除本相册？')"href="{:U('Home/User/delAlbum')}?id={$a_id}">>删除相册</a>
 						</div>
+						<div id="pager">
+		    				{$page}
+		    			</div>
 						
 					</div>
 					

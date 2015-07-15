@@ -1,0 +1,17 @@
+<div id="pager">
+	<a class="first"href="javascript:;">首页</a>
+	<a class="p-prev"href="javascript:;">上一页</a>
+	<a class="page" href="javascript:;">1</a>
+	<a class="page" href="javascript:;">2</a>
+	
+	<a class="p-next"href="javascript:;">下一页</a>
+	<a class="last"href="javascript:;">尾页</a>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$('#pager .page').click(function(){
+			$('#pager .page').removeClass('p-now');
+			$(this).addClass('p-now');
+		})
+	})
+</script>

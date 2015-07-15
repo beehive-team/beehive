@@ -49,3 +49,13 @@ function is_vcode(str){
 		}
 	});
 }
+
+$(function(){
+	$('a.like').click(function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+		}else{
+			$(this).addClass('active');
+		}
+	})
+})

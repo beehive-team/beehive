@@ -28,18 +28,19 @@ class MovieController extends CommonController {
 
     public function getCata(){
         //var_dump($_POST);exit;
+        $i= $_POST['num'];
         if($_POST['c_id']=='hot'){
             $m= M('movie');
-            $lis = $m->table('bee_movie m,bee_mimage i')->field('m.name mname,i.*')->where('m.id=i.m_id and m.hot>5')->select();
+            $lis = $m->table('bee_movie m,bee_mimage i')->field('m.name mname,i.*')->where('m.id=i.m_id and m.hot>5')->limit($i)->select();
             //var_dump($lis);
 
         }else{
             //接收分类id
             $id=$_POST['c_id'];
-
+            $i= $_POST['num'];
             $m = M('m_c');
             //查询
-            $list = $m->where('c_id='.$id)->select();
+            $list = $m->where('c_id='.$id)->limit($i)->select();
             //var_dump($list);
             foreach ($list as $val) {
                 $m = M('movie');

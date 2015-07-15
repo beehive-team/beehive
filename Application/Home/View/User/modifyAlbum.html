@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    {:W('Common/commonHead')}
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		
+
+		<script type="text/javascript">
+			$(function(){
+
+				
+				
+
+				
+			})
+		</script>
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-album-page">
+		<div id="wrap">
+			<!-- START header -->
+		    {:W('Common/allHeader')}
+		    {:W('Common/userHeader')}
+
+			<!-- END header -->
+			
+			<div id="main">
+				<div class="inner clearfix">
+					<div class="content">
+						<h2>修改相册属性</h2>
+						<form action="__CONTROLLER__/doModifyAlbum" method="post">
+							
+							<div class="sub2 sub">
+								<input type="hidden" name="id" value="{$data['id']}" />
+								<p><label for="title">相册名称（必填）</label></p>
+								<div class="input-box">
+									<input type="text" value="{$data['name']}" name="title" />
+								</div>
+								<p><label for="title">相册描述</label></p>
+								<div class="textarea-box">
+									<textarea name="content">{$data['des']}</textarea>
+								</div>
+								<p><label for="tag">标签(用逗号分隔)</label></p>
+								<div class="input-box">
+									<input type="text" name="tag" value="{$tag}" />
+									
+								</div>
+								<p><label for="show">设置可见：</label></p>
+								<label><input type="radio" {$data['browse']=='1'?'checked':''}  name="show" value="1">所有人可见</label>
+								<label><input type="radio"  {$data['browse']=='0'?'checked':''}  name="show" value="0">仅朋友可见</label>
+								<label><input type="radio" {$data['browse']=='2'?'checked':''}  name="show" value="2">仅自己可见</label>
+								<p><label>权限设置：</label></p>
+								<div class="checkbox">
+									<label><input type="checkbox" {$data['power']=='1'?'checked':''}value="1" name="authority"/>不允许回应</label>
+								</div>
+								<div class="checkbox">
+									<label><input type="checkbox" value="1" name="bee"/>创建并同步到豆列</label>
+								</div>
+								<div class="btn-box">
+									<input type="submit" value="保存"/>
+								</div>
+								
+							</div>
+						</form>
+					</div>
+
+			
+				</div>
+		</div>
+		<!-- START footer -->
+		    {:W('Common/commonFooter')}
+		<!-- END footer -->
+
+		<script type="text/javascript">
+			
+		</script>
+
+	</body>
+</html>

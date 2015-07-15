@@ -7,9 +7,9 @@ class UserController extends CommonController {
     protected $userId;
     protected $time;
 
-    public function __construct(){
+    public function _initialize(){
         
-        parent::__construct();
+        
         $this->userId = $_SESSION['home']['user_id'];
         $this->time=time();
     }
@@ -30,6 +30,7 @@ class UserController extends CommonController {
     // 显示首页
 
     public function index(){
+    	
     	$this->display();
     }
 
@@ -67,9 +68,22 @@ class UserController extends CommonController {
         if($data['image']&&$data['introduce']){
             $info = 'exits';
         }
+        $user = M('user');
+        $userInfo = $user->where("id=$this->userId")->find();
+        // echo $user->getLastsql();
+        // var_dump($userInfo);
+
+        $model = D('DiaryView');
+        
+
+        $diary = $model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->order('time')->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
+
+        var_dump($diary);
+        array_splice($diary,0,3);
+        $this->assign('diary',$diary);
+        $this->assign('userInfo',$userInfo);
         $this->assign('exits',$info);
         $this->assign('data',$data);
-
 
         $this->display();
     }
@@ -103,12 +117,17 @@ class UserController extends CommonController {
     
     //显示日记首页
     public function diary(){
+
         $model = D('DiaryView');
+        
+        $count =$model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->group('diaryid')->count();
+        
+        $Page = new \Think\Page($count,3);
+        $show = $Page->show();
+
+        $data = $model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
 
         
-        $data = $model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->group('diary.id')->select();
-        
-        // var_dump($data);
         foreach($data as $key=>$value){
             $tag = array();
             $data[$key]['content'] = strip_tags($data[$key]['content']);
@@ -144,7 +163,7 @@ class UserController extends CommonController {
        
         // var_dump($data);
 
-
+        $this->assign('page',$show);
         $this->assign('data',$data);
         // var_dump($data);
         $this->display();
@@ -223,7 +242,11 @@ class UserController extends CommonController {
     //显示相册
     public function album(){
         $album = D('AlbumView');
-        $result = $album->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->group('album_id')->select();
+        $u_id = $this->userId;
+        $count = $album->where("u_id=$u_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->group('album_id')->count();
+        $Page       = new \Think\Page($count,6);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+        $show = $Page->show();
+        $result = $album->where("u_id=$u_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->order('update_time')->limit($Page->firstRow.','.$Page->listRows)->group('album_id')->select();
         
         foreach ($result as $key => $value) {
             $albumId = $result[$key]['album_id'];
@@ -243,6 +266,7 @@ class UserController extends CommonController {
         // var_dump($result);
 
         $this->assign('data',$result);
+        $this->assign('page',$show);
         $this->display();
     }
 
@@ -251,6 +275,7 @@ class UserController extends CommonController {
         $album = M('album');
         $result = $album->where("u_id=$this->userId")->select();
         // var_dump($result);
+        var_dump($result);
         $this->assign('data',$result);
         $this->display();
     }
@@ -546,7 +571,13 @@ class UserController extends CommonController {
                 $j++;
             }
             // var_dump($arr);
-            
+            $photo = M('photo');
+            $a_id = $data['album'];
+            $c['is_cover'] = 0;
+            $photo->where("a_id=$a_id")->save($c);
+            $album = M('album');
+            $update['update_time']=$this->time;
+            $album->where("id=$a_id")->save($update);
             $this->insertPhoto($arr,$data['album']);
 
             
@@ -560,7 +591,7 @@ class UserController extends CommonController {
 
     //处理照片数据
     public function insertPhoto($arr,$a_id){
-        var_dump($arr);
+        // var_dump($arr);
         foreach($arr as $key=>$value){
             if($value['1']=='imgName'){
                 $imgId = $value['0']; 
@@ -607,15 +638,20 @@ class UserController extends CommonController {
         $result =$album->field('album_name,des,power,u_id,a_time,hot,browse')->where("album.id=$a_id")->select();
         // var_dump($result);
         $photo = M('photo');
-        $p_d = $photo->where("a_id=$a_id")->select();
-        $p_n = count($p_d);
+        // var_dump($result);
+        $p_n = $photo->where("a_id=$a_id")->count();
+
+        $page = new \Think\Page($p_n,6);
+        $show = $page->show();
+        $p_d = $photo->where("a_id=$a_id")->order('time')->limit($page->firstRow.','.$page->listRows)->select();
         // var_dump($p_d);
-        $tags = $album->field('atag_name,atag_id')->where("album.id=$a_id")->select();
-        var_dump($tags);
+        $tags = $album->field('atag_name,atag_id')->where("album.id=$a_id and a_t.a_id=album.id")->select();
+        // var_dump($tags);
         $this->assign('tags',$tags);
         $this->assign('p_n',$p_n);
         $this->assign('photo',$p_d);
         $this->assign('data',$result);
+        $this->assign('page',$show);
         $this->assign('a_id',$a_id);
         $this->display();
     }
@@ -625,6 +661,81 @@ class UserController extends CommonController {
         $a_id = $_GET['id'];
         $this->assign('a_id',$a_id);
         $this->display();
+
+    }
+    
+    //删除相册
+
+    public function delAlbum(){
+        $a_id = $_GET['id'];
+
+        $album = M('album');
+        if($album->where("id=$a_id")->delete()){
+            $this->success('相册删除成功');
+        }else{
+            $this->error('照片删除失败');
+        }
+    }
+
+    //修改相册属性
+
+    public function modifyAlbum(){
+        $id = $_GET['id'];
+        $album = M('album');
+        $result = $album->where("id=$id")->find();
+        // var_dump($result);
+        $model = D('albumView');
+        $tag = $model->field('atag_id,atag_name')->where("album.id=$id and album.id=a_t.a_id")->select();
+        // var_dump($tag);
+        $str = '';
+        foreach ($tag as $key => $value) {
+            $str .= $value['atag_name'];
+            $str .=' ';
+        }
+        // echo $str;
+        $this->assign('tag',$str);
+
+        $this->assign('data',$result);
+        $this->display();
+    }
+
+    public function doModifyAlbum(){
+        // var_dump($_POST);
+        $arr = array();
+        $data = $_POST;
+        $albumid = $_POST['id'];
+        // var_dump($data);
+        $tags = $data['tag'];
+        $tags = explode(' ',$tags);
+        $model = M('atag');
+        $id_arr = array();
+        for($i = 0;$i<count($tags);$i++){
+            
+            $arr['name'] = $tags[$i];
+            if(!$id = $model->where($arr)->getField('id')){
+                $insert_id = $model->add($arr);
+                // echo $insert_id;
+                array_push($id_arr,$insert_id);
+            }else{
+                array_push($id_arr,$id);
+            }
+        }
+        // var_dump($id_arr);
+
+        $dtarr = array();
+        $model= M('a_t');
+        $model->where("a_id=$albumid")->delete();
+
+        for($i=0;$i<count($id_arr);$i++){
+            $dtarr['a_id'] = $albumid;
+            $dtarr['t_id'] = $id_arr[$i];
+            if(!$model->add($dtarr)){
+                $this->error('修改失败');
+                exit;
+            }
+        }
+        $this->success('修改成功',U('User/album'));
+
 
     }
 

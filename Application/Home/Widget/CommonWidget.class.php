@@ -56,4 +56,7 @@ class CommonWidget extends Controller {
         $this->display('Public:userTitle');
      
     }
+    public function pager(){
+        $this->display('Public:pager');
+    }
 }

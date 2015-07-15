@@ -4,8 +4,13 @@ use Think\Controller;
 class MovieController extends Controller {
     public function index(){
       	$m = M('movie');
+        $count = $m->table('bee_movie m,bee_mclassify f')->field('f.name fname,m.*')->where('m.year=f.id')->count();
+        // 实例化分页类 传入总记录数和每页显示的记录数
+        $Page = new \Think\Page($count,5);
+        // 分页显示输出
+        $show = $Page->show();
 
-        $list = $m->table('bee_movie m,bee_mclassify f')->field('f.name fname,m.*')->where('m.year=f.id')->select();
+        $list = $m->table('bee_movie m,bee_mclassify f')->field('f.name fname,m.*')->where('m.year=f.id')->limit($Page->firstRow.','.$Page->listRows)->select();
         //echo $m->getLastsql();
         //var_dump($list);exit;
         for($i=0;$i< count($list);$i++){
@@ -15,9 +20,9 @@ class MovieController extends Controller {
         // echo count($list);
         //var_dump($list);
         $this->assign('list',$list);
-
+        // 赋值分页输出
+        $this->assign('page',$show);
         $this->display();
-
    	}
 
    
@@ -107,6 +112,7 @@ class MovieController extends Controller {
     }
    	
     public function edit($id){
+        //查询电影表相关信息显示出来
         $m = M('movie');
         $row = $m->table('bee_movie m,bee_mclassify f')->field('f.name fname,m.*')->where('m.year=f.id and m.id='.$id)->find();
         //echo $m->getLastsql();     
@@ -115,23 +121,33 @@ class MovieController extends Controller {
         //var_dump($row); 
         $this->assign('row',$row);
 
+        //查询分类表 select 遍历出来
         $m = M('mclassify');
         $list = $m -> where('pid=2') -> select();
         $li = $m -> where('pid=3') -> select();
-        $lis = $m -> where('pid=1') -> select();
+        $lis = $m -> where('pid=1')->field('id,name')-> select();
         $this->assign('list',$list);
         $this->assign('li',$li);
         $this->assign('lis',$lis);
         //var_dump($lis);
         
+        //查询映射表  所有类型
         $m = M('m_c');
         $row1=$m->where("m_id=$id")->select();
-        var_dump($row1);
-        // foreach($row1 as $r){
-        //     $r[]=$r['c_id'];
-        // }
-        // var_dump($r);
-        //$this->assign('row1',$row1);
+        //var_dump($row1);
+        //将checked写入 整合成一个数组arr
+        $arr = array();
+        for($i=0;$i<count($lis);$i++){
+            $arr[$i]['id']=$lis[$i]['id'];
+            $arr[$i]['name']=$lis[$i]['name'];
+            for($j=0;$j<count($row1);$j++){
+                if($lis[$i]['id']==$row1[$j]['c_id']){
+                    $arr[$i]['checked']=1;
+                }
+            }           
+        }
+        //var_dump($arr);
+        $this->assign('arr',$arr);
 
         $this->display();
  
@@ -141,12 +157,24 @@ class MovieController extends Controller {
         $_POST['orelease_t'] = strtotime($_POST['orelease_t']);
         //var_dump($_POST);
         $id= $_POST['id'];
+        
+        $m = M('m_c');
+        //先把数据库中的删除 再添加所有类型
+        $m->where("m_id=$id")->delete();
+        foreach ($_POST['c_id'] as $val){
+            $d['m_id']=$id;
+            $d['c_id']=$val;
+            if(!$m->add($d)){
+                $this->error('更新失败');
+            }
+        }
+        //将更改之后的数据更新
         $m = M('movie');
         if($m->where("id=$id")->save($_POST)){
             $this->success('更新成功',U('Movie/index'));
         }else{
             $this->error('更新失败');
-        }
+        }     
     }
     public function del($id){
         $m = M('movie');
@@ -192,7 +220,7 @@ class MovieController extends Controller {
             //var_dump($val);
             $list[]=$val;
         }     
-        //var_dump($list);
+        //var_dump($list);exit;
         $this->assign('list',$list);   
     	$this->display();    
    	}

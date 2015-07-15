@@ -103,6 +103,46 @@ body > #wrap {height: auto; min-height: 100%;}
 	text-align: center;
 
 }
+#pager {
+	text-align: center;
+	margin-bottom: 100px;
+}
+#pager a {
+	display: inline-block;
+	width: 20px;
+	margin: 0 3px;
+	height: 36px;
+	line-height: 36px;
+	color: #666666;
+	font-size: 14px;
+}
+#pager a:hover {
+	color: #eb655a;
+}
+#pager .current {
+	color: #eb655a;
+	display: inline-block;
+	margin: 0 3px;
+	width: 20px; 
+	font-weight: bold;
+	cursor: default;
+}
+#pager a.prev, #pager a.next {
+	height: 34px;
+	line-height: 34px;
+	border: 1px solid #ddd;
+	width: 75px;
+	text-align: center;
+	margin: 0 18px 0 0;
+	border-radius: 5px;
+}
+#pager a.next, #pager a.last{
+	margin: 0 0 0 18px;
+}
+#pager a.next:hover, #pager a.prev:hover,#pager a.first:hover, #pager a.last:hover{
+	border-color: #eb655a;
+}
+
 .common_header{
 	background-color: #545652;
 	
@@ -2245,6 +2285,7 @@ a.like.active span{
 .user-photo-page .show-photo li{
 	float: left;
 	width: 170px;
+	margin-bottom: 20px;
 	margin-right: 10px;
 }
 .user-photo-page .show-photo li img{
@@ -2262,6 +2303,7 @@ a.like.active span{
 }
 .user-photo-page .con a{
 	color: #9A633C;
+	margin-right: 10px;
 }
 .user-photo-page .info-box{
 	padding-bottom: 40px;

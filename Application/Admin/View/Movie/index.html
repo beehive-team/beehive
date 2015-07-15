@@ -2,14 +2,17 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
 		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap.min.css">
 		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap-theme.min.css">
 		<title>电影列表</title>
 	</head>
 	<body>
-		<h3></h3>
+		<div class="hvc">
+			<p>后台管理>电影管理</p>
+		</div>
 
-		<form class="form-inline" role="form" style="margin-left:66px;">
+		<form class="form-inline" role="form" style="margin:18px 62px 22px;">
 		  <div class="form-group">
 		    <label class="sr-only">电影名</label>
 		  <input type="text" class="form-control"  placeholder="输入电影名进行查询">
@@ -53,5 +56,8 @@
             </tr>
            </foreach>
         </table>
+        <div id="pager" style="margin-left:60px;">
+        {$page}
+        </div>
 	</body>
 </html>

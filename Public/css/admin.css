@@ -1,5 +1,5 @@
 /*css reset*/
-html,body,p{ padding: 0; margin: 0; font-family: "Î¢ÈíÑÅºÚ",Arial,"ËÎÌå",sans-serif;font-size: 12px;} 
+html,body,p{ padding: 0; margin: 0; font-family: "ÃŽÂ¢ÃˆÃ­Ã‘Ã…ÂºÃš",Arial,"Ã‹ÃŽÃŒÃ¥",sans-serif;font-size: 12px;} 
 ol, ul {list-style: none; padding: 0; margin: 0;}
 blockquote, q {quotes: none;}
 blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none; }
@@ -9,7 +9,7 @@ a{text-decoration:none;	outline: none;hlbr:expression(this.onFocus=this.blur());
 input, select {vertical-align: middle;}
 img, iframe {border: none; text-decoration:none;} 
 strong {font-weight: bold;}
-h1,h2,h3,h4,h5,h6{padding: 0; margin: 0; font-family: "Î¢ÈíÑÅºÚ",Arial,"ËÎÌå",sans-serif;}
+h1,h2,h3,h4,h5,h6{padding: 0; margin: 0; font-family: "ÃŽÂ¢ÃˆÃ­Ã‘Ã…ÂºÃš",Arial,"Ã‹ÃŽÃŒÃ¥",sans-serif;}
 :focus {outline: 0;}
 /*css common*/
 .f-left {float: left;}
@@ -210,3 +210,16 @@ frameset frame{
 	border-color: #eb655a;
 }
 
+.hvc{
+    width: 100%;
+    height: 36px;
+    //background-color: #ADF7F7;
+    margin: 30px 0px 18px;
+    line-height: 30px;
+    //border: 1px solid #eee;
+}
+.hvc p{
+    margin-left: 60px;
+    font-size: 15px;
+    font-weight: bold;
+}

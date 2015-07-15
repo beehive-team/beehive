@@ -5,7 +5,7 @@ class AlbumViewModel extends ViewModel {
    	public $viewFields = array(
         'album'=>array('id'=>'album_id','name'=>'album_name','des','u_id','power','update_time','time'=>'a_time','browse','tolist','hot'),
         'atag'=>array('id'=>'atag_id','name'=>'atag_name'),
-        'a_t'=>array('id'=>'atag_id','a_id','t_id','_on'=>'album_id=a_id','_on'=>'atag.id=t_id'),
+        'a_t'=>array('a_id','t_id','_on'=>'a_id=album_id','_on'=>'t_id=atag.id'),
         // 'photo'=>array('id'=>'photo_id','name'=>'photo_name','time'=>'p_time','a_id','_on'=>'album.id=photo.a_id')
         
     );

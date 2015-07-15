@@ -106,7 +106,6 @@ h1{
     line-height: 18px;
     width: 155px;
     height: 146px;
-    background-color: #eee;
 }
 .rating_self {
     line-height: 0;
@@ -409,4 +408,80 @@ h1{
 .subject-others-interests-ft a:hover{
 	background-color:#37a;
 	color:#fff;
+}
+
+.bigstar50, .bigstar45, .bigstar40, .bigstar35, .bigstar30, .bigstar25, .bigstar20, .bigstar15, .bigstar10, .bigstar05, .bigstar00 {
+    background: rgba(0, 0, 0, 0) url("../images/all_bigstars.gif") no-repeat scroll 0 0;
+    color: #999;
+    display: block;
+    font-size: 14px;
+    height: 14px;
+    line-height: 100%;
+    overflow: hidden;
+    width: 75px;
+}
+.bigstar50 {
+    background-position: 0 0;
+}
+.bigstar45 {
+    background-position: 0 -15px;
+}
+.bigstar40 {
+    background-position: 0 -30px;
+}
+.bigstar35 {
+    background-position: 0 -45px;
+}
+.bigstar30 {
+    background-position: 0 -60px;
+}
+.bigstar25 {
+    background-position: 0 -75px;
+}
+.bigstar20 {
+    background-position: 0 -90px;
+}
+.bigstar15 {
+    background-position: 0 -105px;
+}
+.bigstar10 {
+    background-position: 0 -120px;
+}
+.bigstar05 {
+    background-position: 0 -135px;
+}
+.bigstar00 {
+    background-position: 0 -150px;
+}
+.rating_self {
+    line-height: 0;
+    margin: 0 0 15px;
+    padding: 0;
+}
+.stars {
+    background: rgba(0, 0, 0, 0) url("../images/stars.gif") repeat scroll 0 0;
+    display: inline-block;
+    height: 14px;
+    margin: 1px 0 0 7px;
+    width: 50px;
+}
+.stars4 {
+    background-position: left 61px;
+}
+.stars3 {
+    background-position: left 45px;
+}
+.stars2 {
+    background-position: left 30px;
+}
+.stars1 {
+    background-position: left 15px;
+}
+.starstop {
+    background: rgba(0, 0, 0, 0) url("../images/stars.gif") repeat scroll 0 0;
+    display: block;
+    float: left;
+    height: 14px;
+    margin: 1px 0 0 7px;
+    width: 50px;
 }

@@ -56,10 +56,21 @@
 							$('#dys').append('<li><a href=""><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
 						}
 
-					},'json')
 					
 				})
 				
+				$('.tip').css('display','none');
+				
+					},'json')
+				$('#check').click(function(){
+					if($('#check').is(':checked') && '{$Think.session.home}' == ''){
+						$('.tip').css('display','block');
+						alert('e');
+					}else{
+						$('.tip').css('display','none');			
+					}	
+				})
+							
 			})
 		</script>
 		<!-- END 自定义 head -->
@@ -113,7 +124,7 @@
 										<label><input type="radio" name="sort" value="rank"/>按评价排序</label>
 									</div>
 									<div class="check f-right">
-										<label><input type="checkbox" name="check" value="seen"/>我没看过的</label>
+										<label><input id="check" type="checkbox" name="check" value="seen"/>我没看过的</label>
 									</div>
 								</div>
 							</form>

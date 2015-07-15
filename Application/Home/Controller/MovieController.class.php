@@ -29,6 +29,7 @@ class MovieController extends CommonController {
     public function getCata(){
         //var_dump($_POST);exit;
         $i= $_POST['num'];
+        //传过来的是hot 是打开页面默认显示的 
         if($_POST['c_id']=='hot'){
             $m= M('movie');
             $lis = $m->table('bee_movie m,bee_mimage i')->field('m.name mname,i.*')->where('m.id=i.m_id and m.hot>5')->limit($i)->select();

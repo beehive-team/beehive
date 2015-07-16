@@ -6,9 +6,19 @@
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
 		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<link rel="stylesheet" href="__PUBLIC__/css/bh.css">
 
 		<script type="text/javascript">
 			$(function(){
+				var c_id
+				var i=4;
+				c_id='hot';
+				$.post('__CONTROLLER__/Ajax',{c_id:'hot',num:i},function(data){
+					for(var tmp in data){
+						$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</i></p></a></li>');
+						}
+				},'json')
+
 				$('.slider').bxSlider({
 					auto:true,
 					pager:true,
@@ -24,6 +34,41 @@
 					pager:true,
 					controls:true,
 				});
+				//var i=2;
+				//var c_id
+				$('.tab a').click(function(){
+					i=4;
+					c_id = $(this).attr('rel');
+					$.post('__CONTROLLER__/Ajax',{c_id:c_id,num:i},function(data){
+						//alert(data[0]['mname']);
+						$('#dys').empty();
+						for(var tmp in data){
+							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</ i></p></a></li>');
+						}
+					},'json')
+				})
+
+				$('.ajax-button a').click(function(){
+					//alert(c_id);
+					i=i+4;
+					$.post('__CONTROLLER__/Ajax',{c_id:c_id,num:i},function(data){
+						$('#dys').empty();
+						for(var tmp in data){
+							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</i></p></a></li>');
+						}
+											
+					},'json')
+				})
+
+				$('.tip').css('display','none');
+				$('#check').click(function(){
+					if($('#check').is(':checked') && '{$Think.session.home}' == ''){
+						$('.tip').css('display','block');
+						//alert('e');
+					}else{
+						$('.tip').css('display','none');			
+					}	
+				})		
 			})
 		</script>
 		<!-- END 自定义 head -->
@@ -66,144 +111,29 @@
 							</div>
 							<div class="bottom">
 								<ul class="slider">
+									<foreach name="row" item="vo">
 									<li >
 										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
+											<img src="__PUBLIC__/{$vo.i_path}{$vo.name}"/>
+											<p>{$vo.bname}</p>
+											<p>作者:{$vo.writer}</p>
 										</a>
 									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>									
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
+									</foreach>
+
 								</ul>
 							</div>
 						</div>
 
-						<div>
-						<div class="section sec-1">
-							<div class="top">
-								<h3>最受关注图书榜</h3>
-								<a href="">更多》</a>
-							</div>
-							<div class="bottom">
-								<ul class="slider">
-									<li >
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>									
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						</div>
-
-						<div>
-						<div class="section sec-1">
-							<div class="top">
-								<h3>电子图书</h3>
-								<a href="">更多》</a>
-							</div>
-							<div class="bottom">
-								<ul class="slider">
-									<li >
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>									
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie2.jpg"/>
-											<p>细说PHP</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						</div>
 
 						<div class="section sec-2">
 							<div class="top">
 								<h3>选图书</h3>
+							</div>
+							<div class="tab">
+							<foreach name="list" item="vo">
+								<a class="oa1" rel="{$vo.id}" href="javascript:;">{$vo.name}</a>
+							</foreach>
 							</div>
 							<form>
 
@@ -212,6 +142,7 @@
 										<label><input type="radio" name="sort" value="hot"/>按热度排序</label>
 										<label><input type="radio" name="sort" value="time"/>按时间排序</label>
 										<label><input type="radio" name="sort" value="rank"/>按评价排序</label>
+										<label><input type="radio" name="sort" value="rank"/>电子书</label>
 									</div>
 									<div class="check f-right">
 										<label><input type="checkbox" name="check" value="seen"/>我没看过的</label>
@@ -219,8 +150,8 @@
 								</div>
 							</form>
 							<div class="tip">
-								<p>注册登录后进入书签查看阅读记录，快快登陆吧！<a href="">登录</a><a href="">注册</a></p>
-							</div>
+									<p>注册登录后进入书签查看阅读记录，快快登陆吧！<a href="">登录</a><a href="">注册</a></p>
+								</div>
 							<div class="movies">
 								<ul>
 									<li>
@@ -319,7 +250,7 @@
 										<div class="img-box f-left"><a href=""><img src="__PUBLIC__/images/movie6.jpg"/></a></div>
 										<div class="text-box f-left">
 											<h5><a href="">标题</a></h5>
-                                            <p><a href="">作者&nbsp;</a>评论&nbsp;<a href="">书名</a><span class="allstar40"></span></p>
+                                            <p><a href="">作者&nbsp;</a>评论&nbsp;<a href="">书名</a><span class=""></span></p>
                                             <p class="detail"> 
                                                 fjdklsfjdlsflsdkjflkjdfslfjdl<a class="all"href="">(全文)</a>
                                             </p> 
@@ -333,227 +264,7 @@
 							<a href=""><img src="__PUBLIC__/images/ad4.jpg"/></a>
 						</div>
 
-				        <ul class="list-box">
-				            <li class="title">
-				                文学
-				            </li>
-				            <br/>
-				            <li>
-				                <a href="" >小说</a>
-				            </li>
-				            <li>
-				                <a href="" >随笔</a>
-				            </li>
-				            <li>
-				                <a href="" >散文</a>
-				            </li>
-				            <li class="last">
-				                  <a href="k" >日本文学</a>
-				            </li>
-				            <li>
-				                <a href="" >童话</a>
-				            </li>
-				            <li>
-				                <a href="" >诗歌</a>
-				            </li>
-				            <li>
-				                <a href="" >名著</a>
-				            </li>
-				            <li class="">
-				                  <a href="" >港台</a>
-				            </li>
-				            <li class="">
-				                  <a href="" class="tag more_tag">更多》</a>
-				            </li>
-				        </ul>
-				    </li>
 
-				      
-				    
-
-				    <li>
-				        <ul class="list-box">
-				            <li class="title">
-				                流行
-				            </li>
-				            <li>
-				                <a href="" >漫画</a>
-				            </li>
-				            <li>
-				                <a href="" >绘本</a>
-				            </li>
-				            <li>
-				                <a href="" >推理</a>
-				            </li>
-				            <li class="last">
-				                  <a href="" >青春</a>
-				            </li>
-				            <li>
-				                <a href="" >言情</a>
-				            </li>
-				            <li>
-				                <a href="" >科幻</a>
-				            </li>
-				            <li>
-				                <a href="" >武侠</a>
-				            </li>
-				            <li class="last">
-				                  <a href="" >奇幻</a>
-				            </li>
-				            <li class="last">
-				                  <a href="" class="tag more_tag">更多》</a>
-				            </li>
-				        </ul>
-				    </li>
-
-				      
-				    
-
-				    <li>
-				        <ul class="list-box">
-				            <li class="title">
-				                文化
-				            </li>
-				            <li>
-				                <a href="" >历史</a>
-				            </li>
-				            <li>
-				                <a href="" >哲学</a>
-				            </li>
-				            <li>
-				                <a href="" >传记</a>
-				            </li>
-				            <li class="last">
-				                  <a href="" >设计</a>
-				            </li>
-				            <li>
-				                <a href="" >建筑</a>
-				            </li>
-				            <li>
-				                <a href="" >电影</a>
-				            </li>
-				            <li>
-				                <a href="" >回忆录</a>
-				            </li>
-				            <li class="">
-				                  <a href="" >音乐</a>
-				            </li>
-				            <li class="last">
-				                  <a href="" class="tag more_tag">更多》</a>
-				            </li>
-				        </ul>
-				    </li>
-
-				      
-				    
-
-				    <li>
-				        <ul class="list-box">
-				            <li class="title">
-				                生活
-				            </li>
-				            <li>
-				                <a href="" >旅行</a>
-				            </li>
-				            <li>
-				                <a href="" >励志</a>
-				            </li>
-				            <li>
-				                <a href="" >职场</a>
-				            </li>
-				            <li class="last">
-				                  <a href="" >美食</a>
-				            </li>
-				            <li>
-				                <a href="" >教育</a>
-				            </li>
-				            <li>
-				                <a href="" >灵修</a>
-				            </li>
-				            <li>
-				                <a href="" >健康</a>
-				            </li>
-				            <li class="last">
-				                  <a href="" >家居</a>
-				            </li>
-				            <li class="last">
-				                  <a href="" class="tag more_tag">更多》</a>
-				            </li>
-				        </ul>
-				    </li>
-
-				      
-				    
-
-				    <li>
-				        <ul class="list-box">
-				            <li class="title">
-				                经管
-				            </li>
-				            <li>
-				                <a href="" >经济学</a>
-				            </li>
-				            <li>
-				                <a href="" >管理</a>
-				            </li>
-				            <li>
-				                <a href="" >金融</a>
-				            </li>
-				            <li class="last">
-				                  <a href="" >商业</a>
-				            </li>
-				            <li>
-				                <a href="" >营销</a>
-				            </li>
-				            <li>
-				                <a href="" >理财</a>
-				            </li>
-				            <li>
-				                <a href="" >股票</a>
-				            </li>
-				            <li class="">
-				                  <a href="" >企业史</a>
-				            </li>
-				            <li class="">
-				                  <a href="" class="tag more_tag">更多》</a>
-				            </li>
-				        </ul>
-				    </li>
-
-				      
-				    
-
-				    <li>
-				        <ul class="list-box">
-				            <li class="title">
-				                科技
-				            </li>
-				            <li>
-				                <a href="" >科普</a>
-				            </li>
-				            <li>
-				                <a href="" >互联网</a>
-				            </li>
-				            <li>
-				                <a href="" >编程</a>
-				            </li>
-				            <li class="">
-				                  <a href="" >交互设计</a>
-				            </li>
-				            <li>
-				                <a href="" >算法</a>
-				            </li>
-				            <li>
-				                <a href="" class="">通信</a>
-				            </li>
-				            <li>
-				                <a href="" class="">神经网络</a>
-				            </li>
-				            <li class="last">
-				                  <a href="" class="">更多》</a>
-				            </li>
-				        </ul>
-				    </li>
 
 					<div class="section weekly-top">
 					    <div class="hd">
@@ -561,17 +272,14 @@
 					    </div>
 					    <div class="bd">
 					        <ul class="nav-vendor">
-					            <li class="on book-chart-hd" id="jd-book-chart-hd">
-					                <img src="__PUBLIC__/images/jd.PNG" height="18" width="18">
-					                <span>京东</span>
+					            <li class="on book-chart-hd" id="jd-book-chart-hd">   
+					                <span>日榜</span>
 					            </li>
 					            <li class="book-chart-hd" id="amazon-book-chart-hd">
-					                <img src="__PUBLIC__/images/a.PNG" height="18" width="18">
-					                <span>亚马逊</span>
+					                <span>周榜</span>
 					            </li>
 					            <li class="book-chart-hd" id="dangdang-book-chart-hd">
-					                <img src="__PUBLIC__/images/dd.PNG" height="18" width="18">
-					                <span>当当</span>
+					                <span>月榜</span>
 					            </li>
 					        </ul>
 

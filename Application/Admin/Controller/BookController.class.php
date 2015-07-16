@@ -7,7 +7,7 @@ class BookController extends Controller {
 
       $list = $b->select();
 
-      $list[0]['release_t'] = date('Y-m-d',$list[0]['crelease_t']);
+      $list[0]['release_t'] = date('Y-m-d',$list[0]['release_t']);
       //var_dump($list);
       $this->assign('list',$list);
 
@@ -16,10 +16,8 @@ class BookController extends Controller {
    	public function add(){
         $b = M('bclassify');
 
-        $list = $b -> where('pid=2') -> select();
-        $li = $b -> where('pid=3') -> select();
+        $list = $b -> where('pid>0') -> select();
         $this->assign('list',$list);
-        $this->assign('li',$li);
         //var_dump($li);
         //var_dump($list);exit; 
         $this->display();    
@@ -157,70 +155,72 @@ class BookController extends Controller {
     }
 
       public function doeditclassify(){
-      //var_dump($_POST);
-      $id = $_POST['id'];
-      $b = M('bclassify');
-
-      if($b->where("id=$id")->save($_POST)){
-          $this -> success('更新成功',U('Book/classify'));
-      }else{
-          $this -> error('更新失败');
-      }
-    }
-      
-   	public function cover(){
-   		$b = M('book');
-        $list = $m->table('bee_book b,bee_bimage i')->field('i.id,i.name iname,i.i_path,i.is_cover,b.name')->where('b.id=i.b_id')->select();
-        //$list['path'] = $list['i_path'].$list['iname'];
-        //var_dump($list);
-        $this->assign('list',$list);
-    	$this->display();    
-   	}
-
-   	public function addCover($id){
+        $_POST['release_t'] = strtotime($_POST['release_t']);
+        //var_dump($_POST);
         $b = M('book');
-        $row = $b->where("id=$id")->find();
-        //var_dump($row);
-        $this->assign('row',$row);
-        
-        $b1 = M('bimage');
-        $r = $b1->where('is_cover=1 and b_id='.$id)->find();
-        //echo $m1->getLastsql();
-        $r['path'] = $r['i_path'].$r['name'];
-        //var_dump($r);     
-        $this->assign('r',$r);
+        $insertId=$b->add($_POST);
+        /*
+        if($result){
+            $insertId = $result;
+            //echo $insertId;
+            $this->success('添加成功', U('Book/index'));
 
-        $this->display();    
-   	}
-    public function doaddcover(){      
-        //var_dump($_FILES);
-        $id = $_POST['id'];
+        }else{
+            $this->error('添加失败');
+        }
+        */
+         
         $upload = new \Think\Upload();
         $upload->maxSize = 0;
         $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
         $upload->rootPath  = './Public';
         $upload->savePath  = './Uploads/book/';
-        $info   =   $upload->upload();
-        //var_dump($info);
-        //echo '<hr/>';
+        //上传单个文件
+        $info   =   $upload->uploadOne($_FILES['file']);
         
+
+        //实例化图像类
+        $image = new \Think\Image(); 
+        //拼接图片路径
+        $info['savepath'] = ltrim($info['savepath'],'.');
+        $path = 'Public'.$info['savepath'].$info['savename'];
+        //打开图像
+        $image->open($path);
+        //echo $info['savepath'].'148_'.$info['savename'];exit;
+        //按照原图的比例生成缩略图并保存 三种size
+        $image->thumb(100, 148,\Think\Image::IMAGE_THUMB_FIXED)->save('Public'.$info['savepath'].'148_'.$info['savename']);
+        //再次打开路径
+        $image->open($path);
+
+        $image->thumb(128, 180,\Think\Image::IMAGE_THUMB_FIXED)->save('Public'.$info['savepath'].'180_'.$info['savename']);
+        $image->open($path);
+        
+        $image->thumb(140, 207,\Think\Image::IMAGE_THUMB_FIXED)->save('Public'.$info['savepath'].'207_'.$info['savename']);
+
         if(!$info){   
             $this->error($upload->getError());
-        }else{            
-            foreach($info as $file){
-                $data['name']=$file['savename'];
-                $data['b_id']=$id;
-                //$data['is_cover']='1';
-                $data['i_path']=ltrim($file['savepath'],'.');
-                //var_dump($data);
-                $b = M('bimage');
-                if(!$m->add($data)){    
-                    $this->error('上传失败');
-                }
-            }        
-          $this->success('上传成功',U('Book/addcover',"id=$id"));            
+        }else{//上传成功 获取文件信息   
+            $info['savepath'].$info['savename'];
         }
-
+       
+        $data['name']=$info['savename'];
+        $data['b_id']=$insertId;
+        $data['is_cover']='1';
+        $data['i_path']=ltrim($info['savepath'],'.');
+        //var_dump($data);
+        $b = M('bimage');
+        if($b->add($data)){      
+          $this->success('添加成功');
+        }else{
+          $this->error('添加失败');
+        }
+        
+        $b = M('b_c');
+        foreach ($_POST['c_id'] as $val){
+            $d['b_id']=$insertId;
+            $d['c_id']=$val;
+            $b->add($d);
+        }
     }
      public function brief($id){
         $b = M('book');

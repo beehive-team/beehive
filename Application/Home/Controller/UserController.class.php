@@ -68,20 +68,115 @@ class UserController extends CommonController {
         if($data['image']&&$data['introduce']){
             $info = 'exits';
         }
+
         $user = M('user');
         $userInfo = $user->where("id=$this->userId")->find();
         // echo $user->getLastsql();
-        var_dump($userInfo);
+        // var_dump($userInfo);
 
         $diaryView = D('DiaryView');
         
 
         $diary = $diaryView->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->order('time')->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
 
-        var_dump($diary);
-        array_splice($diary,0,3);
+        
+        $diary = array_slice($diary,0,6);
+        // var_dump($diary);
         $face = $model->field('image')->where("id=$this->userId")->find();
-        var_dump($face);
+        // var_dump($face);
+
+
+        //显示相册
+        $album = D('AlbumView');
+        $u_id = $this->userId;
+        
+        $result = $album->where("u_id=$u_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->order('update_time')->group('album_id')->select();
+        
+        foreach ($result as $key => $value) {
+            $albumId = $result[$key]['album_id'];
+            $photo = M('photo');
+            $cover = $photo->where("is_cover=1 and a_id=$albumId")->select();
+            // var_dump($cover);
+            if(empty($cover)){
+                $cover='';
+            }else{
+                $cover = $cover[0]['path'].'/'.$cover[0]['name'];
+            }
+            
+            // echo $cover;
+            $result[$key]['cover']=empty($cover)?'/images/photo_album.png':$cover;
+            $result[$key]['count'] = $photo->where("a_id=$albumId")->count();
+        }
+        $result = array_slice($result,0,5);
+        
+
+        // var_dump($result);
+
+
+        //显示个人动态
+        $trend = M('trend');
+        $trend_result = $trend->where("u_id=$u_id")->order('time')->select();
+        // var_dump($trend_result);
+        $arr = array();
+        $photo_j;
+        $album_j;
+        $diary_j;
+        for($i=0;$i<count($trend_result);$i++){
+            $action_id = $trend_result[$i]['do_id'];
+            switch($trend_result[$i]['action']){
+                case 'photo':
+                    if($photo_j==1){
+                        break;
+                    }
+                    $photo_j=1;
+                    $p = M('photo');
+                    $trend_photo = $p->field('bee_album.name,bee_photo.time,bee_album.power,bee_album.browse')->table('bee_album ,bee_photo')->where("bee_photo.id=$action_id and bee_photo.a_id=bee_album.id")->find();
+                    $arr[$i]['action'] = 'photo'; 
+                    $arr[$i]['time'] = $trend_photo['time']; 
+                    $arr[$i]['name']= $trend_photo['name'];
+                    $arr[$i]['browse']= $trend_photo['browse'];
+                    $arr[$i]['power']= $trend_photo['power'];
+
+                    break;
+                case 'album':
+                    if($album_j==1){
+                        break;
+                    }
+                    $album_j=1;
+                    $p = M('album');
+                    $trend_album = $p->field('name,time,browse,power')->where("id=$action_id")->find();
+                    $arr[$i]['action']='album';
+                    $arr[$i]['name'] =$trend_album['name'];
+                    $arr[$i]['time'] =$trend_album['time'];
+                    $arr[$i]['browse'] =$trend_album['browse'];
+                    $arr[$i]['power'] =$trend_album['power'];
+
+                    break;
+                case 'diary':
+                    if($diary_j==1){
+                        break;
+                    }
+                    $diary_j=1;
+                    $p = M('diary');
+                    $trend_diary = $p->field('title,browse,power,time')->where("id=$action_id")->find();
+                    $arr[$i]['action']='diary';
+                    $arr[$i]['name']=$trend_diary['title'];
+                    $arr[$i]['time']=$trend_diary['time'];
+                    $arr[$i]['browse']=$trend_diary['browse'];
+                    $arr[$i]['power']=$trend_diary['power'];
+                    break;
+            }
+
+
+
+        } 
+        $arr = array_slice($arr,0,6);
+        // var_dump($arr);
+        $intro = $data['introduce'];
+        $this->assign('intro',$intro);
+        $this->assign('trend',$arr);
+        $this->assign('album',$result);
+
         $this->assign('face',$face);
         $this->assign('diary',$diary);
         $this->assign('userInfo',$userInfo);
@@ -130,7 +225,7 @@ class UserController extends CommonController {
 
         $data = $model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
 
-        
+        var_dump($data);
         foreach($data as $key=>$value){
             $tag = array();
             $data[$key]['content'] = strip_tags($data[$key]['content']);
@@ -162,14 +257,34 @@ class UserController extends CommonController {
             }
 
         }
+        if($this->ifLike($data[$key]['diaryid'],'diary',$this->userId,$this->userId)){
+            $data[$key]['like']=1;
+        }else{
+            $data[$key]['like']=0;
+        }
     
        
-        // var_dump($data);
+        var_dump($data);
 
         $this->assign('page',$show);
         $this->assign('data',$data);
         // var_dump($data);
         $this->display();
+
+    }
+
+    public function ifLike($like_id,$action,$u_id,$p_id){   
+        $like['like_id'] =$like_id;
+        $like['u_id']=$u_id; 
+        $like['p_id']=$p_id; 
+        $like['action']=$action;
+        $model = M('u_like');
+        
+        if($model->where($like)->find()){
+            return true;
+        }else{
+            return false;
+        }
 
     }
 
@@ -663,6 +778,13 @@ class UserController extends CommonController {
         // var_dump($p_d);
         $tags = $album->field('atag_name,atag_id')->where("album.id=$a_id and a_t.a_id=album.id")->select();
         // var_dump($tags);
+        if($this->ifLike($a_id,'album',$this->userId,$this->userId)){
+            $like=1;
+        }else{
+            $like=0;
+        }
+        $this->assign('like',$like);
+
         $this->assign('tags',$tags);
         $this->assign('p_n',$p_n);
         $this->assign('photo',$p_d);
@@ -753,6 +875,34 @@ class UserController extends CommonController {
         $this->success('修改成功',U('User/album'));
 
 
+    }
+
+
+    // 处理喜欢表
+    public function doLike(){
+        // var_dump($_POST);
+        $data['p_id']=$this->userId;
+        $data['u_id']=$this->userId;
+        $data['action']=$_POST['action'];
+        $data['time']=$this->time;
+        $data['like_id']=$_POST['action_id'];
+        // var_dump($data);
+        $model = M('u_like');
+        if($model->add($data)){
+            echo 'true';
+        }
+
+    }
+
+    public function removeLike(){
+        $data['p_id']=$this->userId;
+        $data['u_id']=$this->userId;
+        $data['action']=$_POST['action'];
+        $data['like_id']=$_POST['action_id'];
+        $model = M('u_like');
+        if($model->where($data)->delete()){
+            echo 'true';
+        }
     }
 
 

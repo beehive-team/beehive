@@ -175,6 +175,8 @@ h1{
 .brief{
 	width: 588px;
 	height: 131px;
+	overflow: hidden;
+	
 }
 .brief{
 	font:12px/1.62 Helvetica,Arial,sans-serif;
@@ -465,6 +467,15 @@ h1{
     margin: 1px 0 0 7px;
     width: 50px;
 }
+
+.stars1,.stars2,.stars3,.stars4,.stars5,.starstop {
+    background: rgba(0, 0, 0, 0) url("../images/stars.gif") repeat scroll 0 0;
+    display: block;
+    float: left;
+    height: 14px;
+    margin: 1px 0 0 7px;
+    width: 50px;
+}
 .stars4 {
     background-position: left 61px;
 }
@@ -477,11 +488,15 @@ h1{
 .stars1 {
     background-position: left 15px;
 }
-.starstop {
-    background: rgba(0, 0, 0, 0) url("../images/stars.gif") repeat scroll 0 0;
-    display: block;
+.power {
+    background: #f5cbad none repeat scroll 0 0;
     float: left;
     height: 14px;
-    margin: 1px 0 0 7px;
-    width: 50px;
+    margin: 0 3px;
+}
+.rating_num {
+    color: red;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0 0 0 8px;
 }

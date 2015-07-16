@@ -52,7 +52,7 @@ class CommonWidget extends Controller {
         // var_dump($face);
         $this->assign('face',$face);
         $this->assign('data',$data);
-
+        // var_dump($data);
 
       
         $this->display('Public:userTitle');

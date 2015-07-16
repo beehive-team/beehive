@@ -91,7 +91,7 @@
 												<a href="{:U('/Home/User/deleteDiary')}?id={$vo.diaryid}">>删除</a>
 												<strong>{$vo.browse}</strong>
 											</div>
-											<a class="like" href="javascript:;"><span></span>喜欢</a>  
+											<a class="like {$vo['like']==1?'active':''}"  rel="diary_{$vo.diaryid}" href="javascript:;"><span></span>喜欢</a>  
 										</div>
 									</li>
 								</foreach>

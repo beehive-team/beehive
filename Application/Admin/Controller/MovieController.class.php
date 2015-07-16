@@ -213,13 +213,7 @@ class MovieController extends Controller {
     public function image(){
         $m = M('movie');
         //查询信息
-        $list1 = $m->table('bee_movie m,bee_mimage i')->field('i.id,i.name iname,i.i_path,i.is_cover,m.name')->where('m.id=i.m_id')->select();
-        //通过遍历将path添加到数组
-        foreach ($list1 as $val){
-            $val['path'] = $val['i_path'].'148_'.$val['iname'];
-            //var_dump($val);
-            $list[]=$val;
-        }     
+        $list = $m->table('bee_movie m,bee_mimage i')->field('i.id,i.name iname,i.i_path,i.is_cover,m.name')->where('m.id=i.m_id')->select();
         //var_dump($list);exit;
         $this->assign('list',$list);   
     	$this->display();    
@@ -286,7 +280,7 @@ class MovieController extends Controller {
         $this->display();
     }
     public function editbrief(){
-        var_dump($_POST);
+        //var_dump($_POST);
         $id=$_POST['id'];
         $m = M('movie');
         if($m->where("id=$id")->save($_POST)){

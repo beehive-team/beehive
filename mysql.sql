@@ -235,9 +235,10 @@ create table bee_u_f(
 create table bee_u_like(
     id int unsigned not null auto_increment primary key,
     u_id int unsigned,						-- 用户id
-    controllername varchar(255),			-- 关注的类型
+    p_id int unsigned,						-- 被喜欢的用户id
+    action varchar(255),			        -- 喜欢的类型
     like_id int unsigned,					-- 喜欢的id
-    time varchar(13),						-- 时间戳
+    time varchar(13)						-- 时间戳
 )engine=InnoDB default charset=utf8;
 
 -- 用户提问表

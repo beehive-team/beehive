@@ -15,8 +15,6 @@
 		<script type="text/javascript">
 			$(function(){
 				
-
-				
 				var face_flag = false;
 				var sign_flag = false;
 				
@@ -41,6 +39,8 @@
 				    	img_src = path+img_src;				    	//alert(img_src);
 				    	$('.face-box .big-img img').attr('src',img_src);
 				    	$('.face-box .small-img img').attr('src',img_src);
+					
+
 				    	
 				    },
 				    fail: function(e, data) {
@@ -98,6 +98,8 @@
 						$('.list-box .face-box').hide();
 						face_flag = true;
 						pleaseRelode();
+						location.reload([true]);
+
 
 					}
 
@@ -127,6 +129,29 @@
 
 				return false;
 			}
+
+			function rightIntroUpdate(obj){
+
+				var introInfo = $(obj).find('textarea').val();
+				
+				// alert(faceImage);
+				$.post('__CONTROLLER__/updateIntro',{intro:introInfo},function(data){
+					if(data=='true'){
+						
+						$('.intro-form form').hide();
+					
+						
+						location.reload([true]);
+
+						
+					}
+
+				});
+
+
+				return false;
+			}
+
 
 			function pleaseRelode(){
 				if(sign_flag && face_flag){
@@ -201,36 +226,46 @@
 						</div>
 						<div class="section sec-2">
 							<h2>我的日记<a href="">(全部)</a><a class="btn"href="">+写日记</a></h2>
-							<div class="list">
-								<ul>
-									<li>
-										<a href="">一吃红粗</a>
-										<p class="time">2015-07-10 10:38:49</p>
-										<p>hehedadadadadajlfsdjfoij</p>
-									</li>
-								</ul>
-							</div>
-							<div class="empty">
-								<p>写点日志吧</p>
-							</div>
+							<notempty name="diary">
+								<div class="list">
+									<ul>
+										<foreach name="diary" item="vo" key="k">
+											<li>
+												<a href="">{$vo.title}</a>
+												<p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p>
+												<p>{$vo.content}</p>
+											</li>
+										</foreach>
+									</ul>
+								</div>
+							<else />
+								<div class="empty">
+									<p>写点日志吧</p>
+								</div>
+							</notempty>
 						</div>
 						<div class="section sec-3">
 							<h2>我的相册<a href="">(全部)</a><a class="btn"href="">+新建相册</a><a class="btn"href="">+发照片</a></h2>
-							<div class="list">
-								<ul>
-									<li>
-										<a class="img"href=""><img src="__PUBLIC__/images/photo6.jpg"></a>
-										<a href="">相册</a>
-										<p class="time">2015-07-10 10:38:49</p>
-										
-									</li>
-								</ul>
-							</div>
+							<notempty name="album"> 
+								<div class="list">
+									<ul>
+										<foreach name="album" item="vo" key="k">
+											<li>
+												<a class="img"href=""><img src="__PUBLIC__/{$vo.cover}"></a>
+												<a href="">{$vo.album_name}</a>
+												<p class="time">{$vo.update_time|date="Y-m-d",###}更新</p>
+												
+											</li>
+										</foreach>
+									</ul>
+								</div>
+							<else />
 							<div class="empty">
 								<div class="img-box">
 									<a href="">+</a>
 								</div>
 							</div>
+							</notempty>
 						</div>
 
 						
@@ -252,9 +287,13 @@
 								</div>
 							</div>
 							<div class="brief clearfix">
-								<a href="">（添加自我介绍）</a>
+								<empty name="intro">
+									<a href="javascript:;">（添加自我介绍）</a>
+								<else />
+									<p class="intro">{$intro}</p>
+								</empty>
 								<div class="intro-form">
-									<form>
+									<form onsubmit="return rightIntroUpdate(this)">
 										<textarea name="introduce"></textarea>
 										<input type="submit" value="保存"/>
 										<input type="button" value="取消"/>
@@ -265,13 +304,37 @@
 						</div>
 						<div class="radio">
 							<h2>我的广播<a href="">全部</a></h2>
-							<ul>
-								<li>
-									<p>上传了1张照片到 <a href="">diyigexiangce</a></p>
-									<p>44fenzhongqian<a href="">回应</a><a href="">删除</a></p>
-									
-								</li>
-							</ul>
+							<notempty name="trend">
+								<ul>
+									<foreach name="trend" item="vo" key="k">
+										<switch name="vo.action">
+											<case value="photo" break="1">
+												<li>
+													<p>上传了1张照片到 <a href="">{$vo.name}</a></p>
+													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="">回应</a></if><a href="">删除</a></p>
+											
+												</li>
+											</case>
+											<case value="album" break="1">
+												<li>
+													<p>创建了相册<a href="">{$vo.name}</a></p>
+													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="">回应</a></if><a href="">删除</a></p>
+											
+												</li>
+											</case>
+											<case value="diary" break="1">
+												<li>
+													<p>发表了日记<a href="">{$vo.name}</a></p>
+													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="">回应</a></if><a href="">删除</a></p>
+											
+												</li>
+											</case>
+										</switch>										
+									</foreach>
+								</ul>
+							<else />
+								<p>做点事情吧~</p>
+							</notempty>
 						</div>
 						<div class="follow">
 							<p><a href="">>我被0人关注</a></p>

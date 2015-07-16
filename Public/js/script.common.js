@@ -52,10 +52,29 @@ function is_vcode(str){
 
 $(function(){
 	$('a.like').click(function(){
+		var that = $(this);
+		var rel = $(this).attr('rel');
+		rel = rel.split('_');
+		var PATH = "/beehive/index.php/Home/User";
+		var action = rel[0];
+		var id = rel[1];		
 		if($(this).hasClass('active')){
-			$(this).removeClass('active');
+			$.post(PATH+'/removeLike',{action:action,action_id:id},function(data){
+				if(data){
+					$(that).removeClass('active');
+				}
+			})
+			
+
 		}else{
-			$(this).addClass('active');
+			
+			// alert(action);
+			$.post(PATH+'/doLike',{action:action,action_id:id},function(data){
+					
+				if(data){
+					$(that).addClass('active');
+				}
+			})
 		}
 	})
 })

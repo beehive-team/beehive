@@ -14,7 +14,7 @@
 				c_id='hot';
 				$.post('__CONTROLLER__/getCata',{c_id:'hot',num:i},function(data){
 					for(var tmp in data){
-						$('#dys').append('<li><a href=""><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
+						$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
 						}
 				},'json')
 
@@ -42,7 +42,7 @@
 						//alert(data[0]['mname']);
 						$('#dys').empty();
 						for(var tmp in data){
-							$('#dys').append('<li><a href=""><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</ i></p></a></li>');
+							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</ i></p></a></li>');
 						}
 					},'json')
 				})
@@ -53,24 +53,21 @@
 					$.post('__CONTROLLER__/getCata',{c_id:c_id,num:i},function(data){
 						$('#dys').empty();
 						for(var tmp in data){
-							$('#dys').append('<li><a href=""><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
+							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
 						}
-
-					
-				})
-				
-				$('.tip').css('display','none');
-				
+											
 					},'json')
+				})
+
+				$('.tip').css('display','none');
 				$('#check').click(function(){
 					if($('#check').is(':checked') && '{$Think.session.home}' == ''){
 						$('.tip').css('display','block');
-						alert('e');
+						//alert('e');
 					}else{
 						$('.tip').css('display','none');			
 					}	
-				})
-							
+				})		
 			})
 		</script>
 		<!-- END 自定义 head -->

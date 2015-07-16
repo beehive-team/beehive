@@ -97,7 +97,7 @@
 
 				})
 				var img_all = new Array();
-				
+				var i = 0;
 				$('.upload-box input').fileupload({  
 					autoUpload: true,
 				    autoUpload: true,
@@ -116,8 +116,10 @@
 				    	     
 				    	var new_div = $('.img-upload div.img-box').last(); 
 				    	$(new_div).append('<img src='+img_src+'/>');
+				    	$(new_div).append('<input type="hidden" name="image_'+i+'"value='+img_src+'>');
 				    	$(new_div).append('<span><a href="javascript:;"></a></span>');
 				    	img_all.push(img_src);
+				    	i++;
 				    	
 				    },
 				    fail: function(e, data) {
@@ -140,11 +142,22 @@
 
 				})
 
-				
+			
 
 
 
 			})
+
+		
+			function saySubmit(obj){
+				
+				if(!$(obj).find('.say').val()){
+					
+					$(obj).find('.say').attr('placeholder','请说些什么吧！');
+					return false;
+				}
+			}
+
 		</script>
 		<!-- END 自定义 head -->
 	</head>
@@ -201,7 +214,7 @@
 							</div>
 							</div>
 
-							<form>
+							<form onsubmit="return saySubmit(this)" action="dosay" method="post">
 								<div class="text">
 								
 									<div class="input-box">
@@ -306,9 +319,7 @@
 		    {:W('Common/commonFooter')}
 		<!-- END footer -->
 
-		<script type="text/javascript">
-			
-		</script>
+
 
 	</body>
 </html>

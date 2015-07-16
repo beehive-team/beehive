@@ -291,8 +291,8 @@ create table bee_g_topic(
     u_id int unsigned,						-- 用户id
     title varchar(255),						-- 话题标题
     content varchar(255),					-- 话题内容
-	foreign key (g_id) references bee_group(id) on update cascade on delete CASCADE
-	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+	foreign key (g_id) references bee_group(id) on update cascade on delete CASCADE,
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 
@@ -304,6 +304,7 @@ create table bee_say(
 	time varchar(13),
 	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
+
 
 -- 用户说说图片表
 create table bee_s_i(

@@ -1660,11 +1660,19 @@ a.like.active span{
 }
 .user-home-page .section .list {
 	padding-bottom: 10px;
-	border-bottom:1px dashed #ddd;
 }
 .user-home-page .section .list a{
 	color: #9A633C;
 	margin:0 5px;
+}
+.user-home-page .section .list p{
+	line-height: 30px;
+	border-bottom: 1px dashed #ddd;
+
+}
+.user-home-page .section .list p span{
+	display: inline-block;
+	float: right;
 }
 .user-home-page .section a.btn{
 	border: 1px solid #ddd;

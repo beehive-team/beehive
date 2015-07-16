@@ -112,64 +112,13 @@ class UserController extends CommonController {
 
         // var_dump($result);
 
-
-        //显示个人动态
-        $trend = M('trend');
-        $trend_result = $trend->where("u_id=$u_id")->order('time')->select();
-        // var_dump($trend_result);
-        $arr = array();
-        $photo_j;
-        $album_j;
-        $diary_j;
-        for($i=0;$i<count($trend_result);$i++){
-            $action_id = $trend_result[$i]['do_id'];
-            switch($trend_result[$i]['action']){
-                case 'photo':
-                    if($photo_j==1){
-                        break;
-                    }
-                    $photo_j=1;
-                    $p = M('photo');
-                    $trend_photo = $p->field('bee_album.name,bee_photo.time,bee_album.power,bee_album.browse')->table('bee_album ,bee_photo')->where("bee_photo.id=$action_id and bee_photo.a_id=bee_album.id")->find();
-                    $arr[$i]['action'] = 'photo'; 
-                    $arr[$i]['time'] = $trend_photo['time']; 
-                    $arr[$i]['name']= $trend_photo['name'];
-                    $arr[$i]['browse']= $trend_photo['browse'];
-                    $arr[$i]['power']= $trend_photo['power'];
-
-                    break;
-                case 'album':
-                    if($album_j==1){
-                        break;
-                    }
-                    $album_j=1;
-                    $p = M('album');
-                    $trend_album = $p->field('name,time,browse,power')->where("id=$action_id")->find();
-                    $arr[$i]['action']='album';
-                    $arr[$i]['name'] =$trend_album['name'];
-                    $arr[$i]['time'] =$trend_album['time'];
-                    $arr[$i]['browse'] =$trend_album['browse'];
-                    $arr[$i]['power'] =$trend_album['power'];
-
-                    break;
-                case 'diary':
-                    if($diary_j==1){
-                        break;
-                    }
-                    $diary_j=1;
-                    $p = M('diary');
-                    $trend_diary = $p->field('title,browse,power,time')->where("id=$action_id")->find();
-                    $arr[$i]['action']='diary';
-                    $arr[$i]['name']=$trend_diary['title'];
-                    $arr[$i]['time']=$trend_diary['time'];
-                    $arr[$i]['browse']=$trend_diary['browse'];
-                    $arr[$i]['power']=$trend_diary['power'];
-                    break;
-            }
-
-
-
-        } 
+        $like_list = $this->getLike(1);
+        
+        // var_dump($like_list);
+        $arr = $this->getTrend(1);
+        
+        // var_dump($arr);
+        // var_dump($like_list);
         $arr = array_slice($arr,0,6);
         // var_dump($arr);
         $intro = $data['introduce'];
@@ -182,8 +131,230 @@ class UserController extends CommonController {
         $this->assign('userInfo',$userInfo);
         $this->assign('exits',$info);
         $this->assign('data',$data);
+        $this->assign('like',$like_list);
 
         $this->display();
+    }
+
+
+    //显示喜欢
+    public function getLike($num){
+        //显示喜欢
+        $like = M('u_like');
+        $like_result = $like->where("u_id=$this->userId")->select();
+        $like_list = array();
+        $diary_k;
+        $album_k;
+        if($num==1){
+            for($i=0;$i<count($like_result);$i++){
+                $action = $like_result[$i]['action'];
+                switch ($action) {
+                    case 'diary':
+                        if($diary_k==1){
+                            break;
+                        }
+                        $diary_k=1;
+
+                        $like_list[$i]['action'] = 'diary';
+                        $diary_id = $like_result[$i]['like_id'];
+                        $like_list[$i]['time']=$like_result[$i]['time'];
+                        $diary = M('diary');
+                        $like_list[$i]['id']=$diary_id;
+                        $diary_title=$diary->field('title')->where("id=$diary_id")->find();
+                        $like_list[$i]['name']=$diary_title['title'];
+                        break;
+                    
+                    case 'album':
+                        if($album_k==1){
+                            break;
+                        }
+                        $album_k=1;
+
+                        $like_list[$i]['action'] = 'album';
+                        $album_id = $like_result[$i]['like_id'];
+                        $like_list[$i]['time']=$like_result[$i]['time'];
+                        $album= M('album');
+                        $album_name=$album->field('name')->where("id=$album_id")->find();
+                        
+                        $like_list[$i]['name']=$album_name['name'];
+                    break;
+                }
+            }
+        }else{
+            for($i=0;$i<count($like_result);$i++){
+                $action = $like_result[$i]['action'];
+                switch ($action) {
+                    case 'diary':
+
+                        $like_list[$i]['action'] = 'diary';
+                        $diary_id = $like_result[$i]['like_id'];
+                        $like_list[$i]['time']=$like_result[$i]['time'];
+                        $diary = M('diary');
+                        $like_list[$i]['id']=$diary_id;
+                        $diary_title=$diary->field('title')->where("id=$diary_id")->find();
+                        $like_list[$i]['name']=$diary_title['title'];
+                        break;
+                    
+                    case 'album':
+
+                        $like_list[$i]['action'] = 'album';
+                        $album_id = $like_result[$i]['like_id'];
+                        $like_list[$i]['time']=$like_result[$i]['time'];
+                        $album= M('album');
+                        $like_list[$i]['id']=$album_id;
+                        $album_name=$album->field('name')->where("id=$album_id")->find();
+
+                        $like_list[$i]['name']=$album_name['name'];
+                    break;
+                }
+            }
+
+        }
+        return $like_list;
+    }
+
+    //显示动态
+    public function getTrend($num){
+        if($num==1){
+
+            $trend = M('trend');
+            $trend_result = $trend->where("u_id=$this->userId")->order('time')->select();
+            // var_dump($trend_result);
+            
+            $photo_j;
+            $album_j;
+            $diary_j;
+            $say_j;
+            for($i=0;$i<count($trend_result);$i++){
+                $action_id = $trend_result[$i]['do_id'];
+                switch($trend_result[$i]['action']){
+                    case 'photo':
+                        if($photo_j==1){
+                            break;
+                        }
+                        $photo_j=1;
+                        $p = M('photo');
+                        $trend_photo = $p->field('bee_photo.id,bee_album.name,bee_photo.time,bee_album.power,bee_album.browse')->table('bee_album ,bee_photo')->where("bee_photo.id=$action_id and bee_photo.a_id=bee_album.id")->find();
+                        $arr[$i]['action'] = 'photo'; 
+                        $arr[$i]['time'] = $trend_photo['time']; 
+                        $arr[$i]['name']= $trend_photo['name'];
+                        $arr[$i]['browse']= $trend_photo['browse'];
+                        $arr[$i]['power']= $trend_photo['power'];
+                        $arr[$i]['id']= $trend_photo['id'];
+
+
+                        break;
+                    case 'album':
+                        if($album_j==1){
+                            break;
+                        }
+                        $album_j=1;
+                        $p = M('album');
+                        $trend_album = $p->field('id,name,time,browse,power')->where("id=$action_id")->find();
+                        $arr[$i]['action']='album';
+                        $arr[$i]['name'] =$trend_album['name'];
+                        $arr[$i]['time'] =$trend_album['time'];
+                        $arr[$i]['browse'] =$trend_album['browse'];
+                        $arr[$i]['power'] =$trend_album['power'];
+                        $arr[$i]['id'] =$trend_album['id'];
+
+                        break;
+                    case 'diary':
+                        if($diary_j==1){
+                            break;
+                        }
+                        $diary_j=1;
+                        $p = M('diary');
+                        $trend_diary = $p->field('id,title,browse,power,time')->where("id=$action_id")->find();
+                        $arr[$i]['action']='diary';
+                        $arr[$i]['name']=$trend_diary['title'];
+                        $arr[$i]['time']=$trend_diary['time'];
+                        $arr[$i]['browse']=$trend_diary['browse'];
+                        $arr[$i]['power']=$trend_diary['power'];
+                        $arr[$i]['id']=$trend_diary['id'];
+                        break;
+                    case 'say':
+                        if($say_j==1){
+                            break;
+                        }
+                        $say_j=1;
+                        $p = M('say');
+                        $trend_say = $p->field('id,content,time')->where("id=$action_id")->find();
+                        $arr[$i]['action']='say';
+                        $arr[$i]['content']=$trend_say['content'];
+                        $arr[$i]['time']=$trend_say['time'];
+                        $arr[$i]['id']=$trend_say['id'];
+                    break;
+                }
+
+
+
+            } 
+        }else{
+            //显示个人动态
+            $trend = M('trend');
+            $trend_result = $trend->where("u_id=$u_id")->order('time')->select();
+            // var_dump($trend_result);
+            
+         
+            for($i=0;$i<count($trend_result);$i++){
+                $action_id = $trend_result[$i]['do_id'];
+                switch($trend_result[$i]['action']){
+                    case 'photo':
+                       
+                        $p = M('photo');
+                        $trend_photo = $p->field('bee_photo.id,bee_album.name,bee_photo.time,bee_album.power,bee_album.browse')->table('bee_album ,bee_photo')->where("bee_photo.id=$action_id and bee_photo.a_id=bee_album.id")->find();
+                        $arr[$i]['action'] = 'photo'; 
+                        $arr[$i]['time'] = $trend_photo['time']; 
+                        $arr[$i]['name']= $trend_photo['name'];
+                        $arr[$i]['browse']= $trend_photo['browse'];
+                        $arr[$i]['power']= $trend_photo['power'];
+                        $arr[$i]['id']= $trend_photo['id'];
+
+
+                        break;
+                    case 'album':
+                        
+                        $p = M('album');
+                        $trend_album = $p->field('id,name,time,browse,power')->where("id=$action_id")->find();
+                        $arr[$i]['action']='album';
+                        $arr[$i]['name'] =$trend_album['name'];
+                        $arr[$i]['time'] =$trend_album['time'];
+                        $arr[$i]['browse'] =$trend_album['browse'];
+                        $arr[$i]['power'] =$trend_album['power'];
+                        $arr[$i]['id'] =$trend_album['id'];
+
+                        break;
+                    case 'diary':
+                        
+                        $diary_j=1;
+                        $p = M('diary');
+                        $trend_diary = $p->field('id,title,browse,power,time')->where("id=$action_id")->find();
+                        $arr[$i]['action']='diary';
+                        $arr[$i]['name']=$trend_diary['title'];
+                        $arr[$i]['time']=$trend_diary['time'];
+                        $arr[$i]['browse']=$trend_diary['browse'];
+                        $arr[$i]['power']=$trend_diary['power'];
+                        $arr[$i]['id']=$trend_diary['id'];
+                        break;
+                    case 'say':
+                       
+                        $say_j=1;
+                        $p = M('say');
+                        $trend_say = $p->field('id,content,time')->where("id=$action_id")->find();
+                        $arr[$i]['action']='say';
+                        $arr[$i]['content']=$trend_say['content'];
+                        $arr[$i]['time']=$trend_say['time'];
+                        $arr[$i]['id']=$trend_say['id'];
+                    break;
+                }
+
+
+
+            } 
+
+        }
+        return $arr;
     }
 
     // 头像上传
@@ -225,7 +396,7 @@ class UserController extends CommonController {
 
         $data = $model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
 
-        var_dump($data);
+        // var_dump($data);
         foreach($data as $key=>$value){
             $tag = array();
             $data[$key]['content'] = strip_tags($data[$key]['content']);
@@ -259,12 +430,10 @@ class UserController extends CommonController {
         }
         if($this->ifLike($data[$key]['diaryid'],'diary',$this->userId,$this->userId)){
             $data[$key]['like']=1;
-        }else{
-            $data[$key]['like']=0;
         }
     
        
-        var_dump($data);
+        // var_dump($data);
 
         $this->assign('page',$show);
         $this->assign('data',$data);
@@ -903,6 +1072,34 @@ class UserController extends CommonController {
         if($model->where($data)->delete()){
             echo 'true';
         }
+    }
+
+    // 处理说说
+    public function dosay(){
+        var_dump($_POST);
+        $data = $_POST;
+        unset($data['myfile']);
+        $text['content'] = $data['text'];
+        unset($data['text']);
+        $say = M('say');
+        $text['u_id']=$this->userId;
+        $text['time'] = $this->time;
+        if($insertId = $say->add($text)){
+            if(!$data){
+                foreach ($data as $key => $value) {
+                    $image['s_id']=$insertId;
+                    $image['name']=$data[$key];
+                    $s_i = M('s_i');
+                    $s_i->add($image);
+
+                }
+            }
+            $this->trend('say',$this->time,$insertId);
+
+            $this->success('发表成功');
+        }
+
+
     }
 
 

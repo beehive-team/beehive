@@ -115,7 +115,13 @@ class UserController extends CommonController {
         }
         // var_dump($hot_list);
         if(!empty($_POST['limit'])){
-            $this->ajaxReturn($hot_list);
+            if(!empty($hot_list)){
+                $this->ajaxReturn($hot_list);
+            }else{
+                $this->ajaxReturn();
+
+            }
+            
         }
         // var_dump($hot_list);
         $this->assign('hot',$hot_list);
@@ -165,7 +171,7 @@ class UserController extends CommonController {
         $diaryView = D('DiaryView');
         
 
-        $diary = $diaryView->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->order('time')->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $diary = $diaryView->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->order('time desc')->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
 
         
         $diary = array_slice($diary,0,6);
@@ -178,7 +184,7 @@ class UserController extends CommonController {
         $album = D('AlbumView');
         $u_id = $this->userId;
         
-        $result = $album->where("u_id=$u_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->order('update_time')->group('album_id')->select();
+        $result = $album->where("u_id=$u_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->order('update_time desc')->group('album_id')->select();
         
         foreach ($result as $key => $value) {
             $albumId = $result[$key]['album_id'];
@@ -306,7 +312,7 @@ class UserController extends CommonController {
         if($num==1){
 
             $trend = M('trend');
-            $trend_result = $trend->where("u_id=$this->userId")->order('time')->select();
+            $trend_result = $trend->where("u_id=$this->userId")->order('time desc')->select();
             // var_dump($trend_result);
             
             $photo_j;
@@ -322,7 +328,7 @@ class UserController extends CommonController {
                         }
                         $photo_j=1;
                         $p = M('photo');
-                        $trend_photo = $p->field('bee_photo.id,bee_album.name,bee_photo.time,bee_album.power,bee_album.browse')->table('bee_album ,bee_photo')->where("bee_photo.id=$action_id and bee_photo.a_id=bee_album.id")->find();
+                        $trend_photo = $p->field('bee_photo.id,bee_album.name,bee_photo.time,bee_album.power,bee_album.browse')->table('bee_album ,bee_photo')->where("bee_photo.id=$action_id and bee_photo.a_id=bee_album.id")->order('time desc')->find();
                         $arr[$i]['action'] = 'photo'; 
                         $arr[$i]['time'] = $trend_photo['time']; 
                         $arr[$i]['name']= $trend_photo['name'];
@@ -338,7 +344,7 @@ class UserController extends CommonController {
                         }
                         $album_j=1;
                         $p = M('album');
-                        $trend_album = $p->field('id,name,time,browse,power')->where("id=$action_id")->find();
+                        $trend_album = $p->field('id,name,time,browse,power')->where("id=$action_id")->order('time desc')->find();
                         $arr[$i]['action']='album';
                         $arr[$i]['name'] =$trend_album['name'];
                         $arr[$i]['time'] =$trend_album['time'];
@@ -353,7 +359,7 @@ class UserController extends CommonController {
                         }
                         $diary_j=1;
                         $p = M('diary');
-                        $trend_diary = $p->field('id,title,browse,power,time')->where("id=$action_id")->find();
+                        $trend_diary = $p->field('id,title,browse,power,time')->where("id=$action_id")->order('time desc')->find();
                         $arr[$i]['action']='diary';
                         $arr[$i]['name']=$trend_diary['title'];
                         $arr[$i]['time']=$trend_diary['time'];
@@ -367,7 +373,7 @@ class UserController extends CommonController {
                         }
                         $say_j=1;
                         $p = M('say');
-                        $trend_say = $p->field('id,content,time')->where("id=$action_id")->find();
+                        $trend_say = $p->field('id,content,time')->where("id=$action_id")->order('time desc')->find();
                         $arr[$i]['action']='say';
                         $arr[$i]['content']=$trend_say['content'];
                         $arr[$i]['time']=$trend_say['time'];
@@ -381,7 +387,7 @@ class UserController extends CommonController {
         }else{
             //显示个人动态
             $trend = M('trend');
-            $trend_result = $trend->where("u_id=$u_id")->order('time')->select();
+            $trend_result = $trend->where("u_id=$u_id")->order('time desc')->select();
             // var_dump($trend_result);
             
          
@@ -391,7 +397,7 @@ class UserController extends CommonController {
                     case 'photo':
                        
                         $p = M('photo');
-                        $trend_photo = $p->field('bee_photo.id,bee_album.name,bee_photo.time,bee_album.power,bee_album.browse')->table('bee_album ,bee_photo')->where("bee_photo.id=$action_id and bee_photo.a_id=bee_album.id")->find();
+                        $trend_photo = $p->field('bee_photo.id,bee_album.name,bee_photo.time,bee_album.power,bee_album.browse')->table('bee_album ,bee_photo')->where("bee_photo.id=$action_id and bee_photo.a_id=bee_album.id")->order('time desc')->find();
                         $arr[$i]['action'] = 'photo'; 
                         $arr[$i]['time'] = $trend_photo['time']; 
                         $arr[$i]['name']= $trend_photo['name'];
@@ -404,7 +410,7 @@ class UserController extends CommonController {
                     case 'album':
                         
                         $p = M('album');
-                        $trend_album = $p->field('id,name,time,browse,power')->where("id=$action_id")->find();
+                        $trend_album = $p->field('id,name,time,browse,power')->where("id=$action_id")->order('time desc')->find();
                         $arr[$i]['action']='album';
                         $arr[$i]['name'] =$trend_album['name'];
                         $arr[$i]['time'] =$trend_album['time'];
@@ -417,7 +423,7 @@ class UserController extends CommonController {
                         
                         $diary_j=1;
                         $p = M('diary');
-                        $trend_diary = $p->field('id,title,browse,power,time')->where("id=$action_id")->find();
+                        $trend_diary = $p->field('id,title,browse,power,time')->where("id=$action_id")->order('time desc')->find();
                         $arr[$i]['action']='diary';
                         $arr[$i]['name']=$trend_diary['title'];
                         $arr[$i]['time']=$trend_diary['time'];
@@ -429,7 +435,7 @@ class UserController extends CommonController {
                        
                         $say_j=1;
                         $p = M('say');
-                        $trend_say = $p->field('id,content,time')->where("id=$action_id")->find();
+                        $trend_say = $p->field('id,content,time')->where("id=$action_id")->order('time desc')->find();
                         $arr[$i]['action']='say';
                         $arr[$i]['content']=$trend_say['content'];
                         $arr[$i]['time']=$trend_say['time'];
@@ -442,6 +448,7 @@ class UserController extends CommonController {
             } 
 
         }
+        // var_dump($arr);
         return $arr;
     }
 
@@ -1049,6 +1056,7 @@ class UserController extends CommonController {
         $this->assign('like',$like);
 
         $this->assign('tags',$tags);
+        $this->assign('u_id',$this->userId);
         $this->assign('p_n',$p_n);
         $this->assign('photo',$p_d);
         $this->assign('data',$result);

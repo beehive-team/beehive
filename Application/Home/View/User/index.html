@@ -149,8 +149,8 @@
 					$.post('index',{limit:limit},function(data){
 
 						if(data){
+							// alert(1)
 							for(var i in data){
-
 								if(data[i]['action']=='album'){
 									
 									
@@ -168,14 +168,27 @@
 									$(obj).find('.info p a').html(data[i]['name']);
 									var str = '';
 									for(var j=0;j<data[i]['photo'].length;j++){
-										str += '<img src="'+data[i]['photo'][j]+'"/>';
+										str += '<img src="'+PUBLIC+data[i]['photo'][j]['path']+'/'+data[i]['photo'][j]['name']+'"/>';
 									}
-									alert(data[i]['photo']);
+									// alert(data[i]['photo']);
 									$(obj).find('.img-box a').html(str);
+									if(data[i]['like']==1){
+										$(obj).find('a.like').addClass('active');
+									}
+									var time = getLocalTime(data[i]['time'])
+									$(obj).find('.time').html('<p>'+time+'</p>');
+									var tag='';
+									for(var j=0;j<data[i]['tag'].length;j++){
+
+										tag +='<a href="">'+data[i]['tag'][j]['name']+'</a>';
+									}
+									$(obj).find('.list-box').append(tag);
 
 								}
 							}
 							limit+=2;
+						}else{
+							$('.ajax-btn').html('<p>没有东西了</p>');
 						}
 					})
 				})
@@ -183,7 +196,10 @@
 
 			})
 
-		
+			function getLocalTime(tm) {     
+		      	var tt=new Date(parseInt(tm) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ")
+				return tt;     
+		    }     
 			function saySubmit(obj){
 				
 				if(!$(obj).find('.say').val()){

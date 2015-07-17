@@ -1458,7 +1458,13 @@ body > #wrap {height: auto; min-height: 100%;}
 	color: #fff;
 	background: #9A633C;
 }
-
+.user-page .info-box .ajax-btn{
+	padding-bottom: 30px;
+}
+.user-page .info-box .ajax-btn p{
+	text-align: center;
+	color:#666;
+}
 .user-page .info-box .ajax-btn a{
 	display: block;
 	width: 100%;

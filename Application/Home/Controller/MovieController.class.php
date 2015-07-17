@@ -46,13 +46,20 @@ class MovieController extends CommonController {
         //var_dump($list[0]);
         $this->assign('list',$list[0]);
 
-        //查询年份 国家 图片
+        //查询年份  非封面图片
         $m1 = M('movie');
         $row= $m1->table('bee_movie m,bee_mimage i,bee_mclassify f')
                 ->field('m.year,m.country,i.name iname,i.m_id,i.i_path,f.name')
                 ->where('m.year=f.id and i.is_cover=0 and m.id=i.m_id and m.id='.$id)
                 ->select();
-        var_dump($row);
+        //var_dump($row);
+        $this->assign('row',$row);
+        //查询国家
+        $m2=M('movie');
+        $r = $m2->table('bee_movie m,bee_mclassify f ')->field('f.name')->where('f.id=m.country and m.id='.$id)->find();
+        $m2->getLastSql();
+        //var_dump($r);
+        $this->assign('r',$r);
         $this->display();
     }
 

@@ -16,7 +16,7 @@
 			<div id="content">			
 				<h1>
 					<span>{$list.name}</span>
-					<span class="year">(2015)</span>
+					<span class="year">({$row[0]['name']})</span>
 					
 				</h1>
 				<div class="grid clearfix">
@@ -42,29 +42,29 @@
 										<br>
 										<span class="pl">类型:</span>
 										<foreach name="list.fname" item="vo">
-										<span>{$vo}</span>/
+										<span class="attrs">{$vo}</span>/
 										</foreach>
 										<br>
 										<span class="pl">官方网站:</span>
-										<a href="" target="_blank">littleforest-movie.jp/ws/</a>
+										<a href="javascript:;" >littleforest-movie.jp/ws/</a>
 										<br>
 										<span class="pl">制片国家/地区:</span>
-										
+										<span class="attrs">{$r['name']}</span>
 										<br>	
 										<span class="pl">语言:</span>
-										英语/中文
+										<span class="attrs">英语/中文</span>
 										<br>
 										<span class="pl">上映日期:</span>
-										<span>{$list.orelease_t}(日本)</span>
+										<span class="attrs">{$list.orelease_t}({$r['name']})</span>
 										<br>
 										<span class="pl">片长:</span>
-										<span content="" property="v:runtime">{$list.tlong}分钟</span>
+										<span class="attrs" property="v:runtime">{$list.tlong}分钟</span>
 										<br>
 										<span class="pl">又名:</span>
-										{$list.alias}
+										<span class="attrs">{$list.alias}</span>
 										<br>
 										<span class="pl">IMDb链接:</span>
-										<a rel="nofollow" target="_blank" href="http://www.imdb.com/title/tt3474602">tt3474602</a>
+										<a rel="nofollow" href="javascript:;">tt3474602</a>
 										<br>
 									</div>
 								</div>
@@ -120,19 +120,19 @@
 							<div class="gtleft">
 								<ul>
 									<li>
-										<img src="./short-comment.gif" alt="">
+										<img src="__PUBLIC__/images/short-comment.gif" alt="">
 										<a href="">写短评</a>
 									</li>
 									<li>
-										<img src="./add-review.gif" alt="">
+										<img src="__PUBLIC__/images/add-review.gif" alt="">
 										<a href="">写影评</a>
 									</li>
 									<li>
-										<img src="./add-doulist.gif" alt="">
+										<img src="__PUBLIC__/images/add-doulist.gif" alt="">
 										<a href="">提问题</a>
 									</li>
 									<li>
-										<img src="./short-comment.gif" alt="">
+										<img src="__PUBLIC__/images/short-comment.gif" alt="">
 										<a href="">分享到</a>
 									</li>
 								</ul>
@@ -142,28 +142,19 @@
 						<div class="related-info">
 							<h3>{$list.name}的剧情简介  ·  ·  ·  ·  ·  ·</h3>
 							<div class="brief">
-								<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$list.brief}</p>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本片根据漫画家五十岚大介的原作改编。                                   
+								<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$list.brief|subtext=273}</p>                            
 							</div>
 						</div>
 						<div class="related-pic">
 							<h3>{$list.name}的图片 · · · · · ·</h3> 
 							<ul>
+								
+								<foreach name="row" item="vo">
 								<li>
-									<a href=""><img src="__PUBLIC__/images/11.jpg" alt="" width="178" height="100px"></a>
+									<a href=""><img src="__PUBLIC__/{$vo.i_path}{$vo.iname}" alt="" height="100"></a>
 								</li>
-								<li>
-									<a href=""><img src="__PUBLIC__/images/12.jpg" alt=""></a>
-								</li>
-								<li>
-									<a href=""><img src="__PUBLIC__/images/13.jpg" alt=""></a>
-								</li>
-								<li>
-									<a href=""><img src="__PUBLIC__/images/14.jpg" alt=""></a>
-								</li>
-								<li>
-									<a href=""><img src="__PUBLIC__/images/15.jpg" alt=""></a>
-								</li>
+								</foreach>
+								
 							</ul>
 						</div>
 						<div class="comments-section">
@@ -422,8 +413,97 @@
 			</div>
 		</div>
 	</div>
+
+	<div>
+		<div class="indentpop1">
+			<form class="j a_interest_form movie-sns" method="POST" action="">
+				<div class="interest-form-hd">
+					<span class="gact fr">
+					<a onclick="close_dialog()" href="javascript:;">x</a>
+					</span>
+					<h2>添加收藏：写短评</h2>
+				</div>
+				<div class="interest-status" style="float:left;font-size:14px;margin-bottom:15px">
+					<label>
+						<input type="radio" name="interest" value="wish">
+					 	想看
+					</label>
+					<label>
+						<input type="radio" name="interest" value="collect">
+					 	看过
+					</label>
+				</div>
+				<div class="interest-rating">
+					<span class="j a_stars">
+						<span class="rate_stars">
+							给个评价吧?(可选):  
+							<span id="rating">
+							</span>   
+						</span>
+					</span>
+				</div>
+				<div class="tags-switch">
+					<a id="showtags" href="javascript:void(0)" rel="高级(标签和短评) ▼">缩起 ▲</a>
+				</div>
+				<ul id="advtags" class="interest_form" style="display: inline-block;">
+					<li>标签(多个标签用空格分隔): </li>
+					<li>
+						<input class="inp-tags" type="text" name="tags">
+					</li>
+					<li id="mytags" class="clearfix"></li>
+					<li id="populartags" class="clearfix">
+						<dl>
+							<dt>常用标签:</dt>
+							<dd>
+							<span class="tagbtn gract">橋本愛</span>
+							<span class="tagbtn gract">日本电影</span>
+							<span class="tagbtn gract">桥本爱</span>
+							<span class="tagbtn gract">美食</span>
+							<span class="tagbtn gract">文艺</span>
+							<span class="tagbtn gract">日本</span>
+							<span class="tagbtn gract">2015</span>
+							<span class="tagbtn gract">自然</span>
+							<span class="tagbtn gract">电影</span>
+							<span class="tagbtn gract">日影</span>
+							</dd>
+						</dl>
+					</li>
+					<li class="comment-label">
+						<span id="left_n" class="num">140</span>
+						简短评论:
+					</li>
+					<li>
+						<textarea id="comment" class="comment" maxlength="140" name="comment"></textarea>
+					</li>
+					<li class="private">
+						<input id="inp-private" type="checkbox" name="private">
+						<label class="pl" for="inp-private">仅自己可见</label>
+					</li>
+				</ul>
+				<div id="submits" class="interest-form-ft">
+					<div class="sync-setting pl">
+						<label>分享到</label>
+						<label class="share-label share-shuo" for="share-shuo">
+							<input id="share-shuo" type="checkbox" value="douban" name="share-shuo">
+							我的广播
+						</label>
+					</div>
+					<span class="bn-flat">
+						<input type="submit" name="save" value="保存">
+					</span>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+
+
+
+
 	<!-- START footer -->
-	    {:W('Common/commonFooter')}	    
+	   <!--  {:W('Common/commonFooter')} --> 
 	<!-- END footer -->
 </body>
 </html>

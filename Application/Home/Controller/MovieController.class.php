@@ -62,6 +62,33 @@ class MovieController extends CommonController {
         $this->assign('r',$r);
         $this->display();
     }
+    //用户发表长评论
+    public function longComment(){
+        //接收影片ID
+        $id = $_GET['id'];
+         $m = M('movie');
+        //进行多表联合查询
+        $list = $m->table('bee_movie m,bee_mimage i,bee_mclassify f,bee_m_c c')
+                ->field('m.*,i.name iname,i.m_id imid,i.i_path,i.is_cover,f.id fid,f.name fname,c.m_id cmid,c.c_id')
+                ->where('m.id=i.m_id and i.is_cover=1 and m.id=c.m_id and c.c_id=f.id and m.id='.$id)
+                ->select();
+                //var_dump($list);exit;
+        $tmp = [];
+        //将其他数组的fname写入第一个数组
+        for($i = 0; $i<count($list); $i++){
+            
+            $tmp[] = $list[$i]['fname'];
+        }
+        $list[0]['fname'] = $tmp;
+        //转换时间个格式
+        $list[0]['crelease_t']=date('Y-m-d',$list[0]['crelease_t']);
+        $list[0]['orelease_t']=date('Y-m-d',$list[0]['orelease_t']);
+        //echo count($list[0]['fname']);
+        //var_dump($list[0]);
+        $this->assign('list',$list[0]);
+
+        $this->display();
+    }
 
     public function getCata(){
         //var_dump($_POST);exit;

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- START 公用 head -->
+	    {:W('Common/commonHead')}
+	<!-- END 公用 head -->
+	<link rel="stylesheet" href="__PUBLIC__/css/moviedetail.css">
+</head>
+<body>
+	<!-- START header -->
+	    {:W('Common/allHeader')}
+	    {:W('Common/movieHeader')}	    
+	<!-- END header -->
+	<div id="wrap">
+		<div id="main">	
+			<div id="content">	
+				<div class="inner">
+					<h1>评论 {$list.name}</h1>	
+					<div class="grid-16-8 clearfix">
+						<div class="article">
+							<form id="lzform" action="" name="lzform" method="POST">
+								<table align="center">
+									<tbody>
+										<tr>
+											<td class="pl2" align="center" width="75">标题: </td>
+											<td>
+											<input class="input_basic" type="text" value="" style="width:450px" maxlength="100" size="50" name="rev_title">
+											</td>
+										</tr>
+										<tr>
+											<td class="p12" height="35" align="center">评价:</td>				
+											<td>
+												<label>
+													<input type="radio" value="1" name="rev_rating">
+													很差
+												</label>
+												<label>
+													<input type="radio" value="2" name="rev_rating">
+													较差
+												</label>
+												<label>
+													<input type="radio" value="3" name="rev_rating">
+													还行
+												</label>
+												<label>
+													<input type="radio" value="4" name="rev_rating">
+													推荐
+												</label>
+												<label>
+													<input type="radio" value="5" name="rev_rating">
+													力荐
+												</label>
+											</td>
+										</tr>
+										<tr>
+											<td align="center" valign="top">
+												<img src="__PUBLIC__/images/small.jpg">
+											</td>
+											<td>
+												<textarea class="" style="width:448px;height:337px" name="rev_text"></textarea>
+											</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td>
+												<br>
+												<input type="submit" value="好了，添加评论" name="rev_submit">
+												<a href="">> 取消</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+						
+						<div class="aside">
+							<div class="indent">
+								<div class="p1 indent">
+									<p>请尊重创作者的劳动，勿提供下载信息、或转载他人的文章。</p>
+									<p>为了鼓励有益的分享, 少于140字的评论将在短评页面里发表。</p>
+									<p>如果评论涉及电影和小说的结局和关键情节，请勾选“有关键情节透露”。豆瓣将显示提示，以免没有看过的人扫兴。</p>
+								</div>
+								<p class="pl2" style="margin-top:0pt;">
+									>
+									<a href="__CONTROLLER__/detail/id/{$list.id}">去 {$list.name} 的页面</a>
+								</p>
+							</div>
+							<div class="movie-summary">
+								<div class="movie-pic">
+									<a href="">
+										<img rel="" src="__PUBLIC__{$list.i_path}148_{$list.iname}" title="" alt="">
+									</a>
+								</div>
+								<span class="attrs">
+									<p>
+										<span class="pl">导演:</span>
+										{$list.director}
+									</p>
+									<p>
+										<span class="pl">编剧:</span>
+										{$list.writer}
+									</p>
+									<p>
+										<span class="pl">类型:</span>
+										<foreach name="list.fname" item="vo">									
+										{$vo}/
+										</foreach>
+									</p>
+									<p>
+										<span class="pl">片长:</span>
+										{$list.tlong}分钟
+									</p>
+									<p>
+										<span class="pl">上映时间:</span>
+										{$list.orelease_t}
+									</p>
+
+								</span>
+							</div>
+						</div>
+					</div>		
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- START footer -->
+	    {:W('Common/commonFooter')} 
+	<!-- END footer -->
+</body>
+</html>

@@ -30,7 +30,95 @@ class UserController extends CommonController {
     // 显示首页
 
     public function index(){
-    	
+        $start= 0;
+        if(!empty($_POST['limit'])){
+            $start += $_POST['limit']/2;
+
+        }
+        $length = 1;
+
+        $diary = M('diary');
+        $time = $this->time;
+        $yesterday=strtotime('yesterday');
+
+        $diary_list = $diary->field('d.id,u.name,title,content,d.time,image,u_id')->table('bee_diary d,bee_user u')->where("d.time<$time AND d.time>$yesterday and d.u_id=u.id")->order('hot desc')->group('d.id')->limit($start,$length)->select();
+    	// echo $diary->getLastsql();
+        $album = M('album');
+
+        $album_list = $album->field('a.id,u.name,a.name,des,u_id,a.time,hot,image')->table('bee_album a,bee_user u')->where("a.time<$time AND a.time>$yesterday and a.u_id=u.id")->order('hot desc')->group('a.id')->limit($start,$length)->select();
+         // var_dump($album_list);
+        // var_dump($diary_list);
+        // echo $album->getLastsql();
+
+        foreach($diary_list as $key=>$value){
+            $diary_list[$key]['action'] = 'diary';
+            $dtag = M('d_t');
+            $d_id = $diary_list[$key]['id'];
+            $tag_list = $dtag->field('name')->table('bee_d_t dt,bee_dtag t')->where("d_id=$d_id AND t.id=dt.t_id")->select();
+            if(empty($tag_list)){
+                $tag_list=null;
+            }
+            $diary_list[$key]['tag'] =$tag_list;
+
+            $diary_list[$key]['content']=strip_tags($diary_list[$key]['content']);
+            // var_dump($tag_list);
+            
+            if($this->ifLike($diary_list[$key]['id'],'diary',$this->userId,$diary_list[$key]['u_id'])){
+                $diary_list[$key]['like']=1;
+            }else{
+                $diary_list[$key]['like']=0;
+
+            }
+        }
+        
+        foreach($album_list as $key=>$value){
+            $atag = M('a_t');
+            $a_id =$album_list[$key]['id'];
+            $tag_list = $atag->field('name')->table('bee_a_t at,bee_atag t')->where("a_id=$a_id AND t.id=at.t_id")->select();
+            if(empty($tag_list)){
+                $tag_list=null;
+            }
+            $album_list[$key]['tag']=$tag_list;
+            
+            $photo = M('photo');
+            $p_list = $photo->where("a_id=$a_id")->order('is_cover desc')->select();
+            $p_list = array_slice($p_list,0,4);
+            // var_dump($p_list);
+            $album_list[$key]['photo']=$p_list;
+            // var_dump($tag_list);
+            $album_list[$key]['action'] = 'album';
+            if($this->ifLike($album_list[$key]['id'],'album',$this->userId,$this->userId)){
+                $album_list[$key]['like']=1;
+            }else{
+                $album_list[$key]['like']=0;
+
+            }
+        }
+
+        for($i=0;$i<count($album_list);$i++){
+        
+            array_push($diary_list,$album_list[$i]);
+            
+        }
+        // var_dump($diary_list);
+        $hot_list = $diary_list;    
+
+        //冒泡排序
+        for ($i=0; $i <count($hot_list) ; $i++) { 
+            for($j=$i+1;$j<count($hot_list);$j++){
+                if ($hot_list[$i]['hot'] < $hot_list[$j]['hot']) {
+                    $temp = $hot_list[$i];
+                    $hot_list[$i] = $hot_list[$j];
+                    $hot_list[$j] = $temp;
+                }
+            }
+        }
+        // var_dump($hot_list);
+        if(!empty($_POST['limit'])){
+            $this->ajaxReturn($hot_list);
+        }
+        // var_dump($hot_list);
+        $this->assign('hot',$hot_list);
     	$this->display();
     }
 
@@ -495,6 +583,9 @@ class UserController extends CommonController {
                 // echo $insert_id;
                 array_push($id_arr,$insert_id);
             }else{
+                $hot = $model->where($arr)->getField('hot');
+                $hot++;
+                $model->where($arr)->setField('hot',$hot);
                 array_push($id_arr,$id);
             }
         }
@@ -712,6 +803,9 @@ class UserController extends CommonController {
                 // echo $insert_id;
                 array_push($id_arr,$insert_id);
             }else{
+                $hot = $model->where($arr)->getField('hot');
+                $hot++;
+                $model->where($arr)->setField('hot',$hot);
                 array_push($id_arr,$id);
             }
         }
@@ -1024,6 +1118,9 @@ class UserController extends CommonController {
                 // echo $insert_id;
                 array_push($id_arr,$insert_id);
             }else{
+                $hot = $model->where($arr)->getField('hot');
+                $hot++;
+                $hot->where($arr)->setField('hot',$hot);
                 array_push($id_arr,$id);
             }
         }
@@ -1050,12 +1147,33 @@ class UserController extends CommonController {
     // 处理喜欢表
     public function doLike(){
         // var_dump($_POST);
-        $data['p_id']=$this->userId;
+
+        $data['p_id']=$_POST['u_id'];
         $data['u_id']=$this->userId;
         $data['action']=$_POST['action'];
         $data['time']=$this->time;
         $data['like_id']=$_POST['action_id'];
+        if($_POST['action']=='diary'){
+            $data['action_id']=1;
+
+        }else{
+            $data['action_id']=2;
+
+        }
+
+        $hot = M($data['action']);
+        $like_id = $data['like_id'];
+        $hot_num = $hot->field('hot')->where("id=$like_id")->find();
+        $hot_num = $hot_num['hot'];
+        if(!empty($hot_num)){
+            $hot_num++;
+        }else{
+            $hot_num=1;
+        }
+        $hot->where("id=$like_id")->setField('hot',$hot_num);
         // var_dump($data);
+        // var_dump($hot_num);
+        
         $model = M('u_like');
         if($model->add($data)){
             echo 'true';
@@ -1064,11 +1182,23 @@ class UserController extends CommonController {
     }
 
     public function removeLike(){
-        $data['p_id']=$this->userId;
+        $data['p_id']=$_POST['u_id'];
         $data['u_id']=$this->userId;
         $data['action']=$_POST['action'];
         $data['like_id']=$_POST['action_id'];
         $model = M('u_like');
+
+        $hot = M($data['action']);
+        $like_id = $data['like_id'];
+        $hot_num = $hot->field('hot')->where("id=$like_id")->find();
+        $hot_num = $hot_num['hot'];
+        if($hot_num!=0){
+            $hot_num--;
+        }else{
+            $hot_num=0;
+        }
+        $hot->where("id=$like_id")->setField('hot',$hot_num);
+
         if($model->where($data)->delete()){
             echo 'true';
         }
@@ -1101,6 +1231,8 @@ class UserController extends CommonController {
 
 
     }
+
+    
 
 
 }

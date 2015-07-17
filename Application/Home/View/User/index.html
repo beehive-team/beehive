@@ -142,8 +142,43 @@
 
 				})
 
-			
+				var limit = 2; 
 
+				var PUBLIC = "__PUBLIC__";
+				$('.ajax-btn a').click(function(){
+					$.post('index',{limit:limit},function(data){
+
+						if(data){
+							for(var i in data){
+
+								if(data[i]['action']=='album'){
+									
+									
+
+
+									var obj = $('li.album').clone(true);
+									$('.info-box ul').append(obj);
+									if(data[i]['image']){
+										$(obj).find('.face-box img').attr('src',data[i]['image'])
+									}else{
+										$(obj).find('.face-box img').attr('src',PUBLIC+'/images/default_face.jpg');
+
+									}
+
+									$(obj).find('.info p a').html(data[i]['name']);
+									var str = '';
+									for(var j=0;j<data[i]['photo'].length;j++){
+										str += '<img src="'+data[i]['photo'][j]+'"/>';
+									}
+									alert(data[i]['photo']);
+									$(obj).find('.img-box a').html(str);
+
+								}
+							}
+							limit+=2;
+						}
+					})
+				})
 
 
 			})
@@ -241,56 +276,95 @@
 						</div>
 						<div class="info-box">
 							<ul>
-								<li>
-									<div class="face-box">
-										<img src="__PUBLIC__/images/face1.jpg">
-									</div>
-									<div class="diary info">
-										<p><a href="">马提尼</a>的日记: </p>
-										<div class="detail">
-											<a class="title" href="">了解金融和投资15本有趣的书籍</a>
-											<p>十五本关于金融和投资的有趣又有益的书 欢迎大家关注我的微信公众号：理财课堂（Lckt168） 私人微信号：topok11 如果一个人要对金融和投资方面的实际知识得到比较深入的了解，十五本书无疑是... </p>
-											<a class="like"href="javascript:;"><span>love</span>喜欢</a>
-											<div class="list-box">
-												标签：
-												<a href="">购物</a>
-												<a href="">唇彩</a>
-											</div>
-										</div>
-										<div class="time">
-											<p>22分钟前</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="face-box">
-										<img src="__PUBLIC__/images/face1.jpg">
-									</div>
-									<div class="album info">
-										<p><a href="">马提尼</a>的相册: </p>
-										<div class="detail">
-											<div class="img-box">
-												<a href="">
-													<img src="__PUBLIC__/images/photo5.jpg"/>
-													<img src="__PUBLIC__/images/photo5.jpg"/>
-													<img src="__PUBLIC__/images/photo5.jpg"/>
-													<img src="__PUBLIC__/images/photo5.jpg"/>
+								<foreach name="hot" item="vo" key="k">
 
-												</a>
-											</div>
-											<a class="like"href="javascript:;"><span>love</span>喜欢</a>
-											<div class="list-box">
-												标签：
-												<a href="">购物</a>
-												<a href="">唇彩</a>
-											</div>
-										</div>
-										<div class="time">
-											<p>22分钟前</p>
-										</div>
-									</div>
-								</li>
+									<switch name="vo.action">
+										<case value="diary" break="1">
+											<li class="diary">
+												<div class="face-box" style="display:block">
+													<empty name="vo.image">
+														<img src="__PUBLIC__/images/default_face.jpg">
+													<else/>
+														<img src="{$vo.image}"/>
+													</empty>
+												</div>
+												<div class="diary info">
+													<p><a href="">{$vo.name}</a>的日记: </p>
+													<div class="detail">
+														<a class="title" href="">
+															{$vo.title}
+														</a>
+														<p>{$vo.content} </p>
+														<a class="like {$vo['like']==1?'active':''}" rel="diary_{$vo.id}_{$vo.u_id}"href="javascript:;" ><span>love</span>喜欢</a>
+														<notempty name="vo.tag">
+															
+															<div class="list-box">
+																标签：
+																<foreach name="vo.tag" item="va" k="key">
+																	<a href="">{$va.name}</a>
+																	
+																</foreach>
+															</div>
+
+														</notempty>
+													</div>
+													<div class="time">
+														<p>{$vo.time|date="Y-m-d H:i:s",###}</p>
+													</div>
+												</div>
+											</li>
+										</case>
+										<case value="album">
+
+											<li class="album">
+												<div class="face-box "style="display:block">
+													
+													<empty name="vo.image">
+														<img src="__PUBLIC__/images/default_face.jpg">
+													<else/>
+														<img src="{$vo.image}"/>
+													</empty>
+												</div>
+												<div class="album info">
+													<p><a href="">{$vo.name}</a>的相册: </p>
+													<div class="detail">
+														<div class="img-box">
+															<a href="">
+																<notempty name="vo.photo">
+																	<foreach name="vo.photo" item="va" key="key">
+																	<img src="__PUBLIC__/{$va.path}/{$va.name}"/>
+																	</foreach>
+																<else/>
+																	<p>还没发照片</p>
+																</notempty>
+
+															</a>
+														</div>
+														<a class="like {$vo['like']==1?'active':''}" rel="album_{$vo.id}_{$vo.u_id}"href="javascript:;"><span>love</span>喜欢</a>
+														<notempty name="vo.tag">
+															
+															<div class="list-box">
+																标签：
+																<foreach name="vo.tag" item="va" k="key">
+																	<a href="">{$va.name}</a>
+																	
+																</foreach>
+															</div>
+
+														</notempty>
+													</div>
+													<div class="time">
+														<p>{$vo.time|date="Y-m-d H:i:s",###}</p>
+													</div>
+												</div>
+											</li>
+										</case>
+									</switch>
+								</foreach>
 							</ul>
+							<div class="ajax-btn">
+								<a href="javascript:;">加载更多</a>
+							</div>
 						</div>
 					</div>
 					<div class="f-right sider">

@@ -50,6 +50,7 @@ create table bee_m_c(
 create table bee_mtag(
 	id int unsigned not null auto_increment primary key, 
 	name varchar(255)               -- 标签名
+
 )engine=InnoDB default charset=utf8;
 
 -- 电影标签映射表
@@ -149,7 +150,8 @@ create table bee_user(
 -- 日记标签表
 create table bee_dtag(
 	id int unsigned not null auto_increment primary key,
-	name varchar(255) unique				-- 日记标签名
+	name varchar(255) unique,				-- 日记标签名
+	hot int  default 1						-- 标签使用个数
 )engine=InnoDB default charset=utf8;
 
 -- 日记表
@@ -208,7 +210,8 @@ create table bee_d_t(
 -- 相册标签表
 create table bee_atag(
 	id int unsigned not null auto_increment primary key,
-	name varchar(255) unique				-- 相册标签名
+	name varchar(255) unique,				-- 相册标签名
+	hot int default 1  						-- 使用个数
 )engine=InnoDB default charset=utf8;
 
 -- 相册标签映射表
@@ -237,9 +240,19 @@ create table bee_u_like(
     u_id int unsigned,						-- 用户id
     p_id int unsigned,						-- 被喜欢的用户id
     action varchar(255),			        -- 喜欢的类型
+    action_id int unsigned,						-- 类型id
     like_id int unsigned,					-- 喜欢的id
     time varchar(13)						-- 时间戳
 )engine=InnoDB default charset=utf8;
+
+-- 类型表
+create table bee_action(
+	id int unsigned not null auto_increment primary key,
+	name varchar(255)
+)engine=InnoDB default charset=utf8;
+
+insert into bee_action (name) values('diary');
+insert into bee_action (name) values('album');
 
 -- 用户提问表
 create table bee_u_q(
@@ -325,4 +338,26 @@ create table bee_trend(
 )engine=InnoDB default charset=utf8;
 
 
+-- 电影短评表
+create table bee_s_r(
+	id int unsigned not null auto_increment primary key,
+	content varchar(255) not null,					-- 评论内容
+	hot int default 0,								-- 热度
+	u_id int,										-- 用户id
+	time varchar(13),								-- 时间表
+	m_id int,	
+	title varchar(255),
+	statut tinyint default 0						-- 想看 0没看过 2看过 1 想看				
+)engine=InnoDB default charset=utf8;
+
+-- 电影长评表
+create table bee_l_r(
+	id int unsigned not null auto_increment primary key,
+	content text not null,							-- 评论内容
+	hot int default 0,								-- 热度
+	u_id int,										-- 用户id
+	time varchar(13),								-- 时间表
+	m_id int,	
+	title varchar(255),				
+)engine=InnoDB default charset=utf8;
 

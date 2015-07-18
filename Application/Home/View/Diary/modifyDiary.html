@@ -35,7 +35,7 @@
 				<div class="inner clearfix">
 					<div class="write">
 						<h3>修改日记</h3>
-						<form action="{:U('/Home/User/updateDiary')}" method="post">
+						<form action="{:U('updateDiary')}" method="post">
 							<input type="hidden" name="id"value="{$data.id}"/>
 							<p><label for="name">题目：</label></p>
 							<input class="text"type="text" value="{$data.title}"name="name"/>

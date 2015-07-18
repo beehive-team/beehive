@@ -69,6 +69,7 @@ class CommonWidget extends Controller {
         $face = $model->field('image')->where("id=$id")->find();
         // var_dump($face);
         $this->assign('face',$face);
+        $this->assign('u_id',$id);
         $this->assign('data',$data);
         // var_dump($data);
 

@@ -1404,6 +1404,9 @@ body > #wrap {height: auto; min-height: 100%;}
 	z-index: 110;
 	position: absolute;  
 }
+.user-page .info-box p.tip{
+	padding-top: 40px;
+}
 .user-page .info-box li{
 	padding-top: 20px;
 	margin-bottom: 20px;

@@ -63,47 +63,57 @@
 			<div id="main">
 				<div class="inner clearfix">
 					<div class="f-left con">
-						{:W('Common/userTitle')}
+						<if condition="($status eq 'me')">
+							{:W('Common/userTitle')}
+						<else/>
+							{:W('Common/peopleTitle')}
+
+						</if>
 						<div class="clearfix diary-list">
-							<ul>
-								<foreach name="data" item="vo" key="k">
-									<li>
-										<div class="primary">
-											<h4><a class="title"href="{:U(diaryDetail)}?id={$vo.diaryid}">{$vo.title}</a><a class="icon"href="javascript:;"></a></h4>
-											<p class="time">{$vo.time|date='Y-m-d H:i:s',###}</p>
-											<p>{$vo.content|subtext=40}</p>
-										</div>
-										<div class="sub">
-											<div class="tags">
+							<empty name="data">
+								<p>添加点日志吧~</p>
+								<else/>
+									<ul>
+										<foreach name="data" item="vo" key="k">
+											<li>
+												<div class="primary">
+													<h4><a class="title"href="{:U(diaryDetail)}?id={$vo.diaryid}">{$vo.title}</a><a class="icon"href="javascript:;"></a></h4>
+													<p class="time">{$vo.time|date='Y-m-d H:i:s',###}</p>
+													<p>{$vo.content|subtext=40}</p>
+												</div>
+												<div class="sub">
+													<div class="tags">
 
-												<p>标签：
-													<foreach name="vo.tag" item="va" key="ke">
-														<a href="">{$va.name}</a>
-													</foreach>	
-												</p>
+														<p>标签：
+															<foreach name="vo.tag" item="va" key="ke">
+																<a href="">{$va.name}</a>
+															</foreach>	
+														</p>
 
-											</div>
-											<div class="bro">
-												{$vo.power}
-												<span>0人浏览</span>
-												<a class="modifytag"href="#pop-1" rel="{$vo.diaryid}">>修改标签</a>
-												<a href="{:U('/Home/User/modifyDiary')}?id={$vo.diaryid}">>修改</a>
-												<a href="{:U('/Home/User/deleteDiary')}?id={$vo.diaryid}">>删除</a>
-												<strong>{$vo.browse}</strong>
-											</div>
-											<a class="like {$vo['like']==1?'active':''}"  rel="diary_{$vo.diaryid}_{$u_id}" href="javascript:;"><span></span>喜欢</a>  
-										</div>
-									</li>
-								</foreach>
-							</ul>
-							<div id="pager">
-								{$page}
-							</div>
+													</div>
+													<div class="bro">
+														{$vo.power}
+														<span>0人浏览</span>
+														<a class="modifytag"href="#pop-1" rel="{$vo.diaryid}">>修改标签</a>
+														<a href="{:U('/Home/User/modifyDiary')}?id={$vo.diaryid}">>修改</a>
+														<a href="{:U('/Home/User/deleteDiary')}?id={$vo.diaryid}">>删除</a>
+														<strong>{$vo.browse}</strong>
+													</div>
+													<a class="like {$vo['like']==1?'active':''}"  rel="diary_{$vo.diaryid}_{$u_id}" href="javascript:;"><span></span>喜欢</a>  
+												</div>
+											</li>
+										</foreach>
+									</ul>
+
+									<div id="pager">
+										{$page}
+									</div>
+							</empty>
 						</div>
 					</div>
 					<div class="f-right sider">
 						<div class="top">
-							<a class="btn" href="{:U('Home/User/writeDiary')}">+写日记</a>
+							<a class="btn" href="{:U('writeDiary')}">+写日记</a>
 							
 						</div>
 						<div class="tags">

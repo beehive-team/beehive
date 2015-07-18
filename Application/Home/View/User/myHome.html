@@ -236,7 +236,7 @@
 							</div>
 						</div>
 						<div class="section sec-2">
-							<h2>我的日记<a href="{:U('diary')}">(全部)</a><a class="btn"href="{:U('writeDiary')}">+写日记</a></h2>
+							<h2>我的日记<a href="{:U('Diary/diary')}">(全部)</a><a class="btn"href="{:U('Diary/writeDiary')}">+写日记</a></h2>
 							<notempty name="diary">
 								<div class="list">
 									<ul>
@@ -256,14 +256,14 @@
 							</notempty>
 						</div>
 						<div class="section sec-3">
-							<h2>我的相册<a href="{:U('album')}">(全部)</a><a class="btn"href="{:U('publishPhoto#2')}">+新建相册</a><a class="btn"href="{:U('publishPhoto#1')}">+发照片</a></h2>
+							<h2>我的相册<a href="{:U('Album/album')}">(全部)</a><a class="btn"href="{:U('Album/publishPhoto#2')}">+新建相册</a><a class="btn"href="{:U('Album/publishPhoto#1')}">+发照片</a></h2>
 							<notempty name="album"> 
 								<div class="list">
 									<ul>
 										<foreach name="album" item="vo" key="k">
 											<li>
 												<a class="img"href="{:U('Album/photoList')}?id={$vo.album_id}&p_id={$vo.u_id}"><img src="__PUBLIC__/{$vo.cover}"></a>
-												<a href="">{$vo.album_name}</a>
+												<a href="{:U('Album/photoList')}?id={$vo.album_id}&p_id={$vo.u_id}">{$vo.album_name}</a>
 												<p class="time">{$vo.update_time|date="Y-m-d",###}更新</p>
 												
 											</li>

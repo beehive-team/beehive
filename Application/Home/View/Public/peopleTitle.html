@@ -1,26 +1,4 @@
-<script type="text/javascript">
 
-
-
-	function signNull(){
-		$.post('signNull',function(data){
-			if(!data==''){
-				$('p.bri').show();
-				$('i.edit').hide();
-
-			}else{
-				$('i.edit').show();
-				
-				$('p.bri').hide();
-			}
-
-		})
-	}
-
-	signNull();
-
-
-</script>
 
 <div class="user-info">
 	<div class="info-box f-left">
@@ -35,27 +13,26 @@
 		
 		
 		
+		<empty name="data.sign">
 
-		<i class="edit">这个人很懒~</i>
-		
-		<p class="bri">{$data.sign}</p>
+			<i>这个人很懒~</i>
+		<else/>
+			<p class="bri">{$data.sign}</p>
+		</empty>
 	</div>
 </div>
 <div class="link-box">
 	<ul>
-		<li><a href="{:U('User/myHome')}">{$data['name']}的主页</a></li>
+		<li><a class="userInfo" rel="{$u_id}" href="{:U('people/index')}?p_id={$data.id}">{$data['name']}的主页</a></li>
 		<li><a href="">广播</a></li>
-		<li><a href="{:U('User/album')}">{$data['name']}的相册</a></li>
-		<li><a href="{:U('User/diary')}">{$data['name']}的日记</a></li>
+		<li><a href="{:U('Album/album')}?p_id={$data.id}">{$data['name']}的相册</a></li>
+		<li><a href="{:U('Diary/diary')}?p_id={$data.id}">{$data['name']}的日记</a></li>
 		<li><a href="">喜欢</a></li>
 		<li><a href="">蜂蜜</a></li>
 	</ul>
 </div>
 <script type="text/javascript">
+	
 
-	$('.user-name a').click(function(){
-		$(this).parents('i').hide();
-		$('.brief').show();
-		$('p.bri').hide();
-	})
+
 </script>

@@ -106,7 +106,7 @@ create table bee_b_c(
 	foreign key (c_id) references bee_bclassify(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
---图书标签表
+-- 图书标签表
 create table bee_btag(
 	id int unsigned not null auto_increment primary key, 
 	name varchar(255),						-- 标签名
@@ -225,11 +225,24 @@ create table bee_a_t(
 )engine=InnoDB default charset=utf8;
 
 -- 用户关注表
-create table bee_u_f(
+create table bee_follow(
     id int unsigned not null auto_increment primary key,
     u_id int unsigned,						-- 用户id
     f_id int unsigned,						-- 关注者id
     time varchar(13),						-- 时间戳
+    status tinyint,							-- 被关注者知道否
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+	foreign key (f_id) references bee_user(id) on update cascade on delete CASCADE
+)engine=InnoDB default charset=utf8;
+
+
+-- 用户朋友表
+create table bee_friend(
+	id int unsigned not null auto_increment primary key,
+	u_id int unsigned,
+	f_id int unsigned,
+	time varchar(13),						-- 时间戳
+    status tinyint,							-- 双方知道否
 	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
 	foreign key (f_id) references bee_user(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
@@ -240,10 +253,12 @@ create table bee_u_like(
     u_id int unsigned,						-- 用户id
     p_id int unsigned,						-- 被喜欢的用户id
     action varchar(255),			        -- 喜欢的类型
-    action_id int unsigned,						-- 类型id
+    action_id int unsigned,					-- 类型id
     like_id int unsigned,					-- 喜欢的id
     time varchar(13)						-- 时间戳
 )engine=InnoDB default charset=utf8;
+
+
 
 -- 类型表
 create table bee_action(

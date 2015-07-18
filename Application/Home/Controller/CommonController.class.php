@@ -431,4 +431,53 @@ class CommonController extends Controller{
         return $arr;
     }
 
+
+    //判断签名是不是空的
+    public function signNull(){
+        if(empty($_POST)){
+            $u_id = $this->userId;
+        }else{
+            $u_id = $_POST['u_id'];
+        }
+        $model = D('user');
+        
+        if($result = $model->where("id=$u_id")->getField('sign')){
+            echo $result;
+        }
+        
+    }
+    //  个人动态保存
+    public function trend($action,$time,$do_id){
+        $model = M('trend');
+        $data['action']=$action;
+        $data['time']=$time;
+        $data['u_id']=$this->userId;
+        $data['do_id']=$do_id;
+        $model->add($data);
+
+    }
+
+    // 关注某人
+    public function doFollow(){
+
+
+
+    }
+    // 不关注某人
+    public function removeFollow(){
+
+
+    }
+
+    
+    //判断是否关注
+    public function ifFollow(){
+
+    }
+
+    //判断有没有新消息
+    public function ifTip(){
+
+    }
+
 }

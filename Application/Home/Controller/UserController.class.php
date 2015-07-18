@@ -14,16 +14,6 @@ class UserController extends CommonController {
         $this->time=time();
     }
 
-    //  个人动态保存
-    public function trend($action,$time,$do_id){
-        $model = M('trend');
-        $data['action']=$action;
-        $data['time']=$time;
-        $data['u_id']=$this->userId;
-        $data['do_id']=$do_id;
-        $model->add($data);
-
-    }
 
 
 
@@ -374,15 +364,6 @@ class UserController extends CommonController {
         }
     }
 
-    //判断签名是不是空的
-    public function signNull(){
-        $model = D('user');
-
-        if($result = $model->where("id=$this->userId")->getField('sign')){
-            echo $result;
-        }
-        
-    }
 
     // 处理说说
     public function dosay(){

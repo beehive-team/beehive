@@ -213,6 +213,7 @@
 
 									}
 									$(obj).find('a.like').attr('rel','diary_'+data[i]['id']+'_'+data[i]['u_id'])
+									$(obj).find('a.title').html(data[i]['title']).attr('href','{:U("diary/diaryDetail")}'+'?id='+data[i]['id']+'&p_id='+data[i]['u_id']);
 
 								}
 							}
@@ -321,96 +322,100 @@
 							</form>
 						</div>
 						<div class="info-box">
-							<ul>
-								<foreach name="hot" item="vo" key="k">
+							<empty name="hot">
+								<p class="tip">关注点朋友吧！关注人的动态会显示在这里！</p>
+								<else/>
+									<ul>
+										<foreach name="hot" item="vo" key="k">
 
-									<switch name="vo.action">
-										<case value="diary" break="1">
-											<li class="diary">
-												<div class="face-box" style="display:block">
-													<empty name="vo.image">
-														<img src="__PUBLIC__/images/default_face.jpg">
-													<else/>
-														<img src="{$vo.image}"/>
-													</empty>
-												</div>
-												<div class="diary info">
-													<p><a href="{:U('People/index')}?p_id={$vo.id}">{$vo.name}</a>的日记: </p>
-													<div class="detail">
-														<a class="title" href="">
-															{$vo.title}
-														</a>
-														<p>{$vo.content} </p>
-														<a class="like {$vo['like']==1?'active':''}" rel="diary_{$vo.id}_{$vo.u_id}"href="javascript:;" ><span>love</span>喜欢</a>
-														<notempty name="vo.tag">
-															
-															<div class="list-box">
-																标签：
-																<foreach name="vo.tag" item="va" k="key">
-																	<a href="">{$va.name}</a>
-																	
-																</foreach>
-															</div>
-
-														</notempty>
-													</div>
-													<div class="time">
-														<p>{$vo.time|date="Y-m-d H:i:s",###}</p>
-													</div>
-												</div>
-											</li>
-										</case>
-										<case value="album">
-
-											<li class="album">
-												<div class="face-box "style="display:block">
-													
-													<empty name="vo.image">
-														<img src="__PUBLIC__/images/default_face.jpg">
-													<else/>
-														<img src="{$vo.image}"/>
-													</empty>
-												</div>
-												<div class="album info">
-													<p><a href="{:U('people/index')}?p_id={$vo.u_id}">{$vo.u_name}</a>的相册: </p>
-													<div class="detail">
-														<div class="img-box">
-															<a href="">
-																<notempty name="vo.photo">
-																	<foreach name="vo.photo" item="va" key="key">
-																	<img src="__PUBLIC__/{$va.path}/{$va.name}"/>
-																	</foreach>
-																<else/>
-																	<p>还没发照片</p>
-																</notempty>
-
-															</a>
+											<switch name="vo.action">
+												<case value="diary" break="1">
+													<li class="diary">
+														<div class="face-box" style="display:block">
+															<empty name="vo.image">
+																<img src="__PUBLIC__/images/default_face.jpg">
+															<else/>
+																<img src="{$vo.image}"/>
+															</empty>
 														</div>
-														<a class="like {$vo['like']==1?'active':''}" rel="album_{$vo.id}_{$vo.u_id}"href="javascript:;"><span>love</span>喜欢</a>
-														<notempty name="vo.tag">
-															
-															<div class="list-box">
-																标签：
-																<foreach name="vo.tag" item="va" k="key">
-																	<a href="">{$va.name}</a>
+														<div class="diary info">
+															<p><a href="{:U('People/index')}?p_id={$vo.u_id}">{$vo.name}</a>的日记: </p>
+															<div class="detail">
+																<a class="title" href="{:U('diary/diaryDetail')}?id={$vo.id}&?p_id={$vo.u_id}">
+																	{$vo.title}
+																</a>
+																<p>{$vo.content} </p>
+																<a class="like {$vo['like']==1?'active':''}" rel="diary_{$vo.id}_{$vo.u_id}"href="javascript:;" ><span>love</span>喜欢</a>
+																<notempty name="vo.tag">
 																	
-																</foreach>
-															</div>
+																	<div class="list-box">
+																		标签：
+																		<foreach name="vo.tag" item="va" k="key">
+																			<a href="">{$va.name}</a>
+																			
+																		</foreach>
+																	</div>
 
-														</notempty>
-													</div>
-													<div class="time">
-														<p>{$vo.time|date="Y-m-d H:i:s",###}</p>
-													</div>
-												</div>
-											</li>
-										</case>
-									</switch>
-								</foreach>
-							</ul>
-							<div class="ajax-btn">
-								<a href="javascript:;">加载更多</a>
-							</div>
+																</notempty>
+															</div>
+															<div class="time">
+																<p>{$vo.time|date="Y-m-d H:i:s",###}</p>
+															</div>
+														</div>
+													</li>
+												</case>
+												<case value="album">
+
+													<li class="album">
+														<div class="face-box "style="display:block">
+															
+															<empty name="vo.image">
+																<img src="__PUBLIC__/images/default_face.jpg">
+															<else/>
+																<img src="{$vo.image}"/>
+															</empty>
+														</div>
+														<div class="album info">
+															<p><a href="{:U('people/index')}?p_id={$vo.u_id}">{$vo.u_name}</a>的相册: </p>
+															<div class="detail">
+																<div class="img-box">
+																	<a href="{:U('album/photoList')}?id={$vo.id}&?p_id={$vo.u_id}">
+																		<notempty name="vo.photo">
+																			<foreach name="vo.photo" item="va" key="key">
+																			<img src="__PUBLIC__/{$va.path}/{$va.name}"/>
+																			</foreach>
+																		<else/>
+																			<p>还没发照片</p>
+																		</notempty>
+
+																	</a>
+																</div>
+																<a class="like {$vo['like']==1?'active':''}" rel="album_{$vo.id}_{$vo.u_id}"href="javascript:;"><span>love</span>喜欢</a>
+																<notempty name="vo.tag">
+																	
+																	<div class="list-box">
+																		标签：
+																		<foreach name="vo.tag" item="va" k="key">
+																			<a href="">{$va.name}</a>
+																			
+																		</foreach>
+																	</div>
+
+																</notempty>
+															</div>
+															<div class="time">
+																<p>{$vo.time|date="Y-m-d H:i:s",###}</p>
+															</div>
+														</div>
+													</li>
+												</case>
+											</switch>
+										</foreach>
+									</ul>
+									<div class="ajax-btn">
+										<a href="javascript:;">加载更多</a>
+									</div>
+							</empty>
 						</div>
 					</div>
 					<div class="f-right sider">

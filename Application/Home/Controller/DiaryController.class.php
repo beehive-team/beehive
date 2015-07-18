@@ -20,14 +20,30 @@ class DiaryController extends CommonController {
     public function diary(){
 
         $model = D('DiaryView');
-        
-        $count =$model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->group('diaryid')->count();
-        
-        $Page = new \Think\Page($count,3);
-        $show = $Page->show();
 
-        $data = $model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
+        if(!empty($this->p_id)&&$this->userId!=$this->p_id){
+            $status = 'other';
+            $count =$model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->p_id")->group('diaryid')->count();
+        
+            $Page = new \Think\Page($count,3);
+            $show = $Page->show();
 
+            $data = $model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->p_id")->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
+
+
+        }else{
+            $status='me';
+            $count =$model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->group('diaryid')->count();
+        
+            $Page = new \Think\Page($count,3);
+            $show = $Page->show();
+
+            $data = $model->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->userId")->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
+
+        }
+        
+        
+        
         // var_dump($data);
         foreach($data as $key=>$value){
             $tag = array();
@@ -71,6 +87,7 @@ class DiaryController extends CommonController {
         // var_dump($data);
 
         $this->assign('u_id',$this->userId);
+        $this->assign('status',$status);
         $this->assign('page',$show);
         $this->assign('data',$data);
         // var_dump($data);
@@ -140,7 +157,7 @@ class DiaryController extends CommonController {
             }
 
             $this->trend('diary',$this->time,$d_id);
-            $this->success('日记发表成功',U('Home/User/diary'));
+            $this->success('日记发表成功',U('diary'));
 
 
         }else{
@@ -273,7 +290,7 @@ class DiaryController extends CommonController {
         // var_dump($data);
         
         if($model->where("id=$id")->save()){
-            $this->success('修改成功',U('Home/User/diary'));
+            $this->success('修改成功',U('diary'));
         }else{
             $this->error('保存失败');
         }

@@ -69,7 +69,16 @@
 								<p>{$diary.title}</p>
 							</div>
 							<div class="writer-box">
-								<img src="{$diary.user.image}" / ><p>{$diary.user.name}<span>发表时间:{$diary.time|date="Y-m-d H:i:s",###}</span><notempty name="diary.update_time"><span>最新修改时间：{$diary.update_time|date="Y-m-d H:i:s",###}</span></notempty></p>
+								<notempty name="diary.user.image">
+									<img src="{$diary.user.image}" / >
+
+								<else />
+									<img src="__PUBLIC__/images/default_face.jpg"/>
+								</notempty>	
+
+
+
+								<p>{$diary.user.name}<span>发表时间:{$diary.time|date="Y-m-d H:i:s",###}</span><notempty name="diary.update_time"><span>最新修改时间：{$diary.update_time|date="Y-m-d H:i:s",###}</span></notempty></p>
 							</div>
 							<div class="con">
 								{$diary.content}

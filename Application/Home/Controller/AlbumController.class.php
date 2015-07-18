@@ -9,7 +9,7 @@ class AlbumController extends CommonController {
 
     public function _initialize(){
         
-        
+        $this->p_id = $_GET['p_id'];
         $this->userId = $_SESSION['home']['user_id'];
         $this->time=time();
     }
@@ -18,12 +18,33 @@ class AlbumController extends CommonController {
     //显示相册
     public function album(){
         $album = D('AlbumView');
+
+
+
+
         $u_id = $this->userId;
-        $count = $album->where("u_id=$u_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->group('album_id')->count();
-        $Page       = new \Think\Page($count,6);// 实例化分页类 传入总记录数和每页显示的记录数(25)
-        $show = $Page->show();
-        $result = $album->where("u_id=$u_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->order('update_time')->limit($Page->firstRow.','.$Page->listRows)->group('album_id')->select();
+
+        if(!empty($this->p_id)&&$this->userId!=$this->p_id){
+            $status = 'other';
+            $count = $album->where("u_id=$u_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->group('album_id')->count();
+            $Page       = new \Think\Page($count,6);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+            $show = $Page->show();
+            $result = $album->where("u_id=$u_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->order('update_time')->limit($Page->firstRow.','.$Page->listRows)->group('album_id')->select();
         
+
+        }else{
+            $status='me';
+            $count = $album->where("u_id=$u_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->group('album_id')->count();
+            $Page       = new \Think\Page($count,6);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+            $show = $Page->show();
+            $result = $album->where("u_id=$u_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->order('update_time')->limit($Page->firstRow.','.$Page->listRows)->group('album_id')->select();
+        
+
+        }
+
+
+
+
         foreach ($result as $key => $value) {
             $albumId = $result[$key]['album_id'];
             $photo = M('photo');
@@ -42,6 +63,7 @@ class AlbumController extends CommonController {
         // var_dump($result);
 
         $this->assign('data',$result);
+        $this->assign('status',$status);
         $this->assign('page',$show);
         $this->display();
     }
@@ -173,7 +195,7 @@ class AlbumController extends CommonController {
                     
                     $this->trend('album',$this->time,$a_id);
 
-                    $this->success('相册添加成功',U("Home/User/photoList?id=$a_id"));
+                    $this->success('相册添加成功',U("photoList?id=$a_id"));
 
 
                 }else{
@@ -246,7 +268,7 @@ class AlbumController extends CommonController {
                 }
                 if($insert_id = $photo->add($p)){
                     $this->trend('photo',$this->time,$insert_id);
-                    $this->success('照片发布成功',U("Home/User/PhotoList/id/$a_id"));
+                    $this->success('照片发布成功',U("PhotoList/id/$a_id"));
                 }else{
                     $this->error('照片发布失败');
 
@@ -372,7 +394,7 @@ class AlbumController extends CommonController {
                 exit;
             }
         }
-        $this->success('修改成功',U('User/album'));
+        $this->success('修改成功',U('album'));
 
 
     }

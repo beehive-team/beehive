@@ -1594,6 +1594,7 @@ a.like.active span{
 }
 .user-page .user-name .edit{
 	display: none;
+	color: #666;
 }
 .user-page .user-name h3{
 	font-size: 24px;
@@ -1690,9 +1691,11 @@ a.like.active span{
 }
 .user-home-page .section .list p{
 	line-height: 30px;
-	border-bottom: 1px dashed #ddd;
-
 }
+.user-home-page .section .list p.border{
+	border-bottom: 1px dashed #ddd;
+}
+
 .user-home-page .section .list p span{
 	display: inline-block;
 	float: right;
@@ -1764,7 +1767,7 @@ a.like.active span{
 	margin-left: 10px;
 }
 .user-home-page .sider .info-box .img-box img{
-	width: 259px;
+	width: 118px;
 }
 .user-home-page .sider .info-box .info{
 	float: left;
@@ -1976,6 +1979,26 @@ a.like.active span{
 .user-page .sider .top{
 	padding-bottom: 40px;
 }
+.user-page .sider .top .btn-box a{
+	border:1px solid #af7349;
+	padding: 0 10px;
+	line-height: 20px;
+	border-radius: 3px;
+	background-color: #f5f5f5;
+}
+.user-page .sider .top .btn-box a:hover{
+	background-color: #9A633C;
+}
+a.follow{
+	border:1px solid #af7349;
+	padding: 0 10px;
+	line-height: 20px;
+	border-radius: 3px;
+	background-color: #f5f5f5;
+}
+a.follow:hover{
+	background-color: #9A633C;
+}
 .user-page .sider a.btn{
 	background-color: #f5f5f5;
     border: 1px solid #ddd;
@@ -2096,6 +2119,69 @@ a.like.active span{
 	line-height: 30px;
 	color: #fff;
 	width: 70px;
+}
+.user-diary-page .diary-detail .title p{
+	font-size: 26px;
+	list-style-position: 30px;
+	font-weight: bold;
+	padding-bottom: 10px;
+
+}
+.user-diary-page .diary-detail .writer-box {
+	overflow: hidden;
+	padding-bottom: 30px;
+}
+
+.user-diary-page .diary-detail .writer-box img{
+	width: 24px;
+	height: 24px;
+	float: left;
+}
+.user-diary-page .diary-detail .writer-box p{
+	float: left;
+	width: 520px;
+	font-size: 16px;
+	padding-left: 20px;
+	color: #666;
+}
+.user-diary-page .diary-detail .writer-box p span{
+	padding-left: 40px;
+	color: #666;
+	font-size: 12px;
+}
+.user-diary-page .diary-detail .con{
+	line-height: 20px;
+	font-size: 14px;
+}
+.user-diary-page .diary-detail .tag{
+	color: #666;
+	padding: 20px 0;
+}
+.user-diary-page .diary-detail .tag a{
+	color: #666;
+	padding: 0 10px;
+	background-color: #f5f5f5;
+	line-height: 20px;
+}
+.user-diary-page .diary-detail .tag a:hover{
+	background-color: #9A633C;
+	color: #fff;
+}
+.user-diary-page .power{
+	padding: 10px 0;
+	color: #666;
+}
+.user-diary-page .power a{
+	color: #666;
+	margin-right: 10px;
+}
+.user-diary-page .power a:hover{
+	color: #fff;
+	background-color: #9A633C;
+}
+.user-diary-page .power p{
+	color: #666;
+	float: right;
 }
 .user-album-page .album-list li{
 	float: left;

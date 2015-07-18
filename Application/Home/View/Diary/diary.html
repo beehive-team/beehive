@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    {:W('Common/commonHead')}
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/fancybox/jquery.fancybox.css" />
+
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		<script type="text/javascript" src="__PUBLIC__/js/fancybox/jquery.fancybox.js"></script>
+
+
+		
+
+		<script type="text/javascript">
+			$(function(){
+				$('.primary a.icon').click(function(){
+					if(!$(this).hasClass('active')){
+						$(this).parents('.primary').siblings('.sub').show();
+						$(this).addClass('active');
+					}else{
+						$(this).parents('.primary').siblings('.sub').hide();
+						$(this).removeClass('active');
+					}
+				})
+
+
+				$('a.modifytag').click(function(){
+					var diaryId =$(this).attr('rel');
+					$('#pop-1').find('.hid').val(diaryId);
+					$.post('__CONTROLLER__/getTag',{diaryId:diaryId},function(data){
+						var info='';
+						for(var o in data){
+							info += data[o].name;
+							info +=' ';
+							$('#pop-1').find('.input-box .tag').val(info);
+						}
+					},'json')
+				})
+
+				$('a.modifytag').fancybox({
+            
+            	})
+
+				
+			})
+		</script>
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-diary-page">
+		<div id="wrap">
+			<!-- START header -->
+		    {:W('Common/allHeader')}
+		    {:W('Common/userHeader')}
+
+			<!-- END header -->
+			
+			<div id="main">
+				<div class="inner clearfix">
+					<div class="f-left con">
+						{:W('Common/userTitle')}
+						<div class="clearfix diary-list">
+							<ul>
+								<foreach name="data" item="vo" key="k">
+									<li>
+										<div class="primary">
+											<h4><a class="title"href="{:U(diaryDetail)}?id={$vo.diaryid}">{$vo.title}</a><a class="icon"href="javascript:;"></a></h4>
+											<p class="time">{$vo.time|date='Y-m-d H:i:s',###}</p>
+											<p>{$vo.content|subtext=40}</p>
+										</div>
+										<div class="sub">
+											<div class="tags">
+
+												<p>标签：
+													<foreach name="vo.tag" item="va" key="ke">
+														<a href="">{$va.name}</a>
+													</foreach>	
+												</p>
+
+											</div>
+											<div class="bro">
+												{$vo.power}
+												<span>0人浏览</span>
+												<a class="modifytag"href="#pop-1" rel="{$vo.diaryid}">>修改标签</a>
+												<a href="{:U('/Home/User/modifyDiary')}?id={$vo.diaryid}">>修改</a>
+												<a href="{:U('/Home/User/deleteDiary')}?id={$vo.diaryid}">>删除</a>
+												<strong>{$vo.browse}</strong>
+											</div>
+											<a class="like {$vo['like']==1?'active':''}"  rel="diary_{$vo.diaryid}_{$u_id}" href="javascript:;"><span></span>喜欢</a>  
+										</div>
+									</li>
+								</foreach>
+							</ul>
+							<div id="pager">
+								{$page}
+							</div>
+						</div>
+					</div>
+					<div class="f-right sider">
+						<div class="top">
+							<a class="btn" href="{:U('Home/User/writeDiary')}">+写日记</a>
+							
+						</div>
+						<div class="tags">
+							<h2>我的日记标签</h2>
+							<div class="btn-list">
+								<a href="">趣味</a>
+								<a href="">趣味</a>
+								<a href="">趣味</a>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="inner">
+					<div id="pop-1">
+						<div class="cont">
+							<div class="title">
+								<h4>修改标签</h4>
+							</div>
+							<div class="form">
+								<form action="__CONTROLLER__/modifyTag" method="post">
+									<div class="input-box">
+										<input type="hidden" name="diaryId"class="hid"/>
+										<input type="text"class="tag" name="tags" placeholder="用逗号隔开"/>
+									</div>
+									<div class="btn-box">
+										<input type="submit" value="保存"/>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- START footer -->
+		    {:W('Common/commonFooter')}
+		<!-- END footer -->
+
+		<script type="text/javascript">
+			
+		</script>
+
+	</body>
+</html>

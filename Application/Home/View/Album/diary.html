@@ -69,7 +69,7 @@
 								<foreach name="data" item="vo" key="k">
 									<li>
 										<div class="primary">
-											<h4><a class="title"href="">{$vo.title}</a><a class="icon"href="javascript:;"></a></h4>
+											<h4><a class="title"href="{:U(diaryDetail)}?id={$vo.diaryid}">{$vo.title}</a><a class="icon"href="javascript:;"></a></h4>
 											<p class="time">{$vo.time|date='Y-m-d H:i:s',###}</p>
 											<p>{$vo.content|subtext=40}</p>
 										</div>
@@ -80,7 +80,7 @@
 													<foreach name="vo.tag" item="va" key="ke">
 														<a href="">{$va.name}</a>
 													</foreach>	
-												<p>
+												</p>
 
 											</div>
 											<div class="bro">
@@ -91,7 +91,7 @@
 												<a href="{:U('/Home/User/deleteDiary')}?id={$vo.diaryid}">>删除</a>
 												<strong>{$vo.browse}</strong>
 											</div>
-											<a class="like {$vo['like']==1?'active':''}"  rel="diary_{$vo.diaryid}" href="javascript:;"><span></span>喜欢</a>  
+											<a class="like {$vo['like']==1?'active':''}"  rel="diary_{$vo.diaryid}_{$u_id}" href="javascript:;"><span></span>喜欢</a>  
 										</div>
 									</li>
 								</foreach>

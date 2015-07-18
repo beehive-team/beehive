@@ -58,6 +58,24 @@ class CommonWidget extends Controller {
         $this->display('Public:userTitle');
      
     }
+    public function peopleTitle(){
+
+
+        $model = D('User');
+        $id = $_GET['p_id'];
+        $data = $model->where("id=$id")->find();
+        
+        
+        $face = $model->field('image')->where("id=$id")->find();
+        // var_dump($face);
+        $this->assign('face',$face);
+        $this->assign('data',$data);
+        // var_dump($data);
+
+        
+        $this->display('Public:peopleTitle');
+     
+    }
     public function pager(){
         $this->display('Public:pager');
     }

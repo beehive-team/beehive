@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    {:W('Common/commonHead')}
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/fancybox/jquery.fancybox.css" />
+
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		<script type="text/javascript" src="__PUBLIC__/js/fancybox/jquery.fancybox.js"></script>
+
+
+		
+
+		<script type="text/javascript">
+			$(function(){
+				$('.primary a.icon').click(function(){
+					if(!$(this).hasClass('active')){
+						$(this).parents('.primary').siblings('.sub').show();
+						$(this).addClass('active');
+					}else{
+						$(this).parents('.primary').siblings('.sub').hide();
+						$(this).removeClass('active');
+					}
+				})
+
+
+				$('a.modifytag').click(function(){
+					var diaryId =$(this).attr('rel');
+					$('#pop-1').find('.hid').val(diaryId);
+					$.post('__CONTROLLER__/getTag',{diaryId:diaryId},function(data){
+						var info='';
+						for(var o in data){
+							info += data[o].name;
+							info +=' ';
+							$('#pop-1').find('.input-box .tag').val(info);
+						}
+					},'json')
+				})
+
+				$('a.modifytag').fancybox({
+            
+            	})
+
+				
+			})
+		</script>
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-diary-page">
+		<div id="wrap">
+			<!-- START header -->
+		    {:W('Common/allHeader')}
+		    {:W('Common/userHeader')}
+
+			<!-- END header -->
+			
+			<div id="main">
+				<div class="inner clearfix">
+					<div class="f-left con">
+
+						<div class="clearfix diary-detail">
+							<div class="title">
+								<p>{$diary.title}</p>
+							</div>
+							<div class="writer-box">
+								<img src="{$diary.user.image}" / ><p>{$diary.user.name}<span>发表时间:{$diary.time|date="Y-m-d H:i:s",###}</span><notempty name="diary.update_time"><span>最新修改时间：{$diary.update_time|date="Y-m-d H:i:s",###}</span></notempty></p>
+							</div>
+							<div class="con">
+								{$diary.content}
+							</div>	
+							<notempty name="diary.tag">
+								<div class="tag">
+									<p>标签：
+										<foreach name="diary.tag" item="vo" key="k">
+											<a href="">{$vo}</a>
+										</foreach>
+									</p>
+									
+								</div>
+							</notempty>
+							<div class="power">
+								{$diary.power}
+
+								<a href="">>修改标签</a>
+								<a href="">>修改</a>
+								<a href="">>删除</a>
+								<p>{$diary.browse}</p>
+							</div>
+							<div class="like-box">
+								<a class="like {$diary['like']==1?'active':''}"  rel="diary_{$diary.diaryid}_{$diary.u_id}" href="javascript:;"><span></span>喜欢</a>
+							</div>
+						</div>
+					</div>
+					<div class="f-right sider">
+						
+						<div class="tags">
+							<h2>我的日记标签</h2>
+							<div class="btn-list">
+								<a href="">趣味</a>
+								<a href="">趣味</a>
+								<a href="">趣味</a>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="inner">
+					<div id="pop-1">
+						<div class="cont">
+							<div class="title">
+								<h4>修改标签</h4>
+							</div>
+							<div class="form">
+								<form action="__CONTROLLER__/modifyTag" method="post">
+									<div class="input-box">
+										<input type="hidden" name="diaryId"class="hid"/>
+										<input type="text"class="tag" name="tags" placeholder="用逗号隔开"/>
+									</div>
+									<div class="btn-box">
+										<input type="submit" value="保存"/>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- START footer -->
+		    {:W('Common/commonFooter')}
+		<!-- END footer -->
+
+		<script type="text/javascript">
+			
+		</script>
+
+	</body>
+</html>

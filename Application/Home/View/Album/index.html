@@ -143,7 +143,7 @@
 				})
 
 				var limit = 2; 
-				
+
 				var PUBLIC = "__PUBLIC__";
 				$('.ajax-btn a').click(function(){
 					$.post('index',{limit:limit},function(data){
@@ -152,6 +152,10 @@
 							// alert(1)
 							for(var i in data){
 								if(data[i]['action']=='album'){
+									
+									
+
+
 									var obj = $('li.album').clone(true);
 									$('.info-box ul').append(obj);
 									if(data[i]['image']){
@@ -161,7 +165,7 @@
 
 									}
 
-									$(obj).find('.info p a').html(data[i]['u_name']).attr('href','{:U('people/index')}'+'?p_id='+data[i]['u_id']);;
+									$(obj).find('.info p a').html(data[i]['name']);
 									var str = '';
 									for(var j=0;j<data[i]['photo'].length;j++){
 										str += '<img src="'+PUBLIC+data[i]['photo'][j]['path']+'/'+data[i]['photo'][j]['name']+'"/>';
@@ -170,11 +174,7 @@
 									$(obj).find('.img-box a').html(str);
 									if(data[i]['like']==1){
 										$(obj).find('a.like').addClass('active');
-									}else{
-										$(obj).find('a.like').removeClass('active');
-
 									}
-									$(obj).find('a.like').attr('rel','album_'+data[i]['id']+'_'+data[i]['u_id'])
 									var time = getLocalTime(data[i]['time'])
 									$(obj).find('.time').html('<p>'+time+'</p>');
 									var tag='';
@@ -183,36 +183,6 @@
 										tag +='<a href="">'+data[i]['tag'][j]['name']+'</a>';
 									}
 									$(obj).find('.list-box').append(tag);
-
-								}else{
-									var obj = $('li.diary').clone(true);
-									$('.info-box ul').append(obj);
-									$(obj).find('.face-box img').attr('src',data[i]['image'])
-									if(data[i]['image']){
-										$(obj).find('.face-box img').attr('src',data[i]['image'])
-									}else{
-										$(obj).find('.face-box img').attr('src',PUBLIC+'/images/default_face.jpg');
-
-									}
-
-									$(obj).find('.info p a').html(data[i]['name']).attr('href','{:U('people/index')}'+'?p_id='+data[i]['u_id']);
-
-									var time = getLocalTime(data[i]['time'])
-									$(obj).find('.time').html('<p>'+time+'</p>');
-									var tag='';
-									for(var j=0;j<data[i]['tag'].length;j++){
-
-										tag +='<a href="">'+data[i]['tag'][j]['name']+'</a>';
-									}
-									$(obj).find('.list-box').append(tag);
-									$(obj).find('.img-box a').html(str);
-									if(data[i]['like']==1){
-										$(obj).find('a.like').addClass('active');
-									}else{
-										$(obj).find('a.like').removeClass('active');
-
-									}
-									$(obj).find('a.like').attr('rel','diary_'+data[i]['id']+'_'+data[i]['u_id'])
 
 								}
 							}
@@ -335,7 +305,7 @@
 													</empty>
 												</div>
 												<div class="diary info">
-													<p><a href="{:U('People/index')}?p_id={$vo.id}">{$vo.name}</a>的日记: </p>
+													<p><a href="">{$vo.name}</a>的日记: </p>
 													<div class="detail">
 														<a class="title" href="">
 															{$vo.title}
@@ -372,7 +342,7 @@
 													</empty>
 												</div>
 												<div class="album info">
-													<p><a href="{:U('people/index')}?p_id={$vo.u_id}">{$vo.u_name}</a>的相册: </p>
+													<p><a href="">{$vo.name}</a>的相册: </p>
 													<div class="detail">
 														<div class="img-box">
 															<a href="">

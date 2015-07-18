@@ -242,7 +242,7 @@
 									<ul>
 										<foreach name="diary" item="vo" key="k">
 											<li>
-												<a href="{:U('Diary/diaryDetail')}?id={$vo.diaryid}&p_id={$vo.u_id}">{$vo.title}</a>
+												<a href="{:U('diaryDetail')}?id={$vo.diaryid}">{$vo.title}</a>
 												<p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p>
 												<p class="border">{$vo.content}</p>
 											</li>
@@ -262,7 +262,7 @@
 									<ul>
 										<foreach name="album" item="vo" key="k">
 											<li>
-												<a class="img"href="{:U('Album/photoList')}?id={$vo.album_id}&p_id={$vo.u_id}"><img src="__PUBLIC__/{$vo.cover}"></a>
+												<a class="img"href="{:U('photoList')}?id={$vo.album_id}"><img src="__PUBLIC__/{$vo.cover}"></a>
 												<a href="">{$vo.album_name}</a>
 												<p class="time">{$vo.update_time|date="Y-m-d",###}更新</p>
 												
@@ -328,14 +328,14 @@
 											</case>
 											<case value="album" break="1">
 												<li>
-													<p>创建了相册<a href="{:U('Album/album')}?id={$vo.id}">{$vo.name}</a></p>
-													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="{:U('Album/album')}?id={$vo.id}">回应</a></if><a href="">删除</a></p>
+													<p>创建了相册<a href="{:U('album')}?id={$vo.id}">{$vo.name}</a></p>
+													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="{:U('album')}?id={$vo.id}">回应</a></if><a href="">删除</a></p>
 											
 												</li>
 											</case>
 											<case value="diary" break="1">
 												<li>
-													<p>发表了日记<a href="{:U('Diary/diaryDetail')}?id={$vo.id}">{$vo.name}</a></p>
+													<p>发表了日记<a href="{:U('diaryDetail')}?id={$vo.id}">{$vo.name}</a></p>
 													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="">回应</a></if><a href="">删除</a></p>
 											
 												</li>

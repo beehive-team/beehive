@@ -236,7 +236,7 @@
 							</div>
 						</div>
 						<div class="section sec-2">
-							<h2>我的日记<a href="{:U('Diary/diary')}">(全部)</a><a class="btn"href="{:U('Diary/writeDiary')}">+写日记</a></h2>
+							<h2>我的日记<a href="{:U('Diary/diary')}?p_id={$userInfo.id}">(全部)</a><a class="btn"href="{:U('Diary/writeDiary')}">+写日记</a></h2>
 							<notempty name="diary">
 								<div class="list">
 									<ul>
@@ -256,7 +256,7 @@
 							</notempty>
 						</div>
 						<div class="section sec-3">
-							<h2>我的相册<a href="{:U('Album/album')}">(全部)</a><a class="btn"href="{:U('Album/publishPhoto#2')}">+新建相册</a><a class="btn"href="{:U('Album/publishPhoto#1')}">+发照片</a></h2>
+							<h2>我的相册<a href="{:U('Album/album')}?p_id={$userInfo.id}">(全部)</a><a class="btn"href="{:U('Album/publishPhoto#2')}">+新建相册</a><a class="btn"href="{:U('Album/publishPhoto#1')}">+发照片</a></h2>
 							<notempty name="album"> 
 								<div class="list">
 									<ul>
@@ -328,14 +328,15 @@
 											</case>
 											<case value="album" break="1">
 												<li>
-													<p>创建了相册<a href="{:U('Album/album')}?id={$vo.id}">{$vo.name}</a></p>
+
+													<p>创建了相册<a href="{:U('Album/album')}?id={$vo.id}&p_id={$userInfo.id}">{$vo.name}</a></p>
 													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="{:U('Album/album')}?id={$vo.id}">回应</a></if><a href="">删除</a></p>
 											
 												</li>
 											</case>
 											<case value="diary" break="1">
 												<li>
-													<p>发表了日记<a href="{:U('Diary/diaryDetail')}?id={$vo.id}">{$vo.name}</a></p>
+													<p>发表了日记<a href="{:U('Diary/diaryDetail')}?id={$vo.id}&p_id={$userInfo.id}">{$vo.name}</a></p>
 													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="">回应</a></if><a href="">删除</a></p>
 											
 												</li>

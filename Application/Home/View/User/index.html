@@ -150,9 +150,10 @@
 
 						if(data){
 							// alert(1)
+							// alert(data);
 							for(var i in data){
 								if(data[i]['action']=='album'){
-									var obj = $('li.album').clone(true);
+									var obj = $('li.album').eq(0).clone(true);
 									$('.info-box ul').append(obj);
 									if(data[i]['image']){
 										$(obj).find('.face-box img').attr('src',data[i]['image'])
@@ -185,7 +186,7 @@
 									$(obj).find('.list-box').append(tag);
 
 								}else{
-									var obj = $('li.diary').clone(true);
+									var obj = $('li.diary').eq(0).clone(true);
 									$('.info-box ul').append(obj);
 									$(obj).find('.face-box img').attr('src',data[i]['image'])
 									if(data[i]['image']){
@@ -214,6 +215,7 @@
 									}
 									$(obj).find('a.like').attr('rel','diary_'+data[i]['id']+'_'+data[i]['u_id'])
 									$(obj).find('a.title').html(data[i]['title']).attr('href','{:U("diary/diaryDetail")}'+'?id='+data[i]['id']+'&p_id='+data[i]['u_id']);
+									$(obj).find('.detail p').html(data[i]['content']);
 
 								}
 							}
@@ -341,7 +343,7 @@
 														<div class="diary info">
 															<p><a href="{:U('People/index')}?p_id={$vo.u_id}">{$vo.name}</a>的日记: </p>
 															<div class="detail">
-																<a class="title" href="{:U('diary/diaryDetail')}?id={$vo.id}&?p_id={$vo.u_id}">
+																<a class="title" href="{:U('diary/diaryDetail')}?id={$vo.id}&p_id={$vo.u_id}">
 																	{$vo.title}
 																</a>
 																<p>{$vo.content} </p>
@@ -379,7 +381,7 @@
 															<p><a href="{:U('people/index')}?p_id={$vo.u_id}">{$vo.u_name}</a>的相册: </p>
 															<div class="detail">
 																<div class="img-box">
-																	<a href="{:U('album/photoList')}?id={$vo.id}&?p_id={$vo.u_id}">
+																	<a href="{:U('album/photoList')}?id={$vo.id}&p_id={$vo.u_id}">
 																		<notempty name="vo.photo">
 																			<foreach name="vo.photo" item="va" key="key">
 																			<img src="__PUBLIC__/{$va.path}/{$va.name}"/>

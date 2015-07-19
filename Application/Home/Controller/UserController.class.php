@@ -20,6 +20,8 @@ class UserController extends CommonController {
     // 显示首页
 
     public function index(){
+
+
         $start= 0;
         if(!empty($_POST['limit'])){
             $start += $_POST['limit']/2;
@@ -31,14 +33,13 @@ class UserController extends CommonController {
         $time = $this->time;
         $yesterday=strtotime('yesterday');
 
-        $diary_list = $diary->field('d.id,u.name,title,content,d.time,image,u_id')->table('bee_diary d,bee_user u')->where("d.time<$time AND d.time>$yesterday and d.u_id=u.id")->order('hot desc')->group('d.id')->limit($start,$length)->select();
+        $diary_list = $diary->field('d.id,u.name,title,content,d.time,image,u_id')->table('bee_diary d,bee_user u')->where("d.time<$time AND d.time>$yesterday and d.u_id=u.id and browse<1")->order('hot desc')->group('d.id')->limit($start,$length)->select();
     	// echo $diary->getLastsql();
         // var_dump($diary_list);
         $album = M('album');
 
-        $album_list = $album->field('a.id,u.name as u_name,a.name,des,u_id,a.time,hot,image')->table('bee_album a,bee_user u')->where("a.time<$time AND a.time>$yesterday and a.u_id=u.id")->order('hot desc')->group('a.id')->limit($start,$length)->select();
+        $album_list = $album->field('a.id,u.name as u_name,a.name,des,u_id,a.time,hot,image')->table('bee_album a,bee_user u')->where("a.time<$time AND a.time>$yesterday and a.u_id=u.id and browse<1")->order('hot desc')->group('a.id')->limit($start,$length)->select();
         // var_dump($album_list);
-        
         // echo $album->getLastsql();
 
         foreach($diary_list as $key=>$value){
@@ -85,6 +86,14 @@ class UserController extends CommonController {
                 $album_list[$key]['like']=0;
 
             }
+
+
+
+
+
+
+
+
         }
         // var_dump($album_list);
         for($i=0;$i<count($album_list);$i++){
@@ -116,6 +125,7 @@ class UserController extends CommonController {
             
         }
         // var_dump($hot_list);
+        
         $this->assign('u_id',$this->userId);
         $this->assign('hot',$hot_list);
     	$this->display();

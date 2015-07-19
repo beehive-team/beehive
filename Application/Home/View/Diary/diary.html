@@ -77,7 +77,7 @@
 										<foreach name="data" item="vo" key="k">
 											<li>
 												<div class="primary">
-													<h4><a class="title"href="{:U(diaryDetail)}?id={$vo.diaryid}">{$vo.title}</a><a class="icon"href="javascript:;"></a></h4>
+													<h4><a class="title"href="{:U(diaryDetail)}?id={$vo.diaryid}&p_id={$p_id}">{$vo.title}</a><a class="icon"href="javascript:;"></a></h4>
 													<p class="time">{$vo.time|date='Y-m-d H:i:s',###}</p>
 													<p>{$vo.content|subtext=40}</p>
 												</div>

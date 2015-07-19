@@ -17,12 +17,38 @@ class PeopleController extends CommonController {
         if($this->p_id==$this->userId){
             $this->redirect('user/myHome');
         }
+        $this->relationship($this->userId,$this->p_id);
+        // echo $this->relation;
     }
 
     
     // 显示他人的页面
     public function index(){
         
+
+        switch ($this->relation) {
+            case '2':  //是本人
+                $where['u_id']=$this->userId;
+                $status = 'me';
+                $where['browse'] =array(ELT,'2');       
+                break;
+            
+            case '1':
+                $where['u_id']=$this->p_id;
+                $status['other'];
+                $where['browse']=array(ELT,'1');
+                break;
+
+            case '0':
+
+                $where['u_id'] = $this->p_id;
+                $status = 'other';
+                $where['browse'] = array(EQ,'0');
+                break;
+        }
+
+
+
         $model = D('user');
         $data = $model->where("id=$this->p_id")->find();
         if($data['image']&&$data['introduce']){
@@ -37,7 +63,7 @@ class PeopleController extends CommonController {
         $diaryView = D('DiaryView');
         
 
-        $diary = $diaryView->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where("u_id=$this->p_id")->order('time desc')->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $diary = $diaryView->field('diaryid,title,content,u_id,content,time,power,browse,hot')->where($where)->order('time desc')->group('diaryid')->limit($Page->firstRow.','.$Page->listRows)->select();
         // var_dump($diary);
         foreach ($diary as $key => $value) {
             $diary[$key]['content'] = strip_tags($diary[$key]['content']);    
@@ -53,7 +79,7 @@ class PeopleController extends CommonController {
         $album = D('AlbumView');
         $u_id = $this->userId;
         
-        $result = $album->where("u_id=$this->p_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->order('update_time desc')->group('album_id')->select();
+        $result = $album->where("u_id=$this->p_id")->field('album_id,album_name,u_id,power,update_time,browse,tolist,hot')->where($where)->order('update_time desc')->group('album_id')->select();
         // var_dump($result);
         foreach ($result as $key => $value) {
             $albumId = $result[$key]['album_id'];
@@ -80,9 +106,19 @@ class PeopleController extends CommonController {
         // var_dump($like_list);
         $arr = $this->getTrend(1,$this->p_id);
         
-        // var_dump($arr);
+        
         // var_dump($like_list);
 
+
+        //判断我有没有关注这个人
+
+        if($this->ifFollow($this->p_id,$this->userId)){
+            $follow = '1';
+        }else{
+            $follow = '0';
+        }
+        // echo $follow;
+        $this->assign('follow',$follow);
         $arr = array_slice($arr,0,6);
         // var_dump($arr);
         $intro = $data['introduce'];
@@ -98,6 +134,60 @@ class PeopleController extends CommonController {
         $this->assign('like',$like_list);
         
         $this->display();
+    }
+
+    public function doFollow(){
+        $this->p_id = $_POST['p_id'];
+        $model = M('follow');
+        $data['u_id']=$this->p_id;
+        $data['f_id']= $this->userId;
+        $data['time'] = $this->time;
+
+        if($model->add($data)){
+            if($this->ifFollow($this->userId,$this->p_id)){
+                $model = M('friend');
+                $data['u_id']=$this->userId;
+                // echo $this->userId;
+                // echo $this->p_id;
+                $data['f_id']=$this->p_id;
+                $data['status']=1;
+                $data['time']=$this->time;
+                $model->add($data);
+                
+                $data['f_id']=$this->userId;
+                $data['u_id']=$this->p_id;
+                $data['time']=$this->time;
+
+                $model->add($data);
+                // $model->getLastsql();
+
+            }
+            echo 'true';
+        }else{
+            echo 'false';
+        }
+    }
+    public function removeFollow(){
+        $this->p_id = $_POST['p_id'];
+        $model = M('follow');
+        $data['u_id']=$this->p_id;
+        $data['f_id']= $this->userId;
+
+        if($model->where($data)->delete()){
+            if($this->ifFollow($this->userId,$this->p_id)){
+                $model = M('friend');
+                $data['u_id']=$this->userId;
+                $data['f_id']=$this->p_id;
+                $model->where($data)->delete();
+                $data['f_id']=$this->userId;
+                $data['u_id']=$this->p_id;
+                $model->where($data)->delete();
+
+            }
+            echo 'true';
+        }else{
+            echo 'false';
+        }
     }
 
 

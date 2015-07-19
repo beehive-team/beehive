@@ -105,7 +105,7 @@ body > #wrap {height: auto; min-height: 100%;}
 }
 #pager {
 	text-align: center;
-	margin-bottom: 100px;
+	margin-bottom: 50px;
 }
 #pager a {
 	display: inline-block;
@@ -1795,7 +1795,7 @@ a.like.active span{
 	background-color: #fbecc9;
 	overflow: hidden;
 }
-.user-home-page .sider .brief a{
+.user-home-page .sider .brief a.info{
 	display: inline-block;
 	margin: 10px 0 10px 10px;
 	margin-left: 10px;
@@ -1992,15 +1992,27 @@ a.like.active span{
 .user-page .sider .top .btn-box a:hover{
 	background-color: #9A633C;
 }
-a.follow{
+.follow-btn {
+	float: left;
+}
+.follow-btn a{
+	display: none;
+	margin: 10px;
+	line-height: 20px;
+	color: #9A633C;
+}
+a.follow.active,a.has-follow.active{
+	display: block;
 	border:1px solid #af7349;
 	padding: 0 10px;
+	margin: 10px;
 	line-height: 20px;
 	border-radius: 3px;
 	background-color: #f5f5f5;
 }
-a.follow:hover{
+a.follow.active:hover,a.has-follow.active:hover{
 	background-color: #9A633C;
+	display: block;
 }
 .user-page .sider a.btn{
 	background-color: #f5f5f5;
@@ -2185,6 +2197,73 @@ a.follow:hover{
 .user-diary-page .power p{
 	color: #666;
 	float: right;
+}
+.replay{
+	padding-top: 20px;
+}
+.replay h4{
+	color: #9A633C;
+	font-size: 16px;
+}
+.replay-box{
+	padding-bottom: 40px;
+}
+.replay li{
+	overflow: hidden;
+	padding-bottom: 20px;
+	margin-bottom: 30px;
+	position: relative;
+	border-bottom: 1px solid #ddd;
+}
+.replay li .title {
+	overflow: hidden;
+	padding-bottom: 0;
+}
+.replay li .title p{
+	float: left;
+	background-color: #f5f5f5;
+	width: 511px;
+	margin-left: 10px;
+	padding-left: 10px;
+}
+.replay li .replay-p{
+	padding-left: 30px;
+	padding-top: 20px;
+}
+.replay li .btn{
+	display: none;
+	right: 10px;
+	bottom: 4px;
+	position: absolute;
+}
+.replay li .replay-content{
+	padding-left: 20px;
+	line-height: 20px;
+}
+.replay li:hover .btn{
+	display: block;
+}
+.replay li .btn a{
+	color: #666;
+}
+.replay .user-box{
+	float: left;
+}
+.replay img{
+	width: 40px;
+	height: 40px;
+}
+.replay .form-box textarea{
+	resize:none;
+	width: 500px;
+	padding: 10px;
+	height: 100px;
+	margin-bottom: 10px;
+	border:1px solid #9A633C;
+}
+.user-photo-page .replay .title p{
+	width: 586px;
+	margin-left: 0;
 }
 .user-album-page .album-list li{
 	float: left;

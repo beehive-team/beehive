@@ -16,9 +16,29 @@
 
 			
 			$(function(){
-				
+				$('.replay .btn a').click(function(){
+
+					
+					var r_id = $(this).attr('rel');
+					var value = $(this).parents('li').find('.re').val();
+					$('.form-box p').html(value);
+					var input  = '<input type="hidden" value="'+r_id+'" name="r_id">';
+					$('.replay form').append(input);
+					
+				})
 				
 			})
+
+			function onsub(obj){
+
+				// return false;
+				if($(obj).find('textarea').val()==''){
+					$(obj).find('textarea').attr('placeholder','请填写东西~');
+					return false;
+				}else{
+					return true;
+				}
+			}
 		</script>
 		<!-- END 自定义 head -->
 	</head>
@@ -34,7 +54,7 @@
 				<div class="inner clearfix">
 					<div class="right">
 						<div class="title">
-							<h3>我的相册-{$data['0']['album_name']}</h3>
+							<h3>我的相册-{$data['album_name']}</h3>
 							<div class="bread-box">
 								<ul>
 									<li>><a href="{:U('modifyAlbum')}?id={$a_id}">修改相册属性</a></li>
@@ -56,7 +76,7 @@
 							</empty>
 						</div>
 						<div class="con">
-							<p>{$data['0']['des']}</p>
+							<p>{$data['des']}</p>
 							标签：<foreach name="tags" item="vo" key="k"><a href="">{$vo['atag_name']}</a></foreach>
 						</div>
 						<div class="share-box">
@@ -64,7 +84,7 @@
 							<a href="javascript:;" rel="album_{$a_id}_{$u_id}"class="like {$like==1?'active':''}"><span></span>喜欢</a>
 						</div>
 						<div class="info-box">
-							<p>1人浏览&nbsp;{$p_n}张照片&nbsp;&nbsp;{$data['0']['a_time']|date='Y-m-d H:i:s',###}&nbsp;创建</p>
+							<p>1人浏览&nbsp;{$p_n}张照片&nbsp;&nbsp;{$data['a_time']|date='Y-m-d H:i:s',###}&nbsp;创建</p>
 							<a href="javascript:;">>添加标签</a>
 							
 							<a class="f-right" onclick="return confirm('确定要删除本相册？')"href="{:U('delAlbum')}?id={$a_id}">>删除相册</a>
@@ -72,7 +92,64 @@
 						<div id="pager">
 		    				{$page}
 		    			</div>
-						
+						<if condition="($power eq 1)">
+							<div class="replay">
+								<div class="replay-box">
+									<notempty name="replay">
+										<ul>
+											<foreach name="replay" item="vo" key="k">
+												<li>
+													<div class="replay-con">
+														<div class="r-con">
+															<div class="user-box">
+																<empty name="vo.image">
+																	<img src="__PUBLIC__/images/default_face.jpg"/>
+																<else/>
+																	<img src="{$vo.image}">
+																</empty>
+															</div>
+															<div class="title"><p>{$vo.name} &nbsp;&nbsp;{$vo.time|date="Y-m-d H:i:s",###}</p></div>
+															<div class=" f-left replay-content">
+																{$vo.content}
+																<div class="replay-p">
+																	<notempty name="vo.parent">
+																		<foreach name="vo.parent" item="va" key="key">
+																			<p>{$va.name}:{$va.content}</p>
+																		</foreach>
+																	</notempty>
+																</div>
+															</div>
+															<input type="hidden" class="re" value="回应：{$vo.name} {$vo.content}">
+															
+														</div>
+														<div class="btn">
+															<a rel="{$vo.id}"href="javascript:;">回应</a>
+														</div>
+													</div>
+												</li>
+											</foreach>
+										</ul>
+									<else />
+										<p>还没有人评论~</p>
+									</notempty>
+								</div>
+
+								<div class="form-box">
+									<h4>你的回应</h4>
+									<p></p>
+									<form action="{:U('album/addReplay')}" method="post" onsubmit="return onsub(this)">
+										<input type="hidden" name="a_id" value="{$a_id}"/>
+										<textarea name="content" placeholder="说点什么吧"></textarea>
+										<div class="sub-box">
+											<input type="submit" value="加上去" />
+										</div>
+									</form>
+								
+								</div>
+							</div>
+						<else/>
+							<p>不能回应</p>
+						</if>
 					</div>
 					
 				</div>

@@ -2,7 +2,15 @@
 namespace Home\Controller;
 use Think\Controller;
 class CommonController extends Controller{
+    protected $userId;
+    protected $p_id;
+    protected $relation;
     public function _initialize(){
+        
+        $this->userId = $_SESSION['home']['user_id'];
+
+        $this->p_id = $_GET['p_id'];
+
         $notAllow_action = array(
             
         );
@@ -17,6 +25,24 @@ class CommonController extends Controller{
 
 
     }
+    //判断我和作者的关系
+    public function relationship($u_id,$p_id){
+        $data['u_id'] = $u_id;
+        $data['p_id'] = $p_id;
+        if($data['u_id']==$data['p_id']){
+            $this->relation = 2;            //  是本人
+            return;
+        }
+        $model = M('friend');
+        if($model->where($data)->find()){   
+            $this->relation = 1;    //是朋友
+        }else{
+            $this->relation = 0;    //所有人
+        }
+    }
+
+
+
     public function exits(){
         $date = $_POST;
         $model = M('User');
@@ -284,12 +310,14 @@ class CommonController extends Controller{
 
      //显示动态
     public function getTrend($num,$u_id){
-        
+
+       
         if($num==1){
 
             $trend = M('trend');
             $trend_result = $trend->where("u_id=$u_id")->order('time desc')->select();
             // var_dump($trend_result);
+            // echo $trend->getLastsql();
             
             $photo_j;
             $album_j;
@@ -365,7 +393,7 @@ class CommonController extends Controller{
 
             //显示个人动态
             $trend = M('trend');
-            $trend_result = $trend->where("u_id=$u_id")->order('time desc')->select();
+            $trend_result = $trend->where($where)->order('time desc')->select();
             // var_dump($trend_result);
             
          
@@ -471,8 +499,19 @@ class CommonController extends Controller{
 
     
     //判断是否关注
-    public function ifFollow(){
+    public function ifFollow($p_id,$u_id){
+        $data['u_id']=$p_id;
+        $data['f_id']=$u_id;
+        
+        $model = M('follow');
+        if($model->where($data)->find()){
+            // echo $model->getLastsql();
+            return true;
+        }else{
+            // echo $model->getLastsql();
 
+            return false;
+        }
     }
 
     //判断有没有新消息

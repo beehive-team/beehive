@@ -48,13 +48,13 @@
 							</div>
 						</div>
 						<div class="section sec-2">
-							<h2>{$userInfo.name}的日记<a href="{:U('Diary/diary')}">(全部)</a></h2>
+							<h2>{$userInfo.name}的日记<a href="{:U('Diary/diary')}?p_id={$userInfo.id}">(全部)</a></h2>
 							<notempty name="diary">
 								<div class="list">
 									<ul>
 										<foreach name="diary" item="vo" key="k">
 											<li>
-												<a href="{:U('Diary/diaryDetail')}?id={$vo.diaryid}&u_id={$vo.u_id}">{$vo.title}</a>
+												<a href="{:U('Diary/diaryDetail')}?id={$vo.diaryid}&p_id={$vo.u_id}">{$vo.title}</a>
 												<p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p>
 												<p class="border">{$vo.content}</p>
 											</li>
@@ -68,7 +68,7 @@
 							</notempty>
 						</div>
 						<div class="section sec-3">
-							<h2>{$userInfo.name}的相册<a href="{:U('Album/album')}">(全部)</a></h2>
+							<h2>{$userInfo.name}的相册<a href="{:U('Album/album')}?p_id={$userInfo.id}">(全部)</a></h2>
 							<notempty name="album"> 
 								<div class="list">
 									<ul>
@@ -110,7 +110,13 @@
 								</div>
 							</div>
 							<div class="brief clearfix">
-								<div class="btn-box"><a class="follow"href="{:U('dofollow')}?p_id={$userInfo['id']}">关注此人+</a><a href="">发消息</a></div>
+								<div class="btn-box">
+									<div class="follow-btn">
+
+										<a class="follow {$follow==0?'active':''}"  rel="{$userInfo['id']}"href="javascript:;">关注此人+</a>
+										<a href="javascript:;" rel="{$userInfo['id']}"class="has-follow {$follow==1?'active':''}">已关注-</a>
+									</div>
+									<a class="info"href="">发消息</a></div>
 								<div class="intro-form">
 									<form onsubmit="return rightIntroUpdate(this)">
 										<textarea name="introduce"></textarea>
@@ -183,7 +189,26 @@
 		<!-- END footer -->
 
 		<script type="text/javascript">
-			
+			$('a.follow').click(function(){
+				var u_id = $(this).attr('rel');
+				// alert(u_id);
+				$.post("doFollow",{p_id:u_id},function(data){
+					if(data=='true'){
+						$('a.follow').removeClass('active').hide();
+						$('a.has-follow').addClass('active').show();
+					}
+				})
+			})
+			$('a.has-follow').click(function(){
+				var u_id = $(this).attr('rel');
+				// alert(u_id);
+				$.post("removeFollow",{p_id:u_id},function(data){
+					if(data=='true'){
+						$('a.follow').addClass('active').show();
+						$('a.has-follow').addClass('active').hide();
+					}
+				})
+			})
 		</script>
 
 	</body>

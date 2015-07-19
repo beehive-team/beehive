@@ -162,7 +162,7 @@ create table bee_diary(
 	time varchar(13),						-- 日记发表时间
 	u_id int unsigned,						-- 用户id
 	power tinyint,							-- 权限设置（可回复） 1为不可回复
-	browse tinyint,							-- 设置可见 1为所有人可见 0 为仅朋友可见 2仅自己可见
+	browse tinyint,							-- 设置可见 0为所有人可见 1 为仅朋友可见 2仅自己可见
     hot int,								-- 点赞个数
  	tolist tinyint, 						-- 创建到蜂蜜
 	update_time varchar(13),				-- 日记修改时间	
@@ -230,7 +230,7 @@ create table bee_follow(
     u_id int unsigned,						-- 用户id
     f_id int unsigned,						-- 关注者id
     time varchar(13),						-- 时间戳
-    status tinyint,							-- 被关注者知道否
+    status tinyint default 0,				-- 被关注者知道否
 	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
 	foreign key (f_id) references bee_user(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
@@ -242,7 +242,7 @@ create table bee_friend(
 	u_id int unsigned,
 	f_id int unsigned,
 	time varchar(13),						-- 时间戳
-    status tinyint,							-- 双方知道否
+    status tinyint default 0,				-- 双方知道否
 	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
 	foreign key (f_id) references bee_user(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
@@ -362,7 +362,8 @@ create table bee_s_r(
 	time varchar(13),								-- 时间表
 	m_id int,	
 	title varchar(255),
-	statut tinyint default 0						-- 想看 0没看过 2看过 1 想看				
+	statut tinyint default 0,						-- 想看 0没看过 2看过 1 想看
+	grade int  										-- 得分				
 )engine=InnoDB default charset=utf8;
 
 -- 电影长评表
@@ -373,6 +374,41 @@ create table bee_l_r(
 	u_id int,										-- 用户id
 	time varchar(13),								-- 时间表
 	m_id int,	
-	title varchar(255),				
+	title varchar(255),	
+	grade int  										-- 得分												
 )engine=InnoDB default charset=utf8;
 
+-- 日记回应表
+create table bee_d_replay(
+	id int unsigned not null auto_increment primary key,
+	content text not null,
+	time varchar(13),
+	d_id int unsigned,
+	r_id int unsigned default 0,
+	u_id int unsigned,
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+	foreign key (d_id) references bee_diary(id) on update cascade on delete CASCADE
+)engine=InnoDB default charset=utf8;
+
+-- 相册回应表
+create table bee_a_replay(
+	id int unsigned not null auto_increment primary key,
+	content text not null,
+	time varchar(13),
+	a_id int unsigned,
+	r_id int unsigned default 0,
+	u_id int unsigned,
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+	foreign key (a_id) references bee_album(id) on update cascade on delete CASCADE
+)engine=InnoDB default charset=utf8;
+
+-- 提醒表
+create table bee_tip(
+	id int unsigned not null auto_increment primary key,
+	u_id int unsigned,
+	action varchar(255),
+	time varchar(13),
+	do_id int unsigned,
+	statut int,
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE	
+)engine=InnoDB default charset=utf8;

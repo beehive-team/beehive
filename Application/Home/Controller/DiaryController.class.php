@@ -31,7 +31,7 @@ class DiaryController extends CommonController {
             
             case '1':
                 $where['u_id']=$this->p_id;
-                $status['other'];
+                $status = 'other';
                 $where['browse']=array(ELT,'1');
                 break;
 
@@ -67,10 +67,10 @@ class DiaryController extends CommonController {
             $data[$key]['tag'] = $data[$key]['tag'][0];
 
             switch ($data[$key]['browse']) {
-                case '0':
+                case '1':
                     $data[$key]['browse']='仅朋友可见';
                     break;
-                case '1':
+                case '0':
                     $data[$key]['browse']='所有人可见';
                     break;
                 case '2':
@@ -99,6 +99,7 @@ class DiaryController extends CommonController {
         $this->assign('p_id',$this->p_id);
         $this->assign('u_id',$this->userId);
         $this->assign('status',$status);
+
         $this->assign('page',$show);
         $this->assign('data',$data);
         // var_dump($data);
@@ -213,7 +214,27 @@ class DiaryController extends CommonController {
 
         // var_dump($data);
         
-        
+        switch ($this->relation) {
+            case '2':  //是本人
+                
+                $status = 'me';
+                      
+                break;
+            
+            case '1':
+               
+                $status = 'other';
+             
+                break;
+
+            case '0':
+
+           
+                $status = 'other';
+               
+                break;
+        }
+        $this->assign('status',$status);
         $tag = array();
         
         $did = $data['diaryid'];
@@ -224,10 +245,10 @@ class DiaryController extends CommonController {
         $data['tag'] = $data['tag'][0];
 
         switch ($data['browse']) {
-            case '0':
+            case '1':
                 $data['browse']='仅朋友可见';
                 break;
-            case '1':
+            case '0':
                 $data['browse']='所有人可见';
                 break;
             case '2':
@@ -394,8 +415,15 @@ class DiaryController extends CommonController {
         $data['u_id']=$this->userId;
         $data['time'] = $this->time;
         // var_dump($data);
+        $d_id = $data['d_id'];
+        $diary = M('diary');
+        $result = $diary->where("id=$d_id")->find();
+        $p_id = $result['u_id'];
         $model = M('d_replay');
         if($model->add($data)){
+             //添加提醒
+            $this->addTip($p_id,$this->userId,'diary_replay',$d_id,$this->time);
+
             $this->success('回复成功');
         }
 

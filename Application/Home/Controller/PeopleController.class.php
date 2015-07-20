@@ -143,7 +143,8 @@ class PeopleController extends CommonController {
         $data['f_id']= $this->userId;
         $data['time'] = $this->time;
 
-        if($model->add($data)){
+        if($insert_id = $model->add($data)){
+            $this->addTip($this->p_id,$this->userId,'follow',$insert_id,$this->time);
             if($this->ifFollow($this->userId,$this->p_id)){
                 $model = M('friend');
                 $data['u_id']=$this->userId;
@@ -159,7 +160,8 @@ class PeopleController extends CommonController {
                 $data['time']=$this->time;
 
                 $model->add($data);
-                // $model->getLastsql();
+
+                
 
             }
             echo 'true';

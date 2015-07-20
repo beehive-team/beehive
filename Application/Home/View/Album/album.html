@@ -69,21 +69,24 @@
                             </notempty>
 						</div>
 					</div>
-					<div class="f-right sider">
-						<div class="top">
-							<ul>
-								<li>
-									<a class="btn" href="{:U('publishPhoto#1')}">+发照片</a>
-								</li>
-							
-								<li>
-									<a class="btn" href="{:U('publishPhoto#2')}">+创建相册</a>
-								</li>
-							</ul>
-						</div>
+					
+					<if condition="($status eq 'me')">
+						<div class="f-right sider">
+							<div class="top">
+								<ul>
+									<li>
+										<a class="btn" href="{:U('publishPhoto#1')}">+发照片</a>
+									</li>
+								
+									<li>
+										<a class="btn" href="{:U('publishPhoto#2')}">+创建相册</a>
+									</li>
+								</ul>
+							</div>
 
-						
-					</div>
+							
+						</div>
+					</if>
 				</div>
 				<div id="pager">
 					{$page}

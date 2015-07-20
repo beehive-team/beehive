@@ -345,6 +345,36 @@ class MovieController extends Controller {
             $this -> error('更新失败');
         }
     }
-      
+    public function longComment(){
+        $m = M('l_r');
+        $count = $m->table('bee_movie m,bee_l_r l,bee_user u')->field('m.name,l.*,u.name uname')->where('l.m_id=m.id and l.u_id=u.id')->count();
+        // 实例化分页类 传入总记录数和每页显示的记录数
+        $Page = new \Think\Page($count,5);
+        // 分页显示输出
+        $show = $Page->show();
+        $list = $m->table('bee_movie m,bee_l_r l,bee_user u')->field('m.name,l.*,u.name uname')->where('l.m_id=m.id and l.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        //var_dump($list);
+        $this->assign('list',$list);
+
+        $this->display();
+    }
+     
+     public function shortComment(){
+        $m = M('s_r');
+        //查询出符合条件的记录总数
+        $count = $m->table('bee_movie m,bee_s_r s,bee_user u')->field('m.name,s.*,u.name uname')->where('s.m_id=m.id and s.u_id=u.id')->count();
+        //var_dump($count);
+
+        // 实例化分页类 传入总记录数和每页显示的记录数
+        $Page = new \Think\Page($count,5);
+        // 分页显示输出
+        $show = $Page->show();
+        $list = $m->table('bee_movie m,bee_s_r s,bee_user u')->field('m.name,s.*,u.name uname')->where('s.m_id=m.id and s.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        //var_dump($list);
+        $this->assign('list',$list);
+
+
+        $this->display();
+     } 
 
 }

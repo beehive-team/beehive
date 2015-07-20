@@ -1,4 +1,4 @@
-sudo /Applications/XAMPP/xamppfiles/bin/mysql.server start
+﻿sudo /Applications/XAMPP/xamppfiles/bin/mysql.server start
 
 alias mysql=/applications/xampp/bin/mysql
 /applications/xampp/bin/mysqladmin -u root -p password
@@ -366,6 +366,18 @@ create table bee_s_r(
 	grade int  										-- 得分				
 )engine=InnoDB default charset=utf8;
 
+-- 电影短评表
+create table bee_s_r(
+	id int unsigned not null auto_increment primary key,
+	content varchar(255) not null,					-- 评论内容
+	hot int default 0,								-- 热度
+	u_id int,										-- 用户id
+	time varchar(13),								-- 时间表
+	m_id int,	
+	statut tinyint default 0,						-- 想看 0 看过  1 
+  	show tinyint default 0                          -- 显示字段  不显示0   显示1											
+)engine=InnoDB default charset=utf8;
+
 -- 电影长评表
 create table bee_l_r(
 	id int unsigned not null auto_increment primary key,
@@ -375,20 +387,10 @@ create table bee_l_r(
 	time varchar(13),								-- 时间表
 	m_id int,	
 	title varchar(255),	
-	grade int  										-- 得分												
+	grade int ,										-- 得分	
+    show tinyint default 0                          -- 显示字段  不显示0   显示1	
 )engine=InnoDB default charset=utf8;
 
--- 日记回应表
-create table bee_d_replay(
-	id int unsigned not null auto_increment primary key,
-	content text not null,
-	time varchar(13),
-	d_id int unsigned,
-	r_id int unsigned default 0,
-	u_id int unsigned,
-	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
-	foreign key (d_id) references bee_diary(id) on update cascade on delete CASCADE
-)engine=InnoDB default charset=utf8;
 
 -- 相册回应表
 create table bee_a_replay(
@@ -405,10 +407,33 @@ create table bee_a_replay(
 -- 提醒表
 create table bee_tip(
 	id int unsigned not null auto_increment primary key,
-	u_id int unsigned,
+	u_id int unsigned,                           -- 谁做的
 	action varchar(255),
 	time varchar(13),
 	do_id int unsigned,
-	statut int,
-	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE	
+	status int default 0,
+	p_id int unsigned,							 -- 提醒谁
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,	
+	foreign key (p_id) references bee_user(id) on update cascade on delete CASCADE	
+)engine=InnoDB default charset=utf8;
+
+-- 发起私信表
+create table bee_conversation(
+	id int unsigned not null auto_increment primary key,
+	u_id int unsigned,							-- 发起人id
+	p_id int unsigned,							-- 相应人id
+	time varchar(13),							-- 时间
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,	
+	foreign key (p_id) references bee_user(id) on update cascade on delete CASCADE	
+)engine=InnoDB default charset=utf8;
+
+-- 对话内容表
+create table bee_message(
+	id int unsigned not null auto_increment primary key,
+	m_id int unsigned,							-- 对话id
+	u_id int unsigned,							-- 说话的人
+	content varchar(255),						-- 说的内容
+	time varchar(13),							-- 说话时间
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,	
+	foreign key (m_id) references bee_conversation(id) on update cascade on delete CASCADE	
 )engine=InnoDB default charset=utf8;

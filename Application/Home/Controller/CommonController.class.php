@@ -485,17 +485,6 @@ class CommonController extends Controller{
 
     }
 
-    // 关注某人
-    public function doFollow(){
-
-
-
-    }
-    // 不关注某人
-    public function removeFollow(){
-
-
-    }
 
     
     //判断是否关注
@@ -516,7 +505,29 @@ class CommonController extends Controller{
 
     //判断有没有新消息
     public function ifTip(){
+        $u_id = $_POST['u_id'];
+        $model = M('tip');
+        $count = $model->where("p_id='$u_id' and status=0")->count();
+        // echo $model->getLastsql();
+        echo $count;
+    }
 
+    //添加提醒内容
+    /*
+    *   $p_id   提醒谁
+    *   $u_id   谁做的
+    *   $action  是什么内容的提醒
+    *   $do_id   做的东西的id
+    *   $time    时间
+    */
+    public function addTip($p_id,$u_id,$action,$do_id,$time){
+        $data['p_id'] = $p_id;
+        $data['u_id'] = $u_id;
+        $data['action'] = $action;
+        $data['do_id'] = $do_id;
+        $data['time'] = $time;
+        $m = M('tip');
+        $m->add($data);
     }
 
 }

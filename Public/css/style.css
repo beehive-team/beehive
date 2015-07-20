@@ -147,6 +147,7 @@ body > #wrap {height: auto; min-height: 100%;}
 	background-color: #545652;
 	
 }
+
 .common_header a{
 	line-height: 26px;
 	color: #d5d5d5;
@@ -162,6 +163,41 @@ body > #wrap {height: auto; min-height: 100%;}
 	display: inline-block;
 	position: relative;
 	margin: 0 10px;
+}
+.common_header li .tip-box{
+	position: absolute;
+	display: none;
+	width: 200px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	right: 8px;
+	color: #666;
+	border:1px solid #ddd;
+	top: 26px;
+	background-color: #f5f5f5;
+	border-radius: 3px;
+}
+.common_header li .tip-box strong{
+	display: block;
+	background: url(../images/tri.png) no-repeat;
+	background-size: 80%;
+	right: 10px;
+	width: 10px;
+	top: -7px;
+	height: 11px;
+	position: absolute;
+}
+.common_header li .tip-box span{
+	color: #fff;
+	width: 30px;
+	display: inline-block;
+	line-height: 20px;
+	margin: 0 10px;
+	height: 20px;
+	border-radius: 5px;
+	background-color: #f40;
+	font-size: 16px;
 }
 .common_header span.arrow{
 	
@@ -2463,7 +2499,7 @@ a.follow.active:hover,a.has-follow.active:hover{
 	border-bottom: 1px solid #ddd;
 	padding-bottom: 10px;
 }
-.user-photo-page .right{
+.user-photo-page .right-box{
 	width: 634px;
 }
 .user-photo-page .bread-box{
@@ -2528,6 +2564,137 @@ a.follow.active:hover,a.has-follow.active:hover{
 .user-photo-page .info-box a:hover{
 	color: #fff;
 	background-color: #9A633C;
+}
+.user-tip-page h2{
+	color: #9A633C;
+	font-size: 20px;
+	line-height: 40px;
+	border-bottom: 1px solid #666;
+	margin-bottom: 10px;
+}
+.user-tip-page .tip-box{
+	color: #444;
+	line-height: 40px;
+	border-bottom: 1px solid #ddd;
+	padding-left: 20px;
+}
+.user-tip-page .tip-box a{
+	color: #9A633C;
+	padding: 0 4px;
+	border-bottom: 1px solid #9A633C;
+}
+.user-message-page h2{
+	color: #9A633C;
+	font-size: 20px;
+	line-height: 40px;
+	margin-bottom: 10px;
+}
+.user-message-page .form-info{
+	overflow: hidden;
+}
+.user-message-page .conversation-box {
+	float: right;
+	overflow: hidden;
+	margin-right: 8px;
+	margin-bottom: 34px;
+}
+.user-message-page .conversation-box textarea{
+	border:1px solid #9A633C;
+	resize:none;
+	width: 437px;
+	height: 70px;
+	margin-bottom: 20px;
+}
+.user-message-page .conversation-box .btn-box{
+	float: right;
+}
+.user-message-page .img-box {
+	float: right;
+	width: 50px;
+	height: 50px;
+	margin-left: 10px;
+}
+.user-message-page .me-box,.user-message-page .other-box {
+	overflow: hidden;
+	margin-bottom: 28px;
+}
+.user-message-page .me-box .text-box{
+	width: 435px;
+	margin-right: 8px;
+	float: right;
+	min-height: 70px;
+	border:1px solid #f3f4f6;
+	border-radius: 3px;
+	background-color: #f3f4f6;
+	position: relative;
+	padding-bottom: 26px;
+}
+.user-message-page .other-box .text-box{
+	width: 435px;
+	margin-left: 6px;
+	float: left;
+	min-height: 70px;
+	border:1px solid #f0f7f6;
+	border-radius: 3px;
+	padding-bottom: 26px;
+	background-color: #f0f7f6;
+	position: relative;
+}
+.user-message-page .me-box p,.user-message-page .other-box p{
+	color: #444;
+	width: 400px;
+	padding: 10px;
+	line-height: 20px;
+	word-wrap: break-word;
+}
+.user-message-page p.time{
+	position: absolute;
+	right: 10px;
+	bottom: -5px;
+}
+.user-message-page .me-box i{
+	border-color: #f3f4f6 #fff #fff #f3f4f6;
+    border-style: solid;
+    border-width: 5px;
+    height: 0;
+    position: absolute;
+    right: -10px;
+    top: -1px;
+    width: 0;
+}
+.user-message-page .other-box i{
+	border-color: #f0f7ff #f0f7ff #fff #fff;
+    border-style: solid;
+    border-width: 5px;
+    height: 0;
+    left: -10px;
+    position: absolute;
+    top: 0;
+    width: 0;
+}
+.user-message-page .other-box .img-box{
+	margin: 0 10px 0 0;
+	float: left;
+}
+.user-message-page .img-box img{
+	width: 50px;
+	height: 50px;
+
+}
+.user-message-page .btn-box{
+	clear: both;
+
+}
+.user-message-page .btn-box input{
+	width: 70px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+	border:1px solid #9A633C;
+	border-radius: 3px;
+	background-color: #9A633C;
+
 }
 a.share{
 	display: block;

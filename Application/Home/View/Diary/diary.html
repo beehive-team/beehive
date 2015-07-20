@@ -91,12 +91,16 @@
 														</p>
 
 													</div>
+
 													<div class="bro">
 														{$vo.power}
 														<span>0人浏览</span>
-														<a class="modifytag"href="#pop-1" rel="{$vo.diaryid}">>修改标签</a>
-														<a href="{:U('/Home/User/modifyDiary')}?id={$vo.diaryid}">>修改</a>
-														<a href="{:U('/Home/User/deleteDiary')}?id={$vo.diaryid}">>删除</a>
+														
+														<if condition="($status eq me)">
+															<a class="modifytag"href="#pop-1" rel="{$vo.diaryid}">>修改标签</a>
+															<a href="{:U('/Home/User/modifyDiary')}?id={$vo.diaryid}">>修改</a>
+															<a href="{:U('/Home/User/deleteDiary')}?id={$vo.diaryid}">>删除</a>
+														</if>
 														<strong>{$vo.browse}</strong>
 													</div>
 													<a class="like {$vo['like']==1?'active':''}"  rel="diary_{$vo.diaryid}_{$u_id}" href="javascript:;"><span></span>喜欢</a>  
@@ -112,10 +116,12 @@
 						</div>
 					</div>
 					<div class="f-right sider">
-						<div class="top">
-							<a class="btn" href="{:U('writeDiary')}">+写日记</a>
-							
-						</div>
+						<if condition="($status eq 'me')">
+							<div class="top">
+								<a class="btn" href="{:U('writeDiary')}">+写日记</a>
+								
+							</div>
+						</if>
 						<div class="tags">
 							<h2>我的日记标签</h2>
 							<div class="btn-list">

@@ -32,7 +32,7 @@ class AlbumController extends CommonController {
             
             case '1':   //朋友
                 $where['u_id']=$this->p_id;
-                $status['other'];
+                $status = 'other';
                 $where['browse']=array(ELT,'1');
                 break;
 
@@ -75,7 +75,7 @@ class AlbumController extends CommonController {
             $result[$key]['count'] = $photo->where("a_id=$albumId")->count();
         }
         // var_dump($result);
-
+        
         $this->assign('data',$result);
         $this->assign('p_id',$this->p_id);
         $this->assign('status',$status);
@@ -196,7 +196,7 @@ class AlbumController extends CommonController {
                     }
 
                     $image['a_id'] = $a_id;
-                    var_dump($image);
+                    // var_dump($image);
                     $arr = array();
                     $j=0;
                     foreach ($image as $key => $value) {
@@ -302,7 +302,7 @@ class AlbumController extends CommonController {
         $a_id = $_GET['id'];
         $album = D('AlbumView');
         $result =$album->field('album_name,des,power,u_id,a_time,hot,browse')->where("album.id=$a_id")->find();
-        var_dump($result);
+        // var_dump($result);
         $photo = M('photo');
         // var_dump($result);
         $p_n = $photo->where("a_id=$a_id")->count();
@@ -320,12 +320,29 @@ class AlbumController extends CommonController {
         }
 
         // var_dump($p_d);
+        $this->relation;
+        switch ($this->relation) {
+            case '2':  //是本人
+                
+                $status = 'me';
+                break;
+            
+            case '1':   //朋友
+               
+                $status = 'other';                
+                break;
 
+            case '0':   //陌生人
+
+                $status = 'other';
+                break;
+        }
+        // echo $status;
         switch ($result['browse']) {
-            case '0':
+            case '1':
                 $result['browse']='仅朋友可见';
                 break;
-            case '1':
+            case '0':
                 $result['browse']='所有人可见';
                 break;
             case '2':
@@ -362,11 +379,11 @@ class AlbumController extends CommonController {
                     // var_dump($replay_info);
                     foreach ($replay_info as $k => $v) {
                         // echo $value;
-                       $m = M('d_replay');
+                        $m = M('d_replay');
                         $result=$model->field('u_id,r_id,a_id,image,name,r.time,content,r.id')->table('bee_user u,bee_a_replay r')->where("u.id=r.u_id and r.id=$v")->find();
                        
-                       // var_dump($result);
-                       $replay[$key]['parent'][] = $result ;
+                        // var_dump($result);
+                        $replay[$key]['parent'][] = $result ;
                     }
                     
                 }
@@ -388,6 +405,7 @@ class AlbumController extends CommonController {
         $this->assign('data',$result);
         $this->assign('page',$show);
         $this->assign('a_id',$a_id);
+        $this->assign('status',$status);
         $this->display();
     }
 
@@ -512,9 +530,14 @@ class AlbumController extends CommonController {
         $data['u_id']=$this->userId;
         $data['time'] = $this->time;
         // var_dump($data);
-        // exit;
+        
+        $a_id = $data['a_id'];
+        $album = M('album');
+        $result = $album->where("id=$a_id")->find();
+        $p_id = $result['u_id'];
         $model = M('a_replay');
-        if($model->add($data)){
+        if($insert_id = $model->add($data)){
+            $this->addTip($p_id,$this->userId,'album_replay',$insert_id,$this->time);
             $this->success('回复成功');
         }
 

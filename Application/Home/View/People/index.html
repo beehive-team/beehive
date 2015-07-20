@@ -116,7 +116,7 @@
 										<a class="follow {$follow==0?'active':''}"  rel="{$userInfo['id']}"href="javascript:;">关注此人+</a>
 										<a href="javascript:;" rel="{$userInfo['id']}"class="has-follow {$follow==1?'active':''}">已关注-</a>
 									</div>
-									<a class="info"href="">发消息</a></div>
+									<a class="info"href="{:U('message/message')}?p_id={$userInfo.id}">发消息</a></div>
 								<div class="intro-form">
 									<form onsubmit="return rightIntroUpdate(this)">
 										<textarea name="introduce"></textarea>

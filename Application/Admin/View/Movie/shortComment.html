@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap-theme.min.css">
+		<title>电影列表</title>
+	</head>
+	<body>
+		<div class="hvc">
+			<p>后台管理>电影短评</p>
+		</div>
+
+		<form class="form-inline" role="form" style="margin:18px 62px 22px;">
+		  <div class="form-group">
+		    <label class="sr-only">电影名</label>
+		  <input type="text" class="form-control"  placeholder="输入电影名进行查询">
+		  </div>
+		  <button type="submit" class="btn btn-default">搜索</button>
+		</form>
+		<table class="table table-bordered" style="width:89%;margin:10px auto;">
+            <tr>
+                <th>编号</th>
+                <th>电影名</th>
+                <th>用户名</th>
+                <th>评论时间</th>
+                <th>内容</th>				         				
+				<th>评论热度</th>
+				<th>用户状态</th>
+				<th>操作</th>
+			</tr>
+
+			<foreach name="list" item="vo">
+            <tr>
+	            <td>{$vo.id}</td>
+	            <td>{$vo.name}</td>
+	            <td>{$vo.uname}</td>
+	            <td>{$vo.time|date="Y-m-d",###}</td>
+	            <td><a class="btn btn-primary" href="">查看</a></td>	           	           
+	            <td>{$vo.hot}</td>
+	            <td>{$vo.statut}</td>
+				<td>					
+					<a class="btn btn-danger" href="">不显示</a>  
+				
+				</td>
+            </tr>
+           </foreach>
+        </table>
+        <div id="pager" style="margin-left:60px;">
+        <!-- {$page} -->
+        </div>
+	</body>
+</html>

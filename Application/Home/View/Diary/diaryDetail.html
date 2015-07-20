@@ -117,10 +117,12 @@
 							</notempty>
 							<div class="power">
 								{$diary.power}
-
-								<a class="modifytag" rel="{$diary.diaryid}"href="#pop-1">>修改标签</a>
-								<a href="">>修改</a>
-								<a href="">>删除</a>
+								
+								<if condition="($status eq me)">
+									<a class="modifytag" rel="{$diary.diaryid}"href="#pop-1">>修改标签</a>
+									<a href="">>修改</a>
+									<a href="">>删除</a>
+								</if>
 								<p>{$diary.browse}</p>
 							</div>
 							<div class="like-box">

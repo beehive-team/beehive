@@ -403,7 +403,45 @@ class UserController extends CommonController {
 
     }
 
-    
+    // 显示提示
+    public function tip(){
+        $i = 0;
+        $model = M('tip');
+        $result = $model->where("p_id=$this->userId and status=0")->order('time desc')->select();
+        // var_dump($result);
+        foreach ($result as $key => $value) {
+            switch($result[$key]['action']){
+                case 'album_replay':
+                    $data['id'] = $result[$key]['do_id'];
+                    $album = M('album');
+                    $album_info = $album->where($data)->find();
+                    $result[$key]['info'] = $album_info;
+                    break;
+                case 'diary_replay':
+                    $data['id'] = $result[$key]['do_id'];
+                    $diary = M('diary');
+                    $diary_info = $diary->where($data)->find();
+                    // echo $diary->getLastsql();
+                    $result[$key]['info']=$diary_info;
+                    break;
+                case 'follow':
+                    $i++;
+                    $f_count = $i;
+                    
+                    break;
+
+            }
+        }
+        $info = $result;
+        // var_dump($info);
+        $this->assign('info',$info);
+        $this->assign('p_id',$this->userId);
+        $this->assign('count',$f_count);
+        
+        
+        $this->display();
+    }
+
 
 
 }

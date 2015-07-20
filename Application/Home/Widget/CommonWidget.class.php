@@ -13,8 +13,7 @@ class CommonWidget extends Controller {
     public function allHeader(){
 
         if(!empty($_SESSION['home'])){
-            //var_dump($_SESSION);
-
+            //var_dump($_SESSION)
             $this->assign('user',$_SESSION['home']);
         }
 		$this->display('Public:allHeader');

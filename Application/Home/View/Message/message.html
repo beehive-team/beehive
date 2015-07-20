@@ -18,14 +18,40 @@
 				// alert(msg);
 				var u_id = $(obj).find('.u_id').val();
 				var p_id = $(obj).find('.p_id').val();
-				alert(u_id);
-				alert(p_id);
+				
+				if(!msg){
+					$(obj).find('.textarea').attr('placeholder','请输入点东西吧');
+					return false;
+				}
 				$.post('sendMessage',{u_id:u_id,p_id:p_id,content:msg},function(data){
+					var str = '<div class="me-box"><div class="img-box"><img src=""></div><div class="text-box"><p class="msg">{$vo.content}</p><p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p><i></i></div></div>';
+					$('.message-box').prepend(str);
+					var me = $('.message-box .me-box').eq(0);
+					var image = $('.image').val();
+					$(me).find('.msg').html(data.content);
+					$(me).find('img').attr('src',image);
+					$(me).find('.time').html(getDate(data.time));
+					$('.history').hide();
+					var height = $(me).css('height');
+					// 方案一
+					// $(me).css({height:0});
 					
+					// $(me).animate({height:height},500)
+					
+					// $(me).animate({opacity:1},500)
+
+					// 方案二
+
+					$('.message-box').css({top: "-160px"});
+					$('.message-box').animate({top:0},500)
+
 				})
 				return false;
 			}
-
+			function getDate(tm){
+				var tt=new Date(parseInt(tm) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ")
+				return tt;
+				} 
 
 		</script>
 		<!-- END 自定义 head -->
@@ -42,7 +68,8 @@
 				<div class="inner clearfix">
 					<div class="con">
 						<div class="title">	
-							<h2>我和{$p_user.name}的私信对话</h2>
+							<h2>我和{$other.name}的私信对话<a class="back"href="{:U('index')}">返回到信箱</a></h2>
+							<input type="hidden" class="image" value="{$me.image}"/>
 						</div>
 						<div class="form-info">
 							<form onsubmit="return sub(this)">
@@ -69,37 +96,49 @@
 							</form>
 						</div>
 						<div class="message-box">
-							<div class="me-box">
-								<div class="img-box">
-									<notempty name="me.image">
-										<img src="{$me.image}">
-									<else />
-										<img src="__PUBLIC__/images/default_face.jpg"/>
-									</notempty>
-								</div>
-								<div class="text-box">
-									<p>fdsfdssssssssssssssfesgrsg</p>
-									<p class="time">1yue 1hao </p>
-									<i></i>
-								</div>
-								
-							</div>
-							<div class="other-box">
-								<div class="img-box">
-									<notempty name="other.image">
-										<img src="{$other.image}">
-									<else />
-										<img src="__PUBLIC__/images/default_face.jpg"/>
-									</notempty>
-								</div>
-								<div class="text-box">
-									<p>fdsfdssssssssssssssfesgrsg</p>
-									<p class="time">1yue 1hao </p>
+							<empty name="msg_result">
 
-									<i></i>
-								</div>
-								
-							</div>
+								<p class="history">没有历史记录</p>
+							<else/>
+								<foreach name="msg_result" item="vo" key="k">
+
+									<if condition="($vo.who eq 'me')">
+										<div class="me-box">
+											<div class="img-box">
+												<notempty name="me.image">
+													<img src="{$me.image}">
+												<else />
+													<img src="__PUBLIC__/images/default_face.jpg"/>
+												</notempty>
+											</div>
+											<div class="text-box">
+												<p class="msg">{$vo.content}</p>
+												<p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p>
+												<i></i>
+											</div>
+											
+										</div>
+									<else/>
+										<div class="other-box">
+											<div class="img-box">
+												<notempty name="other.image">
+													<img src="{$other.image}">
+												<else />
+													<img src="__PUBLIC__/images/default_face.jpg"/>
+												</notempty>
+											</div>
+											<div class="text-box">
+												<p>{$vo.content}</p>
+												<p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p>
+
+												<i></i>
+											</div>
+											
+										</div>
+									</if>
+								</foreach>
+							</empty>
+							
 						</div>
 					</div>
 					

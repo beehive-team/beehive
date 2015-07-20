@@ -12,13 +12,7 @@
 		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
 		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script> 
 
-		<script type="text/javascript">
-			$(function(){
-				
-			})
-
-
-		</script>
+		
 		<!-- END 自定义 head -->
 	</head>
 	<body class="user-page user-tip-page">
@@ -46,12 +40,20 @@
 								</div>
 									
 							</notempty>
+							<notempty name="m_count">
+							
+								<div class="tip-box">
 
+									<p>你有<a href="{:U('message/index')}">{$m_count}条</a>未读私信</p>
+								</div>
+									
+							</notempty>
 							<foreach name="info" item="va" key="k">
 								
 								<switch name="va.action">
 									<case value="diary_replay">
 										<div class="tip-box">
+											
 											<p>你的日志<a href="">{$va.info.title}</a>有了新回应</p>
 										</div>
 									</case>
@@ -60,9 +62,7 @@
 											<p>你的相册<a href="">{$va.info.name}</a>有了新回应</p>
 										</div>
 									</case>
-									<div class="tip-box">
-										<p>有人私信了你</p>
-									</div>
+									
 								</switch>
 							</foreach>
 						</empty>
@@ -77,7 +77,10 @@
 		<!-- END footer -->
 
 		<script type="text/javascript">
-			
+		
+		
+
+	
 		</script>
 
 	</body>

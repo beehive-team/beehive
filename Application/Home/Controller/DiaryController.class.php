@@ -410,7 +410,7 @@ class DiaryController extends CommonController {
 
     //添加回应
     public function addReplay(){
-        var_dump($_POST);
+        // var_dump($_POST);
         $data = $_POST;
         $data['u_id']=$this->userId;
         $data['time'] = $this->time;

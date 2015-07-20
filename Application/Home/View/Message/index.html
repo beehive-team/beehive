@@ -21,7 +21,7 @@
 		</script>
 		<!-- END 自定义 head -->
 	</head>
-	<body class="user-page user-tip-page">
+	<body class="user-page user-message-page">
 		<div id="wrap">
 			<!-- START header -->
 		    {:W('Common/allHeader')}
@@ -33,38 +33,34 @@
 				<div class="inner clearfix">
 					<div class="con">
 						<div class="title">	
-							<h2>我的提醒</h2>
+							<h2>我的私信</h2>
 						</div>
 						<empty name="info">
 							<p>你现在没有新消息~</p>
 						<else/>
-							<notempty name="count">
 							
-								<div class="tip-box">
-
-									<p>新增<a href="">{$count}个人</a>关注了你</p>
-								</div>
-									
-							</notempty>
-
-							<foreach name="info" item="va" key="k">
+							<div class="conver-box">
+								<ul>
+									<foreach name="info" item="va" key="k">
+										<li class="{$va['new']==1?'active':''}">
+											<a href="{:U('message')}?p_id={$va.user.id}">
+												<div class="con-box">
+													<div class="img-box">
+														<img src="{$va.user.image}">
+													</div>
+													<div class="info-box">
+														<strong>{$va.user.name}<span>{$va.update_time|date="Y-m-d H:i:s",###}</span></strong>
+														<p>{$va.con.content}</p>
+													</div>
+												</div>
+											</a>
+										</li>
 								
-								<switch name="va.action">
-									<case value="diary_replay">
-										<div class="tip-box">
-											<p>你的日志<a href="">{$va.info.title}</a>有了新回应</p>
-										</div>
-									</case>
-									<case value="album_replay">
-										<div class="tip-box">
-											<p>你的相册<a href="">{$va.info.name}</a>有了新回应</p>
-										</div>
-									</case>
-									<div class="tip-box">
-										<p>有人私信了你</p>
-									</div>
-								</switch>
-							</foreach>
+									</foreach>
+
+								</ul>
+							</div>
+							
 						</empty>
 					</div>
 					

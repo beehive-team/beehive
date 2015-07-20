@@ -406,6 +406,7 @@ class UserController extends CommonController {
     // 显示提示
     public function tip(){
         $i = 0;
+        $j = 0;
         $model = M('tip');
         $result = $model->where("p_id=$this->userId and status=0")->order('time desc')->select();
         // var_dump($result);
@@ -429,7 +430,10 @@ class UserController extends CommonController {
                     $f_count = $i;
                     
                     break;
-
+                case 'msg':
+                    $j++;
+                    $m_count = $j;
+                    break;
             }
         }
         $info = $result;
@@ -437,6 +441,7 @@ class UserController extends CommonController {
         $this->assign('info',$info);
         $this->assign('p_id',$this->userId);
         $this->assign('count',$f_count);
+        $this->assign('m_count',$m_count);
         
         
         $this->display();

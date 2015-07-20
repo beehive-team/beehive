@@ -423,6 +423,7 @@ create table bee_conversation(
 	u_id int unsigned,							-- 发起人id
 	p_id int unsigned,							-- 相应人id
 	time varchar(13),							-- 时间
+	update_time varchar(13),					-- 更新时间
 	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,	
 	foreign key (p_id) references bee_user(id) on update cascade on delete CASCADE	
 )engine=InnoDB default charset=utf8;

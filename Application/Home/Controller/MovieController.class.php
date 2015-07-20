@@ -104,6 +104,9 @@ class MovieController extends CommonController {
             $this->error('评论失败');
         }
     }
+    public function commentDetail(){
+        $this->display();
+    }
 
     public function dosortComment(){
         $id=$_POST['m_id'];

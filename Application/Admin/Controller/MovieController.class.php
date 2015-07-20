@@ -358,8 +358,18 @@ class MovieController extends Controller {
 
         $this->display();
     }
+
+    public function dellongComment($id){
+        //var_dump($id);
+        $m = M('l_r');
+        if($m->delete($id)){
+            $this->success('删除成功',U('Movie/longComment'));
+        }else{
+            $this->erroe('删除失败');
+        }
+    }
      
-     public function shortComment(){
+    public function shortComment(){
         $m = M('s_r');
         //查询出符合条件的记录总数
         $count = $m->table('bee_movie m,bee_s_r s,bee_user u')->field('m.name,s.*,u.name uname')->where('s.m_id=m.id and s.u_id=u.id')->count();
@@ -375,6 +385,47 @@ class MovieController extends Controller {
 
 
         $this->display();
-     } 
+    } 
+
+    public function delshortComment($id){
+        //var_dump($id);
+        $m = M('s_r');
+        if($m->delete($id)){
+            $this->success('删除成功',U('Movie/shortComment'));
+        }else{
+            $this->erroe('删除失败');
+        }
+    }
+
+    public function dolongshow(){
+        //var_dump($_GET);
+        $id=$_GET['id'];
+        $data['show'] = $_GET['show']==1?0:1;
+        $data['id'] = $_GET['id'];
+        //var_dump($data);
+        $m=M('l_r');
+        if($m->where("id=$id")->save($data)){
+            $this->success('修改成功',U('Movie/longComment'));
+        }else{
+            $this->error('修改失败');
+        }
+
+    }
+
+    public function doshortshow(){
+        //var_dump($_GET);
+        $id=$_GET['id'];
+        $data['show'] = $_GET['show']==1?0:1;
+        $data['id'] = $_GET['id'];
+        //var_dump($data);
+        $m=M('s_r');
+        if($m->where("id=$id")->save($data)){
+            $this->success('修改成功',U('Movie/shortComment'));
+        }else{
+            $this->error('修改失败');
+        }
+
+    }
+   
 
 }

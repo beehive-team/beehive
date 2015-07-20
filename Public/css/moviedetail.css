@@ -799,3 +799,84 @@ a {
     margin-bottom: 15px;
     margin-top: 3px;
 }
+/*评论查看详情页*/
+.grid-16-8 .article {
+    float: left;
+    padding-right: 40px;
+    width: 590px;
+}
+.main .main-hd {
+    color: #999;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+.main .main-hd p {
+    margin: 0;
+}
+.main .main-hd .main-title-tip {
+    background: #fafafa none repeat scroll 0 0;
+    margin-top: 20px;
+    padding: 7px 12px;
+}
+.main .main-avatar {
+    margin-right: 8px;
+}
+.main .main-title-rating {
+    margin: 0 8px;
+}
+.main .main-title-hide {
+    color: #fff;
+    margin-right: -1em;
+}
+.main .main-author {
+    margin-top: 4px;
+}
+.main .main-author span {
+    margin-right: 4px;
+}
+.main .main-panel {
+    border-bottom: 1px dashed #ddd;
+    margin: 30px 0 5px;
+    padding-bottom: 36px;
+}
+.main .main-panel .rec-sec {
+    display: inline;
+}
+.main .main-panel .warn-secret {
+    margin-right: 18px;
+}
+.main .main-panel-note {
+    float: right;
+}
+.main .main-panel-useful {
+    color: #666;
+}
+.main .main-panel-useful span {
+    margin-right: 6px;
+}
+.main .main-share {
+    display: inline-block;
+}
+.main .main-share li {
+}
+.main .doulist-add-btn {
+    display: inline;
+    float: none;
+}
+.main .main-bd {
+    font-size: 13px;
+    word-wrap: break-word;
+}
+#link-report .report {
+    font-size: 12px;
+    text-align: right;
+    visibility: hidden;
+}
+#link-report .report a {
+    color: #bbb;
+}
+#link-report .report a:hover {
+    background-color: #bbb;
+    color: #fff;
+}

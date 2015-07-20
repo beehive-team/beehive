@@ -413,7 +413,8 @@
 					
 					<div>
 						<div class="indentpop1">
-							<form class="j a_interest_form movie-sns" method="POST" action="">
+							<form class="j a_interest_form movie-sns" method="POST" action="__CONTROLLER__/dosortComment">
+								<input type="hidden" name="m_id" value="{$list.id}">
 								<div class="interest-form-hd">
 									<span class="gact fr">
 									<a onclick="close_dialog()" href="javascript:;">x</a>
@@ -422,11 +423,11 @@
 								</div>
 								<div class="interest-status" style="float:left;font-size:14px;margin-bottom:15px">
 									<label>
-										<input type="radio" name="interest" value="wish">
+										<input type="radio" name="statut" value="0">
 									 	想看
 									</label>
 									<label>
-										<input type="radio" name="interest" value="collect">
+										<input type="radio" name="statut" value="1">
 									 	看过
 									</label>
 								</div>
@@ -470,7 +471,7 @@
 										简短评论:
 									</li>
 									<li>
-										<textarea id="comment" class="comment" maxlength="140" name="comment"></textarea>
+										<textarea id="comment" class="comment" maxlength="140" name="content"></textarea>
 									</li>
 									<li class="private">
 										<input id="inp-private" type="checkbox" name="private">
@@ -486,7 +487,7 @@
 										</label>
 									</div>
 									<span class="bn-flat">
-										<input type="submit" class="con" name="save" value="保存">
+										<input type="submit" class="con"  value="保存">
 									</span>
 								</div>
 							</form>

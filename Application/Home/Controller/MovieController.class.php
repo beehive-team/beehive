@@ -89,6 +89,35 @@ class MovieController extends CommonController {
 
         $this->display();
     }
+    public function dolongComment(){
+        // var_dump($_SESSION);
+        // var_dump(time());
+        $id=$_POST['m_id'];
+        $_POST['u_id']=$_SESSION['home']['user_id'];
+        $_POST['time']=time();
+        //var_dump($_POST);
+
+        $m = M('l_r');
+        if($m->add($_POST)){
+            $this->success('评论成功',U('movie/detail',"id=$id"));
+        }else{
+            $this->error('评论失败');
+        }
+    }
+
+    public function dosortComment(){
+        $id=$_POST['m_id'];
+        $_POST['u_id']=$_SESSION['home']['user_id'];
+        $_POST['time']=time();
+        //var_dump($_POST);
+
+        $m = M('s_r');
+        if($m->add($_POST)){
+            $this->success('评论成功',U('movie/detail',"id=$id"));
+        }else{
+            $this->error('评论失败');
+        }
+    }
 
     public function getCata(){
         //var_dump($_POST);exit;

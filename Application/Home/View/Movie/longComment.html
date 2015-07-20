@@ -18,36 +18,37 @@
 					<h1>评论 {$list.name}</h1>	
 					<div class="grid-16-8 clearfix">
 						<div class="article">
-							<form id="lzform" action="" name="lzform" method="POST">
+							<form id="lzform" action="__CONTROLLER__/dolongComment" name="lzform" method="POST">
+								<input type="hidden" name="m_id" value="{$list.id}">
 								<table align="center">
 									<tbody>
 										<tr>
 											<td class="pl2" align="center" width="75">标题: </td>
 											<td>
-											<input class="input_basic" type="text" value="" style="width:450px" maxlength="100" size="50" name="rev_title">
+											<input class="input_basic" type="text" value="" style="width:450px" maxlength="100" size="50" name="title">
 											</td>
 										</tr>
 										<tr>
 											<td class="p12" height="35" align="center">评价:</td>				
 											<td>
 												<label>
-													<input type="radio" value="1" name="rev_rating">
+													<input type="radio" value="1" name="grade">
 													很差
 												</label>
 												<label>
-													<input type="radio" value="2" name="rev_rating">
+													<input type="radio" value="2" name="grade">
 													较差
 												</label>
 												<label>
-													<input type="radio" value="3" name="rev_rating">
+													<input type="radio" value="3" name="grade">
 													还行
 												</label>
 												<label>
-													<input type="radio" value="4" name="rev_rating">
+													<input type="radio" value="4" name="grade">
 													推荐
 												</label>
 												<label>
-													<input type="radio" value="5" name="rev_rating">
+													<input type="radio" value="5" name="grade">
 													力荐
 												</label>
 											</td>
@@ -57,15 +58,15 @@
 												<img src="__PUBLIC__/images/small.jpg">
 											</td>
 											<td>
-												<textarea class="" style="width:448px;height:337px" name="rev_text"></textarea>
+												<textarea class="" style="width:448px;height:337px" name="content"></textarea>
 											</td>
 										</tr>
 										<tr>
 											<td></td>
 											<td>
 												<br>
-												<input type="submit" value="好了，添加评论" name="rev_submit">
-												<a href="">> 取消</a>
+												<input type="submit" value="好了，添加评论">
+												<a href="__CONTROLLER__/detail/id/{$list.id}">> 取消</a>
 											</td>
 										</tr>
 									</tbody>

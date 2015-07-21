@@ -41,8 +41,9 @@
 
             })
             function tipAjax(){
+                var url = "{:U('Common/ifTip')}";
                 var user_id = $('.userInfo').attr('rel');
-                $.post('ifTip',{u_id:user_id},function(data){
+                $.post(url,{u_id:user_id},function(data){
                     if(data!=0){
                         $('.tip-box').fadeIn();
                         $('.tip-box').find('span').html(data);

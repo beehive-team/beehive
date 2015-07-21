@@ -179,9 +179,11 @@
 									var time = getLocalTime(data[i]['time'])
 									$(obj).find('.time').html('<p>'+time+'</p>');
 									var tag='';
-									for(var j=0;j<data[i]['tag'].length;j++){
+									if(data[i]['tag']!=null){
+										for(var j=0;j<data[i]['tag'].length;j++){
 
-										tag +='<a href="">'+data[i]['tag'][j]['name']+'</a>';
+											tag +='<a href="">'+data[i]['tag'][j]['name']+'</a>';
+										}
 									}
 									$(obj).find('.list-box').append(tag);
 
@@ -341,24 +343,14 @@
 															</empty>
 														</div>
 														<div class="diary info">
-															<p><a href="{:U('People/index')}?p_id={$vo.u_id}">{$vo.name}</a>的日记: </p>
+															<p><a href="{:U('People/index')}?p_id={$vo.info.u_id}">{$vo.name}</a>的日记: </p>
 															<div class="detail">
-																<a class="title" href="{:U('diary/diaryDetail')}?id={$vo.id}&p_id={$vo.u_id}">
+																<a class="title" href="{:U('diary/diaryDetail')}?id={$vo.info.id}&p_id={$vo.info.u_id}">
 																	{$vo.title}
 																</a>
 																<p>{$vo.content} </p>
 																<a class="like {$vo['like']==1?'active':''}" rel="diary_{$vo.id}_{$vo.u_id}"href="javascript:;" ><span>love</span>喜欢</a>
-																<notempty name="vo.tag">
-																	
-																	<div class="list-box">
-																		标签：
-																		<foreach name="vo.tag" item="va" k="key">
-																			<a href="">{$va.name}</a>
-																			
-																		</foreach>
-																	</div>
-
-																</notempty>
+																
 															</div>
 															<div class="time">
 																<p>{$vo.time|date="Y-m-d H:i:s",###}</p>

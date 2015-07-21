@@ -2875,6 +2875,30 @@ a.follow.active:hover,a.has-follow.active:hover{
 	color: #fff;
 	background-color: #9A633C;
 }
+.user-like-page .info .detail {
+    background-color: #fafafa;
+    overflow: hidden;
+    padding: 10px 20px;
+}
+.user-like-page .info .time {
+    border-bottom: 1px solid #ddd;
+}
+.user-like-page .album img {
+    height: 100px;
+    margin-bottom: 20px;
+    margin-right: 7px;
+    width: 100px;
+}
+.user-like-page .time p {
+    color: #aaa;
+    padding: 7px 0 25px 10px;
+}
+.user-like-page .info p {
+    color: #666;
+    font-size: 12px;
+    line-height: 26px;
+    padding-bottom: 10px;
+}
 a.share{
 	display: block;
 	width: 63px;

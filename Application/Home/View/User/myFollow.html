@@ -25,7 +25,42 @@
 				})
 
 
+				var img_objs = $('.img-box');
+
+				function change(){
+
+				}
+
+				
+				var img_objs = $('.img-box');
+				time = 500;
+				for(var i = 0;i<img_objs.length;i++){
+					var obj = $(img_objs).eq(i)
+
+					setTimeout(function(){
+						$(obj).find('h4').addClass('active');
+
+						$(obj).find('img').addClass('active');
+
+					},time)
+
+					time=+500;
+
+
+						
+					
+				
+				} 
+					
+		
+					
+
+				
+				
+
+				
 			})
+			
 		</script>
 		<!-- END 自定义 head -->
 	</head>

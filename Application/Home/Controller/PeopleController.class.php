@@ -113,10 +113,11 @@ class PeopleController extends CommonController {
         //判断我有没有关注这个人
 
         if($this->ifFollow($this->p_id,$this->userId)){
-            $follow = '1';
+            $is_follow= '1';
         }else{
-            $follow = '0';
+            $is_follow = '0';
         }
+        // echo $follow;
 
 
         $follow_model = M('follow');
@@ -131,7 +132,7 @@ class PeopleController extends CommonController {
 
 
         // echo $follow;
-        $this->assign('follow',$follow);
+        $this->assign('follow',$is_follow);
         $arr = array_slice($arr,0,6);
         // var_dump($arr);
         $intro = $data['introduce'];

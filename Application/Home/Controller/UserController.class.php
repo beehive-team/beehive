@@ -77,7 +77,7 @@ class UserController extends CommonController {
             $p_list = $photo->where("a_id=$a_id")->order('is_cover desc')->select();
             $p_list = array_slice($p_list,0,4);
             // var_dump($p_list);
-            $album_list[$key]['photo_albumo']=$p_list;
+            $album_list[$key]['photo']=$p_list;
             // var_dump($tag_list);
             $album_list[$key]['action'] = 'album';
             if($this->ifLike($album_list[$key]['id'],'album',$this->userId,$album_list[$key]['u_id'])){
@@ -478,7 +478,33 @@ class UserController extends CommonController {
 
     public function myLike(){
         $like_list = $this->getLike('all',$this->userId);
-        var_dump($like_list);
+        
+        foreach ($like_list as $key => $value) {
+            $id = $like_list[$key]['id'];
+            switch ($like_list[$key]['action']) {
+                case 'album':
+                    $album = M('album');
+                    $album_result = $album->field('a.id,u.id as u_id,u.name,a.time,a.name as a_name,image')->table("bee_user u,bee_album a")->where("a.id=$id and a.u_id=u.id")->find();
+                    $photo = M('photo');
+
+                    $album_result['photo']=$photo->where("a_id=$id")->select();
+                    $like_list[$key]['info']=$album_result;
+                    break;
+                
+                case 'diary':
+                    $diary = M('diary');
+                    $diary_result =$diary->field('u.name as u_name,title,image,d.time,content,u.id as u_id,d.id')->table("bee_user u,bee_diary d")->where("u.id=d.u_id and d.id=$id")->find();
+                    $like_list[$key]['info'] = $diary_result;
+                    break;
+                case 'movie':
+
+                    break;
+                case 'book':
+
+                    break;
+            }
+        }
+        // var_dump($like_list);
         $this->assign('like_list',$like_list);
         $this->display();
 

@@ -15,7 +15,7 @@
 		<div id="main">	
 			<div id="content">	
 				<div class="inner">
-					<h1>评论 小森林 春</h1>	
+					<h1>{$list.title}</h1>	
 					<div class="grid-16-8 clearfix">
 						<div class="article">
 							<div typeof="v:Review">
@@ -23,20 +23,15 @@
 									<div class="main-hd">
 										<p>
 											<a href="" onclick="">
-												<span property="v:reviewer">会飞的鱼</span>
+												<span property="v:reviewer">{$list.name}</span>
 											</a>
-											<span class="main-meta" content="2015-04-07" property="v:dtreviewed">2015-04-07 13:51:19</span>
+											<span class="main-meta" content="2015-04-07" property="v:dtreviewed">{$list.time|date="Y-m-d,h:i:s",###}</span>
 										</p>
 									</div>
 									<div class="main-bd">
 										<div id="link-report">
 											<div class="" property="v:description">
-												也许，每个人心里都有一个小森林吧。
-											　　我爸的弟弟，就是我叔，前年在山上开垦了一块地，不作他用，就是种菜。为了看顾好他的菜地，他每天清晨都爬上山，如果下雨路难走，他就开车从山路上过。开垦好地花了他快一年的时间，我看到他每次去山上都会带两双鞋，因为泥地总是把鞋弄脏，他不能穿着脏鞋去上班。
-											　　有一天我爬山遇到我叔。远远地，我看到他正在地里除草。这时候，几个大人带着小孩从菜地边路过，孩子好奇地蹲在菜地边，看着我叔。叔看到孩子，便拿起刚收好的一捆青菜，递给家长，说：我种的，你们带回去尝尝。
-											　　送菜的时候，叔笑眯眯地看着孩子，语气里透着一股憨厚的自豪。
-											　　大人们收下菜，对孩子说：快谢谢人家！孩子说：谢谢农民伯伯！
-											　　大人们都笑了：他可不是农民伯伯！ 
+												{$list.content}
 											</div>
 										</div>
 									</div>
@@ -120,37 +115,37 @@
 								</div>
 								<p class="pl2" style="margin-top:0pt;">
 									>
-									<a href="__CONTROLLER__/detail/id/{$list.id}">去 {$list.name} 的页面</a>
+									<a href="__CONTROLLER__/detail/id/{$list.id}">去 {$list1.name} 的页面</a>
 								</p>
 							</div>
 							<div class="movie-summary">
 								<div class="movie-pic">
 									<a href="">
-										<img rel="" src="__PUBLIC__{$list.i_path}148_{$list.iname}" title="" alt="">
+										<img rel="" src="__PUBLIC__{$list1.i_path}148_{$list1.iname}" title="" alt="">
 									</a>
 								</div>
 								<span class="attrs">
 									<p>
 										<span class="pl">导演:</span>
-										{$list.director}
+										{$list1.director}
 									</p>
 									<p>
 										<span class="pl">编剧:</span>
-										{$list.writer}
+										{$list1.writer}
 									</p>
 									<p>
 										<span class="pl">类型:</span>
-										<foreach name="list.fname" item="vo">									
+										<foreach name="list1.fname" item="vo">									
 										{$vo}/
 										</foreach>
 									</p>
 									<p>
 										<span class="pl">片长:</span>
-										{$list.tlong}分钟
+										{$list1.tlong}分钟
 									</p>
 									<p>
 										<span class="pl">上映时间:</span>
-										{$list.orelease_t}
+										{$list1.orelease_t}
 									</p>
 
 								</span>

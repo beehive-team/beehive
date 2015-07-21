@@ -48,7 +48,7 @@
 				})
 
 				$('.ajax-button a').click(function(){
-					alert(c_id);
+					//alert(c_id);
 					i=i+4;
 					$.post('__CONTROLLER__/getCata',{c_id:c_id,num:i},function(data){
 						$('#dys').empty();

@@ -67,6 +67,7 @@ class MovieController extends CommonController {
         $r1 = $m3->table('bee_user u,bee_l_r l')
                 ->field('u.name,l.*')
                 ->where('l.show=1 and u.id=l.u_id and l.m_id='.$id)
+                ->limit(5)
                 ->select();
         //echo $m3->getLastSql();
         //var_dump($r1);
@@ -77,8 +78,10 @@ class MovieController extends CommonController {
         $r2 = $m3->table('bee_user u,bee_s_r s')
                  ->field('u.name,s.*')
                  ->where('s.show=1 and u.id=s.u_id and s.m_id='.$id)
+                 ->limit(5)
                  ->select();
-        var_dump($r2);
+        //var_dump($r2);
+        $this->assign('r2',$r2);
         $this->display();
     }
     //用户发表长评论
@@ -124,6 +127,72 @@ class MovieController extends CommonController {
         }
     }
     public function commentDetail(){
+        $id = $_GET['id'];
+        $m = M('l_r');
+        $list = $m->table('bee_user u,bee_l_r l')
+                 ->field('u.name,l.*')
+                 ->where('l.show=1 and u.id=l.u_id and l.id='.$id)
+                 ->find();
+        //var_dump($list);
+        $this->assign('list',$list);
+
+        $mid = $_GET['mid'];
+         $m = M('movie');
+        //进行多表联合查询
+        $list1 = $m->table('bee_movie m,bee_mimage i,bee_mclassify f,bee_m_c c')
+                ->field('m.*,i.name iname,i.m_id imid,i.i_path,i.is_cover,f.id fid,f.name fname,c.m_id cmid,c.c_id')
+                ->where('m.id=i.m_id and i.is_cover=1 and m.id=c.m_id and c.c_id=f.id and m.id='.$mid)
+                ->select();
+                //var_dump($list1);exit;
+        $tmp = [];
+        //将其他数组的fname写入第一个数组
+        for($i = 0; $i<count($list1); $i++){
+            
+            $tmp[] = $list1[$i]['fname'];
+        }
+        $list1[0]['fname'] = $tmp;
+        //转换时间格式
+        $list1[0]['crelease_t']=date('Y-m-d',$list1[0]['crelease_t']);
+        $list1[0]['orelease_t']=date('Y-m-d',$list1[0]['orelease_t']);
+        //echo count($list1[0]['fname']);
+        //var_dump($list1[0]);
+        $this->assign('list1',$list1[0]);
+
+        $this->display();
+    }
+    public function alllongComment(){
+        $id = $_GET['id'];
+        //查询长评表
+        $m3 = M('l_r');
+        $r1 = $m3->table('bee_user u,bee_l_r l')
+                ->field('u.name,l.*')
+                ->where('l.show=1 and u.id=l.u_id and l.m_id='.$id)
+                ->limit()
+                ->select();
+        //var_dump($r1);
+        $this->assign('r1',$r1);
+
+        $m = M('movie');
+        //进行多表联合查询
+        $list1 = $m->table('bee_movie m,bee_mimage i,bee_mclassify f,bee_m_c c')
+                ->field('m.*,i.name iname,i.m_id imid,i.i_path,i.is_cover,f.id fid,f.name fname,c.m_id cmid,c.c_id')
+                ->where('m.id=i.m_id and i.is_cover=1 and m.id=c.m_id and c.c_id=f.id and m.id='.$id)
+                ->select();
+                //var_dump($list1);exit;
+        $tmp = [];
+        //将其他数组的fname写入第一个数组
+        for($i = 0; $i<count($list1); $i++){
+            
+            $tmp[] = $list1[$i]['fname'];
+        }
+        $list1[0]['fname'] = $tmp;
+        //转换时间格式
+        $list1[0]['crelease_t']=date('Y-m-d',$list1[0]['crelease_t']);
+        $list1[0]['orelease_t']=date('Y-m-d',$list1[0]['orelease_t']);
+        //echo count($list1[0]['fname']);
+        //var_dump($list1[0]);
+        $this->assign('list1',$list1[0]);
+
         $this->display();
     }
 
@@ -139,6 +208,43 @@ class MovieController extends CommonController {
         }else{
             $this->error('评论失败');
         }
+    }
+
+    public function allshortComment(){
+        $id=$_GET['id'];
+        //echo $id;exit;
+        //查询短评
+        $m3 = M('s_r');
+        $r2 = $m3->table('bee_user u,bee_s_r s')
+                 ->field('u.name,s.*')
+                 ->where('s.show=1 and u.id=s.u_id and s.m_id='.$id)
+                 ->limit()
+                 ->select();
+        //var_dump($r2);
+        $this->assign('r2',$r2);
+
+        $m = M('movie');
+        //进行多表联合查询
+        $list1 = $m->table('bee_movie m,bee_mimage i,bee_mclassify f,bee_m_c c')
+                ->field('m.*,i.name iname,i.m_id imid,i.i_path,i.is_cover,f.id fid,f.name fname,c.m_id cmid,c.c_id')
+                ->where('m.id=i.m_id and i.is_cover=1 and m.id=c.m_id and c.c_id=f.id and m.id='.$id)
+                ->select();
+                //var_dump($list1);exit;
+        $tmp = [];
+        //将其他数组的fname写入第一个数组
+        for($i = 0; $i<count($list1); $i++){
+            
+            $tmp[] = $list1[$i]['fname'];
+        }
+        $list1[0]['fname'] = $tmp;
+        //转换时间格式
+        $list1[0]['crelease_t']=date('Y-m-d',$list1[0]['crelease_t']);
+        $list1[0]['orelease_t']=date('Y-m-d',$list1[0]['orelease_t']);
+        //echo count($list1[0]['fname']);
+        //var_dump($list1[0]);
+        $this->assign('list1',$list1[0]);
+
+        $this->display();
     }
 
     public function getCata(){

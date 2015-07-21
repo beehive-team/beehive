@@ -182,53 +182,22 @@
 										<a href="">我关注的</a>
 									</div>
 									<div class="tab-bd">
+										<foreach name="r2" item="v">
 										<div class="comment-item">
 											<div class="comment-user">									
-												<a class="username" href="">内陆飞鱼</a>	
+												<a class="username" href="">{$v.name}</a>	
 												<a class="userful" href="">有用</a>
 												<span class="userful-num">30</span>						
 											</div>
 											<div class="clearfix"></div>
 											<div class="comment-content">
-												<p>恬淡之美，自得其乐，风景和食材一样精致，劳作和享受一般干净。在日本当农民竟这样优雅，有隐居之趣，桥本爱的呆萌刚刚好。像《乡村照相馆》《从河底问好》等，片子再次涉及一个老生常谈的问题，在东京等大城市混不下去的年轻人，回故乡，怎么生活才能在祖辈的土地上实现自我价值。</p>
+												<p>{$v.content}</p>
 											</div>
 										</div>
-										<div class="comment-item">
-											<div class="comment-user">									
-												<a class="username" href="">内陆飞鱼</a>	
-												<a class="userful" href="">有用</a>
-												<span class="userful-num">30</span>						
-											</div>
-											<div class="clearfix"></div>
-											<div class="comment-content">
-												<p>恬淡之美，自得其乐，风景和食材一样精致，劳作和享受一般干净。在日本当农民竟这样优雅，有隐居之趣，桥本爱的呆萌刚刚好。像《乡村照相馆》《从河底问好》等，片子再次涉及一个老生常谈的问题，在东京等大城市混不下去的年轻人，回故乡，怎么生活才能在祖辈的土地上实现自我价值。</p>
-											</div>
-										</div>
-										<div class="comment-item">
-											<div class="comment-user">									
-												<a class="username" href="">内陆飞鱼</a>	
-												<a class="userful" href="">有用</a>
-												<span class="userful-num">30</span>						
-											</div>
-											<div class="clearfix"></div>
-											<div class="comment-content">
-												<p>恬淡之美，自得其乐，风景和食材一样精致，劳作和享受一般干净。在日本当农民竟这样优雅，有隐居之趣，桥本爱的呆萌刚刚好。像《乡村照相馆》《从河底问好》等，片子再次涉及一个老生常谈的问题，在东京等大城市混不下去的年轻人，回故乡，怎么生活才能在祖辈的土地上实现自我价值。</p>
-											</div>
-										</div>
-										<div class="comment-item">
-											<div class="comment-user">									
-												<a class="username" href="">内陆飞鱼</a>	
-												<a class="userful" href="">有用</a>
-												<span class="userful-num">30</span>						
-											</div>
-											<div class="clearfix"></div>
-											<div class="comment-content">
-												<p>想做饭想做饭想摸菜刀想翻锅想捏面团啊啊啊啊啊我的厨魂已经熊熊燃烧了！！！！感觉村里地上随便啥草都能焯一下炸了吃掉¯﹃¯… </p>
-											</div>
-										</div>
+										</foreach>
 										<div class="more-shot">
-										>
-										<a href="">更多短评3003条</a>
+											>
+											<a href="__CONTROLLER__/allshortComment/id/{$list.id}">查看更多短评</a>
 										</div>
 									</div>
 								</div>
@@ -245,7 +214,7 @@
 										<div class="review-hd">
 											<div class="review-hd-title">
 												<a href=><img src="" alt=""></a>
-												<a href="">{$vo.title}</a>
+												<a href="__CONTROLLER__/commentDetail/id/{$vo.id}/mid/{$vo.m_id}">{$vo.title}</a>
 											</div>
 											<div class="review-hd-info">
 												<a class="" href="">{$vo.name}</a>
@@ -266,7 +235,7 @@
 									</foreach>
 									<div class="more-shot">
 										>
-										<a href="">更多影评64篇</a>
+										<a href="__CONTROLLER__/alllongComment/id/{$list.id}">查看更多影评</a>
 									</div>
 									
 								</div>

@@ -247,7 +247,7 @@ h1{
 }
 .comment-item{
 	widows: 590px;
-	height: 79px;
+	/*height: 79px;*/
 	padding-bottom: 8px;
 	margin-bottom: 8px;
 	border-bottom: 1px dashed #ddd;
@@ -301,7 +301,7 @@ h1{
 .review{
 	margin-bottom: 20px;
 	width: 590px;
-	height: 175px;
+	
 }
 .review-hd{
 	width: 590px;
@@ -515,7 +515,7 @@ h1{
     padding: 0 18px;
     width: 514px;
     height: 376px;
-    /*background-color: pink;*/
+    background-color:#FFFFFF;
     margin:5px auto;
 }
 .interest-form-hd {
@@ -879,4 +879,162 @@ a {
 #link-report .report a:hover {
     background-color: #bbb;
     color: #fff;
+}
+.btn-useful, .btn-unuseful {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin: 0 2px 2px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    width: 42px;
+}
+.main-ft{
+    margin-top: 20px;
+}
+.btn-useful{
+    background-color: #FFEDDC;
+}
+.btn-unuseful{
+    background-color: #DDE7E8;
+}
+#comments {
+    overflow: hidden;
+    padding: 20px 0 0;
+    width: 100%;
+    word-wrap: break-word;
+}
+div.comment-item {
+    margin-bottom: 1em;
+}
+.comment-item .author {
+    background: #f2fbf2 none repeat scroll 0 0;
+    color: #666;
+    padding: 2px 4px;
+}
+.update-item, .comment-item {
+    margin-bottom: 1.6em;
+    overflow: hidden;
+}
+.update-item .pic, .comment-item .pic {
+    float: left;
+    margin-right: 20px;
+}
+.update-item .content, .comment-item .content {
+    overflow: hidden;
+}
+.comment-item h3 {
+    height: 1.7em;
+    line-height: 1.7em;
+    margin: 1.5em 0 1em;
+    padding-left: 4px;
+}
+.comment-item p, .comment-item .author {
+    margin-bottom: 1em;
+}
+.comment-item .title {
+    font-size: 14px;
+}
+.update-item .content, .comment-item .content {
+    overflow: hidden;
+}
+.lnk-reply {
+    color: #bbb;
+    margin-right: 20px;
+}
+.op-lnks {
+    text-align: right;
+    /*visibility: hidden;*/
+}
+.op-lnks a:link, .op-lnks a:visited {
+    color: #bbb;
+}
+.op-lnks a:hover {
+    background-color: #bbb;
+    color: #fff;
+}
+.over .op-lnks {
+    visibility: visible;
+}
+.lnk-reply {
+    color: #bbb;
+    margin-right: 20px;
+}
+
+.over .op-lnks {
+    visibility: visible;
+}
+.reply-quote {
+    border-left: 1px solid;
+    margin: 20px 0;
+    padding-left: 7px;
+    width: 30em;
+}
+.reply-quote .all {
+    display: none;
+}
+.minisubmit {
+    color: #bbb;
+}
+.minisubmit:hover {
+    background-color: #bbb;
+    color: #fff;
+}
+.reply-comment {
+    background-color: #e8eef2;
+    margin-bottom: 5px;
+    padding: 3px 4px;
+    position: relative;
+    width: 98%;
+}
+.reply-comment .lnk-close {
+    line-height: 1;
+    padding: 0 2px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.reply-comment .lnk-close:link, .reply-comment .lnk-close:visited, .reply-comment .lnk-close:hover, .reply-comment .lnk-close:active {
+    font-size: 16px;
+}
+.reply-comment .lnk-close:link {
+    color: #999;
+}
+.reply-comment .lnk-close:hover {
+    background-color: #999;
+    color: #fff;
+}
+.reply-comment p {
+    margin: 0;
+    padding: 6px;
+    width: 30em;
+}
+.reply-comment .pubdate {
+    margin-left: 10px;
+    white-space: nowrap;
+}
+.op-lnks a:link, .op-lnks a:visited {
+    color: #bbb;
+}
+a:link {
+    color: #37a;
+    text-decoration: none;
+}
+a:link {
+    color: #37a;
+    text-decoration: none;
+}
+.lnk-reply {
+    color: #bbb;
+    margin-right: 20px;
+}
+.reply-quote {
+    border-left: 1px solid;
+    margin: 20px 0;
+    padding-left: 7px;
+    width: 30em;
+}
+.lctext{
+    color:#111111;
 }

@@ -60,6 +60,25 @@ class MovieController extends CommonController {
         $m2->getLastSql();
         //var_dump($r);
         $this->assign('r',$r);
+
+        //查询长评
+
+        $m3=M('l_r');
+        $r1 = $m3->table('bee_user u,bee_l_r l')
+                ->field('u.name,l.*')
+                ->where('l.show=1 and u.id=l.u_id and l.m_id='.$id)
+                ->select();
+        //echo $m3->getLastSql();
+        //var_dump($r1);
+        $this->assign('r1',$r1);
+
+        //查询短评
+        $m3 = M('s_r');
+        $r2 = $m3->table('bee_user u,bee_s_r s')
+                 ->field('u.name,s.*')
+                 ->where('s.show=1 and u.id=s.u_id and s.m_id='.$id)
+                 ->select();
+        var_dump($r2);
         $this->display();
     }
     //用户发表长评论

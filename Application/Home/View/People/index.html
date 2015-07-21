@@ -169,10 +169,12 @@
 							</notempty>
 						</div>
 						<div class="follow">
-							<p><a href="">>我被0人关注</a></p>
-							<div class="img-box">
-								<img src=""/>
-							</div>
+							<p><a href="{:U('myFollow')}?p_id={$userInfo.id}">>{$userInfo.name}被{$f_count}人关注</a></p>
+						
+						</div>
+						<div class="follow">
+							<p><a href="{:U('followWho')}?p_id={$userInfo.id}">>{$userInfo.name}关注了{$w_count}人</a></p>
+
 						</div>
 						<div class="bee">
 							<h2>我的蜂蜜<a href="">（全部）</a><a class="btn"href="">+创建蜂蜜</a></h2>

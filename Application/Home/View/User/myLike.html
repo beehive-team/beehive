@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    {:W('Common/commonHead')}
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script> 
+
+		<script type="text/javascript">
+			$(function(){
+				
+			})
+		</script>
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-like-page">
+		<div id="wrap">
+			<!-- START header -->
+		    {:W('Common/allHeader')}
+		    {:W('Common/userHeader')}
+
+			<!-- END header -->
+			
+			<div id="main">
+				<div class="inner clearfix">
+					<div class="con">
+						<h2>我喜欢过的</h2>
+						<div class="tab-box">
+							<a rel="1" class="active"href="javascript:;">全部</a>
+							<a rel="2" href="javascript:;">日记</a>
+							<a rel="3" href="javascript:;">相册</a>
+							<a rel="4" href="javascript:;">电影</a>
+							<a rel="5" href="javascript:;">图书</a>
+						</div>
+						
+						<div class="list nodisplay sub-1">
+							
+							<foreach name="like_list" item="vo" key="k">
+								
+								<p>
+									<a href="">{$vo.name}</a><span>{$vo.time|date="Y-m-d",###}</span>
+								</p>
+							</foreach>
+						</div>
+					
+						<div class="list nodisplay sub-2">
+							
+							<foreach name="like_list" item="vo" key="k">
+
+								<if condition="$vo.action eq diary">
+									<p>
+										<a href="">{$vo.name}</a><span>{$vo.time|date="Y-m-d",###}</span>
+									</p>
+								</if>
+							</foreach>
+						</div>
+			
+						<div class="list nodisplay sub-3">
+							
+							<foreach name="like_list" item="vo" key="k">
+								<if condition="$vo.action eq album">
+									<p>
+										<a href="">3{$vo.name}</a><span>{$vo.time|date="Y-m-d",###}</span>
+									</p>
+								</if>
+							</foreach>
+						</div>
+					
+				
+						<div class="list nodisplay sub-4">
+							
+							<foreach name="like_list" item="vo" key="k">
+								<if condition="$vo.action eq movie">
+								
+									<p>
+										<a href="">4{$vo.name}</a><span>{$vo.time|date="Y-m-d",###}</span>
+									</p>
+								</if>	
+							</foreach>
+						</div>
+
+						<div class="list nodisplay sub-5">
+							
+							<foreach name="like_list" item="vo" key="k">
+								<if condition="$vo.action eq book">
+								
+									<p>
+										<a href="">4{$vo.name}</a><span>{$vo.time|date="Y-m-d",###}</span>
+									</p>
+								</if>	
+							</foreach>
+						</div>
+					
+						
+					</div>
+					
+				
+				</div>
+			</div>
+		</div>
+		<!-- START footer -->
+		    {:W('Common/commonFooter')}
+		<!-- END footer -->
+
+		<script type="text/javascript">
+			$(function(){
+				$('.sub-1').show();
+				$('.tab-box a').click(function(){
+					var index = $(this).attr('rel');
+					var subIndex = '.sub-'+index;
+					$('.list').hide();
+					$(subIndex).show();
+					$('.tab-box a').removeClass('active');
+					$(this).addClass('active');
+				})
+
+			})
+		</script>
+
+	</body>
+</html>

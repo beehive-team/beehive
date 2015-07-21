@@ -12,10 +12,24 @@
 		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
 		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script> 
 
-		
+		<script type="text/javascript">
+			$(function(){
+				
+				
+				$('.follow-box .img-box').hover(function(){
+					$(this).find('h4').addClass('active');
+					$(this).find('img').addClass('active');
+				},function(){
+					$(this).find('h4').removeClass('active');
+					$(this).find('img').removeClass('active');
+				})
+
+
+			})
+		</script>
 		<!-- END 自定义 head -->
 	</head>
-	<body class="user-page user-tip-page">
+	<body class="user-page user-follow-page">
 		<div id="wrap">
 			<!-- START header -->
 		    {:W('Common/allHeader')}
@@ -26,61 +40,47 @@
 			<div id="main">
 				<div class="inner clearfix">
 					<div class="con">
-						<div class="title">	
-							<h2>我的提醒</h2>
-						</div>
-						<empty name="info">
-							<p>你现在没有新消息~</p>
+						<h2>关注我的人有</h2>
+						<notempty name="follow_result">
+							<div class="follow-box">
+								<ul>
+									<foreach name="follow_result" item="va" k="key" >
+										
+										<li>
+											<a href="{:U('People/index')}?p_id={$va.id}">
+												<div class="img-box">
+													<empty name="va.image">
+														<img src="__PUBLIC__/images/default_face.jpg"/>
+													<else/>
+														<img src="{$va.image}"/>
+													</empty>
+													<h4>{$va.name}</h4>
+													<!-- <div class="overlay"></div> -->
+												</div>
+											</a>
+										</li>
+										
+									</foreach>
+								</ul>
+							</div>
 						<else/>
-							<notempty name="count">
+							<p>现在还没有人关注你</p>
+						</notempty>
 							
-								<div class="tip-box">
+						
 
-									<p>新增<a href="{:U('myFollow')}">{$count}个人</a>关注了你</p>
-								</div>
-									
-							</notempty>
-							<notempty name="m_count">
-							
-								<div class="tip-box">
-
-									<p>你有<a href="{:U('message/index')}">{$m_count}条</a>未读私信</p>
-								</div>
-									
-							</notempty>
-							<foreach name="info" item="va" key="k">
-								
-								<switch name="va.action">
-									<case value="diary_replay">
-										<div class="tip-box">
-											
-											<p>你的日志<a href="">{$va.info.title}</a>有了新回应</p>
-										</div>
-									</case>
-									<case value="album_replay">
-										<div class="tip-box">
-											<p>你的相册<a href="">{$va.info.name}</a>有了新回应</p>
-										</div>
-									</case>
-									
-								</switch>
-							</foreach>
-						</empty>
+						
 					</div>
 					
-				
 				</div>
-			</div>
+				</div>
 		</div>
 		<!-- START footer -->
 		    {:W('Common/commonFooter')}
 		<!-- END footer -->
 
 		<script type="text/javascript">
-		
-		
-
-	
+			
 		</script>
 
 	</body>

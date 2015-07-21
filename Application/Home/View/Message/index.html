@@ -45,9 +45,16 @@
 										<li class="{$va['new']==1?'active':''}">
 											<a href="{:U('message')}?p_id={$va.user.id}">
 												<div class="con-box">
+
 													<div class="img-box">
-														<img src="{$va.user.image}">
+														<notempty name="va.user.image">
+															<img src="{$va.user.image}">
+														<else />
+															<img src="__PUBLIC__/images/default_face.jpg"/>
+														</notempty>
+														
 													</div>
+
 													<div class="info-box">
 														<strong>{$va.user.name}<span>{$va.update_time|date="Y-m-d H:i:s",###}</span></strong>
 														<p>{$va.con.content}</p>

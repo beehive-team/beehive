@@ -257,13 +257,7 @@ class CommonController extends Controller{
         $data['action']=$_POST['action'];
         $data['time']=$this->time;
         $data['like_id']=$_POST['action_id'];
-        if($_POST['action']=='diary'){
-            $data['action_id']=1;
-
-        }else{
-            $data['action_id']=2;
-
-        }
+        
 
         $hot = M($data['action']);
         $like_id = $data['like_id'];

@@ -253,21 +253,10 @@ create table bee_u_like(
     u_id int unsigned,						-- 用户id
     p_id int unsigned,						-- 被喜欢的用户id
     action varchar(255),			        -- 喜欢的类型
-    action_id int unsigned,					-- 类型id
     like_id int unsigned,					-- 喜欢的id
     time varchar(13)						-- 时间戳
 )engine=InnoDB default charset=utf8;
 
-
-
--- 类型表
-create table bee_action(
-	id int unsigned not null auto_increment primary key,
-	name varchar(255)
-)engine=InnoDB default charset=utf8;
-
-insert into bee_action (name) values('diary');
-insert into bee_action (name) values('album');
 
 -- 用户提问表
 create table bee_u_q(

@@ -156,7 +156,9 @@ class AlbumController extends CommonController {
                 $model = M('atag');
                 $id_arr = array();
                 for($i = 0;$i<count($tags);$i++){
-                    
+                    if($tag[$i]=' '){
+                        break;
+                    }
                     $arr['name'] = $tags[$i];
                     if(!$id = $model->where($arr)->getField('id')){
                         $insert_id = $model->add($arr);
@@ -491,7 +493,9 @@ class AlbumController extends CommonController {
         $model = M('atag');
         $id_arr = array();
         for($i = 0;$i<count($tags);$i++){
-            
+            if($tag[$i]=' '){
+                break;
+            }
             $arr['name'] = $tags[$i];
             if(!$id = $model->where($arr)->getField('id')){
                 $insert_id = $model->add($arr);

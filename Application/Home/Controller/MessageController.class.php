@@ -65,8 +65,12 @@ class MessageController extends CommonController {
     // 查信息
     public function message(){
         $p_id = $_GET['p_id'];
-        
-        
+        if(!empty($_GET['start'])){
+            $start = $_GET['start'];
+        }else{
+            $start = 0;
+        }
+        $length = 2;
         $model = M('user');
         $p_user = $model->where("id=$p_id")->find();
         $u_id = $this->userId;
@@ -77,6 +81,7 @@ class MessageController extends CommonController {
         // var_dump($me);
         $conversation = M('conversation');
         $con_result = $conversation->where("(u_id=$u_id and p_id=$p_id)or(u_id=$p_id and p_id=$u_id)")->order('time desc')->find();
+        // echo $conversation->getlastsql();
         if(!empty($con_result)){
             $m_id = $con_result['id'];
             $tip = M('tip');
@@ -85,7 +90,9 @@ class MessageController extends CommonController {
             $t_info['action'] = 'msg';
             $tip->where($t_info)->setField('status',1);
             $message = M('message');
-            $msg_result = $message->where("m_id=$m_id")->order('time desc')->select();
+            
+            // echo $start;
+            $msg_result = $message->where("m_id=$m_id")->order('time desc')->limit($start,$length)->select();
             // var_dump($msg_result);
             // echo $this->userId;
             foreach ($msg_result as $key => $value) {
@@ -97,8 +104,17 @@ class MessageController extends CommonController {
 
                 }
             }
+            if(!empty($_GET['start'])){
+                if(!empty($msg_result)){
+                    $this->ajaxReturn($msg_result);
+
+                }else{
+                    $this->ajaxReturn('false');
+                }
+            }
             $this->assign('msg_result',$msg_result);
         }
+        $this->assign('p_id',$p_id);
 
         $this->assign('other',$p_user);
         $this->assign('me',$me);

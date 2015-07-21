@@ -18,7 +18,7 @@
 				// alert(msg);
 				var u_id = $(obj).find('.u_id').val();
 				var p_id = $(obj).find('.p_id').val();
-				
+				// var PUBLIC = __PUBLIC__;
 				if(!msg){
 					$(obj).find('.textarea').attr('placeholder','请输入点东西吧');
 					return false;
@@ -27,23 +27,31 @@
 					var str = '<div class="me-box"><div class="img-box"><img src=""></div><div class="text-box"><p class="msg">{$vo.content}</p><p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p><i></i></div></div>';
 					$('.message-box').prepend(str);
 					var me = $('.message-box .me-box').eq(0);
+
 					var image = $('.image').val();
 					$(me).find('.msg').html(data.content);
-					$(me).find('img').attr('src',image);
+					if(image){
+						$(me).find('img').attr('src',image);
+
+					}else{
+						$(me).find('img').attr('src','/beehive/Public/images/default_face.jpg');
+
+					}
+					
 					$(me).find('.time').html(getDate(data.time));
 					$('.history').hide();
 					var height = $(me).css('height');
 					// 方案一
-					// $(me).css({height:0});
+					$(me).css({height:0});
 					
-					// $(me).animate({height:height},500)
+					$(me).animate({height:height},500)
 					
-					// $(me).animate({opacity:1},500)
+					$(me).animate({opacity:1},500)
 
 					// 方案二
 
-					$('.message-box').css({top: "-160px"});
-					$('.message-box').animate({top:0},500)
+					// $('.message-box').css({top: "-160px"});
+					// $('.message-box').animate({top:0},500)
 
 				})
 				return false;
@@ -68,8 +76,9 @@
 				<div class="inner clearfix">
 					<div class="con">
 						<div class="title">	
-							<h2>我和{$other.name}的私信对话<a class="back"href="{:U('index')}">返回到信箱</a></h2>
+							<h2>我和{$other.name}的私信对话<a rel="{$p_id}"class="back"href="{:U('index')}">返回到信箱</a></h2>
 							<input type="hidden" class="image" value="{$me.image}"/>
+							<input type="hidden" class="other_image" value="{$other.image}"/>
 						</div>
 						<div class="form-info">
 							<form onsubmit="return sub(this)">
@@ -140,6 +149,9 @@
 							</empty>
 							
 						</div>
+						<div class="ajax-btn">
+							<a class="more"href="javascript:;">加载更多</a>
+						</div>
 					</div>
 					
 				
@@ -151,7 +163,58 @@
 		<!-- END footer -->
 
 		<script type="text/javascript">
-			
+			$(function(){
+				var i = 2;
+				var p_id = $('.back').attr('rel');
+				$('.ajax-btn .more').click(function(){
+					$.get('message',{start:i,p_id:p_id},function(data){
+						if(data!='false'){
+							for(var info in data){
+								if(data[info]['who']=='me'){
+									var str = '<div class="me-box"><div class="img-box"><img src=""></div><div class="text-box"><p class="msg">{$vo.content}</p><p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p><i></i></div></div>';
+									$('.message-box').append(str);
+									var me = $('.message-box .me-box').last();
+
+									var image = $('.image').val();
+									$(me).find('.msg').html(data[info]['content']);
+									if(image){
+										$(me).find('img').attr('src',image);
+
+									}else{
+										$(me).find('img').attr('src','/beehive/Public/images/default_face.jpg');
+
+									}
+									
+									$(me).find('.time').html(getDate(data[info]['time']));
+								}else{
+									var str = '<div class="other-box"><div class="img-box"><img src=""></div><div class="text-box"><p class="msg">{$vo.content}</p><p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p><i></i></div></div>';
+									$('.message-box').append(str);
+
+									var other = $('.message-box .other-box').last();
+
+									var image = $('.other_image').val();
+									$(other).find('.msg').html(data[info]['content']);
+									if(image){
+										$(other).find('img').attr('src',image);
+
+									}else{
+										$(other).find('img').attr('src','/beehive/Public/images/default_face.jpg');
+
+									}
+									$(other).find('.time').html(getDate(data[info]['time']));
+
+								}
+							}
+							i = i+2;
+						}else{
+							$('.ajax-btn a').hide();
+							$('.ajax-btn').append('<p class="nomore">没有更多了</p>');
+						}
+						
+
+					})
+				})
+			})
 		</script>
 
 	</body>

@@ -5,7 +5,17 @@
 	    {:W('Common/commonHead')}
 	<!-- END 公用 head -->
 	<link rel="stylesheet" href="__PUBLIC__/css/moviedetail.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/fancybox/jquery.fancybox.css" />
+	<script type="text/javascript" src="__PUBLIC__/js/fancybox/jquery.fancybox.js"></script>
 </head>
+<script type="text/javascript">
+	$(function(){
+
+		$('a.saytwo').fancybox({
+            
+        })
+	})
+</script>
 <body>	
 	<!-- START header -->
 	    {:W('Common/allHeader')}
@@ -160,7 +170,7 @@
 							</div>
 							<div class="comments-section">
 								<div class="mod-hd">
-									<a class="saytwo" href="">我来说两句</a>
+									<a class="saytwo" href="#pop-1">我来说两句</a>
 									<h3 class="shotappraise">{$list.name}的短评 · · · · · ·</h3>		
 								</div>
 								<div class="mod-bd">
@@ -223,60 +233,28 @@
 									</div>
 								</div>
 							</div>
-							<!--<div class="askmatrix">
-								<div class="mod-hd">
-									<a class="saytwo" href="">我来提问</a>
-									<h3 class="shotappraise">关于《小森林 冬春篇》的问题 · · · · · ·</h3>		
-								</div>
-								<div class="mod-bd">
-									<ul>
-										<li>
-											<span class="tit"><a href="">主题曲 哪里可以听到主题曲</a></span>
-											<span class="meta">2人回答</span>
-										</li>
-										<li>
-											<span class="tit"><a href="">主题曲 哪里可以听到主题曲</a></span>
-											<span class="meta">2人回答</span>
-										</li>
-										<li>
-											<span class="tit"><a href="">主题曲 哪里可以听到主题曲</a></span>
-											<span class="meta">2人回答</span>
-										</li>
-										<li>
-											<span class="tit"><a href="">主题曲 哪里可以听到主题曲</a></span>
-											<span class="meta">2人回答</span>
-										</li>
-										<li>
-											<span class="tit"><a href="">主题曲 哪里可以听到主题曲</a></span>
-											<span class="meta">2人回答</span>
-										</li>
-									</ul>
-									<div class="more-shot">
-									>
-									<a href="">全部25个问题</a>
-									</div>
-								</div>
-							</div>-->
+							
 							<div class="review_section">
 								<div class="mod-hd">
 									<a class="saytwo" href="__CONTROLLER__/longComment/id/{$list.id}">我来评论这部电影</a>
 									<h3 class="shotappraise">{$list.name}的影评 · · · · · ·</h3>		
 								</div>
 								<div class="mod-bd">
+									<foreach name="r1" item="vo">
 									<div class="review">
 										<div class="review-hd">
 											<div class="review-hd-title">
 												<a href=><img src="" alt=""></a>
-												<a href="">与大地一起丰收</a>
+												<a href="">{$vo.title}</a>
 											</div>
 											<div class="review-hd-info">
-												<a class="" href="http://movie.douban.com/people/52470011/">zts</a>
-												2015-04-07 13:51:19
+												<a class="" href="">{$vo.name}</a>
+												{$vo.time|date="Y-m-d,h:i:s",###}
 												<span class="allstar40" title="推荐"></span>
 											</div>
 										</div>
 										<div class="riview-bd">					
-											<p>也许，每个人心里都有一个小森林吧。 我爸的弟弟，就是我叔，前年在山上开垦了一块地，不作他用，就是种菜。为了看顾好他的菜地，他每天清晨都爬上山，如果下雨路难走，他就开车从山路上过。开垦好地花了他快一年的时间，我看到他每次去山上都会带两双鞋，因为泥地总是把鞋弄脏，他不能穿着脏鞋去上班。 有一天我爬山遇到我叔。远远地，我看到他正在地里除草。这时候，几.........
+											<p>{$vo.content|subtext=273}
 											</p>										
 											<div class="review-short-ft">
 												<span>129/133</span>
@@ -285,50 +263,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="review">
-										<div class="review-hd">
-											<div class="review-hd-title">
-												<a href=><img src="" alt=""></a>
-												<a href="">与大地一起丰收</a>
-											</div>
-											<div class="review-hd-info">
-												<a class="" href="http://movie.douban.com/people/52470011/">zts</a>
-												2015-04-07 13:51:19
-												<span class="allstar40" title="推荐"></span>
-											</div>
-										</div>
-										<div class="riview-bd">					
-											<p>也许，每个人心里都有一个小森林吧。 我爸的弟弟，就是我叔，前年在山上开垦了一块地，不作他用，就是种菜。为了看顾好他的菜地，他每天清晨都爬上山，如果下雨路难走，他就开车从山路上过。开垦好地花了他快一年的时间，我看到他每次去山上都会带两双鞋，因为泥地总是把鞋弄脏，他不能穿着脏鞋去上班。 有一天我爬山遇到我叔。远远地，我看到他正在地里除草。这时候，几.........
-											</p>										
-											<div class="review-short-ft">
-												<span>129/133</span>
-												 有用
-												<a href="">73回复</a>
-											</div>
-										</div>
-									</div>
-									<div class="review">
-										<div class="review-hd">
-											<div class="review-hd-title">
-												<a href=><img src="" alt=""></a>
-												<a href="">与大地一起丰收</a>
-											</div>
-											<div class="review-hd-info">
-												<a class="" href="http://movie.douban.com/people/52470011/">zts</a>
-												2015-04-07 13:51:19
-												<span class="allstar40" title="推荐"></span>
-											</div>
-										</div>
-										<div class="riview-bd">					
-											<p>也许，每个人心里都有一个小森林吧。 我爸的弟弟，就是我叔，前年在山上开垦了一块地，不作他用，就是种菜。为了看顾好他的菜地，他每天清晨都爬上山，如果下雨路难走，他就开车从山路上过。开垦好地花了他快一年的时间，我看到他每次去山上都会带两双鞋，因为泥地总是把鞋弄脏，他不能穿着脏鞋去上班。 有一天我爬山遇到我叔。远远地，我看到他正在地里除草。这时候，几.........
-											</p>										
-											<div class="review-short-ft">
-												<span>129/133</span>
-												 有用
-												<a href="">73回复</a>
-											</div>
-										</div>
-									</div>
+									</foreach>
 									<div class="more-shot">
 										>
 										<a href="">更多影评64篇</a>
@@ -411,7 +346,7 @@
 						</div>
 					</div>
 					
-					<div>
+					<div id="pop-1">
 						<div class="indentpop1">
 							<form class="j a_interest_form movie-sns" method="POST" action="__CONTROLLER__/dosortComment">
 								<input type="hidden" name="m_id" value="{$list.id}">

@@ -77,7 +77,7 @@ class UserController extends CommonController {
             $p_list = $photo->where("a_id=$a_id")->order('is_cover desc')->select();
             $p_list = array_slice($p_list,0,4);
             // var_dump($p_list);
-            $album_list[$key]['photo']=$p_list;
+            $album_list[$key]['photo_albumo']=$p_list;
             // var_dump($tag_list);
             $album_list[$key]['action'] = 'album';
             if($this->ifLike($album_list[$key]['id'],'album',$this->userId,$album_list[$key]['u_id'])){
@@ -86,13 +86,6 @@ class UserController extends CommonController {
                 $album_list[$key]['like']=0;
 
             }
-
-
-
-
-
-
-
 
         }
         // var_dump($album_list);
@@ -221,6 +214,19 @@ class UserController extends CommonController {
         // var_dump($like_list);
         $arr = array_slice($arr,0,6);
         // var_dump($arr);
+
+        //显示我被几个人关注
+        $follow = M('follow');
+        $follow_result = $follow->where("u_id=$this->userId")->count();
+        // echo $follow_result;
+        $this->assign('f_count',$follow_result);
+
+        $follow = M('follow');
+        $who_result = $follow->where("f_id=$this->userId")->count();
+        $who_result;
+        $this->assign('w_count',$who_result);
+
+
         $intro = $data['introduce'];
         $this->assign('intro',$intro);
         $this->assign('trend',$arr);
@@ -447,6 +453,34 @@ class UserController extends CommonController {
         $this->display();
     }
 
+    public function myFollow(){
+        $follow = M('follow');
+        $follow_result = $follow->table('bee_follow f,bee_user u')->where("u_id=$this->userId and u.id=f_id")->select();
+        // var_dump($follow_result);
+        
+        //设置提示里的status 
+        $tip = M('tip');
+        $data['action']='follow';
+        $data['p_id']=$this->userId;
+        $tip->where($data)->setField('status',1);
+        $this->assign('follow_result',$follow_result);
 
+        $this->display();
+    }
 
+    public function followWho(){
+        $follow = M('follow');
+        $follow_result = $follow->table('bee_follow f,bee_user u')->where("f_id=$this->userId and u.id=u_id")->select();
+        // var_dump($follow_result);
+        $this->assign('follow_result',$follow_result);
+        $this->display();
+    }
+
+    public function myLike(){
+        $like_list = $this->getLike('all',$this->userId);
+        var_dump($like_list);
+        $this->assign('like_list',$like_list);
+        $this->display();
+
+    }
 }

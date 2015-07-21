@@ -147,6 +147,7 @@ body > #wrap {height: auto; min-height: 100%;}
 	background-color: #545652;
 	position: fixed;
 	width: 100%;
+	z-index: 1000;
 	
 }
 
@@ -2696,6 +2697,8 @@ a.follow.active:hover,a.has-follow.active:hover{
 .user-message-page .img-box img{
 	width: 50px;
 	height: 50px;
+	border:1px solid #fff;
+	border-radius: 50px;
 
 }
 .user-message-page .btn-box{
@@ -2758,6 +2761,119 @@ a.follow.active:hover,a.has-follow.active:hover{
 }
 .user-message-page .con-box .img-box img{
 	border-radius: 50px;
+}
+.user-message-page .ajax-btn a{
+	display: block;
+	text-align: center;
+	background-color: #9A633C;
+	color: #fff;
+	border: 1px solid #9A633C;
+	border-radius: 3px;
+	width: 435px;
+	height: 36px;
+	line-height: 36px;
+	margin-left: 70px;
+}
+.user-message-page .ajax-btn p.nomore{
+	color: #9A633C;
+	width: 435px;
+	text-align: center;
+	margin-left: 70px;
+}
+.user-follow-page .con h2{
+	color: #9A633C;
+	font-size: 20px;
+	padding-bottom: 50px;
+	padding-top: 10px;
+}
+.user-follow-page .follow-box li{
+	float: left;
+	position: relative;
+	margin-right: 20px;
+}
+.user-follow-page .img-box{
+	width: 70px;
+	height: 70px;
+	overflow: hidden;
+	border:1px solid #fff;
+	border-radius: 70px;
+}
+.user-follow-page .follow-box h4{
+	position: absolute;
+	top: 30px;
+	display: none;
+	text-align: center;
+	z-index: 1000;
+	color: #9A633C;
+	width: 100%;
+	transition: 0.5s linear;
+	/* Firefox 4 */
+	-moz-transition:  0.5s linear;
+	/* Safari and Chrome */
+	-webkit-transition:  0.5s linear;
+	/* Opera */
+	-o-transition:  0.5s linear;
+
+}
+.user-follow-page .follow-box .overlay{
+	position: absolute;
+	width: 70px;
+	height: 70px;
+	border-radius: 70px;
+	background: url(../images/white_bkg.png);
+	top: 0;
+}
+
+.user-follow-page .img-box img{
+	width: 70px;
+	height: 70px;
+	border:1px solid #fff;
+	border-radius: 70px;
+	left: 0;
+	position: absolute;
+	top: 0;
+	transition: 0.5s linear;
+	/* Firefox 4 */
+	-moz-transition:0.5s linear;
+	/* Safari and Chrome */
+	-webkit-transition: 0.5s linear;
+	/* Opera */
+	-o-transition: 0.5s linear;
+}
+.user-follow-page .img-box img.active{
+	width: 100px;
+	height: 100px;
+	left: -15px;
+	top: -15px;
+}
+.user-follow-page .img-box h4.active{
+	/*top: 30px;*/
+	display: block;
+}
+.user-like-page h2{
+	color: #9A633C;
+	line-height: 40px;
+}
+.user-like-page .tab-box{
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.user-like-page .tab-box a{
+	display: block;
+	width: 80px;
+	line-height: 26px;
+	text-align: center;
+	background-color: #faeac6;
+	color:#9A633C;
+	float: left;
+}
+.user-like-page .tab-box a:hover{
+	color: #fff;
+	background-color: #9A633C;
+}
+.user-like-page .tab-box a.active{
+	color: #fff;
+	background-color: #9A633C;
 }
 a.share{
 	display: block;

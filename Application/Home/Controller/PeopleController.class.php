@@ -117,6 +117,19 @@ class PeopleController extends CommonController {
         }else{
             $follow = '0';
         }
+
+
+        $follow_model = M('follow');
+        $follow_result = $follow_model->where("u_id=$this->p_id")->count();
+        // echo $follow_result;
+        $this->assign('f_count',$follow_result);
+
+        $follow = M('follow');
+        $who_result = $follow_model->where("f_id=$this->p_id")->count();
+        $this->assign('w_count',$who_result);
+
+
+
         // echo $follow;
         $this->assign('follow',$follow);
         $arr = array_slice($arr,0,6);
@@ -192,6 +205,24 @@ class PeopleController extends CommonController {
         }
     }
 
+    public function myFollow(){
+        $follow = M('follow');
+        $p_id = $_GET['p_id'];
+        $follow_result = $follow->table('bee_follow f,bee_user u')->where("u_id=$p_id and u.id=f_id")->select();
+        // var_dump($follow_result);
+        $this->assign('follow_result',$follow_result);
+        $this->display();
+    }
+
+    public function followWho(){
+        $follow = M('follow');
+        $p_id = $_GET['p_id'];
+
+        $follow_result = $follow->table('bee_follow f,bee_user u')->where("f_id=$p_id and u.id=u_id")->select();
+        // var_dump($follow_result);
+        $this->assign('follow_result',$follow_result);
+        $this->display();
+    }
 
     
 

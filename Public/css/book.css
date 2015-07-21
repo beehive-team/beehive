@@ -492,6 +492,7 @@ body > #wrap {height: auto; min-height: 100%;}
 }
 .movie-page .sec-1 .bottom {
 	padding-top: 17px;
+
 }
 .movie-page .section .bx-controls{
 	position: absolute;
@@ -1094,4 +1095,9 @@ body > #wrap {height: auto; min-height: 100%;}
 }
 .allstar50{
 	background-position: 0 0px;
+}
+.more{
+	line-height: 40px;
+	color: #A11715;
+	margin-right: 10px;
 }

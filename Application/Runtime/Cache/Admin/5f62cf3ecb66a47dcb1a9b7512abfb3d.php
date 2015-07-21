@@ -61,8 +61,6 @@
 <!--                     <a class="sub-nav"href="/beehive/index.php/Admin/book/classify" target="content">添加分类信息</a> -->
                     <a class="sub-nav"href="/beehive/index.php/Admin/book/add" target="content">添加图书</a>
                     <a class="sub-nav" href="/beehive/index.php/Admin/book/classify" target="content">图书分类管理</a>
-                    <a class="sub-nav"href="/beehive/index.php/Admin/book/cover" target="content">显示封面信息</a>
-                    <a class="sub-nav"href="/beehive/index.php/Admin/book/addCover" target="content">添加封面信息</a>
                 </div>
             </li>
             <li>

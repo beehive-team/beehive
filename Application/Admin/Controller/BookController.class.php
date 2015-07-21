@@ -60,6 +60,13 @@ class BookController extends Controller {
         }else{
           $this->error('上传失败');
         }
+
+        $b = M('b_c');
+        foreach ($_POST['c_id'] as $val){
+            $d['b_id']=$insertId;
+            $d['c_id']=$val;
+            $b->add($d);
+        }
    	}
 
    	public function classify(){

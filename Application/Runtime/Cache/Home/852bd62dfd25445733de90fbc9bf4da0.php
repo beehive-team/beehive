@@ -9,6 +9,15 @@
 
 		<script type="text/javascript">
 			$(function(){
+				var c_id
+				var i=4;
+				c_id='hot';
+				$.post('/beehive/index.php/Home/Movie/getCata',{c_id:'hot',num:i},function(data){
+					for(var tmp in data){
+						$('#dys').append('<li><a href="/beehive/index.php/Home/Movie/detail/id/'+data[tmp]['m_id']+'"><img src=/beehive/Public'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
+						}
+				},'json')
+
 				$('.slider').bxSlider({
 					auto:true,
 					pager:true,
@@ -24,6 +33,41 @@
 					pager:true,
 					controls:true,
 				});
+				//var i=2;
+				//var c_id
+				$('.tab a').click(function(){
+					i=4;
+					c_id = $(this).attr('rel');
+					$.post('/beehive/index.php/Home/Movie/getCata',{c_id:c_id,num:i},function(data){
+						//alert(data[0]['mname']);
+						$('#dys').empty();
+						for(var tmp in data){
+							$('#dys').append('<li><a href="/beehive/index.php/Home/Movie/detail/id/'+data[tmp]['m_id']+'"><img src=/beehive/Public'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</ i></p></a></li>');
+						}
+					},'json')
+				})
+
+				$('.ajax-button a').click(function(){
+					alert(c_id);
+					i=i+4;
+					$.post('/beehive/index.php/Home/Movie/getCata',{c_id:c_id,num:i},function(data){
+						$('#dys').empty();
+						for(var tmp in data){
+							$('#dys').append('<li><a href="/beehive/index.php/Home/Movie/detail/id/'+data[tmp]['m_id']+'"><img src=/beehive/Public'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
+						}
+											
+					},'json')
+				})
+
+				$('.tip').css('display','none');
+				$('#check').click(function(){
+					if($('#check').is(':checked') && '<?php echo (session('home')); ?>' == ''){
+						$('.tip').css('display','block');
+						//alert('e');
+					}else{
+						$('.tip').css('display','none');			
+					}	
+				})		
 			})
 		</script>
 		<!-- END 自定义 head -->
@@ -35,7 +79,6 @@
 		    <?php echo W('Common/movieHeader');?>
 			    
 			<!-- END header -->
-			
 			<div id="main">
 				<div class="inner">
 					<div class="f-left con">
@@ -47,41 +90,13 @@
 							</div>
 							<div class="bottom">
 								<ul class="slider">
-									<li>
+									<?php if(is_array($row)): foreach($row as $key=>$vo): ?><li>
 										<a href="">
-											<img src="/beehive/Public/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
+											<img src="/beehive/Public/<?php echo ($vo["i_path"]); ?>180_<?php echo ($vo["name"]); ?>"/>
+											<p><?php echo ($vo["mname"]); ?></p>
 											<span class="allstar40"></span><i>3.7</i>
 										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="/beehive/Public/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="/beehive/Public/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="/beehive/Public/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>									
-									<li>
-										<a href="">
-											<img src="/beehive/Public/images/movie2.jpg"/>
-											<p>惊魂电影院</p>
-											<span class="allstar40"></span><i>3.7</i>
-										</a>
-									</li>
+									</li><?php endforeach; endif; ?>
 								</ul>
 							</div>
 						</div>
@@ -91,24 +106,9 @@
 							</div>
 							<form>
 								<div class="tab">
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
-									<a href="">热门</a>
+									<a rel="hot" href="javascript:;">热门</a>
+									<?php if(is_array($list)): foreach($list as $key=>$vo): ?><a class="oa1" rel="<?php echo ($vo["id"]); ?>" href="javascript:;"><?php echo ($vo["name"]); ?></a><?php endforeach; endif; ?>
+									
 								</div>
 								<div class="chose">
 									<div class="sort f-left">
@@ -117,7 +117,7 @@
 										<label><input type="radio" name="sort" value="rank"/>按评价排序</label>
 									</div>
 									<div class="check f-right">
-										<label><input type="checkbox" name="check" value="seen"/>我没看过的</label>
+										<label><input id="check" type="checkbox" name="check" value="seen"/>我没看过的</label>
 									</div>
 								</div>
 							</form>
@@ -125,40 +125,16 @@
 								<p>注册登录后可以保存自己的观影记录,快快登录吧！<a href="">登录</a><a href="">注册</a></p>
 							</div>
 							<div class="movies">
-								<ul>
-									<li>
+								<ul id="dys">
+									<!--<li>
 										<a href="">
 											<img src="/beehive/Public/images/movie3.jpg"/>
 											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="/beehive/Public/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="/beehive/Public/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="/beehive/Public/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="/beehive/Public/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
+										</a>									
+									</li>-->
 								</ul>
 								<div class="ajax-button">
-									<a href="">加载更多</a>
+									<a href="javascript:;">加载更多</a>
 								</div>
 							</div>
 						</div>

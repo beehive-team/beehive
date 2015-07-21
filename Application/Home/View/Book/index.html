@@ -12,12 +12,12 @@
 			$(function(){
 				var c_id
 				var i=4;
-				c_id='hot';
-				$.post('__CONTROLLER__/Ajax',{c_id:'hot',num:i},function(data){
+				/*c_id='hot';
+				$.post('__CONTROLLER__/getCata',{c_id:'hot',num:i},function(data){
 					for(var tmp in data){
 						$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</i></p></a></li>');
 						}
-				},'json')
+				},'json')*/
 
 				$('.slider').bxSlider({
 					auto:true,
@@ -39,11 +39,12 @@
 				$('.tab a').click(function(){
 					i=4;
 					c_id = $(this).attr('rel');
-					$.post('__CONTROLLER__/Ajax',{c_id:c_id,num:i},function(data){
-						//alert(data[0]['mname']);
+					$.post('__CONTROLLER__/getCata',{c_id:c_id,num:i},function(data){
+						//alert(data[0]['bname']);
 						$('#dys').empty();
+
 						for(var tmp in data){
-							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</ i></p></a></li>');
+							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</ i></p></a></li>');
 						}
 					},'json')
 				})
@@ -51,10 +52,10 @@
 				$('.ajax-button a').click(function(){
 					//alert(c_id);
 					i=i+4;
-					$.post('__CONTROLLER__/Ajax',{c_id:c_id,num:i},function(data){
+					$.post('__CONTROLLER__/getCata',{c_id:c_id,num:i},function(data){
 						$('#dys').empty();
 						for(var tmp in data){
-							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</i></p></a></li>');
+							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</i></p></a></li>');
 						}
 											
 					},'json')
@@ -153,37 +154,14 @@
 									<p>注册登录后进入书签查看阅读记录，快快登陆吧！<a href="">登录</a><a href="">注册</a></p>
 								</div>
 							<div class="movies">
-								<ul>
+								<ul id="dys">
 									<li>
 										<a href="">
 											<img src="__PUBLIC__/images/movie3.jpg"/>
 											<p>疯狂的麦克斯<i>7.8</i></p>
 										</a>
 									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="__PUBLIC__/images/movie3.jpg"/>
-											<p>疯狂的麦克斯<i>7.8</i></p>
-										</a>
-									</li>
+
 								</ul>
 								<div class="ajax-button">
 									<a href="">加载更多</a>

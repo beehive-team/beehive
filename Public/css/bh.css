@@ -22,4 +22,9 @@
   .more_tag:visited,
   .more_tag:hover,
   .more_tag:active {color: #aaa;}
-  
+
+.hot{
+	width: 617px;
+	height:800px;
+	background-color: red;
+}

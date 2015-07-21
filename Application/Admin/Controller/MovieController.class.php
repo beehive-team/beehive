@@ -345,6 +345,87 @@ class MovieController extends Controller {
             $this -> error('更新失败');
         }
     }
-      
+    public function longComment(){
+        $m = M('l_r');
+        $count = $m->table('bee_movie m,bee_l_r l,bee_user u')->field('m.name,l.*,u.name uname')->where('l.m_id=m.id and l.u_id=u.id')->count();
+        // 实例化分页类 传入总记录数和每页显示的记录数
+        $Page = new \Think\Page($count,5);
+        // 分页显示输出
+        $show = $Page->show();
+        $list = $m->table('bee_movie m,bee_l_r l,bee_user u')->field('m.name,l.*,u.name uname')->where('l.m_id=m.id and l.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        //var_dump($list);
+        $this->assign('list',$list);
+
+        $this->display();
+    }
+
+    public function dellongComment($id){
+        //var_dump($id);
+        $m = M('l_r');
+        if($m->delete($id)){
+            $this->success('删除成功',U('Movie/longComment'));
+        }else{
+            $this->erroe('删除失败');
+        }
+    }
+     
+    public function shortComment(){
+        $m = M('s_r');
+        //查询出符合条件的记录总数
+        $count = $m->table('bee_movie m,bee_s_r s,bee_user u')->field('m.name,s.*,u.name uname')->where('s.m_id=m.id and s.u_id=u.id')->count();
+        //var_dump($count);
+
+        // 实例化分页类 传入总记录数和每页显示的记录数
+        $Page = new \Think\Page($count,5);
+        // 分页显示输出
+        $show = $Page->show();
+        $list = $m->table('bee_movie m,bee_s_r s,bee_user u')->field('m.name,s.*,u.name uname')->where('s.m_id=m.id and s.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        //var_dump($list);
+        $this->assign('list',$list);
+
+
+        $this->display();
+    } 
+
+    public function delshortComment($id){
+        //var_dump($id);
+        $m = M('s_r');
+        if($m->delete($id)){
+            $this->success('删除成功',U('Movie/shortComment'));
+        }else{
+            $this->erroe('删除失败');
+        }
+    }
+
+    public function dolongshow(){
+        //var_dump($_GET);
+        $id=$_GET['id'];
+        $data['show'] = $_GET['show']==1?0:1;
+        $data['id'] = $_GET['id'];
+        //var_dump($data);
+        $m=M('l_r');
+        if($m->where("id=$id")->save($data)){
+            $this->success('修改成功',U('Movie/longComment'));
+        }else{
+            $this->error('修改失败');
+        }
+
+    }
+
+    public function doshortshow(){
+        //var_dump($_GET);
+        $id=$_GET['id'];
+        $data['show'] = $_GET['show']==1?0:1;
+        $data['id'] = $_GET['id'];
+        //var_dump($data);
+        $m=M('s_r');
+        if($m->where("id=$id")->save($data)){
+            $this->success('修改成功',U('Movie/shortComment'));
+        }else{
+            $this->error('修改失败');
+        }
+
+    }
+   
 
 }

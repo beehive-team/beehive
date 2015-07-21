@@ -35,7 +35,7 @@
 				<div class="inner clearfix">
 					<div class="write">
 						<h3>新加日记</h3>
-						<form action="{:U('/Home/User/doDiary')}" method="post">
+						<form action="{:U('doDiary')}" method="post">
 							<p><label for="name">题目：</label></p>
 							<input class="text"type="text" name="name"/>
 							<p><label for="text">正文：</label></p>
@@ -45,8 +45,8 @@
 							<input type="text" name="tags" class="text">
 
 							<p><label for="show">设置可见：</label></p>
-							<label><input type="radio" name="show" value="1">所有人可见</label>
-							<label><input type="radio" name="show" value="0">仅朋友可见</label>
+							<label><input type="radio" name="show" checked value="0">所有人可见</label>
+							<label><input type="radio" name="show" value="1">仅朋友可见</label>
 							<label><input type="radio" name="show" value="2">仅自己可见</label>
 							<p><label>权限设置：</label></p>
 							<div class="checkbox">

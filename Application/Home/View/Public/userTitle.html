@@ -3,7 +3,7 @@
 	function signUpdate(obj){
 		var info = $(obj).find('.info').val();
 		
-		$.post('updateSign',{brief:info},function(data){
+		$.post('{:U("user/updateSign")}',{brief:info},function(data){
 			$(obj).parents('.brief').hide();
 
 			$('p.bri').show().html(data).siblings('a').show();
@@ -65,10 +65,10 @@
 </div>
 <div class="link-box">
 	<ul>
-		<li><a href="">我的主页</a></li>
+		<li><a href="{:U('User/myHome')}?p_id={$data.id}">我的主页</a></li>
 		<li><a href="">广播</a></li>
-		<li><a href="{:U('User/album')}">相册</a></li>
-		<li><a href="{:U('User/diary')}">日记</a></li>
+		<li><a href="{:U('Album/album')}?p_id={$data.id}">相册</a></li>
+		<li><a href="{:U('Diary/diary')}?p_id={$data.id}">日记</a></li>
 		<li><a href="">喜欢</a></li>
 		<li><a href="">蜂蜜</a></li>
 	</ul>

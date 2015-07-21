@@ -13,8 +13,7 @@ class CommonWidget extends Controller {
     public function allHeader(){
 
         if(!empty($_SESSION['home'])){
-            //var_dump($_SESSION);
-
+            //var_dump($_SESSION)
             $this->assign('user',$_SESSION['home']);
         }
 		$this->display('Public:allHeader');
@@ -56,6 +55,25 @@ class CommonWidget extends Controller {
 
       
         $this->display('Public:userTitle');
+     
+    }
+    public function peopleTitle(){
+
+
+        $model = D('User');
+        $id = $_GET['p_id'];
+        $data = $model->where("id=$id")->find();
+        
+        
+        $face = $model->field('image')->where("id=$id")->find();
+        // var_dump($face);
+        $this->assign('face',$face);
+        $this->assign('u_id',$id);
+        $this->assign('data',$data);
+        // var_dump($data);
+
+        
+        $this->display('Public:peopleTitle');
      
     }
     public function pager(){

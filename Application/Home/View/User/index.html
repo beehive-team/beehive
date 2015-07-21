@@ -97,7 +97,7 @@
 
 				})
 				var img_all = new Array();
-				
+				var i = 0;
 				$('.upload-box input').fileupload({  
 					autoUpload: true,
 				    autoUpload: true,
@@ -116,8 +116,10 @@
 				    	     
 				    	var new_div = $('.img-upload div.img-box').last(); 
 				    	$(new_div).append('<img src='+img_src+'/>');
+				    	$(new_div).append('<input type="hidden" name="image_'+i+'"value='+img_src+'>');
 				    	$(new_div).append('<span><a href="javascript:;"></a></span>');
 				    	img_all.push(img_src);
+				    	i++;
 				    	
 				    },
 				    fail: function(e, data) {
@@ -140,11 +142,106 @@
 
 				})
 
+				var limit = 2; 
 				
+				var PUBLIC = "__PUBLIC__";
+				$('.ajax-btn a').click(function(){
+					$.post('index',{limit:limit},function(data){
 
+						if(data){
+							// alert(1)
+							// alert(data);
+							for(var i in data){
+								if(data[i]['action']=='album'){
+									var obj = $('li.album').eq(0).clone(true);
+									$('.info-box ul').append(obj);
+									if(data[i]['image']){
+										$(obj).find('.face-box img').attr('src',data[i]['image'])
+									}else{
+										$(obj).find('.face-box img').attr('src',PUBLIC+'/images/default_face.jpg');
+
+									}
+
+									$(obj).find('.info p a').html(data[i]['u_name']).attr('href','{:U('people/index')}'+'?p_id='+data[i]['u_id']);;
+									var str = '';
+									for(var j=0;j<data[i]['photo'].length;j++){
+										str += '<img src="'+PUBLIC+data[i]['photo'][j]['path']+'/'+data[i]['photo'][j]['name']+'"/>';
+									}
+									// alert(data[i]['photo']);
+									$(obj).find('.img-box a').html(str);
+									if(data[i]['like']==1){
+										$(obj).find('a.like').addClass('active');
+									}else{
+										$(obj).find('a.like').removeClass('active');
+
+									}
+									$(obj).find('a.like').attr('rel','album_'+data[i]['id']+'_'+data[i]['u_id'])
+									var time = getLocalTime(data[i]['time'])
+									$(obj).find('.time').html('<p>'+time+'</p>');
+									var tag='';
+									for(var j=0;j<data[i]['tag'].length;j++){
+
+										tag +='<a href="">'+data[i]['tag'][j]['name']+'</a>';
+									}
+									$(obj).find('.list-box').append(tag);
+
+								}else{
+									var obj = $('li.diary').eq(0).clone(true);
+									$('.info-box ul').append(obj);
+									$(obj).find('.face-box img').attr('src',data[i]['image'])
+									if(data[i]['image']){
+										$(obj).find('.face-box img').attr('src',data[i]['image'])
+									}else{
+										$(obj).find('.face-box img').attr('src',PUBLIC+'/images/default_face.jpg');
+
+									}
+
+									$(obj).find('.info p a').html(data[i]['name']).attr('href','{:U('people/index')}'+'?p_id='+data[i]['u_id']);
+
+									var time = getLocalTime(data[i]['time'])
+									$(obj).find('.time').html('<p>'+time+'</p>');
+									var tag='';
+									for(var j=0;j<data[i]['tag'].length;j++){
+
+										tag +='<a href="">'+data[i]['tag'][j]['name']+'</a>';
+									}
+									$(obj).find('.list-box').append(tag);
+									$(obj).find('.img-box a').html(str);
+									if(data[i]['like']==1){
+										$(obj).find('a.like').addClass('active');
+									}else{
+										$(obj).find('a.like').removeClass('active');
+
+									}
+									$(obj).find('a.like').attr('rel','diary_'+data[i]['id']+'_'+data[i]['u_id'])
+									$(obj).find('a.title').html(data[i]['title']).attr('href','{:U("diary/diaryDetail")}'+'?id='+data[i]['id']+'&p_id='+data[i]['u_id']);
+									$(obj).find('.detail p').html(data[i]['content']);
+
+								}
+							}
+							limit+=2;
+						}else{
+							$('.ajax-btn').html('<p>没有东西了</p>');
+						}
+					})
+				})
 
 
 			})
+
+			function getLocalTime(tm) {     
+		      	var tt=new Date(parseInt(tm) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ")
+				return tt;     
+		    }     
+			function saySubmit(obj){
+				
+				if(!$(obj).find('.say').val()){
+					
+					$(obj).find('.say').attr('placeholder','请说些什么吧！');
+					return false;
+				}
+			}
+
 		</script>
 		<!-- END 自定义 head -->
 	</head>
@@ -201,7 +298,7 @@
 							</div>
 							</div>
 
-							<form>
+							<form onsubmit="return saySubmit(this)" action="dosay" method="post">
 								<div class="text">
 								
 									<div class="input-box">
@@ -227,57 +324,100 @@
 							</form>
 						</div>
 						<div class="info-box">
-							<ul>
-								<li>
-									<div class="face-box">
-										<img src="__PUBLIC__/images/face1.jpg">
-									</div>
-									<div class="diary info">
-										<p><a href="">马提尼</a>的日记: </p>
-										<div class="detail">
-											<a class="title" href="">了解金融和投资15本有趣的书籍</a>
-											<p>十五本关于金融和投资的有趣又有益的书 欢迎大家关注我的微信公众号：理财课堂（Lckt168） 私人微信号：topok11 如果一个人要对金融和投资方面的实际知识得到比较深入的了解，十五本书无疑是... </p>
-											<a class="like"href="javascript:;"><span>love</span>喜欢</a>
-											<div class="list-box">
-												标签：
-												<a href="">购物</a>
-												<a href="">唇彩</a>
-											</div>
-										</div>
-										<div class="time">
-											<p>22分钟前</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="face-box">
-										<img src="__PUBLIC__/images/face1.jpg">
-									</div>
-									<div class="album info">
-										<p><a href="">马提尼</a>的相册: </p>
-										<div class="detail">
-											<div class="img-box">
-												<a href="">
-													<img src="__PUBLIC__/images/photo5.jpg"/>
-													<img src="__PUBLIC__/images/photo5.jpg"/>
-													<img src="__PUBLIC__/images/photo5.jpg"/>
-													<img src="__PUBLIC__/images/photo5.jpg"/>
+							<empty name="hot">
+								<p class="tip">关注点朋友吧！关注人的动态会显示在这里！</p>
+								<else/>
+									<ul>
+										<foreach name="hot" item="vo" key="k">
 
-												</a>
-											</div>
-											<a class="like"href="javascript:;"><span>love</span>喜欢</a>
-											<div class="list-box">
-												标签：
-												<a href="">购物</a>
-												<a href="">唇彩</a>
-											</div>
-										</div>
-										<div class="time">
-											<p>22分钟前</p>
-										</div>
+											<switch name="vo.action">
+												<case value="diary" break="1">
+													<li class="diary">
+														<div class="face-box" style="display:block">
+															<empty name="vo.image">
+																<img src="__PUBLIC__/images/default_face.jpg">
+															<else/>
+																<img src="{$vo.image}"/>
+															</empty>
+														</div>
+														<div class="diary info">
+															<p><a href="{:U('People/index')}?p_id={$vo.u_id}">{$vo.name}</a>的日记: </p>
+															<div class="detail">
+																<a class="title" href="{:U('diary/diaryDetail')}?id={$vo.id}&p_id={$vo.u_id}">
+																	{$vo.title}
+																</a>
+																<p>{$vo.content} </p>
+																<a class="like {$vo['like']==1?'active':''}" rel="diary_{$vo.id}_{$vo.u_id}"href="javascript:;" ><span>love</span>喜欢</a>
+																<notempty name="vo.tag">
+																	
+																	<div class="list-box">
+																		标签：
+																		<foreach name="vo.tag" item="va" k="key">
+																			<a href="">{$va.name}</a>
+																			
+																		</foreach>
+																	</div>
+
+																</notempty>
+															</div>
+															<div class="time">
+																<p>{$vo.time|date="Y-m-d H:i:s",###}</p>
+															</div>
+														</div>
+													</li>
+												</case>
+												<case value="album">
+
+													<li class="album">
+														<div class="face-box "style="display:block">
+															
+															<empty name="vo.image">
+																<img src="__PUBLIC__/images/default_face.jpg">
+															<else/>
+																<img src="{$vo.image}"/>
+															</empty>
+														</div>
+														<div class="album info">
+															<p><a href="{:U('people/index')}?p_id={$vo.u_id}">{$vo.u_name}</a>的相册: </p>
+															<div class="detail">
+																<div class="img-box">
+																	<a href="{:U('album/photoList')}?id={$vo.id}&p_id={$vo.u_id}">
+																		<notempty name="vo.photo">
+																			<foreach name="vo.photo" item="va" key="key">
+																			<img src="__PUBLIC__/{$va.path}/{$va.name}"/>
+																			</foreach>
+																		<else/>
+																			<p>还没发照片</p>
+																		</notempty>
+
+																	</a>
+																</div>
+																<a class="like {$vo['like']==1?'active':''}" rel="album_{$vo.id}_{$vo.u_id}"href="javascript:;"><span>love</span>喜欢</a>
+																<notempty name="vo.tag">
+																	
+																	<div class="list-box">
+																		标签：
+																		<foreach name="vo.tag" item="va" k="key">
+																			<a href="">{$va.name}</a>
+																			
+																		</foreach>
+																	</div>
+
+																</notempty>
+															</div>
+															<div class="time">
+																<p>{$vo.time|date="Y-m-d H:i:s",###}</p>
+															</div>
+														</div>
+													</li>
+												</case>
+											</switch>
+										</foreach>
+									</ul>
+									<div class="ajax-btn">
+										<a href="javascript:;">加载更多</a>
 									</div>
-								</li>
-							</ul>
+							</empty>
 						</div>
 					</div>
 					<div class="f-right sider">
@@ -306,9 +446,7 @@
 		    {:W('Common/commonFooter')}
 		<!-- END footer -->
 
-		<script type="text/javascript">
-			
-		</script>
+
 
 	</body>
 </html>

@@ -97,10 +97,13 @@
 						$('.list-box a.face').unbind('click').addClass('active').find('span').html('（上传成功）');
 						$('.list-box .face-box').hide();
 						face_flag = true;
-						pleaseRelode();
 						location.reload([true]);
+						pleaseRelode();
+						
 
 
+					}else{
+						alert('上传失败');
 					}
 
 				});
@@ -220,20 +223,28 @@
 						<div class="section sec-1">
 							<h2><span></span>我喜欢<a href="">(全部)</a></h2>
 							<div class="list">
-								<a href="">一吃红粗</a>
-								<a href="">一吃红粗</a>
+								<empty name="like">
+									<p>喜欢点什么吧~</p>
+								<else/>
+									<foreach name="like" item="vo" key="k">
+										<p>
+											<a href="">{$vo.name}</a><span>{$vo.time|date="Y-m-d",###}</span>
+										</p>
+									</foreach>
+								</empty>
+								
 							</div>
 						</div>
 						<div class="section sec-2">
-							<h2>我的日记<a href="">(全部)</a><a class="btn"href="">+写日记</a></h2>
+							<h2>我的日记<a href="{:U('Diary/diary')}?p_id={$userInfo.id}">(全部)</a><a class="btn"href="{:U('Diary/writeDiary')}">+写日记</a></h2>
 							<notempty name="diary">
 								<div class="list">
 									<ul>
 										<foreach name="diary" item="vo" key="k">
 											<li>
-												<a href="">{$vo.title}</a>
+												<a href="{:U('Diary/diaryDetail')}?id={$vo.diaryid}&p_id={$vo.u_id}">{$vo.title}</a>
 												<p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p>
-												<p>{$vo.content}</p>
+												<p class="border">{$vo.content}</p>
 											</li>
 										</foreach>
 									</ul>
@@ -245,14 +256,14 @@
 							</notempty>
 						</div>
 						<div class="section sec-3">
-							<h2>我的相册<a href="">(全部)</a><a class="btn"href="">+新建相册</a><a class="btn"href="">+发照片</a></h2>
+							<h2>我的相册<a href="{:U('Album/album')}?p_id={$userInfo.id}">(全部)</a><a class="btn"href="{:U('Album/publishPhoto#2')}">+新建相册</a><a class="btn"href="{:U('Album/publishPhoto#1')}">+发照片</a></h2>
 							<notempty name="album"> 
 								<div class="list">
 									<ul>
 										<foreach name="album" item="vo" key="k">
 											<li>
-												<a class="img"href=""><img src="__PUBLIC__/{$vo.cover}"></a>
-												<a href="">{$vo.album_name}</a>
+												<a class="img"href="{:U('Album/photoList')}?id={$vo.album_id}&p_id={$vo.u_id}"><img src="__PUBLIC__/{$vo.cover}"></a>
+												<a href="{:U('Album/photoList')}?id={$vo.album_id}&p_id={$vo.u_id}">{$vo.album_name}</a>
 												<p class="time">{$vo.update_time|date="Y-m-d",###}更新</p>
 												
 											</li>
@@ -317,14 +328,22 @@
 											</case>
 											<case value="album" break="1">
 												<li>
-													<p>创建了相册<a href="">{$vo.name}</a></p>
-													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="">回应</a></if><a href="">删除</a></p>
+
+													<p>创建了相册<a href="{:U('Album/album')}?id={$vo.id}&p_id={$userInfo.id}">{$vo.name}</a></p>
+													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="{:U('Album/album')}?id={$vo.id}">回应</a></if><a href="">删除</a></p>
 											
 												</li>
 											</case>
 											<case value="diary" break="1">
 												<li>
-													<p>发表了日记<a href="">{$vo.name}</a></p>
+													<p>发表了日记<a href="{:U('Diary/diaryDetail')}?id={$vo.id}&p_id={$userInfo.id}">{$vo.name}</a></p>
+													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="">回应</a></if><a href="">删除</a></p>
+											
+												</li>
+											</case>
+											<case value="say" break="1">
+												<li>
+													<p>说了一句话：{$vo.content}</a></p>
 													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="">回应</a></if><a href="">删除</a></p>
 											
 												</li>

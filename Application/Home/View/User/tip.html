@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    {:W('Common/commonHead')}
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script> 
+
+		
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-tip-page">
+		<div id="wrap">
+			<!-- START header -->
+		    {:W('Common/allHeader')}
+		    {:W('Common/userHeader')}
+
+			<!-- END header -->
+			
+			<div id="main">
+				<div class="inner clearfix">
+					<div class="con">
+						<div class="title">	
+							<h2>我的提醒</h2>
+						</div>
+						<empty name="info">
+							<p>你现在没有新消息~</p>
+						<else/>
+							<notempty name="count">
+							
+								<div class="tip-box">
+
+									<p>新增<a href="">{$count}个人</a>关注了你</p>
+								</div>
+									
+							</notempty>
+							<notempty name="m_count">
+							
+								<div class="tip-box">
+
+									<p>你有<a href="{:U('message/index')}">{$m_count}条</a>未读私信</p>
+								</div>
+									
+							</notempty>
+							<foreach name="info" item="va" key="k">
+								
+								<switch name="va.action">
+									<case value="diary_replay">
+										<div class="tip-box">
+											
+											<p>你的日志<a href="">{$va.info.title}</a>有了新回应</p>
+										</div>
+									</case>
+									<case value="album_replay">
+										<div class="tip-box">
+											<p>你的相册<a href="">{$va.info.name}</a>有了新回应</p>
+										</div>
+									</case>
+									
+								</switch>
+							</foreach>
+						</empty>
+					</div>
+					
+				
+				</div>
+			</div>
+		</div>
+		<!-- START footer -->
+		    {:W('Common/commonFooter')}
+		<!-- END footer -->
+
+		<script type="text/javascript">
+		
+		
+
+	
+		</script>
+
+	</body>
+</html>

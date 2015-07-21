@@ -105,7 +105,7 @@ body > #wrap {height: auto; min-height: 100%;}
 }
 #pager {
 	text-align: center;
-	margin-bottom: 100px;
+	margin-bottom: 50px;
 }
 #pager a {
 	display: inline-block;
@@ -145,8 +145,11 @@ body > #wrap {height: auto; min-height: 100%;}
 
 .common_header{
 	background-color: #545652;
+	position: fixed;
+	width: 100%;
 	
 }
+
 .common_header a{
 	line-height: 26px;
 	color: #d5d5d5;
@@ -162,6 +165,41 @@ body > #wrap {height: auto; min-height: 100%;}
 	display: inline-block;
 	position: relative;
 	margin: 0 10px;
+}
+.common_header li .tip-box{
+	position: absolute;
+	display: none;
+	width: 200px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	right: 8px;
+	color: #666;
+	border:1px solid #ddd;
+	top: 26px;
+	background-color: #f5f5f5;
+	border-radius: 3px;
+}
+.common_header li .tip-box strong{
+	display: block;
+	background: url(../images/tri.png) no-repeat;
+	background-size: 80%;
+	right: 10px;
+	width: 10px;
+	top: -7px;
+	height: 11px;
+	position: absolute;
+}
+.common_header li .tip-box span{
+	color: #fff;
+	width: 30px;
+	display: inline-block;
+	line-height: 20px;
+	margin: 0 10px;
+	height: 20px;
+	border-radius: 5px;
+	background-color: #f40;
+	font-size: 16px;
 }
 .common_header span.arrow{
 	
@@ -194,6 +232,7 @@ body > #wrap {height: auto; min-height: 100%;}
 }
 .same_header{
 	background-color: #E3EBEC ;
+	padding-top: 26px;
 }
 .same_header .top{
 	border-bottom: 1px solid #ddd;
@@ -1404,6 +1443,9 @@ body > #wrap {height: auto; min-height: 100%;}
 	z-index: 110;
 	position: absolute;  
 }
+.user-page .info-box p.tip{
+	padding-top: 40px;
+}
 .user-page .info-box li{
 	padding-top: 20px;
 	margin-bottom: 20px;
@@ -1412,7 +1454,6 @@ body > #wrap {height: auto; min-height: 100%;}
 .user-page .info-box li .face-box{
 	float: left;
 	width: 82px;
-	height: 100%;
 }
 .user-page .info-box li .face-box img{
 	width: 48px;
@@ -1458,6 +1499,29 @@ body > #wrap {height: auto; min-height: 100%;}
 .user-page .info-box li .info a.title:hover{
 	color: #fff;
 	background: #9A633C;
+}
+.user-page .info-box .ajax-btn{
+	padding-bottom: 30px;
+}
+.user-page .info-box .ajax-btn p{
+	text-align: center;
+	color:#666;
+}
+.user-page .info-box .ajax-btn a{
+	display: block;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	color: #fff;
+	background-color: #9A633C;
+	border-radius: 3px;
+	font-size: 20px;
+	font-weight: normal;
+
+} 
+.user-page .info-box .ajax-btn a:hover{
+	background-color: #AA6F46;
 }
 a.like{
 	display: block;
@@ -1514,6 +1578,7 @@ a.like.active span{
 	width: 100px;
 	margin-right: 7px;
 	margin-bottom: 20px;
+	height: 100px;
 }
 
 
@@ -1571,6 +1636,7 @@ a.like.active span{
 }
 .user-page .user-name .edit{
 	display: none;
+	color: #666;
 }
 .user-page .user-name h3{
 	font-size: 24px;
@@ -1660,11 +1726,21 @@ a.like.active span{
 }
 .user-home-page .section .list {
 	padding-bottom: 10px;
-	border-bottom:1px dashed #ddd;
 }
 .user-home-page .section .list a{
 	color: #9A633C;
 	margin:0 5px;
+}
+.user-home-page .section .list p{
+	line-height: 30px;
+}
+.user-home-page .section .list p.border{
+	border-bottom: 1px dashed #ddd;
+}
+
+.user-home-page .section .list p span{
+	display: inline-block;
+	float: right;
 }
 .user-home-page .section a.btn{
 	border: 1px solid #ddd;
@@ -1733,7 +1809,7 @@ a.like.active span{
 	margin-left: 10px;
 }
 .user-home-page .sider .info-box .img-box img{
-	width: 259px;
+	width: 118px;
 }
 .user-home-page .sider .info-box .info{
 	float: left;
@@ -1758,7 +1834,7 @@ a.like.active span{
 	background-color: #fbecc9;
 	overflow: hidden;
 }
-.user-home-page .sider .brief a{
+.user-home-page .sider .brief a.info{
 	display: inline-block;
 	margin: 10px 0 10px 10px;
 	margin-left: 10px;
@@ -1945,6 +2021,38 @@ a.like.active span{
 .user-page .sider .top{
 	padding-bottom: 40px;
 }
+.user-page .sider .top .btn-box a{
+	border:1px solid #af7349;
+	padding: 0 10px;
+	line-height: 20px;
+	border-radius: 3px;
+	background-color: #f5f5f5;
+}
+.user-page .sider .top .btn-box a:hover{
+	background-color: #9A633C;
+}
+.follow-btn {
+	float: left;
+}
+.follow-btn a{
+	display: none;
+	margin: 10px;
+	line-height: 20px;
+	color: #9A633C;
+}
+a.follow.active,a.has-follow.active{
+	display: block;
+	border:1px solid #af7349;
+	padding: 0 10px;
+	margin: 10px;
+	line-height: 20px;
+	border-radius: 3px;
+	background-color: #f5f5f5;
+}
+a.follow.active:hover,a.has-follow.active:hover{
+	background-color: #9A633C;
+	display: block;
+}
 .user-page .sider a.btn{
 	background-color: #f5f5f5;
     border: 1px solid #ddd;
@@ -2065,6 +2173,136 @@ a.like.active span{
 	line-height: 30px;
 	color: #fff;
 	width: 70px;
+}
+.user-diary-page .diary-detail .title p{
+	font-size: 26px;
+	list-style-position: 30px;
+	font-weight: bold;
+	padding-bottom: 10px;
+
+}
+.user-diary-page .diary-detail .writer-box {
+	overflow: hidden;
+	padding-bottom: 30px;
+}
+
+.user-diary-page .diary-detail .writer-box img{
+	width: 24px;
+	height: 24px;
+	float: left;
+}
+.user-diary-page .diary-detail .writer-box p{
+	float: left;
+	width: 520px;
+	font-size: 16px;
+	padding-left: 20px;
+	color: #666;
+}
+.user-diary-page .diary-detail .writer-box p span{
+	padding-left: 40px;
+	color: #666;
+	font-size: 12px;
+}
+.user-diary-page .diary-detail .con{
+	line-height: 20px;
+	font-size: 14px;
+}
+.user-diary-page .diary-detail .tag{
+	color: #666;
+	padding: 20px 0;
+}
+.user-diary-page .diary-detail .tag a{
+	color: #666;
+	padding: 0 10px;
+	background-color: #f5f5f5;
+	line-height: 20px;
+}
+.user-diary-page .diary-detail .tag a:hover{
+	background-color: #9A633C;
+	color: #fff;
+}
+.user-diary-page .power{
+	padding: 10px 0;
+	color: #666;
+}
+.user-diary-page .power a{
+	color: #666;
+	margin-right: 10px;
+}
+.user-diary-page .power a:hover{
+	color: #fff;
+	background-color: #9A633C;
+}
+.user-diary-page .power p{
+	color: #666;
+	float: right;
+}
+.replay{
+	padding-top: 20px;
+}
+.replay h4{
+	color: #9A633C;
+	font-size: 16px;
+}
+.replay-box{
+	padding-bottom: 40px;
+}
+.replay li{
+	overflow: hidden;
+	padding-bottom: 20px;
+	margin-bottom: 30px;
+	position: relative;
+	border-bottom: 1px solid #ddd;
+}
+.replay li .title {
+	overflow: hidden;
+	padding-bottom: 0;
+}
+.replay li .title p{
+	float: left;
+	background-color: #f5f5f5;
+	width: 511px;
+	margin-left: 10px;
+	padding-left: 10px;
+}
+.replay li .replay-p{
+	padding-left: 30px;
+	padding-top: 20px;
+}
+.replay li .btn{
+	display: none;
+	right: 10px;
+	bottom: 4px;
+	position: absolute;
+}
+.replay li .replay-content{
+	padding-left: 20px;
+	line-height: 20px;
+}
+.replay li:hover .btn{
+	display: block;
+}
+.replay li .btn a{
+	color: #666;
+}
+.replay .user-box{
+	float: left;
+}
+.replay img{
+	width: 40px;
+	height: 40px;
+}
+.replay .form-box textarea{
+	resize:none;
+	width: 500px;
+	padding: 10px;
+	height: 100px;
+	margin-bottom: 10px;
+	border:1px solid #9A633C;
+}
+.user-photo-page .replay .title p{
+	width: 586px;
+	margin-left: 0;
 }
 .user-album-page .album-list li{
 	float: left;
@@ -2264,7 +2502,7 @@ a.like.active span{
 	border-bottom: 1px solid #ddd;
 	padding-bottom: 10px;
 }
-.user-photo-page .right{
+.user-photo-page .right-box{
 	width: 634px;
 }
 .user-photo-page .bread-box{
@@ -2329,6 +2567,197 @@ a.like.active span{
 .user-photo-page .info-box a:hover{
 	color: #fff;
 	background-color: #9A633C;
+}
+.user-tip-page h2{
+	color: #9A633C;
+	font-size: 20px;
+	line-height: 40px;
+	border-bottom: 1px solid #666;
+	margin-bottom: 10px;
+}
+.user-tip-page .tip-box{
+	color: #444;
+	line-height: 40px;
+	border-bottom: 1px solid #ddd;
+	padding-left: 20px;
+}
+.user-tip-page .tip-box a{
+	color: #9A633C;
+	padding: 0 4px;
+	border-bottom: 1px solid #9A633C;
+}
+.user-message-page h2{
+	color: #9A633C;
+	font-size: 20px;
+	line-height: 40px;
+	margin-bottom: 10px;
+}
+.user-message-page h2 a{
+	float: right;
+	color: #444;
+	margin-right: 70px;	
+	padding-top: 10px;
+	font-weight: normal;
+	font-size: 12px;
+}
+.user-message-page h2 a:hover{
+	color: #9A633C
+}
+.user-message-page .form-info{
+	overflow: hidden;
+}
+.user-message-page .conversation-box {
+	float: right;
+	overflow: hidden;
+	margin-right: 8px;
+	margin-bottom: 34px;
+}
+.user-message-page .conversation-box textarea{
+	border:1px solid #9A633C;
+	resize:none;
+	width: 437px;
+	height: 70px;
+	margin-bottom: 20px;
+}
+.user-message-page .conversation-box .btn-box{
+	float: right;
+}
+.user-message-page .message-box{
+	position: relative;
+}
+.user-message-page .img-box {
+	float: right;
+	width: 50px;
+	height: 50px;
+	margin-left: 10px;
+}
+.user-message-page .me-box,.user-message-page .other-box {
+	overflow: hidden;
+	margin-bottom: 28px;
+}
+.user-message-page .me-box .text-box{
+	width: 435px;
+	margin-right: 8px;
+	float: right;
+	min-height: 70px;
+	border:1px solid #f3f4f6;
+	border-radius: 3px;
+	background-color: #f3f4f6;
+	position: relative;
+	padding-bottom: 26px;
+}
+.user-message-page .other-box .text-box{
+	width: 435px;
+	margin-left: 6px;
+	float: left;
+	min-height: 70px;
+	border:1px solid #f0f7f6;
+	border-radius: 3px;
+	padding-bottom: 26px;
+	background-color: #f0f7f6;
+	position: relative;
+}
+.user-message-page .me-box p,.user-message-page .other-box p{
+	color: #444;
+	width: 400px;
+	padding: 10px;
+	line-height: 20px;
+	word-wrap: break-word;
+}
+.user-message-page p.time{
+	position: absolute;
+	right: 10px;
+	bottom: -5px;
+}
+.user-message-page .me-box i{
+	border-color: #f3f4f6 #fff #fff #f3f4f6;
+    border-style: solid;
+    border-width: 5px;
+    height: 0;
+    position: absolute;
+    right: -10px;
+    top: -1px;
+    width: 0;
+}
+.user-message-page .other-box i{
+	border-color: #f0f7ff #f0f7ff #fff #fff;
+    border-style: solid;
+    border-width: 5px;
+    height: 0;
+    left: -10px;
+    position: absolute;
+    top: 0;
+    width: 0;
+}
+.user-message-page .other-box .img-box{
+	margin: 0 10px 0 0;
+	float: left;
+}
+.user-message-page .img-box img{
+	width: 50px;
+	height: 50px;
+
+}
+.user-message-page .btn-box{
+	clear: both;
+
+}
+.user-message-page .btn-box input{
+	width: 70px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+	border:1px solid #9A633C;
+	border-radius: 3px;
+	background-color: #9A633C;
+
+}
+
+.user-message-page .conver-box li{
+	overflow: hidden;
+	height: 70px;
+	padding-top: 10px;
+	border-bottom: 1px solid #ddd;
+}
+.user-message-page .conver-box li a{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.user-message-page .conver-box li.active{
+	background-color: #f6ecd6;
+}
+.user-message-page .conver-box li:hover{
+	
+	background-color: #f5f5f5;
+}
+.user-message-page .conver-box li a strong{
+	color: #9A633C;
+	line-height: 20px;
+	font-size: 16px;
+
+}
+.user-message-page .conver-box li a strong span{
+	float: right;
+	font-size: 12px;
+	color: #666;
+	font-weight: normal;
+	padding-right: 10px;
+}
+.user-message-page .conver-box li p{
+	color: #666;
+}
+.user-message-page .con-box {
+	overflow: hidden;
+}
+.user-message-page .con-box .img-box{
+	float: left;
+	margin-right: 10px;
+
+}
+.user-message-page .con-box .img-box img{
+	border-radius: 50px;
 }
 a.share{
 	display: block;

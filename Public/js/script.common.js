@@ -57,9 +57,10 @@ $(function(){
 		rel = rel.split('_');
 		var PATH = "/beehive/index.php/Home/User";
 		var action = rel[0];
-		var id = rel[1];		
+		var id = rel[1];
+		var u_id = rel[2];		
 		if($(this).hasClass('active')){
-			$.post(PATH+'/removeLike',{action:action,action_id:id},function(data){
+			$.post(PATH+'/removeLike',{action:action,action_id:id,u_id:u_id},function(data){
 				if(data){
 					$(that).removeClass('active');
 				}
@@ -69,7 +70,7 @@ $(function(){
 		}else{
 			
 			// alert(action);
-			$.post(PATH+'/doLike',{action:action,action_id:id},function(data){
+			$.post(PATH+'/doLike',{action:action,action_id:id,u_id:u_id},function(data){
 					
 				if(data){
 					$(that).addClass('active');

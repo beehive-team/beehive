@@ -37,7 +37,12 @@
 			<!-- END header -->
 			<div id="main">
 				<div class="inner clearfix">
-					{:W('Common/userTitle')}
+					<if condition="($status eq 'me')">
+						{:W('Common/userTitle')}
+					<else/>
+						{:W('Common/peopleTitle')}
+
+					</if>
 
 					<div class="f-left con">
 						<div class="clearfix album-list">
@@ -46,14 +51,14 @@
                                     <foreach name="data" item="vo" key="k">
                                     <li>
                                         <div class="img-box">
-                                            <a href="{:U('User/photoList')}?id={$vo.album_id}">
+                                            <a href="{:U('photoList')}?id={$vo.album_id}&p_id={$p_id}">
                                             
                                                 <img src="__PUBLIC__{$vo['cover']}"/>
                                             
                                             </a>
                                         </div>
                                         <div class="info">
-                                            <a href="{:U('User/photoList')}?id={$vo.album_id}">{$vo.album_name}</a>
+                                            <a href="{:U('photoList')}?id={$vo.album_id}&p_id={$p_id}">{$vo.album_name}</a>
                                             <p>{$vo.count}张照片<span>{$vo.update_time|date='Y-m-d',###}更新</span></p>
                                         </div>
                                     </li>
@@ -64,21 +69,24 @@
                             </notempty>
 						</div>
 					</div>
-					<div class="f-right sider">
-						<div class="top">
-							<ul>
-								<li>
-									<a class="btn" href="{:U('User/publishPhoto#1')}">+发照片</a>
-								</li>
-							
-								<li>
-									<a class="btn" href="{:U('User/publishPhoto#2')}">+创建相册</a>
-								</li>
-							</ul>
-						</div>
+					
+					<if condition="($status eq 'me')">
+						<div class="f-right sider">
+							<div class="top">
+								<ul>
+									<li>
+										<a class="btn" href="{:U('publishPhoto#1')}">+发照片</a>
+									</li>
+								
+									<li>
+										<a class="btn" href="{:U('publishPhoto#2')}">+创建相册</a>
+									</li>
+								</ul>
+							</div>
 
-						
-					</div>
+							
+						</div>
+					</if>
 				</div>
 				<div id="pager">
 					{$page}

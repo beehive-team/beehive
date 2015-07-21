@@ -35,7 +35,7 @@
 				<div class="inner clearfix">
 					<div class="write">
 						<h3>修改日记</h3>
-						<form action="{:U('/Home/User/updateDiary')}" method="post">
+						<form action="{:U('updateDiary')}" method="post">
 							<input type="hidden" name="id"value="{$data.id}"/>
 							<p><label for="name">题目：</label></p>
 							<input class="text"type="text" value="{$data.title}"name="name"/>
@@ -45,8 +45,8 @@
 							
 
 							<p><label for="show">设置可见：</label></p>
-							<label><input type="radio" {$data['browse']=='1'?'checked':''} name="show" value="1">所有人可见</label>
-							<label><input type="radio"{$data['browse']=='0'?'checked':''} name="show" value="0">仅朋友可见</label>
+							<label><input type="radio" {$data['browse']=='0'?'checked':''} name="show" value="0">所有人可见</label>
+							<label><input type="radio"{$data['browse']=='1'?'checked':''} name="show" value="1">仅朋友可见</label>
 							<label><input type="radio" {$data['browse']=='2'?'checked':''} name="show" value="2">仅自己可见</label>
 							<p><label>权限设置：</label></p>
 							<div class="checkbox">

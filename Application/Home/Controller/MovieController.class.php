@@ -46,14 +46,80 @@ class MovieController extends CommonController {
         //var_dump($list[0]);
         $this->assign('list',$list[0]);
 
-        //查询年份 国家 图片
+        //查询年份  非封面图片
         $m1 = M('movie');
         $row= $m1->table('bee_movie m,bee_mimage i,bee_mclassify f')
                 ->field('m.year,m.country,i.name iname,i.m_id,i.i_path,f.name')
                 ->where('m.year=f.id and i.is_cover=0 and m.id=i.m_id and m.id='.$id)
                 ->select();
-        var_dump($row);
+        //var_dump($row);
+        $this->assign('row',$row);
+        //查询国家
+        $m2=M('movie');
+        $r = $m2->table('bee_movie m,bee_mclassify f ')->field('f.name')->where('f.id=m.country and m.id='.$id)->find();
+        $m2->getLastSql();
+        //var_dump($r);
+        $this->assign('r',$r);
         $this->display();
+    }
+    //用户发表长评论
+    public function longComment(){
+        //接收影片ID
+        $id = $_GET['id'];
+         $m = M('movie');
+        //进行多表联合查询
+        $list = $m->table('bee_movie m,bee_mimage i,bee_mclassify f,bee_m_c c')
+                ->field('m.*,i.name iname,i.m_id imid,i.i_path,i.is_cover,f.id fid,f.name fname,c.m_id cmid,c.c_id')
+                ->where('m.id=i.m_id and i.is_cover=1 and m.id=c.m_id and c.c_id=f.id and m.id='.$id)
+                ->select();
+                //var_dump($list);exit;
+        $tmp = [];
+        //将其他数组的fname写入第一个数组
+        for($i = 0; $i<count($list); $i++){
+            
+            $tmp[] = $list[$i]['fname'];
+        }
+        $list[0]['fname'] = $tmp;
+        //转换时间个格式
+        $list[0]['crelease_t']=date('Y-m-d',$list[0]['crelease_t']);
+        $list[0]['orelease_t']=date('Y-m-d',$list[0]['orelease_t']);
+        //echo count($list[0]['fname']);
+        //var_dump($list[0]);
+        $this->assign('list',$list[0]);
+
+        $this->display();
+    }
+    public function dolongComment(){
+        // var_dump($_SESSION);
+        // var_dump(time());
+        $id=$_POST['m_id'];
+        $_POST['u_id']=$_SESSION['home']['user_id'];
+        $_POST['time']=time();
+        //var_dump($_POST);
+
+        $m = M('l_r');
+        if($m->add($_POST)){
+            $this->success('评论成功',U('movie/detail',"id=$id"));
+        }else{
+            $this->error('评论失败');
+        }
+    }
+    public function commentDetail(){
+        $this->display();
+    }
+
+    public function dosortComment(){
+        $id=$_POST['m_id'];
+        $_POST['u_id']=$_SESSION['home']['user_id'];
+        $_POST['time']=time();
+        //var_dump($_POST);
+
+        $m = M('s_r');
+        if($m->add($_POST)){
+            $this->success('评论成功',U('movie/detail',"id=$id"));
+        }else{
+            $this->error('评论失败');
+        }
     }
 
     public function getCata(){

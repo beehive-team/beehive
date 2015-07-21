@@ -22,17 +22,21 @@ body{
 	font-size:14px;
 	font:12px/1.62 Helvetica,Arial,sans-serif;
  }
- /*中间*/
-#wrap{
- 	margin:0 auto;
- 	width:950px;
+ .inner{
+ 	width: 950px;
+ 	margin: 0 auto;
  }
+ /*中间*/
+
 #content{
  	margin-top: 36px;
 
  }
  .grid{
  	overflow: hidden;
+}
+.attrs{
+	color:#111;
 }
 h1{
  	color: #494949;
@@ -53,7 +57,7 @@ h1{
  }
 .aside{
  	width: 310px;
- 	height: 1460px;
+ 	/*height: 1460px;*/
  	float: right;
  }
 .extra{
@@ -65,8 +69,8 @@ h1{
 
  }
 .indent{
- 	width:590px;
- 	height: 347px;
+ 	/*width:590px;*/
+ 	/*height: 347px;*/
  	margin-bottom: 30px;
  }
 .mainpic {
@@ -170,13 +174,19 @@ h1{
 /*简介部分*/
 .related-info{
 	width: 590px;
-	height: 162px;
+	/*height: 162px;*/
 }
 .brief{
 	width: 588px;
-	height: 131px;
-	overflow: hidden;
-	
+	/*height: 131px;*/
+	/* overflow: hidden; */
+	color:#111;
+}
+.comment-content{
+	color: #111;
+}
+.riview-bd p{
+	color:#111;
 }
 .brief{
 	font:12px/1.62 Helvetica,Arial,sans-serif;
@@ -411,7 +421,7 @@ h1{
 	background-color:#37a;
 	color:#fff;
 }
-
+/*评分星星部分*/
 .bigstar50, .bigstar45, .bigstar40, .bigstar35, .bigstar30, .bigstar25, .bigstar20, .bigstar15, .bigstar10, .bigstar05, .bigstar00 {
     background: rgba(0, 0, 0, 0) url("../images/all_bigstars.gif") no-repeat scroll 0 0;
     color: #999;
@@ -499,4 +509,374 @@ h1{
     font-size: 14px;
     line-height: 18px;
     padding: 0 0 0 8px;
+}
+/*短评弹出窗口部分*/
+.indentpop1 {
+    padding: 0 18px;
+    width: 514px;
+    height: 376px;
+    /*background-color: pink;*/
+    margin:5px auto;
+}
+.interest-form-hd {
+    background: #ebf5ea none repeat scroll 0 0;
+    clear: both;
+    margin: 0 -18px 15px;
+    overflow: hidden;
+    padding: 12px 18px;
+    width: 100%;
+}
+.interest-form-hd h2 {
+    line-height: 1.2;
+    margin: 0;
+}
+h2 {
+    color: #111;
+}
+.gact {
+    color: #bbb;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+}
+.gact a:link, a.gact:link {
+    color: #bbb;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+}
+.gact a:visited, a.gact:visited {
+    color: #bbb;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+}
+.gact a:hover, a.gact:hover {
+    background-color: #733;
+    border-color: #f99 #f33 #f33 #f99;
+    border-style: solid;
+    border-width: 1px;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+}
+.gact a:hover {
+    line-height: 1.2;
+    padding: 0 3px;
+}
+.interest-rating {
+    float: left;
+    margin-left: 10px;
+}
+.rate_stars {
+    padding-bottom: 10px;
+}
+.tags-switch {
+    text-align: right;
+}
+#advtags {
+    display: inline-block;
+    width: 100%;
+}
+.interest_form .inp-tags {
+    border: 1px solid #ccc;
+    padding: 3px;
+    width: 50%;
+}
+.interest_form .tags {
+    margin: 10px 0;
+}
+.interest_form dt {
+    color: #666;
+    float: left;
+    width: 65px;
+}
+.interest_form dd {
+    float: left;
+    line-height: 23px;
+    margin: 0 0 3px;
+    width: 400px;
+}
+input {
+    font-size: 12px;
+}
+input {
+    margin-right: 3px;
+    vertical-align: middle;
+}
+#mytags {
+    margin-top: 10px;
+}
+#populartags {
+    margin: 3px 0 10px;
+}
+.gract {
+    background-color: #f2fbf2;
+    border-bottom: 1px solid #afa;
+    border-right: 1px solid #afa;
+    color: #072;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 2px;
+    padding: 3px 3px 2px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.tagbtn {
+    cursor: pointer;
+}
+.interest_form .comment-label .num {
+    color: #333;
+    float: right;
+}
+textarea {
+    border: 1px solid #ccc;
+    font-size: 14px;
+    padding: 3px;
+}
+textarea {
+    font-family: Arial;
+    overflow: auto;
+}
+textarea {
+    resize: none;
+}
+.comment, .interest_form .comment-label {
+    width: 98%;
+}
+.interest_form .private {
+    float: right;
+}
+.pl {
+    color: #666;
+    font: 12px/150% Arial,Helvetica,sans-serif;
+}
+label {
+    font-family: Tahoma;
+    vertical-align: middle;
+}
+.interest-form-ft {
+    text-align: right;
+}
+.interest-form-ft {
+    background: #e9eef2 none repeat scroll 0 0;
+    border-top: 1px solid #d9e2e9;
+    clear: both;
+    margin: 15px -18px 0;
+    overflow: hidden;
+    padding: 10px 18px;
+    width: 100%;
+}
+.interest-form-ft .sync-setting {
+    float: left;
+    line-height: 25px;
+}
+.sync-setting {
+    float: left;
+}
+.interest-form-ft label {
+    line-height: 1.6;
+}
+.share-label {
+    cursor: pointer;
+    margin: 8px;
+    vertical-align: middle;
+}
+label {
+    font-family: Tahoma;
+    vertical-align: middle;
+}
+.interest-form-ft .bn-flat input {
+    font-size: 14px;
+}
+.lnk-flat, .lnk-confirm, .bn-flat input {
+    background-image: -moz-linear-gradient(-90deg, #fcfcfc 0px, #e9e9e9 100%);
+   /* border: 0 none;*/
+    border-radius: 2px;
+    color: #333;
+    cursor: pointer;
+    font-size: 12px;
+    height: 25px;
+    margin: 0 !important;
+    padding: 0 14px;
+	font-family: inherit;
+}
+input {
+    font-size: 12px;
+}
+input {
+    margin-right: 3px;
+    vertical-align: middle;
+}
+.con{
+	border:1px solid #BBBBBB;
+}
+
+/*长评论页面*/
+h1 {
+    color: #494949;
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1.1;
+    margin: 0;
+    padding: 0 0 15px;
+    word-wrap: break-word;
+}
+.grid-16-8 .article {
+    float: left;
+    padding-right: 40px;
+    width: 590px;
+}
+form {
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+}
+.pl2 {
+    color: #666;
+    font: 14px/150% Arial,Helvetica,sans-serif;
+}
+element.style {
+    width: 450px;
+}
+.input_basic {
+    border: 1px solid #ccc;
+    font-size: 12px;
+    padding: 2px;
+}
+label {
+    font-family: Tahoma;
+    vertical-align: middle;
+    color: black;
+}
+element.style {
+    height: 337px;
+    width: 448px;
+}
+textarea {
+    border: 1px solid #ccc;
+    font-size: 14px;
+    padding: 3px;
+}
+textarea {
+    font-family: Arial;
+    overflow: auto;
+}
+textarea {
+    resize: none;
+}
+input, button, textarea, select, optgroup, option {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+}
+a:link {
+    color: #37a;
+    text-decoration: none;
+}
+a:link {
+    color: #37a;
+    text-decoration: none;
+}
+a {
+    cursor: pointer;
+}
+a {
+    cursor: pointer;
+}
+.pl {
+    color: #666;
+    font: 12px/150% Arial,Helvetica,sans-serif;
+}
+.pl2 {
+    color: #666;
+    font: 14px/150% Arial,Helvetica,sans-serif;
+}
+.movie-summary .movie-pic {
+    margin-bottom: 15px;
+    margin-top: 3px;
+}
+/*评论查看详情页*/
+.grid-16-8 .article {
+    float: left;
+    padding-right: 40px;
+    width: 590px;
+}
+.main .main-hd {
+    color: #999;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+.main .main-hd p {
+    margin: 0;
+}
+.main .main-hd .main-title-tip {
+    background: #fafafa none repeat scroll 0 0;
+    margin-top: 20px;
+    padding: 7px 12px;
+}
+.main .main-avatar {
+    margin-right: 8px;
+}
+.main .main-title-rating {
+    margin: 0 8px;
+}
+.main .main-title-hide {
+    color: #fff;
+    margin-right: -1em;
+}
+.main .main-author {
+    margin-top: 4px;
+}
+.main .main-author span {
+    margin-right: 4px;
+}
+.main .main-panel {
+    border-bottom: 1px dashed #ddd;
+    margin: 30px 0 5px;
+    padding-bottom: 36px;
+}
+.main .main-panel .rec-sec {
+    display: inline;
+}
+.main .main-panel .warn-secret {
+    margin-right: 18px;
+}
+.main .main-panel-note {
+    float: right;
+}
+.main .main-panel-useful {
+    color: #666;
+}
+.main .main-panel-useful span {
+    margin-right: 6px;
+}
+.main .main-share {
+    display: inline-block;
+}
+.main .main-share li {
+}
+.main .doulist-add-btn {
+    display: inline;
+    float: none;
+}
+.main .main-bd {
+    font-size: 13px;
+    word-wrap: break-word;
+}
+#link-report .report {
+    font-size: 12px;
+    text-align: right;
+    visibility: hidden;
+}
+#link-report .report a {
+    color: #bbb;
+}
+#link-report .report a:hover {
+    background-color: #bbb;
+    color: #fff;
 }

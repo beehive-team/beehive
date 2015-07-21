@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    {:W('Common/commonHead')}
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script> 
+
+		<script type="text/javascript">
+			
+		</script>
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-home-page">
+		<div id="wrap">
+			<!-- START header -->
+		    {:W('Common/allHeader')}
+		    {:W('Common/userHeader')}
+
+			<!-- END header -->
+			
+			<div id="main">
+				<div class="inner clearfix">
+					<div class="f-left con">
+						{:W('Common/peopleTitle')}
+
+						<div class="section sec-1">
+							<h2><span></span>{$userInfo.name}的喜欢<a href="">(全部)</a></h2>
+							<div class="list">
+								<empty name="like">
+									<div class="empty">
+										<p>{$userInfo.name}还没喜欢什么~</p>
+									</div>
+								<else/>
+									<foreach name="like" item="vo" key="k">
+										<p>
+											<a href="">{$vo.name}</a><span>{$vo.time|date="Y-m-d",###}</span>
+										</p>
+									</foreach>
+								</empty>
+								
+							</div>
+						</div>
+						<div class="section sec-2">
+							<h2>{$userInfo.name}的日记<a href="{:U('Diary/diary')}?p_id={$userInfo.id}">(全部)</a></h2>
+							<notempty name="diary">
+								<div class="list">
+									<ul>
+										<foreach name="diary" item="vo" key="k">
+											<li>
+												<a href="{:U('Diary/diaryDetail')}?id={$vo.diaryid}&p_id={$vo.u_id}">{$vo.title}</a>
+												<p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p>
+												<p class="border">{$vo.content}</p>
+											</li>
+										</foreach>
+									</ul>
+								</div>
+							<else />
+								<div class="empty">
+									<p>{$userInfo.name}还没有发布日记</p>
+								</div>
+							</notempty>
+						</div>
+						<div class="section sec-3">
+							<h2>{$userInfo.name}的相册<a href="{:U('Album/album')}?p_id={$userInfo.id}">(全部)</a></h2>
+							<notempty name="album"> 
+								<div class="list">
+									<ul>
+										<foreach name="album" item="vo" key="k">
+											<li>
+												<a class="img"href="{:U('Album/photoList')}?id={$vo.album_id}&p_id={$vo.u_id}"><img src="__PUBLIC__/{$vo.cover}"></a>
+												<a href="">{$vo.album_name}</a>
+												<p class="time">{$vo.update_time|date="Y-m-d",###}更新</p>
+												
+											</li>
+										</foreach>
+									</ul>
+								</div>
+							<else />
+							<div class="empty">
+								<div class="img-box">
+									<p>{$userInfo.name}还没有发布照片~</p>
+								</div>
+							</div>
+							</notempty>
+						</div>
+
+						
+					</div>
+					<div class="f-right sider">
+						<div class="top">
+							<div class="info-box">
+								<div class="img-box">
+									<empty name="face['image']">
+										<img src="__PUBLIC__/images/default_face.jpg"/>
+									<else/>
+										<img src="{$face['image']}"/>
+
+									</empty>
+								</div>
+								<div class="info">
+									<h5>{$userInfo['name']}</h5>
+									<h6>{$userInfo['time']|date='Y-m-d',###}加入</h6>
+								</div>
+							</div>
+							<div class="brief clearfix">
+								<div class="btn-box">
+									<div class="follow-btn">
+
+										<a class="follow {$follow==0?'active':''}"  rel="{$userInfo['id']}"href="javascript:;">关注此人+</a>
+										<a href="javascript:;" rel="{$userInfo['id']}"class="has-follow {$follow==1?'active':''}">已关注-</a>
+									</div>
+									<a class="info"href="{:U('message/message')}?p_id={$userInfo.id}">发消息</a></div>
+								<div class="intro-form">
+									<form onsubmit="return rightIntroUpdate(this)">
+										<textarea name="introduce"></textarea>
+										<input type="submit" value="保存"/>
+										<input type="button" value="取消"/>
+									</form>
+								</div>
+							</div>
+							
+						</div>
+						<div class="radio">
+							<h2>我的广播<a href="">全部</a></h2>
+							<notempty name="trend">
+								<ul>
+									<foreach name="trend" item="vo" key="k">
+										<switch name="vo.action">
+											<case value="photo" break="1">
+												<li>
+													<p>上传了1张照片到 <a href="">{$vo.name}</a></p>
+													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="">回应</a></if><a href="">删除</a></p>
+											
+												</li>
+											</case>
+											<case value="album" break="1">
+												<li>
+													<p>创建了相册<a href="{:U('album')}?id={$vo.id}">{$vo.name}</a></p>
+													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="{:U('album')}?id={$vo.id}">回应</a></if><a href="">删除</a></p>
+											
+												</li>
+											</case>
+											<case value="diary" break="1">
+												<li>
+													<p>发表了日记<a href="{:U('diaryDetail')}?id={$vo.id}">{$vo.name}</a></p>
+													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="">回应</a></if><a href="">删除</a></p>
+											
+												</li>
+											</case>
+											<case value="say" break="1">
+												<li>
+													<p>说了一句话：{$vo.content}</a></p>
+													<p>{$vo.time|date="Y-m-d H:i:s",###}<if condition="($vo.browse eq 1) OR($vo.browse eq 0)"><a href="">回应</a></if><a href="">删除</a></p>
+											
+												</li>
+											</case>
+										</switch>										
+									</foreach>
+								</ul>
+							<else />
+								<p>做点事情吧~</p>
+							</notempty>
+						</div>
+						<div class="follow">
+							<p><a href="">>我被0人关注</a></p>
+							<div class="img-box">
+								<img src=""/>
+							</div>
+						</div>
+						<div class="bee">
+							<h2>我的蜂蜜<a href="">（全部）</a><a class="btn"href="">+创建蜂蜜</a></h2>
+							<ul>
+								<li><a href="">相册</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				</div>
+		</div>
+		<!-- START footer -->
+		    {:W('Common/commonFooter')}
+		<!-- END footer -->
+
+		<script type="text/javascript">
+			$('a.follow').click(function(){
+				var u_id = $(this).attr('rel');
+				// alert(u_id);
+				$.post("doFollow",{p_id:u_id},function(data){
+					if(data=='true'){
+						$('a.follow').removeClass('active').hide();
+						$('a.has-follow').addClass('active').show();
+					}
+				})
+			})
+			$('a.has-follow').click(function(){
+				var u_id = $(this).attr('rel');
+				// alert(u_id);
+				$.post("removeFollow",{p_id:u_id},function(data){
+					if(data=='true'){
+						$('a.follow').addClass('active').show();
+						$('a.has-follow').addClass('active').hide();
+					}
+				})
+			})
+		</script>
+
+	</body>
+</html>

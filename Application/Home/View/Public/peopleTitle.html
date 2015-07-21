@@ -1,0 +1,38 @@
+
+
+<div class="user-info">
+	<div class="info-box f-left">
+		<empty name="face['image']">
+			<img src="__PUBLIC__/images/default_face.jpg"/>
+		<else />
+			<img src="{$face['image']}"/>
+		</empty>
+	</div>
+	<div class="user-name f-left">
+		<h3>{$data['name']}</h3>
+		
+		
+		
+		<empty name="data.sign">
+
+			<i>这个人很懒~</i>
+		<else/>
+			<p>{$data.sign}</p>
+		</empty>
+	</div>
+</div>
+<div class="link-box">
+	<ul>
+		<li><a class="userInfo" rel="{$u_id}" href="{:U('people/index')}?p_id={$data.id}">{$data['name']}的主页</a></li>
+		<li><a href="">广播</a></li>
+		<li><a href="{:U('Album/album')}?p_id={$data.id}">{$data['name']}的相册</a></li>
+		<li><a href="{:U('Diary/diary')}?p_id={$data.id}">{$data['name']}的日记</a></li>
+		<li><a href="">喜欢</a></li>
+		<li><a href="">蜂蜜</a></li>
+	</ul>
+</div>
+<script type="text/javascript">
+	
+
+
+</script>

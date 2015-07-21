@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    {:W('Common/commonHead')}
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script> 
+
+		<script type="text/javascript">
+			$(function(){
+				
+			})
+
+
+		</script>
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-message-page">
+		<div id="wrap">
+			<!-- START header -->
+		    {:W('Common/allHeader')}
+		    {:W('Common/userHeader')}
+
+			<!-- END header -->
+			
+			<div id="main">
+				<div class="inner clearfix">
+					<div class="con">
+						<div class="title">	
+							<h2>我的私信</h2>
+						</div>
+						<empty name="info">
+							<p>你现在没有新消息~</p>
+						<else/>
+							
+							<div class="conver-box">
+								<ul>
+									<foreach name="info" item="va" key="k">
+										<li class="{$va['new']==1?'active':''}">
+											<a href="{:U('message')}?p_id={$va.user.id}">
+												<div class="con-box">
+													<div class="img-box">
+														<img src="{$va.user.image}">
+													</div>
+													<div class="info-box">
+														<strong>{$va.user.name}<span>{$va.update_time|date="Y-m-d H:i:s",###}</span></strong>
+														<p>{$va.con.content}</p>
+													</div>
+												</div>
+											</a>
+										</li>
+								
+									</foreach>
+
+								</ul>
+							</div>
+							
+						</empty>
+					</div>
+					
+				
+				</div>
+			</div>
+		</div>
+		<!-- START footer -->
+		    {:W('Common/commonFooter')}
+		<!-- END footer -->
+
+		<script type="text/javascript">
+			
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap-theme.min.css">
+		<title>显示用户</title>
+	</head>
+	<body>
+		<div class="hvc">
+			<p>后台管理>用户管理>前台用户管理</p>
+		</div>
+
+		<form class="form-inline" role="form" style="margin:18px 62px 22px;">
+		  <div class="form-group">
+		    <label class="sr-only">用户名</label>
+		  <input type="text" class="form-control"  placeholder="输入用户名查询">
+		  </div>
+		  <button type="submit" class="btn btn-default">搜索</button>
+		</form>
+		<div class="section sec-1">
+			<div class="hvc">
+				<p class="tab-btn">前台用户显示</p>
+			</div>
+				<table class="table table-bordered" style="width:89%;margin:10px auto;">
+	             <tr>
+	                <th>编号</th>
+	                <th>用户名</th>
+	                <th>头像</th>
+	                <th>性别</th>
+	                <th>电话</th>
+	                <th>邮箱</th>
+	                <th>状态</th>
+	                <th>操作</th>
+					
+				
+				</tr>
+
+				<foreach name="font" item="vo">
+	            <tr>
+		            <td>{$vo.id}</td>
+		            <td><a class="btn btn-default" href="">{$vo.name}</a></td>
+		            <td class="img"><empty name="vo.image"><img src="__PUBLIC__/images/default_face.jpg"/><else/><img src="{$vo.image}"</empty></td>
+		            <td>{$vo.sex}</td>
+		            <td>{$vo.phone}</td>
+		            <td>{$vo.email}</td>
+		            <td><a class="btn {$vo['status']==0?'btn-success':'btn-warning'}" href="{:U('User/doStatus')}?id={$vo.id}&who=font">{$vo['status']==0?'正常':'异常'}</a></td>
+					<td>					
+						
+						<a class="btn btn-danger" href="{:U('User/delete')}?id={$vo.id}&who=font">删除</a>  
+					
+					</td>
+	            </tr>
+	           </foreach>
+	        </table>
+		</div>
+		
+	
+        <div id="pager" style="margin-left:60px;">
+        {$page}
+        </div>
+	</body>
+</html>

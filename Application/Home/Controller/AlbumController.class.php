@@ -88,7 +88,7 @@ class AlbumController extends CommonController {
         $album = M('album');
         $result = $album->where("u_id=$this->userId")->select();
         // var_dump($result);
-        var_dump($result);
+        // var_dump($result);
         $this->assign('data',$result);
         $this->display();
     }

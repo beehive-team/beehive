@@ -223,3 +223,10 @@ frameset frame{
     font-size: 15px;
     font-weight: bold;
 }
+a.tab-btn {
+    color: #666;
+    margin-left: 30px;
+}
+td.img img{
+    width: 100px;
+}

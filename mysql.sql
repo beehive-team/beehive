@@ -144,7 +144,8 @@ create table bee_user(
     image varchar(255),						-- 头像名
     time varchar(13),						-- 注册时间
     sign varchar(255),
-    introduce varchar(255)					-- 一句话介绍
+    introduce varchar(255),					-- 一句话介绍
+    status tinyint default 0							-- 状态
 )engine=InnoDB default charset=utf8;
 
 -- 日记标签表
@@ -432,10 +433,11 @@ create table bee_message(
 create table bee_back_user(
 	id int unsigned not null auto_increment primary key,
 	name varchar(255),							-- 用户名
-	password varchar(32)						-- 密码
+	password varchar(32),						-- 密码
+	status tinyint default 0
 )engine=InnoDB default charset=utf8;
 
--- 后台权限表
+-- 后台角色表
 create table bee_power(
 	id int unsigned not null auto_increment primary key,
 	name varchar(255)							-- 权限名
@@ -444,7 +446,9 @@ create table bee_power(
 -- 类名表
 create table bee_back_action(
 	id int unsigned not null auto_increment primary key,
-	name varchar(255)							-- 类名
+	a_name varchar(255),						-- 函数名
+	c_name varchar(255)							-- 控制器名
+
 )engine=InnoDB default charset=utf8;
 
 -- 权限类名对应表

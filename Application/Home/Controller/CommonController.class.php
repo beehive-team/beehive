@@ -129,6 +129,7 @@ class CommonController extends Controller{
         }else{
             $method = 'youxiang';
         }
+        $data['status']=0;
         $data['key']=md5($data['key']);
         $data[$method]=$info;
         $model = D('User');

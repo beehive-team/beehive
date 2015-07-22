@@ -29,24 +29,32 @@ class CommonController extends Controller{
     
     public function dologin(){
         $data = $_POST;
-        //var_dump($data);
+        // var_dump($data);
     
+        // $data['name']='admin';
+        // $data['password']=md5(123456);
+
+        $data['password']=md5($data['password']);
         
-        $data['key']=md5($data['key']);
-        $data[$method]=$info;
-        $model = D('User');
-        $data = $model->create($data);
-        if($result = $model->where($data)->find()){
-            //var_dump($result);
-            
-            $_SESSION['home']['name']=$result['name'];
-            $_SESSION['home']['user_id']= $result['id'];
-            
-            $this->success('登录成功',U('Home/User/index'));
-            //var_dump($_SESSION);
+        $model = M('back_user');
+        // $model->add($data);
+        if($model->where($data)->find()){
+            $this->success('登录成功',U('index/view'));
         }else{
             $this->error('登录失败');
+           
         }
+        // if($result = $model->where($data)->find()){
+        //     //var_dump($result);
+            
+        //     $_SESSION['admin']['name']=$result['name'];
+        //     $_SESSION['admin']['user_id']= $result['id'];
+            
+        //     $this->success('登录成功',U('Home/User/index'));
+        //     //var_dump($_SESSION);
+        // }else{
+        //     $this->error('登录失败');
+        // }
 
         
     }

@@ -341,9 +341,9 @@ class UserController extends CommonController {
         $model->image = '/beehive/'.$cut_save;
         $image = new \Think\Image(); 
         $image->open($open);
-        $image->thumb(405, 405,\Think\Image::IMAGE_THUMB_FILLED)->save($small_save);
+        $image->thumb(100, 105,\Think\Image::IMAGE_THUMB_FILLED)->save($small_save);
         $image->open($small_save);
-        $image->crop(400, 400,\Think\Image::IMAGE_THUMB_CENTER)->save($cut_save);
+        $image->crop(100, 100,\Think\Image::IMAGE_THUMB_CENTER)->save($cut_save);
         
         if($model->where("id=$this->userId")->save($data)){
             echo 'true';

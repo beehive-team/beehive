@@ -15,7 +15,7 @@
 					<img id="r-g"src="__PUBLIC__/images/r-g.png">
 				</div>
 				<div class="form-box">
-					<form onsubmit="return sub(this)" action="index.php?c=user&a=login" method="post">
+					<form onsubmit="return sub(this)"  method="post" action="{:U('common/dologin')}">
 						<div class="input">
 							<div class="input-box">
 								<input type="text" class="name" name="name" placeholder="请输入用户名" />
@@ -58,13 +58,7 @@
 
 
 
-			function sub(obj){
-				var name = $('input.name').val();
-				var psd = $('input.psd').val();
-				$.post('dologin',{name:name,psd:psd},function(data){
-					
-				})	
-			}
+			
 
 		</script>
 	</body>

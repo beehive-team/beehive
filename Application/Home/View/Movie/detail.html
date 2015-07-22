@@ -116,13 +116,13 @@
 										<div class="rating_wrap">
 											<p class="rating_self clearfix" >
 											<span class="fl bigstar45"></span>
-											<strong class="fl rating_num" property="v:average">8.7</strong>
+											<strong class="fl rating_num" property="v:average">{$data.score}</strong>
 											<span content="10.0" property="v:best"></span>
 											</p>
 											<p style="height:18px;margin:5px 0;font-size:12px;">
 											 	(
 													<a href="collections">
-													<span property="v:votes">11032</span>
+													<span property="v:votes">{$data.count}</span>
 													人评价
 													</a>
 												)
@@ -149,7 +149,7 @@
 											<br>
 										</div>
 										<div class="rating_betterthan">
-											好于98%的剧情片
+											影片评分
 										</div>
 									</div>
 								</div>
@@ -266,10 +266,7 @@
 									
 								</div>
 							</div>
-							<!-- <div class="more-shot1">
-								>
-								<a href="">去这部影片的讨论区</a>
-							</div> -->
+							
 						</div>
 						
 						<div class="aside"> 
@@ -289,19 +286,17 @@
 								</div>
 							</div>
 							<div class="subject-doulist">
-								<h3>以下小蜜蜂推荐  ·  ·  ·  ·  ·  ·</h3>
+								<h3>以下小蜜蜂推荐影评  ·  ·  ·  ·  ·  ·</h3>
 								<ul>
-									<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
-									<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
-									<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
-									<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
-									<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
+									<foreach name="r1" item="vo">
+									<li><a href="__CONTROLLER__/commentDetail/id/{$vo.id}/mid/{$vo.m_id}">{$vo.content|subtext=16}</a></li>
+									</foreach>
 								</ul>
 							</div>
 							<div class="aside-interests">
 								<h3>谁在看这部电影  ·  ·  ·  ·  ·  ·</h3>
 								<ul>
-									<foreach name="r2" item="vo">
+									<foreach name="r3" item="vo">
 									<li>
 										<img style="float:left;" src="./small.jpg" alt="">
 										<div class="others-interest-info">
@@ -310,26 +305,13 @@
 										</div>
 									</li>
 									</foreach>
-									<!-- <li>
-										<img style="float:left;" src="./small.jpg" alt="">
-										<div class="others-interest-info">
-											<a href="">欢脱的喵喵</a>
-											<div class=""> 1分钟前 想看 </div>
-										</div>
-									</li>
-									<li>
-										<img style="float:left;" src="./small.jpg" alt="">
-										<div class="others-interest-info">
-											<a href="">欢脱的喵喵</a>
-											<div class=""> 1分钟前 想看 </div>
-										</div>
-									</li> -->
+									
 								</ul>
 
 								<div class="subject-others-interests-ft">
-									<a href="">11626人看过</a>
+									<a href="">{$r5}人看过</a>
 									 / 
-									<a href="">17662人想看</a>
+									<a href="">{$r4}人想看</a>
 								</div>
 
 							</div>
@@ -363,7 +345,7 @@
 									 	看过
 									</label>
 								</div>
-								<div class="interest-rating">
+								<!-- <div class="interest-rating">
 									<span class="j a_stars">
 										<span class="rate_stars">
 											给个评价吧?(可选):  
@@ -374,7 +356,7 @@
 								</div>
 								<div class="tags-switch">
 									<a id="showtags" href="javascript:void(0)" rel="高级(标签和短评) ▼">缩起 ▲</a>
-								</div>
+								</div> -->
 								<ul id="advtags" class="interest_form" style="display: inline-block;">
 									<li>标签(多个标签用空格分隔): </li>
 									<li>

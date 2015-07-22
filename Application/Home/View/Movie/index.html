@@ -95,7 +95,7 @@
 										<a href="__CONTROLLER__/detail/id/{$vo.m_id}">
 											<img src="__PUBLIC__/{$vo.i_path}180_{$vo.name}"/>
 											<p>{$vo.mname}</p>
-											<span class="allstar40"></span><i>3.7</i>
+											<span class="allstar40"></span><i>{$vo.score}</i>
 										</a>
 									</li>
 									</foreach>
@@ -199,16 +199,18 @@
 							</div>
 							<div class="bottom">
 								<ul>
+									<foreach name="r1" item="vo">
 									<li>
-										<div class="img-box f-left"><a href=""><img src="__PUBLIC__/images/movie6.jpg"/></a></div>
+										<div class="img-box f-left"><a href=""><img src="__PUBLIC__{$vo.i_path}148_{$vo.iname}" width="68px" /></a></div>
 										<div class="text-box f-left">
-											<h5><a href="">标题</a></h5>
-                                            <p><a href="">作者&nbsp;</a>评论&nbsp;<a href="">电影名</a><span class="allstar40"></span></p>
+											<h5><a href="">{$vo.title}</a></h5>
+                                            <p><a href="">作者 {$vo.name}&nbsp;</a>评论&nbsp;<a href="">{$vo.mname}</a><span class="allstar40"></span></p>
                                             <p class="detail"> 
-                                                fjdklsfjdlsflsdkjflkjdfslfjdl<a class="all"href="">(全文)</a>
+                                                {$vo.content|subtext=18}<a class="all"href="">(全文)</a>
                                             </p> 
 										</div>
 									</li>
+									</foreach>
 								</ul> </div>
 						</div>
 					</div>
@@ -227,17 +229,12 @@
 
                         <div class="list-box">
                         	<div class="title">
-                        		<h3>本周口碑榜</h3><a href="">更多榜单》</a>
+                        		<h3>电影口碑榜</h3><a href="">更多榜单》</a>
                         	</div>
                             <ul>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
+                            	<foreach name="r" item="vo">
+                                <li><a href=""> {$vo.name}</a></li>
+                               	</foreach>
                             </ul>
 
                         </div>

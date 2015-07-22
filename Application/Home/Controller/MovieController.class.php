@@ -8,9 +8,27 @@ class MovieController extends CommonController {
         //var_dump($list);
         $this->assign('list',$list);
 
-        $row = $m->table('bee_movie m,bee_mimage i')->field('m.name mname,i.*')->where('m.id=i.m_id and m.crelease_t>1411056000 and is_cover=1')->select();
+        $row = $m->table('bee_movie m,bee_mimage i')->field('m.name mname,m.score,i.*')->where('m.id=i.m_id and m.crelease_t>1411056000 and is_cover=1')->select();
         //var_dump($row);
         $this->assign('row',$row);
+
+        $m = M('movie');
+        $r = $m->field('id,name,score,orelease_t')->order('score desc')->limit(7)->select();
+        //var_dump($r);
+        $this->assign('r',$r);
+
+        //最受欢迎的影评
+        $m1=M('l_r');
+        $r1 = $m1->table('bee_l_r l,bee_movie m,bee_mimage i,bee_user u')
+                ->field('u.name,l.*,m.name mname,i.name iname,i.i_path')
+                // ->where('l.show=1 and u.id=l.u_id and m.id=l.m_id and m.id=i.m_id')
+                ->order('hot desc')
+                ->limit(3)
+                ->select();
+        //echo $m1->getLastSql();
+        //var_dump($r1);
+        $this->assign('r1',$r1);
+
         $this->display();
     }
     public function chose(){
@@ -71,6 +89,24 @@ class MovieController extends CommonController {
                 ->select();
         //echo $m3->getLastSql();
         //var_dump($r1);
+        $r6 = $m3->table('bee_user u,bee_l_r l')
+                ->field('u.name,l.*')
+                ->where('l.show=1 and u.id=l.u_id and l.m_id='.$id)
+                ->count();
+        //var_dump($r6);
+
+        //循环遍历 计算grade的值总和
+        foreach($r1 as $key=>$val){
+            //var_dump($val['grade']);
+             $sum += $val['grade'];
+        }
+        //var_dump($sum);
+        $data['score']=$sum/$r6;
+        $data['count']=$r6;      
+        $mov = M('movie');
+        $mov->where("id=$id")->field('score')->save($data);
+        //var_dump($data);
+        $this->assign('data',$data);
         $this->assign('r1',$r1);
 
         //查询短评
@@ -85,12 +121,28 @@ class MovieController extends CommonController {
 
         //查询想看的用户
         $m4 = M('s_r');
+        //统计没看过的人数目
+        $r4 = $m4->table('bee_user u,bee_s_r s')
+                 ->field('u.name,s.time')
+                 ->where('s.show=1 and statut=0 and u.id=s.u_id and s.m_id='.$id)
+                 ->count();
+        //var_dump($r4);
+        $this->assign('r4',$r4);
+        //统计看过的人数目
+        $r5 = $m4->table('bee_user u,bee_s_r s')
+                 ->field('u.name,s.time')
+                 ->where('s.show=1 and statut=1 and u.id=s.u_id and s.m_id='.$id)
+                 ->count();
+        //var_dump($r5);
+        $this->assign('r5',$r5);       
+        //查询想看的用户名字 时间
         $r3 = $m4->table('bee_user u,bee_s_r s')
                  ->field('u.name,s.time')
-                 ->where('s.show=1 and u.id=s.u_id and s.m_id='.$id)
-                 ->group('u_id')->limit(5)
-                 ->select();
-        var_dump($r3);
+                 ->where('s.show=1 and statut=0 and u.id=s.u_id and s.m_id='.$id)
+                 ->group('u_id')->limit(3)
+                 ->select();       
+        //var_dump($r3);
+        $this->assign('r3',$r3);
         $this->display();
     }
     //用户发表长评论

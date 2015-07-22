@@ -12,10 +12,13 @@
 		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
 		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script> 
 
+		<script type="text/javascript">
 		
+				
+		</script>
 		<!-- END 自定义 head -->
 	</head>
-	<body class="user-page user-tip-page">
+	<body class="user-page user-account-page">
 		<div id="wrap">
 			<!-- START header -->
 		    {:W('Common/allHeader')}
@@ -26,62 +29,41 @@
 			<div id="main">
 				<div class="inner clearfix">
 					<div class="con">
-						<div class="title">	
-							<h2>我的提醒</h2>
+						<h2>修改我的密码</h2>
+						<div class="form-box">
+							<form action="modifyKey" method="post">
+								<div class="input-box">
+									<p>原密码：</p>
+									<input name="old" type="password"/>
+								</div>
+								<div class="input-box">
+									<p>新密码：</p>
+									<input name="new" type="password"/>
+
+								</div>
+								<div class="input-box">
+									<p>请再输入一次：</p>
+									<input name="renew" type="password"/>
+
+								</div>
+								<div class="btn-box">
+									<input value="修改" type="submit"/>
+								</div>
+							</form>
 						</div>
-						<empty name="info">
-							<p>你现在没有新消息~</p>
-						<else/>
-							<notempty name="count">
-							
-								<div class="tip-box">
-
-									<p>新增<a href="{:U('myFollow')}">{$count}个人</a>关注了你</p>
-								</div>
-									
-							</notempty>
-							<notempty name="m_count">
-							
-								<div class="tip-box">
-
-									<p>你有<a href="{:U('message/index')}">{$m_count}条</a>未读私信</p>
-								</div>
-									
-							</notempty>
-							<foreach name="info" item="va" key="k">
-								
-								<switch name="va.action">
-									<case value="diary_replay">
-										<div class="tip-box">
-											
-											<p>你的日志<a href="{:U('Diary/diaryDetail')}?id={$va.info.id}&p_id={$userId}">{$va.info.title}</a>有了新回应</p>
-										</div>
-									</case>
-									<case value="album_replay">
-										<div class="tip-box">
-											<p>你的相册<a href="{:U('album/photoList')}?id={$va.info.id}&p_id={$userId}">{$va.info.name}</a>有了新回应</p>
-										</div>
-									</case>
-									
-								</switch>
-							</foreach>
-						</empty>
+						
 					</div>
 					
-				
 				</div>
 			</div>
 		</div>
 		<!-- START footer -->
 		    {:W('Common/commonFooter')}
 		<!-- END footer -->
-
 		<script type="text/javascript">
-		
-		
-
-	
+			
 		</script>
+
 
 	</body>
 </html>

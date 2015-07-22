@@ -82,6 +82,15 @@ class MovieController extends CommonController {
                  ->select();
         //var_dump($r2);
         $this->assign('r2',$r2);
+
+        //查询想看的用户
+        $m4 = M('s_r');
+        $r3 = $m4->table('bee_user u,bee_s_r s')
+                 ->field('u.name,s.time')
+                 ->where('s.show=1 and u.id=s.u_id and s.m_id='.$id)
+                 ->group('u_id')->limit(5)
+                 ->select();
+        var_dump($r3);
         $this->display();
     }
     //用户发表长评论
@@ -196,7 +205,7 @@ class MovieController extends CommonController {
         $this->display();
     }
 
-    public function dosortComment(){
+    public function doshortComment(){
         $id=$_POST['m_id'];
         $_POST['u_id']=$_SESSION['home']['user_id'];
         $_POST['time']=time();
@@ -245,6 +254,25 @@ class MovieController extends CommonController {
         $this->assign('list1',$list1[0]);
 
         $this->display();
+    }
+    //点击有用 ajax改变短评表hot字段
+    public function sCommentUseful(){
+        $id = $_POST['s_id'];
+        //echo $id;
+        $m = M('s_r');
+        $m->where("id=$id")->setInc('hot','1');
+        $list = $m->where("id=$id")->find();
+        //var_dump($list);
+        echo json_encode($list);
+    }
+    public function lCommentUseful(){
+        $id = $_POST['l_id'];
+        $m = M('l_r');
+        $m->where("id=$id")->setInc('hot','1');
+        $list1 = $m->where("id=$id")->find();
+        //var_dump($list1);
+        echo json_encode($list1);
+        
     }
 
     public function getCata(){

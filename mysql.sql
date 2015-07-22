@@ -427,3 +427,42 @@ create table bee_message(
 	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,	
 	foreign key (m_id) references bee_conversation(id) on update cascade on delete CASCADE	
 )engine=InnoDB default charset=utf8;
+
+-- 后台用户表
+create table bee_back_user(
+	id int unsigned not null auto_increment primary key,
+	name varchar(255),							-- 用户名
+	password varchar(32)						-- 密码
+)engine=InnoDB default charset=utf8;
+
+-- 后台权限表
+create table bee_power(
+	id int unsigned not null auto_increment primary key,
+	name varchar(255)							-- 权限名
+)engine=InnoDB default charset=utf8;
+
+-- 类名表
+create table bee_back_action(
+	id int unsigned not null auto_increment primary key,
+	name varchar(255)							-- 类名
+)engine=InnoDB default charset=utf8;
+
+-- 权限类名对应表
+create table bee_ac_po(
+	id int unsigned not null auto_increment primary key,
+	a_id int unsigned not null,
+	p_id int unsigned not null,
+	foreign key (a_id) references bee_back_action(id) on update cascade on delete CASCADE,	
+	foreign key (p_id) references bee_power(id) on update cascade on delete CASCADE	
+
+)engine=InnoDB default charset=utf8;
+
+-- 用户权限表
+create table bee_u_p(
+	id int unsigned not null auto_increment primary key,
+	u_id int unsigned not null,
+	p_id int unsigned not null,
+	foreign key (u_id) references bee_back_user(id) on update cascade on delete CASCADE,	
+	foreign key (p_id) references bee_power(id) on update cascade on delete CASCADE	
+
+)engine=InnoDB default charset=utf8;

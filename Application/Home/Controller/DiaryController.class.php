@@ -138,7 +138,9 @@ class DiaryController extends CommonController {
         $model = M('dtag');
         $id_arr = array();
         for($i = 0;$i<count($tags);$i++){
-            
+            if($tags[$i]==' '){
+                continue;
+            }
             $arr['name'] = $tags[$i];
             if(!$id = $model->where($arr)->getField('id')){
                 $insert_id = $model->add($arr);
@@ -302,12 +304,18 @@ class DiaryController extends CommonController {
             $this->assign('replay',$replay);
         }
 
+        $tip = M('tip');
+        $tip_info['action']='diary_replay';
+        $tip_info['p_id']=$this->userId;
+        $tip->where($tip_info)->setField('status',1);
 
+        // echo $tip->getLastsql();
 
         $u_id = $data['u_id'];
         $model = D('user');
         $user = $model->field('image,name')->where("id=$u_id")->find();
         $data['user'] = $user;
+
         // var_dump($data);
 
         $this->assign('diary',$data);
@@ -339,7 +347,9 @@ class DiaryController extends CommonController {
         $model = M('dtag');
         $id_arr = array();
         for($i = 0;$i<count($tags);$i++){
-            
+            if($tags[$i]==' '){
+                continue;
+            }
             $arr['name'] = $tags[$i];
             if(!$id = $model->where($arr)->getField('id')){
                 $insert_id = $model->add($arr);

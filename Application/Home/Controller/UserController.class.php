@@ -33,12 +33,17 @@ class UserController extends CommonController {
         $time = $this->time;
         $yesterday=strtotime('yesterday');
 
-        $diary_list = $diary->field('d.id,u.name,title,content,d.time,image,u_id')->table('bee_diary d,bee_user u')->where("d.time<$time AND d.time>$yesterday and d.u_id=u.id and browse<1")->order('hot desc')->group('d.id')->limit($start,$length)->select();
+        $friend = M('friend');
+
+        $friend_sql = $friend->field('id')->where("u_id=$this->userId")->buildSql();
+
+
+        $diary_list = $diary->field('d.id,u.name,title,content,d.time,image,u_id')->table('bee_diary d,bee_user u')->where("d.time<$time AND d.time>$yesterday and d.u_id=u.id and browse<1 and u.id in $friend_sql")->order('hot desc')->group('d.id')->limit($start,$length)->select();
     	// echo $diary->getLastsql();
         // var_dump($diary_list);
         $album = M('album');
 
-        $album_list = $album->field('a.id,u.name as u_name,a.name,des,u_id,a.time,hot,image')->table('bee_album a,bee_user u')->where("a.time<$time AND a.time>$yesterday and a.u_id=u.id and browse<1")->order('hot desc')->group('a.id')->limit($start,$length)->select();
+        $album_list = $album->field('a.id,u.name as u_name,a.name,des,u_id,a.time,image')->table('bee_album a,bee_user u')->where("a.time<$time AND a.time>$yesterday and a.u_id=u.id and browse<1")->order('hot desc')->group('a.id')->limit($start,$length)->select();
         // var_dump($album_list);
         // echo $album->getLastsql();
 
@@ -422,13 +427,15 @@ class UserController extends CommonController {
                     $data['id'] = $result[$key]['do_id'];
                     $album = M('album');
                     $album_info = $album->where($data)->find();
+                    // echo $album->getLastsql();
                     $result[$key]['info'] = $album_info;
+
                     break;
                 case 'diary_replay':
                     $data['id'] = $result[$key]['do_id'];
                     $diary = M('diary');
                     $diary_info = $diary->where($data)->find();
-                    // echo $diary->getLastsql();
+                    echo $diary->getLastsql();
                     $result[$key]['info']=$diary_info;
                     break;
                 case 'follow':
@@ -448,7 +455,7 @@ class UserController extends CommonController {
         $this->assign('p_id',$this->userId);
         $this->assign('count',$f_count);
         $this->assign('m_count',$m_count);
-        
+        $this->assign('userId',$this->userId);
         
         $this->display();
     }
@@ -464,8 +471,9 @@ class UserController extends CommonController {
         $data['p_id']=$this->userId;
         $tip->where($data)->setField('status',1);
         $this->assign('follow_result',$follow_result);
+        
 
-        $this->display();
+        $this->display();   
     }
 
     public function followWho(){
@@ -508,5 +516,157 @@ class UserController extends CommonController {
         $this->assign('like_list',$like_list);
         $this->display();
 
+    }
+
+
+     // 显示浏览发现
+
+    public function find(){
+
+
+        $start= 0;
+        if(!empty($_POST['limit'])){
+            $start += $_POST['limit']/2;
+
+        }
+        $length = 1;
+
+        $diary = M('diary');
+        $time = $this->time;
+        $yesterday=strtotime('yesterday');
+
+        $diary_list = $diary->field('d.id,u.name,title,content,d.time,image,u_id')->table('bee_diary d,bee_user u')->where("d.time<$time AND d.time>$yesterday and d.u_id=u.id and browse<1")->order('hot desc')->group('d.id')->limit($start,$length)->select();
+        // echo $diary->getLastsql();
+        // var_dump($diary_list);
+        $album = M('album');
+
+        $album_list = $album->field('a.id,u.name as u_name,a.name,des,u_id,a.time,hot,image')->table('bee_album a,bee_user u')->where("a.time<$time AND a.time>$yesterday and a.u_id=u.id and browse<1")->order('hot desc')->group('a.id')->limit($start,$length)->select();
+        // var_dump($album_list);
+        // echo $album->getLastsql();
+
+        foreach($diary_list as $key=>$value){
+            $diary_list[$key]['action'] = 'diary';
+            $dtag = M('d_t');
+            $d_id = $diary_list[$key]['id'];
+            $tag_list = $dtag->field('name')->table('bee_d_t dt,bee_dtag t')->where("d_id=$d_id AND t.id=dt.t_id")->select();
+            if(empty($tag_list)){
+                $tag_list=null;
+            }
+            $diary_list[$key]['tag'] =$tag_list;
+
+            $diary_list[$key]['content']=strip_tags($diary_list[$key]['content']);
+            // var_dump($tag_list);
+            
+            if($this->ifLike($diary_list[$key]['id'],'diary',$this->userId,$diary_list[$key]['u_id'])){
+                $diary_list[$key]['like']=1;
+            }else{
+                $diary_list[$key]['like']=0;
+
+            }
+        }
+        // var_dump($diary_list);
+        // var_dump($album_list);
+        foreach($album_list as $key=>$value){
+            $atag = M('a_t');
+            $a_id =$album_list[$key]['id'];
+            $tag_list = $atag->field('name')->table('bee_a_t at,bee_atag t')->where("a_id=$a_id AND t.id=at.t_id")->select();
+            if(empty($tag_list)){
+                $tag_list=null;
+            }
+            $album_list[$key]['tag']=$tag_list;
+            
+            $photo = M('photo');
+            $p_list = $photo->where("a_id=$a_id")->order('is_cover desc')->select();
+            $p_list = array_slice($p_list,0,4);
+            // var_dump($p_list);
+            $album_list[$key]['photo']=$p_list;
+            // var_dump($tag_list);
+            $album_list[$key]['action'] = 'album';
+            if($this->ifLike($album_list[$key]['id'],'album',$this->userId,$album_list[$key]['u_id'])){
+                $album_list[$key]['like']=1;
+            }else{
+                $album_list[$key]['like']=0;
+
+            }
+
+        }
+        // var_dump($album_list);
+        for($i=0;$i<count($album_list);$i++){
+        
+            array_push($diary_list,$album_list[$i]);
+            
+        }
+        // var_dump($diary_list);
+        $hot_list = $diary_list;    
+
+        //冒泡排序
+        for ($i=0; $i <count($hot_list) ; $i++) { 
+            for($j=$i+1;$j<count($hot_list);$j++){
+                if ($hot_list[$i]['hot'] < $hot_list[$j]['hot']) {
+                    $temp = $hot_list[$i];
+                    $hot_list[$i] = $hot_list[$j];
+                    $hot_list[$j] = $temp;
+                }
+            }
+        }
+        // var_dump($hot_list);
+        if(!empty($_POST['limit'])){
+            if(!empty($hot_list)){
+                $this->ajaxReturn($hot_list);
+            }else{
+                $this->ajaxReturn();
+
+            }
+            
+        }
+        // var_dump($hot_list);
+        
+        $this->assign('u_id',$this->userId);
+        $this->assign('hot',$hot_list);
+        $this->display();
+    }
+
+    public function account(){
+        $user = M('user');
+        $user_result = $user->field('id,name,phone,email,sex,image,introduce')->where("id=$this->userId")->find();
+        // var_dump($user_result); 
+        $this->assign('user_info',$user_result);
+
+        $this->display();
+    }
+
+    public function userModify(){
+        // var_dump($_POST);
+        $data=$_POST;
+        $user = M('user');
+        if($user->where("id=$this->userId")->save($data)){
+            $this->success('修改成功');
+
+        }else{
+            $this->error('修改失败');
+
+        }
+
+    }
+    public function key(){
+
+       
+        $this->display();
+    }
+    public function modifyKey(){
+        var_dump($_POST);
+        $data['password']= md5($_POST['old']);
+        $data['id']=$this->userId;
+        $user = M('user');
+        $result = $user->where($data)->find();
+        if(!$result){
+            $this->error('输入的密码错误');
+        }elseif($_POST['new']!=$_POST['renew']){
+            $this->error('两次密码输入不一致');
+        }else{
+            $user->where($data)->setField('password',md5($_POST['new']));
+            $this->success('修改成功');
+
+        }
     }
 }

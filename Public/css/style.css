@@ -2899,6 +2899,64 @@ a.follow.active:hover,a.has-follow.active:hover{
     line-height: 26px;
     padding-bottom: 10px;
 }
+.user-account-page h2{
+	color: #9A633C;
+	font-size: 18px;
+	line-height: 30px;
+}
+.user-account-page p{
+	color: #9A633C;
+	line-height: 30px;
+
+}
+.user-account-page p a{
+	color: #9A633C;
+	padding-left: 10px;
+}
+.user-account-page .face-box {
+	overflow: hidden;
+}
+.user-account-page .small-image {
+	width: 50px;
+	float: left;
+	margin-right: 10px;
+	height: 50px;
+}
+.user-account-page .small-image img{
+	width: 50px;
+	height: 50px;
+}
+.user-account-page .big-image {
+	width: 100px;
+	float: left;
+	height: 100px;
+}
+.user-account-page .big-image img{
+	width: 100px;
+	height: 100px;
+}
+.user-account-page .face-box form {
+	float: left;
+	margin-left: 10px;
+}
+.user-account-page .face-box .image-upload {
+	float: left;
+}
+.user-account-page textarea{
+	margin-bottom: 20px;
+	width: 300px;
+	height: 100px;
+	resize:none;
+}
+.user-account-page .btn-box input{
+	width: 80px;
+	text-align: center;
+	height: 30px;
+	border:1px solid #9A633C;
+	border-radius: 3px;
+	background-color: #9A633C;
+	color: #fff;
+}
 a.share{
 	display: block;
 	width: 63px;

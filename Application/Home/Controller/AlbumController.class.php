@@ -156,8 +156,8 @@ class AlbumController extends CommonController {
                 $model = M('atag');
                 $id_arr = array();
                 for($i = 0;$i<count($tags);$i++){
-                    if($tag[$i]=' '){
-                        break;
+                    if($tag[$i]==' '){
+                        continue;
                     }
                     $arr['name'] = $tags[$i];
                     if(!$id = $model->where($arr)->getField('id')){
@@ -304,7 +304,7 @@ class AlbumController extends CommonController {
         $a_id = $_GET['id'];
         $album = D('AlbumView');
         $result =$album->field('album_name,des,power,u_id,a_time,hot,browse')->where("album.id=$a_id")->find();
-        // var_dump($result);
+        // var_dump($result); 
         $photo = M('photo');
         // var_dump($result);
         $p_n = $photo->where("a_id=$a_id")->count();
@@ -382,10 +382,10 @@ class AlbumController extends CommonController {
                     foreach ($replay_info as $k => $v) {
                         // echo $value;
                         $m = M('d_replay');
-                        $result=$model->field('u_id,r_id,a_id,image,name,r.time,content,r.id')->table('bee_user u,bee_a_replay r')->where("u.id=r.u_id and r.id=$v")->find();
+                        $re=$model->field('u_id,r_id,a_id,image,name,r.time,content,r.id')->table('bee_user u,bee_a_replay r')->where("u.id=r.u_id and r.id=$v")->find();
                        
                         // var_dump($result);
-                        $replay[$key]['parent'][] = $result ;
+                        $replay[$key]['parent'][] = $re ;
                     }
                     
                 }
@@ -396,8 +396,13 @@ class AlbumController extends CommonController {
         }
 
 
+        $tip = M('tip');
+        $data['action']='album_replay';
+        $data['p_id']=$this->userId;
+        $tip->where($data)->setField('status',1);
 
 
+        // var_dump($tags);
         $this->assign('like',$like);
         $this->assign('power',$power);
         $this->assign('tags',$tags);
@@ -492,9 +497,13 @@ class AlbumController extends CommonController {
         $tags = explode(' ',$tags);
         $model = M('atag');
         $id_arr = array();
+
+        // var_dump($tags);
+
         for($i = 0;$i<count($tags);$i++){
-            if($tag[$i]=' '){
-                break;
+            if($tag[$i]==' '){
+
+                continue;
             }
             $arr['name'] = $tags[$i];
             if(!$id = $model->where($arr)->getField('id')){
@@ -509,7 +518,7 @@ class AlbumController extends CommonController {
             }
         }
         // var_dump($id_arr);
-
+        // exit;
         $dtarr = array();
         $model= M('a_t');
         $model->where("a_id=$albumid")->delete();
@@ -541,7 +550,7 @@ class AlbumController extends CommonController {
         $p_id = $result['u_id'];
         $model = M('a_replay');
         if($insert_id = $model->add($data)){
-            $this->addTip($p_id,$this->userId,'album_replay',$insert_id,$this->time);
+            $this->addTip($p_id,$this->userId,'album_replay',$a_id,$this->time);
             $this->success('回复成功');
         }
 

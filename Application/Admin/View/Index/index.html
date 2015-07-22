@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/login.css">
+		<script type="text/javascript" src="__PUBLIC__/js/script.js"></script>
+		<script src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+		<title>Index</title>
+	</head>
+	
+	<body>	
+		<div class="content">
+			<div class="inner">
+				<div class="img-box">
+					<img id="flower"src="__PUBLIC__/images/flower.png">
+					<img id="l-g"src="__PUBLIC__/images/l-g.png">
+					<img id="r-g"src="__PUBLIC__/images/r-g.png">
+				</div>
+				<div class="form-box">
+					<form onsubmit="return sub(this)" action="index.php?c=user&a=login" method="post">
+						<div class="input">
+							<div class="input-box">
+								<input type="text" class="name" name="name" placeholder="请输入用户名" />
+							</div>
+							<div class="input-box">
+								<input type="password" class="pwd"name="pwd" placeholder="请输入密码"/>
+							</div>
+							<p class="tip"></p>
+						</div>
+						<div class="button-box">
+							
+							<input type="submit" value="登录">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var nameInput = document.forms[0].elements[0];
+			var psw = document.forms[0].elements[1];
+			var img_f = document.getElementById('flower');
+			var img_l_g = document.getElementById('l-g');
+			var img_r_g = document.getElementById('r-g');
+
+			//动画效果
+			psw.onfocus = function(){
+				var psw_value = this.value;
+				
+				img_f.setAttribute('class','move');
+				img_l_g.setAttribute('class','move');
+				img_r_g.setAttribute('class','move');
+
+			}
+
+			psw.onblur = function (){
+				img_f.removeAttribute('class','move');
+				img_l_g.removeAttribute('class','move');
+				img_r_g.removeAttribute('class','move');
+			}
+
+
+
+			function sub(obj){
+				var name = $('input.name').val();
+				var psd = $('input.psd').val();
+				$.post('dologin',{name:name,psd:psd},function(data){
+					
+				})	
+			}
+
+		</script>
+	</body>
+</html>

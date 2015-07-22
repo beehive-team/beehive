@@ -141,14 +141,14 @@ h1{
 	text-align: center;
 }
 .a_stars{
-	width: 105px;
+	/*width: 105px;*/
 	height: 19px;
 	float: left;
 }
 .gtleft{
 	width: 590px;
 	height: 21px;
-	padding-top:5px;
+	padding-top:20px;
 }
 .gtleft ul li{
 	float: left;
@@ -255,6 +255,14 @@ h1{
 .comment-user a{
 	color:#37a;
 	display: block;
+}
+.comment-user a.active{
+    color: #666;
+    background-color: #f5f5f5;
+}
+.review-short-ft a.active{
+    color: #666;
+    background-color: #f5f5f5;
 }
 .comment-user a:hover{
 	background-color:#37a;
@@ -516,7 +524,10 @@ h1{
     width: 514px;
     height: 376px;
     background-color:#FFFFFF;
-    margin:5px auto;
+    margin:5px auto;  
+}
+#pop-1{
+    display: none;  
 }
 .interest-form-hd {
     background: #ebf5ea none repeat scroll 0 0;

@@ -14,6 +14,39 @@
 		$('a.saytwo').fancybox({
             
         })
+        $('a.wsc').fancybox({
+            
+        })
+        var s_id;
+        var l_id;
+        $('.userful').click(function(){
+        	if(!$(this).hasClass('active')){
+        		s_id = $(this).attr('rel');
+	        	//alert(s_id);
+	        	var that = $(this);
+	        	$.post('__CONTROLLER__/sCommentUseful',{s_id:s_id},function(data){
+	        		//alert(data['hot']);
+	        		$(that).parents('.comment-item').find('.userful-num ').html(data[
+	        			'hot']);      		
+	        	},'json');
+	        	$(that).addClass('active');
+        	}
+        	
+        })
+
+        $('.l_userful').click(function(){
+        	if(!$(this).hasClass('active')){
+        		l_id = $(this).attr('rel');
+        		//alert(l_id);
+        		var that =$(this);
+        		$.post('__CONTROLLER__/lCommentUseful',{l_id:l_id},function(data){
+	        		//alert(data['hot']);
+	        		$(that).parents('.review-short-ft').find('.l_userful-num ').html(data[
+	        			'hot']);      		
+	        	},'json');
+	        	$(that).addClass('active');
+        	}
+        })
 	})
 </script>
 <body>	
@@ -121,33 +154,30 @@
 									</div>
 								</div>
 								<div class="clearfix"></div>
-								<div class="interst_sect_level">
-									<a class="colbutton" href=""><span>想看</span></a>
-									<a class="colbutton" href=""><span>看过</span></a>
-									<div class="a_stars">
-										评价:
+									<div class="like-box">
+										<a class="like {$diary['like']==1?'active':''}"  rel="diary_{$diary.diaryid}_  00" href="javascript:;"><span></span>喜欢</a>
 									</div>
-								</div>
+									<br>
 								<div class="gtleft">
 									<ul>
 										<li>
 											<img src="__PUBLIC__/images/short-comment.gif" alt="">
-											<a href="">写短评</a>
+											<a class="wsc" href="#pop-1">写短评</a>
 										</li>
 										<li>
 											<img src="__PUBLIC__/images/add-review.gif" alt="">
-											<a href="">写影评</a>
+											<a href="__CONTROLLER__/longComment/id/{$list.id}">写影评</a>
 										</li>
-										<li>
+										<!-- <li>
 											<img src="__PUBLIC__/images/add-doulist.gif" alt="">
 											<a href="">提问题</a>
-										</li>
+										</li> -->
 										<li>
-											<img src="__PUBLIC__/images/short-comment.gif" alt="">
+											<img src="__PUBLIC__/images/add-doulist.gif" alt="">
 											<a href="">分享到</a>
 										</li>
 									</ul>
-									<a class="recomand" href="">推荐</a>
+									<!-- <a class="recomand" href="">推荐</a> -->
 								</div>
 							</div>
 							<div class="related-info">
@@ -175,19 +205,15 @@
 								</div>
 								<div class="mod-bd">
 									<div class="tab-hd">
-										<a href="">热门</a>
-										/
-										<a href="">最新</a>
-										/
-										<a href="">我关注的</a>
+										精彩短评
 									</div>
 									<div class="tab-bd">
 										<foreach name="r2" item="v">
 										<div class="comment-item">
 											<div class="comment-user">									
 												<a class="username" href="">{$v.name}</a>	
-												<a class="userful" href="">有用</a>
-												<span class="userful-num">30</span>						
+												<a rel="{$v.id}" class="userful" href="javascript:;">有用</a>
+												<span class="userful-num">{$v.hot}</span>						
 											</div>
 											<div class="clearfix"></div>
 											<div class="comment-content">
@@ -226,9 +252,9 @@
 											<p>{$vo.content|subtext=273}
 											</p>										
 											<div class="review-short-ft">
-												<span>129/133</span>
-												 有用
-												<a href="">73回复</a>
+												<span class="l_userful-num">{$vo.hot}</span>
+												 <a rel="{$vo.id}" class="l_userful" href="javascript:;">有用</a>
+												<a href="__CONTROLLER__/commentDetail/id/{$vo.id}/mid/{$vo.m_id}">回复</a>
 											</div>
 										</div>
 									</div>
@@ -240,10 +266,10 @@
 									
 								</div>
 							</div>
-							<div class="more-shot1">
+							<!-- <div class="more-shot1">
 								>
 								<a href="">去这部影片的讨论区</a>
-							</div>
+							</div> -->
 						</div>
 						
 						<div class="aside"> 
@@ -275,7 +301,16 @@
 							<div class="aside-interests">
 								<h3>谁在看这部电影  ·  ·  ·  ·  ·  ·</h3>
 								<ul>
+									<foreach name="r2" item="vo">
 									<li>
+										<img style="float:left;" src="./small.jpg" alt="">
+										<div class="others-interest-info">
+											<a href="">{$vo.name}</a>
+											<div class=""> {$vo.time|date="Y-m-d",###} 想看 </div>
+										</div>
+									</li>
+									</foreach>
+									<!-- <li>
 										<img style="float:left;" src="./small.jpg" alt="">
 										<div class="others-interest-info">
 											<a href="">欢脱的喵喵</a>
@@ -288,14 +323,7 @@
 											<a href="">欢脱的喵喵</a>
 											<div class=""> 1分钟前 想看 </div>
 										</div>
-									</li>
-									<li>
-										<img style="float:left;" src="./small.jpg" alt="">
-										<div class="others-interest-info">
-											<a href="">欢脱的喵喵</a>
-											<div class=""> 1分钟前 想看 </div>
-										</div>
-									</li>
+									</li> -->
 								</ul>
 
 								<div class="subject-others-interests-ft">
@@ -317,7 +345,7 @@
 					
 					<div id="pop-1">
 						<div class="indentpop1">
-							<form class="j a_interest_form movie-sns" method="POST" action="__CONTROLLER__/dosortComment">
+							<form class="j a_interest_form movie-sns" method="POST" action="__CONTROLLER__/doshortComment">
 								<input type="hidden" name="m_id" value="{$list.id}">
 								<div class="interest-form-hd">
 									<span class="gact fr">

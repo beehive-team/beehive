@@ -1,0 +1,229 @@
+/*css reset*/
+html,body,p{ padding: 0; margin: 0; font-family: "微软雅黑",Arial,"宋体",sans-serif;font-size: 12px;} 
+ol, ul {list-style: none; padding: 0; margin: 0;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none; }
+table {border-collapse: collapse; border-spacing: 0;}
+th,td { vertical-align: middle;}
+a{text-decoration:none;	outline: none;hlbr:expression(this.onFocus=this.blur());}
+input, select {vertical-align: middle;}
+img, iframe {border: none; text-decoration:none;} 
+strong {font-weight: bold;}
+h1,h2,h3,h4,h5,h6{padding: 0; margin: 0; font-family: "微软雅黑",Arial,"宋体",sans-serif;}
+:focus {outline: 0;}
+/*css common*/
+.f-left {float: left;}
+.f-right {float: right;}
+.clearfix:after{content: "";display: block;clear: both;visibility: hidden;line-height: 0;height: 0;font-size:0;}
+.clearfix{*zoom:1;}
+.nodisplay{display: none;}
+html, body, #wrap {height: 100%;min-width: 1024px;}
+body > #wrap {height: auto; min-height: 100%;}
+#main {padding-bottom: 65px;}  /* 必须使用和footer相同的高度 */
+#footer {position: relative;margin-top: -65px; /* footer高度的负值 */clear:both;}
+.inner {width: 900px;margin: 0 auto;}
+
+#header{
+	padding-top: 70px;
+	background-color: #99cccc;
+	height: 30px;
+}
+#header a{
+	color: #fff;
+}
+#header li a{
+	padding-right: 10px;
+}
+
+#header .info{
+	float: right;
+}
+#header .info p{
+	color: #fff;
+	float: left;
+	padding-right: 30px;
+}
+#header .info a.underline{
+
+	text-decoration: underline;
+}
+#header .a-box a{
+	padding-right: 20px;
+}
+#nav{
+	width: 140px;
+	background-color: #00868b;
+	position: fixed;
+	top: 80px;
+	left: 20px;
+}
+#nav .item{
+	display: none;
+}
+#nav a{
+	display: block;
+	color: #fff;
+	height: 40px;
+	line-height: 40px;
+	padding-left: 20px;
+}
+#nav a:hover{
+	background-color: #00cdcd;
+}
+#nav a.active{
+	background-color: #00cdcd;
+}
+.content{
+	background-color: #99cccc;
+	width: 100%;
+	height: 100%;
+}
+.content h2{
+	color: #fff;
+}
+.form-box{
+	margin:0 auto;
+	width:26%;
+	left: 50%;
+	margin-left: -13%;
+	padding-top: 20px;
+	top:223px;
+	position: absolute;
+	background-color: #fff;
+	border:1px solid #ddd;
+
+}
+.form-box .input{
+	padding-bottom: 20px;
+	border-bottom:1px solid #ddd;
+}
+.form-box .input-box{
+	padding: 5px 30px;
+
+}
+.form-box .input-box label{
+	color:#ff6347;
+	padding-left: 7px;
+	font-size: 10px;
+	visibility: hidden;
+}
+.form-box .input-box input{
+	border: 2px solid #ddd;
+	width: 200px;
+	height: 26px;
+	padding-left: 24px;
+	border-radius: 3px;
+}
+.form-box .input-box input.name{
+	background: url(../images/username.png) no-repeat 4px 5px;
+}
+.form-box .input-box input.pwd{
+	background: url(../images/password.png) no-repeat 4px 5px;
+}
+.form-box .button-box{
+	padding-top: 20px;
+	overflow: hidden;
+}
+.form-box .button-box a{
+	display: block;
+	color:#666;
+	float: left;
+	margin-left: 40px;
+}
+.form-box .button-box input{
+	background-color:#99cccc;
+	color: #fff;
+	width: 40px;
+	font-size: 12px;
+	float: right;
+	margin-right: 20px;
+	text-align: center;
+	border:1px solid #ddd;
+	border-radius: 3px;
+}
+.form-box img{
+	width: 50px;
+}
+.img-box{
+	position: relative;
+	height: 100%;
+}
+.img-box img{
+	width: 100px;
+	position: absolute;
+	left:50%;
+	
+	
+}
+.img-box #flower{
+	top:100px;
+	margin-left: -50px;
+	transition: top 1s;
+	-moz-transition: top 1s;	/* Firefox 4 */
+	-webkit-transition: top 1s;	/* Safari 和 Chrome */
+	-o-transition: top 1s;	/* Opera */
+	
+}
+.img-box #flower.move{
+	top:140px;
+}
+.img-box #l-g,.img-box #r-g{
+	width: 70px;
+	top:194px;
+	transition: 1s;
+	-moz-transition:1s;	/* Firefox 4 */
+	-webkit-transition:1s;	/* Safari 和 Chrome */
+	-o-transition: 1s;	/* Opera */
+
+}
+.img-box #l-g{
+	margin-left: -70px;
+	
+	
+}
+.img-box #l-g.move{
+	margin-left: -39px;
+	transform:rotate(106deg);
+	-ms-transform:rotate(106deg); /* Internet Explorer */
+	-moz-transform:rotate(106deg); /* Firefox */
+	-webkit-transform:rotate(106deg); /* Safari 和 Chrome */
+	-o-transform:rotate(106deg); /* Opera */
+}
+.img-box #r-g.move{
+	margin-left: -39px;
+	transform:rotate(-106deg);
+	-ms-transform:rotate(-96deg); /* Internet Explorer */
+	-moz-transform:rotate(-96deg); /* Firefox */
+	-webkit-transform:rotate(-96deg); /* Safari 和 Chrome */
+	-o-transform:rotate(-96deg); /* Opera */
+}
+#img-slider{
+	width: 1000px;
+}
+#img-slider li{
+	display: inline-block;
+	position: relative;
+}
+#img-slider li img{
+	width: 200px;
+	height: 150px;
+}
+.imgs{
+	width: 300px;
+	height: 150px;
+	overflow: hidden;
+}
+
+.info-box{
+	position: absolute;
+	display: none;
+	width: 100px;
+	background-color: #fff;
+}
+
+.tip{
+	color: #f40;
+	padding-left: 30px;
+	line-height: 20px;
+	position: absolute;	
+}

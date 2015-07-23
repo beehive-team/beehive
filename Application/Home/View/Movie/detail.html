@@ -115,7 +115,7 @@
 									<div class="interest_sect1">
 										<div class="rating_wrap">
 											<p class="rating_self clearfix" >
-											<span class="fl bigstar45"></span>
+											<span class="fl bigstar{$data.star}"></span>
 											<strong class="fl rating_num" property="v:average">{$data.score}</strong>
 											<span content="10.0" property="v:best"></span>
 											</p>
@@ -155,7 +155,7 @@
 								</div>
 								<div class="clearfix"></div>
 									<div class="like-box">
-										<a class="like {$diary['like']==1?'active':''}"  rel="diary_{$diary.diaryid}_  00" href="javascript:;"><span></span>喜欢</a>
+										<a class="like {$like==1?'active':''}"  rel="movie_{$list.id}_{$u_id}" href="javascript:;"><span></span>喜欢</a>
 									</div>
 									<br>
 								<div class="gtleft">

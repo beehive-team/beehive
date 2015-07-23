@@ -343,18 +343,7 @@ create table bee_trend(
 )engine=InnoDB default charset=utf8;
 
 
--- 电影短评表
-create table bee_s_r(
-	id int unsigned not null auto_increment primary key,
-	content varchar(255) not null,					-- 评论内容
-	hot int default 0,								-- 热度
-	u_id int,										-- 用户id
-	time varchar(13),								-- 时间表
-	m_id int,	
-	title varchar(255),
-	statut tinyint default 0,						-- 想看 0没看过 2看过 1 想看
-	grade int  										-- 得分				
-)engine=InnoDB default charset=utf8;
+
 
 -- 电影短评表
 create table bee_s_r(
@@ -392,6 +381,18 @@ create table bee_a_replay(
 	u_id int unsigned,
 	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
 	foreign key (a_id) references bee_album(id) on update cascade on delete CASCADE
+)engine=InnoDB default charset=utf8;
+
+-- 日记回应表
+create table bee_d_replay(
+	id int unsigned not null auto_increment primary key,
+	content text not null,
+	time varchar(13),
+	d_id int unsigned,
+	r_id int unsigned default 0,
+	u_id int unsigned,
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+	foreign key (a_id) references bee_diary(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 -- 提醒表
@@ -443,20 +444,14 @@ create table bee_power(
 	name varchar(255)							-- 权限名
 )engine=InnoDB default charset=utf8;
 
--- 类名表
-create table bee_back_action(
-	id int unsigned not null auto_increment primary key,
-	a_name varchar(255),						-- 函数名
-	c_name varchar(255)							-- 控制器名
 
-)engine=InnoDB default charset=utf8;
 
 -- 权限类名对应表
 create table bee_ac_po(
 	id int unsigned not null auto_increment primary key,
-	a_id int unsigned not null,
-	p_id int unsigned not null,
-	foreign key (a_id) references bee_back_action(id) on update cascade on delete CASCADE,	
+	a_name varchar(255),
+	c_name varchar(255),
+	p_id int unsigned not null,	
 	foreign key (p_id) references bee_power(id) on update cascade on delete CASCADE	
 
 )engine=InnoDB default charset=utf8;
@@ -469,4 +464,41 @@ create table bee_u_p(
 	foreign key (u_id) references bee_back_user(id) on update cascade on delete CASCADE,	
 	foreign key (p_id) references bee_power(id) on update cascade on delete CASCADE	
 
+)engine=InnoDB default charset=utf8;
+
+-- 图书回应表
+create table bee_b_replay(
+	id int unsigned not null auto_increment primary key,
+	content text not null,
+	time varchar(13),
+	b_id int unsigned,
+	r_id int unsigned default 0,
+	u_id int unsigned,
+	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+	foreign key (b_id) references bee_book(id) on update cascade on delete CASCADE
+)engine=InnoDB default charset=utf8;
+
+-- 图书短评表
+create table bee_s_b(
+	id int unsigned not null auto_increment primary key,
+	content varchar(255) not null,					-- 评论内容
+	hot int default 0,								-- 热度
+	u_id int,										-- 用户id
+	time varchar(13),								-- 时间表
+	b_id int,	
+	statut tinyint default 0,						-- 想看 0 看过  1 
+  	`show` tinyint default 0                          -- 显示字段  不显示0   显示1											
+)engine=InnoDB default charset=utf8;
+
+-- 电影长评表
+create table bee_l_b(
+	id int unsigned not null auto_increment primary key,
+	content text not null,							-- 评论内容
+	hot int default 0,								-- 热度
+	u_id int,										-- 用户id
+	time varchar(13),								-- 时间表
+	b_id int,	
+	title varchar(255),	
+	grade int,										-- 得分	
+    `show` tinyint default 0                          -- 显示字段  不显示0   显示1	
 )engine=InnoDB default charset=utf8;

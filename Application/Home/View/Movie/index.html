@@ -14,7 +14,7 @@
 				c_id='hot';
 				$.post('__CONTROLLER__/getCata',{c_id:'hot',num:i},function(data){
 					for(var tmp in data){
-						$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
+						$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i></i></p></a></li>');
 						}
 				},'json')
 
@@ -42,7 +42,7 @@
 						//alert(data[0]['mname']);
 						$('#dys').empty();
 						for(var tmp in data){
-							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</ i></p></a></li>');
+							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i></ i></p></a></li>');
 						}
 					},'json')
 				})
@@ -53,7 +53,7 @@
 					$.post('__CONTROLLER__/getCata',{c_id:c_id,num:i},function(data){
 						$('#dys').empty();
 						for(var tmp in data){
-							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i>7.8</i></p></a></li>');
+							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['mname']+'<i></i></p></a></li>');
 						}
 											
 					},'json')
@@ -85,8 +85,8 @@
 						<div class="section sec-1">
 							<div class="top">
 								<h3>正在热映</h3>
-								<a href="">全部正在热映》</a>
-								<a href="">即将上映》</a>
+								<a href="javascript:;">全部正在热映》</a>
+								<a href="javascript:;">即将上映》</a>
 							</div>
 							<div class="bottom">
 								<ul class="slider">
@@ -148,65 +148,40 @@
 							</div>
 							<div class="big-slider">
 								<ul class="big-slider">
+									<foreach name="arr" item="vo">
 									<li>
 										<a href="">
-											<div class="img-box f-left"><img src="__PUBLIC__/images/movie4.jpg"/></div>
+											<div class="img-box f-left"><img src="__PUBLIC__{$vo.i_path}{$vo.name}" height="240px"/></div>
 											<div class="text-box f-left">
 												<h4>2015年口碑电影</h4>
-												<p>来自<span>heheda</span></p>
-												<p>sss</p>
+												<p>{$vo.mname}</p>
+												<p>来自<span>{$vo.uname}</span></p>
+												<p>{$vo.content|subtext=88}</p>
 											</div>
 										</a>
 									</li>
-									<li>
-										<a href="">
-											<div class="img-box f-left"><img src="__PUBLIC__/images/movie4.jpg"/></div>
-											<div class="text-box f-left">
-												<h4>2015年口碑电影</h4>
-												<p>来自<span>heheda</span></p>
-												<p>sss</p>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<div class="img-box f-left"><img src="__PUBLIC__/images/movie4.jpg"/></div>
-											<div class="text-box f-left">
-												<h4>2015年口碑电影</h4>
-												<p>来自<span>heheda</span></p>
-												<p>sss</p>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<div class="img-box f-left"><img src="__PUBLIC__/images/movie4.jpg"/></div>
-											<div class="text-box f-left">
-												<h4>2015年口碑电影</h4>
-												<p>来自<span>heheda</span></p>
-												<p>sss</p>
-											</div>
-										</a>
-									</li>
+									</foreach>
+									
 								</ul>
 							</div>
 						</div>
 						<div class="section sec-4">
 							<div class="top">
 								<h3>最受欢迎的影评</h3>
-								<a href="">更多热门影评》</a>
+								<a href="__CONTROLLER__/alllongComment">更多热门影评》</a>
 								<a href="">新片影评》</a>
 							</div>
 							<div class="bottom">
 								<ul>
-									<foreach name="r1" item="vo">
+									<foreach name="arr" item="vo">
 									<li>
-										<div class="img-box f-left"><a href=""><img src="__PUBLIC__{$vo.i_path}148_{$vo.iname}" width="68px" /></a></div>
+										<div class="img-box f-left"><a href=""><img src="__PUBLIC__{$vo.i_path}148_{$vo.name}" width="68px" /></a></div>
 										<div class="text-box f-left">
 											<h5><a href="">{$vo.title}</a></h5>
-                                            <p><a href="">作者 {$vo.name}&nbsp;</a>评论&nbsp;<a href="">{$vo.mname}</a><span class="allstar40"></span></p>
+                                            <p><a href="">作者 {$vo.uname}&nbsp;</a> 
+                                            <a href="">去评论&nbsp;{$vo.mname}</a></p>
                                             <p class="detail"> 
-                                                {$vo.content|subtext=18}<a class="all"href="">(全文)</a>
+                                                {$vo.content|subtext=28}<a class="all" href="__CONTROLLER__/commentDetail/id/{$vo.lid}/mid/{$vo.m_id}">(全文)</a>
                                             </p> 
 										</div>
 									</li>
@@ -221,15 +196,15 @@
 						<div class="hot">
                             <h3>热门推荐</h3>
                             <ul>
-                                <li><a href="">2015年上xxbannian</a></li>                          
-                                <li><a href="">2015年上xxbannian</a></li>                          
-                                <li><a href="">2015年上xxbannian</a></li>                          
+                            	<foreach name="r2" item="vo" key="k">
+                                <li><a href="__CONTROLLER__/detail/id/{$vo.id}">{$vo.name} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$vo.orelease_t|date="Y-m-d",###}</a></li>                                                  
+                            	</foreach>
                             </ul> 
                         </div>
 
                         <div class="list-box">
                         	<div class="title">
-                        		<h3>电影口碑榜</h3><a href="">更多榜单》</a>
+                        		<h3>电影口碑榜</h3><!-- <a href="">更多榜单》</a> -->
                         	</div>
                             <ul>
                             	<foreach name="r" item="vo">

@@ -5,9 +5,28 @@
 		<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
 		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap.min.css">
 		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/fancybox/jquery.fancybox.css" />
+
+		<script type="text/javascript" src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+
+		<script type="text/javascript" src="__PUBLIC__/js/fancybox/jquery.fancybox.js"></script>
+
+
+
 		<title>显示用户</title>
 	</head>
 	<body>
+		<script type="text/javascript">
+			$('a.setting').fancybox({
+            
+           	})
+			$(function(){
+				$('a.setting').click(function(){
+					var id = $(this).attr('rel');
+					$('.id_name').val(id);
+				})
+			})
+		</script>
 		<div class="hvc">
 			<p>后台管理>用户管理>后台用户管理</p>
 		</div>
@@ -40,7 +59,7 @@
 	            <tr>
 		            <td>{$vo.id}</td>
 		            <td><a class="btn btn-default" href="">{$vo.name}</a></td>
-		            <td><a class="btn btn-info"href=""/>设置</a></td>
+		            <td><a class="btn btn-info setting " rel="{$vo.id}" href="#pop-1"/>设置</a></td>
 		            <td><a class="btn {$vo['status']==0?'btn-success':'btn-warning'}"href="{:U('User/doStatus')}?id={$vo.id}&who=back">{$vo['status']==0?'正常':'异常'}</a></td>
 		            
 					<td>					
@@ -52,7 +71,16 @@
 	           </foreach>
 	        </table>
 		</div>
-	
+		<div id="pop-1" class="nodisplay">
+			<form action="doPower" method="post">
+				<input class="id_name"type="hidden" name="u_id">
+				<foreach name="power" item="va" key="k">
+					<label for="power"><input type="radio" name="p_id" value="{$va.id}"/>{$va.name}</label>
+
+				</foreach>
+				<input type="submit" value="确认"/>
+			</form>
+		</div>
         <div id="pager" style="margin-left:60px;">
         {$page}
         </div>

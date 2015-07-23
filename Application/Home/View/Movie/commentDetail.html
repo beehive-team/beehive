@@ -38,9 +38,9 @@
 									<div class="main-ft">
 										<div class="main-panel">
 											<div class="main-panel-useful">
-												<div class="like-box">
-													<a class="like {$diary['like']==1?'active':''}"  rel="diary_{$diary.diaryid}_  00" href="javascript:;"><span></span>喜欢</a>
-												</div>
+												<!-- <div class="like-box">
+													<a class="like {$diary['like']==1?'active':''}"  rel="l_r_{$list.id}_{$u_id}" href="javascript:;"><span></span>喜欢</a>
+												</div> -->
 											</div>
 										</div>
 										<div id="comments" class="">
@@ -88,9 +88,12 @@
 											
 											<h3> 你的回应  · · · · · · </h3>
 											<div id="add_comment" class="comment-form txd">
-												<form action="add_comment" method="post" name="comment_form">
+												<form action="__CONTROLLER__/addcomment" method="post" name="comment_form">
+													<input type="hidden" name="r_id" value="{$list.id}">
+													<input type="hidden" name="u_id" value="{$list.u_id}">
+													<input type="hidden" name="m_id" value="{$list.m_id}">
 													<div class="item">
-														<textarea cols="64" rows="4" name="rv_comment"></textarea>
+														<textarea cols="64" rows="4" name="content"></textarea>
 														<br>
 													</div>
 													<div class="item">

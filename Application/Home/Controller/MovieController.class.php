@@ -11,21 +11,31 @@ class MovieController extends CommonController {
         $row = $m->table('bee_movie m,bee_mimage i')->field('m.name mname,m.score,i.*')->where('m.id=i.m_id and m.crelease_t>1411056000 and is_cover=1')->select();
         //var_dump($row);
         $this->assign('row',$row);
-
+        //根据评分查询
         $m = M('movie');
         $r = $m->field('id,name,score,orelease_t')->order('score desc')->limit(7)->select();
         //var_dump($r);
         $this->assign('r',$r);
-
+        //热度电影查询
+        $m = M('movie');
+        $r2 = $m->field('id,name,orelease_t')->order('hot desc')->limit(3)->select();
+        //var_dump($r2);
+        $this->assign('r2',$r2);
         //最受欢迎的影评
         $m1=M('l_r');
-        $r1 = $m1->table('bee_l_r l,bee_movie m,bee_mimage i,bee_user u')
-                ->field('u.name,l.*,m.name mname,i.name iname,i.i_path')
-                // ->where('l.show=1 and u.id=l.u_id and m.id=l.m_id and m.id=i.m_id')
-                ->order('hot desc')
-                ->limit(3)
-                ->select();
+        $r1 = $m1->table('bee_l_r')->order('hot desc')->limit(3)->select();
         //echo $m1->getLastSql();
+        $arr = array();
+        foreach ($r1 as $key => $value) {
+            $r_id =$r1[$key]['id'];
+            $m = M('l_r');
+            $arr[] = $res = $m->table('bee_mimage i,bee_user u,bee_l_r l,bee_movie m')
+                ->field('i.*,u.name uname,m.name mname,l.content,l.title,l.id lid,l.u_id')
+                ->where('l.m_id=m.id and l.u_id=u.id and is_cover=1 and l.m_id=i.m_id and l.id='.$r_id)
+                ->find();
+        }
+        //var_dump($arr);
+        $this->assign('arr',$arr);
         //var_dump($r1);
         $this->assign('r1',$r1);
 
@@ -35,6 +45,11 @@ class MovieController extends CommonController {
     	$this->display();
     }
     public function ranking(){
+        //电影热度查询
+        $m= M('movie');
+        $lis = $m->table('bee_movie m,bee_mimage i')->field('m.alias,m.score,m.director,m.writer,m.name mname,m.orelease_t,i.*')->where('m.id=i.m_id and i.is_cover=1')->order('hot desc')->limit($i)->select();
+        var_dump($lis);
+        $this->assign('lis',$lis);
     	$this->display();
     }
     public function comment(){
@@ -55,6 +70,7 @@ class MovieController extends CommonController {
         for($i = 0; $i<count($list); $i++){
             
             $tmp[] = $list[$i]['fname'];
+
         }
         $list[0]['fname'] = $tmp;
         //转换时间个格式
@@ -77,6 +93,17 @@ class MovieController extends CommonController {
         $r = $m2->table('bee_movie m,bee_mclassify f ')->field('f.name')->where('f.id=m.country and m.id='.$id)->find();
         $m2->getLastSql();
         //var_dump($r);
+        // echo $this->userId;
+
+        if($this->ifLike($id,'movie',$this->userId,$this->userId)){
+            $like = 1;
+
+        }else{
+            $like=0;
+        }
+        // echo $like;
+        $this->assign('u_id',$this->userId);
+        $this->assign('like',$like);
         $this->assign('r',$r);
 
         //查询长评
@@ -101,8 +128,30 @@ class MovieController extends CommonController {
              $sum += $val['grade'];
         }
         //var_dump($sum);
-        $data['score']=$sum/$r6;
-        $data['count']=$r6;      
+        $data['score']=floor($sum/$r6*10)/10;
+        //根据分数对应相应的打分 $star控制css的类
+        if($data['score']>=1 && $data['score']<=1.5){
+            $star = '15';
+        }elseif($data['score']>1.5 && $data['score']<=2.0){
+            $star = '20';
+        }elseif($data['score']>2.0 && $data['score']<=2.5){
+            $star = '25';
+        }elseif($data['score']>2.5 && $data['score']<=3.0){
+            $star = '30';
+        }elseif($data['score']>3.0 && $data['score']<=3.5){
+            $star = '35';
+        }elseif($data['score']>3.5 && $data['score']<=4.0){
+            $star = '40';
+        }elseif($data['score']>4.0 && $data['score']<=4.5){
+            $star = '45';
+        }elseif($data['score']>4.5 && $data['score']<=5.0){
+            $star = '50';
+        }
+        $data['star']=$star;
+        //var_dump($star);
+        $data['count']=$r6; 
+        //echo ceil($r6);
+        //var_dump($data);     
         $mov = M('movie');
         $mov->where("id=$id")->field('score')->save($data);
         //var_dump($data);
@@ -194,7 +243,7 @@ class MovieController extends CommonController {
                  ->field('u.name,l.*')
                  ->where('l.show=1 and u.id=l.u_id and l.id='.$id)
                  ->find();
-        //var_dump($list);
+        var_dump($list);
         $this->assign('list',$list);
 
         $mid = $_GET['mid'];
@@ -218,6 +267,7 @@ class MovieController extends CommonController {
         //echo count($list1[0]['fname']);
         //var_dump($list1[0]);
         $this->assign('list1',$list1[0]);
+        $this->assign('u_id',$this->userId);
 
         $this->display();
     }
@@ -355,4 +405,17 @@ class MovieController extends CommonController {
         }    
         echo json_encode($lis);
     }
+    /*public function addcomment(){
+       
+        $_POST['time']=time();
+        var_dump($_POST['time']=time());
+        var_dump($_POST);
+
+        $m = M('m_replay');
+       if($m->add($_POST)){
+            $this->success('评论成功');
+       }else{
+            $this->error('评论失败');
+       }
+    }*/
 }

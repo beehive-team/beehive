@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap-theme.min.css">
+		<script type="text/javascript" src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function(){
+				$('select.controller').change(function(){
+					var c = $(this).val();
+					$.post('getAction',{controller:c},function(data){
+						$('.action').html('');
+						for(var o in data){
+							var action = '<option value="'+data[o]+'">'+data[o]+'</option>';
+
+							$('.action').append(action);
+						}
+					})
+				})
+
+				$('a.toRight').click(function(){
+					var c = $('.controller option:selected').text();
+					var a = $('.action option:selected').text();
+					var insert = '<option value="'+c+','+a+'">'+c+','+a+' </option>';
+
+					$('.result').append(insert);
+				})
+
+				$('a.toLeft').click(function(){
+					$('.result option:selected').remove(); 
+					
+
+					
+				})
+
+					
+			})
+			
+
+			function sub(obj){
+				var actor = $('.actor').val();
+				var count = $('.result option').length;
+				
+				var str = $('.result option:selected').text();
+				$('input.re').val(str);
+				return true;
+
+			}
+
+			
+		</script>
+		<div class="power">
+			<div class="hvc">
+				<p>后台管理>用户管理>权限管理</p>
+			</div>
+			<form onsubmit="return sub(this)" method="post" action="doAddActor"class="form-horizontal" style="margin-top:20px;margin-left:120px;" role="form">
+				<div class="top">
+				  	<div class="form-group f-left ac">
+				    	<label for="actor" class="col-sm-2 control-label">角色名</label>
+				    	<div class="col-sm-10">
+				      		<input name="actor"type="text" style="width:35%;" class="form-control actor">
+				      		<input name="re" class="re" type="hidden"/>
+				    	</div>
+				  	</div>
+				  	<div class="form-group f-left">
+					    <div class="col-sm-offset-2 col-sm-10">
+					      	<button type="submit" class="btn btn-default">确认</button>
+					    </div>
+				  	</div>
+				 </div>
+		  		<div class="select-box">
+			  		<div class="form-group">
+				    	<label for="controller" class="col-sm-2 control-label">控制器名</label>
+				    	<div class="col-sm-10">
+				      		<select multiple="multiple" size="20"class="controller">
+				      			<foreach name="controller" item="va" key="k">
+				      				<option value="{$va}">{$va}</option>
+				      			</foreach>
+				      		</select>
+				    	</div>
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="action" class="col-sm-2 control-label">方法名</label>
+				    	<div class="col-sm-10">
+				      		<select class="action" multiple="multiple" size="20">
+				      			<option></option>
+				      		</select>
+				    	</div>
+				  	</div>
+				  	<div class="btn-box">
+				  		<a href="javascript:;" class="btn btn-info toRight">>></a>
+				  	
+				  		<a href="javascript:;" class="btn btn-info toLeft"><<</a>
+				  	</div>
+				  	<div class="form-group">
+				  		<label for="result" class="col-sm-2 control-label">方法名</label>
+				    	<div class="col-sm-10">
+				      		<select CLASS="result"  multiple="multiple" size="20">
+				      			<option></option>
+				      		</select>
+				    	</div>
+				  	</div>
+				  	
+
+				  </div>
+		  	
+
+			</form>
+			
+		</div>
+		
+	</body>
+
+</html>

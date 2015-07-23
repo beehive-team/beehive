@@ -44,22 +44,23 @@
 					<div class="f-left con">
 
 
-
 						<div class="section sec-4">
 							<div class="top">
-								<h2>豆瓣电影排行榜</h2>
-								<h3>豆瓣新片榜 · · · · · · </h3>
+								<h2>蜂巢电影排行榜</h2>
+								<h3>蜂巢热门榜 · · · · · · </h3>
 							</div>
 							<div class="bottom">
 								<ul>
+									<foreach name="lis" item="vo">
 									<li>
-										<div class="img-box f-left"><a href=""><img src="__PUBLIC__/images/movie6.jpg"/></a></div>
-										<div class="text-box f-left">
-											<h5><a href="">电影名</a></h5>
-                                            <p>2015-05-15(美国) / 2015-05-14(澳大利亚) / 汤姆·哈迪 / 查理兹·塞隆 / 尼古拉斯·霍尔特 / 休·基斯-拜恩 / 乔什·赫尔曼 / 内森·琼斯 / 佐伊·克罗维兹 / 罗茜·汉丁顿-惠特莉 / 丽莉·克亚芙 / 阿比·丽 / 考特尼·伊顿 / 安格斯·桑普森 / 理查德·卡特...</p>
-                                            <p><span class="allstar40"></span> <i>4.7</i>(5968人评价)</p>
+										<div class="img-box f-left"><a href=""><img src="__PUBLIC__{$vo.i_path}{$vo.name}" width="65px" /></a></div>
+										<div class="text-box f-left ">
+											<h5><a href="">电影名 {$vo.alias}</a></h5>
+                                            <p>{$vo.orelease_t|date="Y-m-d",###}/{$vo.director}/{$vo.writer} ...</p>
+                                            <p><span >电影评论得分</span> <i>{$vo.score}</i>(5968人评价)</p>
                                          </div>
 									</li>
+									</foreach>
 								</ul> </div>
 						</div>
 					</div>
@@ -97,7 +98,7 @@
                         </div>
                         <div class="top250">
                         	<div class="title">
-                        		<h3>豆瓣电影TOP250</h3>
+                        		<h3>蜂巢电影TOP250</h3>
                         		<a href="">全部</a>
                         	</div>
                             <ul>

@@ -10,7 +10,7 @@
 		<script type="text/javascript">
 			$(function(){
 				var c_id
-				var i=4;
+				var i=8;
 				c_id='hot';
 				$.post('__CONTROLLER__/getCata',{c_id:'hot',num:i},function(data){
 					for(var tmp in data){
@@ -36,7 +36,7 @@
 				//var i=2;
 				//var c_id
 				$('.tab a').click(function(){
-					i=4;
+					i=8;
 					c_id = $(this).attr('rel');
 					$.post('__CONTROLLER__/getCata',{c_id:c_id,num:i},function(data){
 						//alert(data[0]['mname']);
@@ -186,7 +186,8 @@
 										</div>
 									</li>
 									</foreach>
-								</ul> </div>
+								</ul> 
+							</div>
 						</div>
 					</div>
 					<div class="f-left sider">
@@ -207,8 +208,8 @@
                         		<h3>电影口碑榜</h3><!-- <a href="">更多榜单》</a> -->
                         	</div>
                             <ul>
-                            	<foreach name="r" item="vo">
-                                <li><a href=""> {$vo.name}</a></li>
+                            	<foreach name="r" item="vo" key="k">
+                                <li>{$k+1}<a href=""> {$vo.name}</a></li>
                                	</foreach>
                             </ul>
 

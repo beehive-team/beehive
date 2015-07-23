@@ -42,17 +42,49 @@ class MovieController extends CommonController {
         $this->display();
     }
     public function chose(){
+         //实例化分类表
+        $m = M('mclassify');
+        $list=$m->where("path='0,1,'")->select();
+        //var_dump($list);
+        $this->assign('list',$list);
+
+        $m = M('movie');
+        $r = $m->field('id,name,score,orelease_t')->order('score desc')->limit(7)->select();
+        //var_dump($r);
+        $this->assign('r',$r);
+
     	$this->display();
     }
     public function ranking(){
         //电影热度查询
         $m= M('movie');
-        $lis = $m->table('bee_movie m,bee_mimage i')->field('m.alias,m.score,m.director,m.writer,m.name mname,m.orelease_t,i.*')->where('m.id=i.m_id and i.is_cover=1')->order('hot desc')->limit($i)->select();
-        var_dump($lis);
+        $lis = $m->table('bee_movie m,bee_mimage i')->field('m.alias,m.score,m.director,m.writer,m.name mname,m.orelease_t,i.*')->where('m.id=i.m_id and i.is_cover=1')->order('hot desc')->limit(5)->select();
+        //var_dump($lis);
         $this->assign('lis',$lis);
+
+        //根据评分查询
+        $m = M('movie');
+        $r = $m->field('id,name,score,orelease_t')->order('score desc')->limit(7)->select();
+        //var_dump($r);
+        $this->assign('r',$r);
     	$this->display();
     }
     public function comment(){
+        //最受欢迎的影评
+        $m1=M('l_r');
+        $r1 = $m1->table('bee_l_r')->order('hot desc')->limit(5)->select();
+        //echo $m1->getLastSql();
+        $arr = array();
+        foreach ($r1 as $key => $value) {
+            $r_id =$r1[$key]['id'];
+            $m = M('l_r');
+            $arr[] = $res = $m->table('bee_mimage i,bee_user u,bee_l_r l,bee_movie m')
+                ->field('i.*,u.name uname,m.name mname,l.content,l.title,l.id lid,l.u_id')
+                ->where('l.m_id=m.id and l.u_id=u.id and is_cover=1 and l.m_id=i.m_id and l.id='.$r_id)
+                ->find();
+        }
+        //var_dump($arr);
+        $this->assign('arr',$arr);
     	$this->display();
     }
     public function detail(){        
@@ -95,7 +127,7 @@ class MovieController extends CommonController {
         //var_dump($r);
         // echo $this->userId;
 
-        if($this->ifLike($id,'movie',$this->userId,$this->userId)){
+        if($this->if($id,'movie',$this->userId,$this->userId)){
             $like = 1;
 
         }else{
@@ -403,6 +435,37 @@ class MovieController extends CommonController {
             }
             
         }    
+        echo json_encode($lis);
+    }
+    public function moreComment(){
+        //接收参数 每次查的条数
+        $i=$_POST['num'];
+        //查询评论
+        $m1=M('l_r');
+        $r1 = $m1->table('bee_l_r')->order('hot desc')->limit($i)->select();
+        //echo $m1->getLastSql();
+        $arr = array();
+        foreach ($r1 as $key => $value) {
+            $r_id =$r1[$key]['id'];
+            $m = M('l_r');
+            $res = $m->table('bee_mimage i,bee_user u,bee_l_r l,bee_movie m')
+                ->field('i.*,u.name uname,m.name mname,l.content,l.title,l.id lid,l.u_id')
+                ->where('l.m_id=m.id and l.u_id=u.id and is_cover=1 and l.m_id=i.m_id and l.id='.$r_id)
+                ->find();
+            $res['content']= mb_substr($res['content'], 0,56);
+            //var_dump($res);
+            $arr[] = $res;
+
+        }
+        //var_dump($arr);
+        echo json_encode($arr);
+    }
+
+    public function moreRanking(){
+        $i=$_POST['num'];
+        $m= M('movie');
+        $lis = $m->table('bee_movie m,bee_mimage i')->field('m.alias,m.score,m.director,m.writer,m.name mname,m.orelease_t,i.*')->where('m.id=i.m_id and i.is_cover=1')->order('hot desc')->limit($i)->select();
+        //var_dump($lis);
         echo json_encode($lis);
     }
     /*public function addcomment(){

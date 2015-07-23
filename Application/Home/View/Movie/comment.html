@@ -7,7 +7,37 @@
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
 		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
-
+		<script type="text/javascript">
+			$(function(){
+				var i=5;
+				$('.ajax-button a').click(function(){
+					i=i+5;
+					alert(i);					
+						$.post('__CONTROLLER__/moreComment',{num:i},function(data){
+							//alert(data);
+							$('#dys').empty();
+							for(var tmp in data){
+								$('#dys').append('<li><div class="img-box f-left"><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src="__PUBLIC__'+data[tmp]['i_path']+data[tmp]['name']+'" width="68px" /></a></div><div class="text-box f-left"><h5><a href="__CONTROLLER__/commentDetail/id/'+data[tmp]['lid']+'/mid/'+data[tmp]['m_id']+'">'+data[tmp]['title']+'</a></h5><p><a href="">作者'+data[tmp]['uname']+'&nbsp;</a><a href="__CONTROLLER__/longComment/id/'+data[tmp]['m_id']+'">去评论&nbsp;'+data[tmp]['mname']+'</a></p><p class="detail">'+data[tmp]['content']+'<a class="all" href="__CONTROLLER__/commentDetail/id/'+data[tmp]['lid']+'/mid/'+data[tmp]['m_id']+'">(全文)</a></p></div></li>');
+							}
+												
+						},'json')
+				})
+			})
+		</script>
+		
+		<style type="text/css">
+			.ajax-button a {
+			    background-color: #f7f7f7;
+			    color: #a11715;
+			    display: block;
+			    font-size: 14px;
+			    height: 40px;
+			    text-align: center;
+			    width: 582px;
+			    line-height: 40px;
+			    margin-bottom: 5px;
+			}
+		</style>
 		<!-- END 自定义 head -->
 	</head>
 	<body class="movie-page movie-comment-page">
@@ -29,18 +59,25 @@
 								<a href="">新片影评》</a>
 							</div>
 							<div class="bottom">
-								<ul>
+								<ul id="dys">
+									<foreach name="arr" item="vo">
 									<li>
-										<div class="img-box f-left"><a href=""><img src="__PUBLIC__/images/movie6.jpg"/></a></div>
+										<div class="img-box f-left"><a href="__CONTROLLER__/detail/id/{$vo.m_id}"><img src="__PUBLIC__{$vo.i_path}148_{$vo.name}" width="68px" /></a></div>
 										<div class="text-box f-left">
-											<h5><a href="">标题</a><a class="icon"href="javascript:;">下拉</a></h5>
-                                            <p><a href="">作者&nbsp;</a>评论&nbsp;<a href="">电影名</a><span class="allstar40"></span></p>
+											<h5><a href="__CONTROLLER__/commentDetail/id/{$vo.lid}/mid/{$vo.m_id}">{$vo.title}</a></h5>
+                                            <p><a href="">作者 {$vo.uname}&nbsp;</a> 
+                                            <a href="__CONTROLLER__/longComment/id/{$vo.m_id}">去评论&nbsp;{$vo.mname}</a></p>
                                             <p class="detail"> 
-                                                fjdklsfjdlsflsdkjflkjdfslfjdl<a class="all"href="">(35个回应)</a>
+                                                {$vo.content|subtext=28}<a class="all" href="__CONTROLLER__/commentDetail/id/{$vo.lid}/mid/{$vo.m_id}">(全文)</a>
                                             </p> 
 										</div>
 									</li>
-								</ul> </div>
+									</foreach>
+								</ul>
+								<div class="ajax-button">
+									<a href="javascript:;">加载更多</a>
+								</div> 
+							</div>
 						</div>
 					</div>
 					<div class="f-left sider">

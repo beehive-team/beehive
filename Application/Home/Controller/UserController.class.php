@@ -571,8 +571,10 @@ class UserController extends CommonController {
 
             }
         }
-        var_dump($diary_list);
-        $this->assign('diary_list',$diary_list);
+        // var_dump($diary_list);
+        $diary_info = array_slice($diary_list,0,3);
+        // var_dump($diary_info);
+        $this->assign('diary_info',$diary_info);
         // var_dump($album_list);
         foreach($album_list as $key=>$value){
             $atag = M('a_t');

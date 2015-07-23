@@ -314,9 +314,9 @@
 															</empty>
 														</div>
 														<div class="diary info">
-															<p><a href="{:U('People/index')}?p_id={$vo.info.u_id}">{$vo.name}</a>的日记: </p>
+															<p><a href="{:U('People/index')}?p_id={$vo.u_id}">{$vo.name}</a>的日记: </p>
 															<div class="detail">
-																<a class="title" href="{:U('diary/diaryDetail')}?id={$vo.info.id}&p_id={$vo.info.u_id}">
+																<a class="title" href="{:U('diary/diaryDetail')}?id={$vo.id}&p_id={$vo.u_id}">
 																	{$vo.title}
 																</a>
 																<p>{$vo.content} </p>
@@ -387,9 +387,10 @@
 						<div class="hot">
 							<h2>蜂巢酿蜜</h2>
 							<ul>
-								<li><a href="">行走的力量行走的力量行走的力量</a></li>
-								<li><a href="">行走的力量行走的力量行走的力量</a></li>
-								<li><a href="">行走的力量行走的力量行走的力量</a></li>
+								<foreach name="diary_info" item="vo" key="k">
+									<li><a href="{:U('diary/diaryDetail')}?id={$vo.id}&p_id={$u_id}">{$vo.title}</a></li>
+									
+								</foreach>
 							</ul>
 						</div>
 						<div class="ad">

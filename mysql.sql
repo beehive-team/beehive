@@ -474,6 +474,7 @@ create table bee_b_replay(
 	b_id int unsigned,
 	r_id int unsigned default 0,
 	u_id int unsigned,
+	rc_id int unsigned,
 	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
 	foreign key (b_id) references bee_book(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;

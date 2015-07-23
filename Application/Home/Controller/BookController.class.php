@@ -64,8 +64,8 @@ class BookController extends CommonController {
 
         //查询长评
 
-        $b3=M('l_r');
-        $r1 = $b3->table('bee_user u,bee_l_r l')
+        $b3=M('l_b');
+        $r1 = $b3->table('bee_user u,bee_l_b l')
                 ->field('u.name,l.*')
                 ->where('l.show=1 and u.id=l.u_id and l.b_id='.$id)
                 ->limit(5)
@@ -75,13 +75,13 @@ class BookController extends CommonController {
         $this->assign('r1',$r1);
 
         //查询短评
-        $b3 = M('s_r');
-        $r2 = $b3->table('bee_user u,bee_s_r s')
+        $b3 = M('s_b');
+        $r2 = $b3->table('bee_user u,bee_s_b s')
                  ->field('u.name,s.*')
                  ->where('s.show=1 and u.id=s.u_id and s.b_id='.$id)
                  ->limit(5)
                  ->select();
-        // var_dump($r2);
+        //var_dump($r2);
         $this->assign('r2',$r2);
         $this->display();
 
@@ -98,7 +98,7 @@ class BookController extends CommonController {
                 ->field('b.*,i.name iname,i.b_id ibid,i.i_path,i.is_cover,f.id fid,f.name fname,c.b_id cbid,c.c_id')
                 ->where('b.id=i.b_id and i.is_cover=1 and b.id=c.b_id and c.c_id=f.id and b.id='.$id)
                 ->select();
-                //var_dump($list);exit;
+                //var_dump($list);
         $tmp = [];
         //将其他数组的fname写入第一个数组
         for($i = 0; $i<count($list); $i++){
@@ -122,7 +122,7 @@ class BookController extends CommonController {
         $_POST['time']=time();
         // var_dump($_POST);exit;
 
-        $b = M('l_r');
+        $b = M('l_b');
         if($b->add($_POST)){
             $this->success('评论成功',U('book/books',"id=$id"));
         }else{
@@ -132,7 +132,7 @@ class BookController extends CommonController {
 
     public function lCommentUseful(){
         $id = $_POST['l_id'];
-        $b = M('l_r');
+        $b = M('l_b');
         $b->where("id=$id")->setInc('hot','1');
         $list1 = $b->where("id=$id")->find();
         //var_dump($list1);
@@ -143,7 +143,7 @@ class BookController extends CommonController {
     public function sCommentUseful(){
         $id = $_POST['s_id'];
         //echo $id;
-        $b = M('s_r');
+        $b = M('s_b');
         $b->where("id=$id")->setInc('hot','1');
         $list = $b->where("id=$id")->find();
         //var_dump($list);
@@ -157,7 +157,7 @@ class BookController extends CommonController {
         $_POST['time']=time();
         // var_dump($_POST);
 
-        $b = M('s_r');
+        $b = M('s_b');
         if($b->add($_POST)){
             $this->success('评论成功',U('book/books',"id=$id"));
         }else{
@@ -169,12 +169,12 @@ class BookController extends CommonController {
 
     public function commentDetail(){
         $id = $_GET['id'];
-        $b = M('l_r');
-        $list = $b->table('bee_user u,bee_l_r l')
+        $b = M('l_b');
+        $list = $b->table('bee_user u,bee_l_b l')
                  ->field('u.name,l.*')
                  ->where('l.show=1 and u.id=l.u_id and l.id='.$id)
                  ->find();
-        //var_dump($list);exit;
+        //var_dump($list);
         $this->assign('list',$list);
 
         $bid = $_GET['bid'];
@@ -198,6 +198,14 @@ class BookController extends CommonController {
         //var_dump($list1[0]);
         $this->assign('list1',$list1[0]);
 
+        $id = $_GET['id'];
+        $b = M('b_replay');
+        $list2 =$b->table('bee_user u,bee_b_replay r,bee_l_b l')
+        ->field('r.*,u.name uname')
+        ->where('r.u_id=u.id and r.r_id=l.id and r.rc_id=""')
+        ->select();
+        //var_dump($list2);
+        $this->assign('list2',$list2);
         $this->display();
     }
 
@@ -206,8 +214,8 @@ class BookController extends CommonController {
         $id=$_GET['id'];
         //echo $id;exit;
         //查询短评
-        $b3 = M('s_r');
-        $r2 = $b3->table('bee_user u,bee_s_r s')
+        $b3 = M('s_b');
+        $r2 = $b3->table('bee_user u,bee_s_b s')
                  ->field('u.name,s.*')
                  ->where('s.show=1 and u.id=s.u_id and s.b_id='.$id)
                  ->limit()
@@ -241,8 +249,8 @@ class BookController extends CommonController {
     public function alllongComment(){
         $id = $_GET['id'];
         //查询长评表
-        $b3 = M('l_r');
-        $r1 = $b3->table('bee_user u,bee_l_r l')
+        $b3 = M('l_b');
+        $r1 = $b3->table('bee_user u,bee_l_b l')
                 ->field('u.name,l.*')
                 ->where('l.show=1 and u.id=l.u_id and l.b_id='.$id)
                 ->limit()
@@ -281,7 +289,7 @@ class BookController extends CommonController {
         $_POST['time']=time();
         //var_dump($_POST);
 
-        $b = M('s_r');
+        $b = M('s_b');
         if($b->add($_POST)){
             $this->success('评论成功',U('book/books',"id=$id"));
         }else{
@@ -317,5 +325,30 @@ class BookController extends CommonController {
             
         }    
         echo json_encode($lis);
+    }
+
+    public function addcomment(){
+        var_dump($_POST);
+        $_POST['time']=time();
+        $b = M('b_replay');
+        if($b->add($_POST)){
+            $this->success('success');
+        }else{
+            $this->error('falied');
+        }
+    }
+    public function select(){
+        $r_id = $_POST['r_id'];
+        if(empty($r_id)){
+        }else{
+            $p = M("b_replay");
+            $list = $p->where("rc_id='$r_id'")->find();
+            $a = $list['u_id'];
+            $b = M("user");
+            $list2 = $b->where("id='$a'")->find();
+            $list['name'] = $list2['name']; 
+            $list['time'] = date("Y-m-d H:i:s",$list['time']);
+            echo json_encode($list);
+        }
     }
 }

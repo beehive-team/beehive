@@ -7,14 +7,36 @@
 	<link rel="stylesheet" href="__PUBLIC__/css/moviedetail.css">
 </head>
 <body>
+
 	<!-- START header -->
 	    {:W('Common/allHeader')}
 	    {:W('Common/bookHeader')}	    
 	<!-- END header -->
+	<div id="hid" style="position:fixed;width:100%;height:100%;background:red;top:0px;left:0px;visibility:hidden;">	
+											<h3> 你的回应  · · · · · · </h3>
+											<div id="add_comment" class="comment-form txd">
+												<form action="__CONTROLLER__/addcomment" method="post" name="comment_form">
+													<input type="hidden" name="r_id"  value="{$list.id}">
+													<input type="hidden" name="rc_id" id="rc_id" value="">
+													<input type="hidden" name="u_id" value="{$list.u_id}">
+													<input type="hidden" name="b_id" value="{$list.b_id}">
+													<div class="item">
+														<textarea cols="64" rows="4" name="content"></textarea>
+														<br>
+													</div>
+													<div class="item">
+														<span class="bn-flat-hot ">
+															<input type="submit" value="加上去">
+														</span>
+													</div>
+												</form>
+											</div>
+										</div>
 	<div id="wrap">
 		<div id="main">	
 			<div id="content">	
-				<div class="inner">
+				<div class="
+				inner">
 					<h1>{$list.title}</h1>	
 					<div class="grid-16-8 clearfix">
 						<div class="article">
@@ -44,62 +66,98 @@
 											</div>
 										</div>
 										<div id="comments" class="">
+											<foreach name="list2" item="vo">
 											<div id="6818739" class="comment-item" data-target_kind="1012" data-target_id="7436647" data-cid="6818739">
 												<div class="content report-comment">
 													<div class="author">
-														<span class="">2015-04-07 17:50:51</span>
-														<a class=" " href="">禧月</a>
-														(择善者，固执之)
+														<span class="">{$vo.time|date="Y-m-d,h:i:s",###}</span>
+														<a class=" " href="">{$vo.uname}</a>
+														(个性签名)
 													</div>
-													<div class="reply-quote">
-														<span class="short">你的文字很温暖～</span>
+													<div id = "{$vo.id}" class="reply-quote">
+<!-- 														<span class="short">二级评论</span>
 														
 														<span class="pubdate">
 															<a href="">禧月</a>
-														</span>
+														</span> -->
 													</div>
-													<p class="">你的谢谢～</p>
+													<p class="">{$vo.content}</p>
 													<div class="op-lnks">
-														<a class="lnk-reply" href="">回应</a>
+														<button class = "{$vo.id}">回应</button>
 													</div>
 												</div>
 											</div>
+											</foreach>
+											<input type = "hidden" id="bt">
+											<script>
+											var abc = document.getElementsByClassName("reply-quote");
+											var but = document.getElementsByTagName('button');
+												for(var i = 0;i<abc.length;i++){
+													var a = abc[i].id;
+													q(a);
+												}
+												function q(obj){
+												$.post("__CONTROLLER__/select",{r_id:obj},function(result){
+													if(result['name'] != null){
+														// alert(result['id']);
+														var box = "<div class='reply-quote' id='"+result['id']+"'><span>"+result['name']+"</span><br/><br/>"+result['content']+"<br/><br/><span>"+result['time']+"</span><br/>"+"</div>";
+														$('#'+obj).append(box);
+														q(result['id']);
+													}else{
+													}
+  												},'json');
+												}
+												var c;
+												function w(obj){
+												$.post("__CONTROLLER__/select",{r_id:obj},function(result){
+													if(result['name'] != null){
+														c = result['id'];
+														$("#rc_id").val(c);
+														w(result['id']);
+													}else{
+														$("#rc_id").val(obj);
+													}
+  												},'json');
+												}	
+												 var but = document.getElementsByTagName('button');
+												 for(var i = 0;i<but.length;i++){
+												 	but[i].onclick = function(){
+												 		//alert(this.className);
+												 		//alert(this.className);
+												 		w(this.className);
+												 		//alert($("#rc_id").val());
+												 		hid.style.visibility = 'visible';
+												 	}
+												 }
 
-											<div id="6818739" class="comment-item" data-target_kind="1012" data-target_id="7436647" data-cid="6818739">
-												<div class="content report-comment">
-													<div class="author">
-														<span class="">2015-04-07 17:50:51</span>
-														<a class=" " href="">禧月</a>
-														(择善者，固执之)
-													</div>
-													<div class="reply-quote">
-														<span class="short">你的文字很温暖～</span>
-														
-														<span class="pubdate">
-															<a href="">禧月</a>
-														</span>
-													</div>
-													<p class="">你的谢谢～</p>
-													<div class="op-lnks">
-														<a class="lnk-reply" href="">回应</a>
-													</div>
-												</div>
-											</div>
+											</script>
 											
-											<h3> 你的回应  · · · · · · </h3>
+											<h3> 评论  · · · · · · </h3>
 											<div id="add_comment" class="comment-form txd">
-												<form action="add_comment" method="post" name="comment_form">
+												<form action="__CONTROLLER__/addcomment" method="post" name="comment_form">
+													<input type="hidden" name="r_id" value="{$list.id}">
+													<input type="hidden" name="u_id" value="{$list.u_id}">
+													<input type="hidden" name="b_id" value="{$list.b_id}">
 													<div class="item">
-														<textarea cols="64" rows="4" name="rv_comment"></textarea>
+														<textarea cols="64" rows="4" name="content"></textarea>
 														<br>
 													</div>
 													<div class="item">
 														<span class="bn-flat-hot ">
-															<input type="submit" value="加上去">
+															<input type="submit" value="评论">
 														</span>
 													</div>
 												</form>
 											</div>
+
+
+
+
+
+
+
+
+
 										</div>
 									</div>
 								</div>
@@ -115,7 +173,7 @@
 								</div>
 								<p class="pl2" style="margin-top:0pt;">
 									>
-									<a href="__CONTROLLER__/detail/id/{$list.id}">去 {$list1.name} 的页面</a>
+									<a href="__CONTROLLER__/books/id/{$list1.id}">去 {$list1.name} 的页面</a>
 								</p>
 							</div>
 							<div class="movie-summary">
@@ -125,28 +183,31 @@
 									</a>
 								</div>
 								<span class="attrs">
-									<p>
-										<span class="pl">导演:</span>
-										{$list1.director}
-									</p>
-									<p>
-										<span class="pl">编剧:</span>
-										{$list1.writer}
-									</p>
-									<p>
-										<span class="pl">类型:</span>
-										<foreach name="list1.fname" item="vo">									
-										{$vo}/
-										</foreach>
-									</p>
-									<p>
-										<span class="pl">片长:</span>
-										{$list1.tlong}分钟
-									</p>
-									<p>
-										<span class="pl">上映时间:</span>
-										{$list1.orelease_t}
-									</p>
+										<span>
+											<span class="pl">书名:</span>
+											<span class="attrs">{$list1.name}</span>
+										</span>
+										<br/>
+										<span>
+											<span class="pl">作者:</span>
+											<span class="attrs">{$list1.writer}</span>
+										</span>
+										<br>
+										<span>
+											<span class="pl">出版社:</span>
+											<span class="attrs">{$list1.publisher}</span>
+										</span>
+										<br>
+										<span class="pl">出版年:</span>
+										<span>{$list1.release_t}</span>
+										<br>	
+										<span class="pl">翻译者:</span>
+										<span>{$list1.translater}</span>
+										<br>
+										<span>
+											<span class="pl">ISBN:</span>
+											<span class="attrs">{$list1.isbn}</span>
+										</span>
 
 								</span>
 							</div>
@@ -157,6 +218,7 @@
 			</div>
 		</div>
 	</div>
+
 	<!-- START footer -->
 	    {:W('Common/commonFooter')} 
 	<!-- END footer -->

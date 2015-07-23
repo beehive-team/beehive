@@ -277,13 +277,13 @@ class BookController extends Controller {
 
 
     public function longComment(){
-        $b = M('l_r');
-        $count = $b->table('bee_book b,bee_l_r l,bee_user u')->field('b.name,l.*,u.name uname')->where('l.b_id=b.id and l.u_id=u.id')->count();
+        $b = M('l_b');
+        $count = $b->table('bee_book b,bee_l_b l,bee_user u')->field('b.name,l.*,u.name uname')->where('l.b_id=b.id and l.u_id=u.id')->count();
         // 实例化分页类 传入总记录数和每页显示的记录数
         $Page = new \Think\Page($count,5);
         // 分页显示输出
         $show = $Page->show();
-        $list = $b->table('bee_book b,bee_l_r l,bee_user u')->field('b.name,l.*,u.name uname')->where('l.b_id=b.id and l.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $list = $b->table('bee_book b,bee_l_b l,bee_user u')->field('b.name,l.*,u.name uname')->where('l.b_id=b.id and l.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
         //var_dump($list);
         $this->assign('list',$list);
 
@@ -295,7 +295,7 @@ class BookController extends Controller {
 
     public function dellongComment($id){
         //var_dump($id);
-        $b = M('l_r');
+        $b = M('l_b');
         if($b->delete($id)){
             $this->success('删除成功',U('Book/longComment'));
         }else{
@@ -304,16 +304,16 @@ class BookController extends Controller {
     }
 
     public function shortComment(){
-        $b = M('s_r');
+        $b = M('s_b');
         //查询出符合条件的记录总数
-        $count = $b->table('bee_book b,bee_s_r s,bee_user u')->field('b.name,s.*,u.name uname')->where('s.b_id=b.id and s.u_id=u.id')->count();
+        $count = $b->table('bee_book b,bee_s_b s,bee_user u')->field('b.name,s.*,u.name uname')->where('s.b_id=b.id and s.u_id=u.id')->count();
         //var_dump($count);
 
         // 实例化分页类 传入总记录数和每页显示的记录数
         $Page = new \Think\Page($count,5);
         // 分页显示输出
         $show = $Page->show();
-        $list = $b->table('bee_book b,bee_s_r s,bee_user u')->field('b.name,s.*,u.name uname')->where('s.b_id=b.id and s.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $list = $b->table('bee_book b,bee_s_b s,bee_user u')->field('b.name,s.*,u.name uname')->where('s.b_id=b.id and s.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
         //var_dump($list);
         $this->assign('list',$list);
 
@@ -325,7 +325,7 @@ class BookController extends Controller {
 
     public function delshortComment($id){
         //var_dump($id);
-        $b = M('s_r');
+        $b = M('s_b');
         if($b->delete($id)){
             $this->success('删除成功',U('Book/shortComment'));
         }else{
@@ -339,7 +339,7 @@ class BookController extends Controller {
         $data['show'] = $_GET['show']==1?0:1;
         $data['id'] = $_GET['id'];
         //var_dump($data);
-        $b=M('l_r');
+        $b=M('l_b');
         if($b->where("id=$id")->save($data)){
             $this->success('修改成功',U('Book/longComment'));
         }else{
@@ -355,7 +355,7 @@ class BookController extends Controller {
         $data['show'] = $_GET['show']==1?0:1;
         $data['id'] = $_GET['id'];
         //var_dump($data);
-        $b=M('s_r');
+        $b=M('s_b');
         if($b->where("id=$id")->save($data)){
             $this->success('修改成功',U('Book/shortComment'));
         }else{

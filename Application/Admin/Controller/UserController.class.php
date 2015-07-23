@@ -206,4 +206,19 @@ class UserController extends CommonController{
 
     }
 
+    public function doAddUser(){
+        $data = $_POST;
+        $data['password']=md5($data['password']);
+        var_dump($_POST);
+        var_dump($data);
+        exit;
+        $m = M('back_user');
+        if($m->add($data)){
+            $this->success('添加成功');
+        }else{
+            $this->error('添加失败');
+
+        }
+    }
+
 }

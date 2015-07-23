@@ -35,7 +35,7 @@ class UserController extends CommonController {
 
         $friend = M('friend');
 
-        $friend_sql = $friend->field('id')->where("u_id=$this->userId")->buildSql();
+        $friend_sql = $friend->field('f_id')->where("u_id=$this->userId")->buildSql();
 
 
         $diary_list = $diary->field('d.id,u.name,title,content,d.time,image,u_id')->table('bee_diary d,bee_user u')->where("d.time<$time AND d.time>$yesterday and d.u_id=u.id and browse<1 and u.id in $friend_sql")->order('hot desc')->group('d.id')->limit($start,$length)->select();
@@ -43,7 +43,7 @@ class UserController extends CommonController {
         // var_dump($diary_list);
         $album = M('album');
 
-        $album_list = $album->field('a.id,u.name as u_name,a.name,des,u_id,a.time,image')->table('bee_album a,bee_user u')->where("a.time<$time AND a.time>$yesterday and a.u_id=u.id and browse<1")->order('hot desc')->group('a.id')->limit($start,$length)->select();
+        $album_list = $album->field('a.id,u.name as u_name,a.name,des,u_id,a.time,image')->table('bee_album a,bee_user u')->where("a.time<$time AND a.time>$yesterday and a.u_id=u.id and browse<1 and u.id in $friend_sql")->order('hot desc')->group('a.id')->limit($start,$length)->select();
         // var_dump($album_list);
         // echo $album->getLastsql();
 
@@ -148,7 +148,7 @@ class UserController extends CommonController {
         }else{// 上传成功 获取上传文件信息  
             //$this->display('templateList');  
             foreach($info as $file){
-            	echo '/beehive/Public'.$file['savepath'].$file['savename'];    
+            	echo $file['savepath'].$file['savename'];    
             }
             
         }  
@@ -338,10 +338,10 @@ class UserController extends CommonController {
         // echo $open;
         $cut_save = 'Public/Uploads/User/'.$path.'/cut_'.$name;
         $small_save = 'Public/Uploads/User/'.$path.'/small_'.$name;
-        $model->image = '/beehive/'.$cut_save;
+        $model->image = '/Uploads/User/'.$path.'/cut_'.$name;
         $image = new \Think\Image(); 
         $image->open($open);
-        $image->thumb(100, 105,\Think\Image::IMAGE_THUMB_FILLED)->save($small_save);
+        $image->thumb(110, 110,\Think\Image::IMAGE_THUMB_FILLED)->save($small_save);
         $image->open($small_save);
         $image->crop(100, 100,\Think\Image::IMAGE_THUMB_CENTER)->save($cut_save);
         
@@ -389,6 +389,7 @@ class UserController extends CommonController {
     // 处理说说
     public function dosay(){
         var_dump($_POST);
+        
         $data = $_POST;
         unset($data['myfile']);
         $text['content'] = $data['text'];
@@ -397,15 +398,21 @@ class UserController extends CommonController {
         $text['u_id']=$this->userId;
         $text['time'] = $this->time;
         if($insertId = $say->add($text)){
-            if(!$data){
+            // var_dump($data);
+            
+            if(!empty($data)){
+                
                 foreach ($data as $key => $value) {
                     $image['s_id']=$insertId;
                     $image['name']=$data[$key];
+                    // var_dump($image);
+                    // exit;
                     $s_i = M('s_i');
                     $s_i->add($image);
 
                 }
             }
+            // exit;
             $this->trend('say',$this->time,$insertId);
 
             $this->success('发表成功');
@@ -564,7 +571,8 @@ class UserController extends CommonController {
 
             }
         }
-        // var_dump($diary_list);
+        var_dump($diary_list);
+        $this->assign('diary_list',$diary_list);
         // var_dump($album_list);
         foreach($album_list as $key=>$value){
             $atag = M('a_t');
@@ -619,7 +627,7 @@ class UserController extends CommonController {
             }
             
         }
-        // var_dump($hot_list);
+        // var_dump($diary_list);
         
         $this->assign('u_id',$this->userId);
         $this->assign('hot',$hot_list);
@@ -669,4 +677,49 @@ class UserController extends CommonController {
 
         }
     }
+
+     public function broadcast(){
+        $like_list = $this->getTrend('all',$this->userId);
+
+        foreach ($like_list as $key => $value) {
+            $id = $like_list[$key]['id'];
+            switch ($like_list[$key]['action']) {
+                case 'album':
+                    $album = M('album');
+                    $album_result = $album->field('a.id,u.id as u_id,u.name,a.time,a.name as a_name,image')->table("bee_user u,bee_album a")->where("a.id=$id and a.u_id=u.id")->find();
+                    $photo = M('photo');
+
+                    $album_result['photo']=$photo->where("a_id=$id")->select();
+                    $like_list[$key]['info']=$album_result;
+
+                    break;
+                
+                case 'diary':
+                    $diary = M('diary');
+                    $diary_result =$diary->field('u.name as u_name,title,image,d.time,content,u.id as u_id,d.id')->table("bee_user u,bee_diary d")->where("u.id=d.u_id and d.id=$id")->find();
+                    $like_list[$key]['info'] = $diary_result;
+
+                    break;
+                case 'say':
+                    $say = M('say');
+                    $say_result = $say->field('s.id,u.id as u_id,u.name,s.time,image')->table("bee_user u,bee_say s")->where("u.id=s.u_id and s.id=$id")->find();
+                    // var_dump($say_result);
+
+                    $image = M('s_i');
+
+                    $say_result['photo']=$image->where("s_id=$id")->select();
+                    // var_dump($say_result);
+                    $like_list[$key]['info']=$say_result;
+                    // var_dump($like_list);
+
+                    break;
+               
+            }
+        }
+        // var_dump($like_list);
+        $this->assign('like_list',$like_list);
+        $this->display();
+
+    }
+
 }

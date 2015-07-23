@@ -45,6 +45,7 @@ class DiaryController extends CommonController {
 
          // var_dump($where);
         $diary = M('diary');
+        // var_dump($where);
         $count =$diary->where($where)->count();
         // echo $model->getLastsql();
         $Page = new \Think\Page($count,4);
@@ -138,9 +139,7 @@ class DiaryController extends CommonController {
         $model = M('dtag');
         $id_arr = array();
         for($i = 0;$i<count($tags);$i++){
-            if($tags[$i]==' '){
-                continue;
-            }
+            
             $arr['name'] = $tags[$i];
             if(!$id = $model->where($arr)->getField('id')){
                 $insert_id = $model->add($arr);

@@ -7,44 +7,30 @@ class CommonController extends Controller{
     protected $relation;
     public function _initialize(){
         $current = CONTROLLER_NAME.'/'.ACTION_NAME;
-        $this->userId = $_SESSION['admin']['u_id'];
+        if(!empty($_SESSION['admin'])){
+            $this->userId = $_SESSION['admin']['u_id'];
             
             $this->p_id = $_SESSION['admin']['p_id'];
             // var_dump($_SESSION);
-            // echo $current;
-        if($current !='Index/index'&&$current!='Index/views'){
-            // echo 1;
-            $this->userId = $_SESSION['admin']['u_id'];
+            // $model =M('ac_po');
+            // $result = $model->field('a_name,c_name')->where("p_id=$this->p_id")->select();
 
-            $this->p_id = $_SESSION['admin']['p_id'];
-            // var_dump($_SESSION);
-            $model =M('ac_po');
-            $result = $model->field('a_name,c_name')->where("p_id=$this->p_id")->select();
-            // var_dump($result);
-            // echo $this->p_id;
             foreach ($result as $key => $value) {
                 $Allow_action[] = $result[$key]['c_name'].'/'.$result[$key]['a_name']; 
             }
             // var_dump($Allow_action);
+            if(in_array($current,$Allow_action)){
+                $this->redirect('对不起 您没有权限');
+            }
         }
-        var_dump($Allow_action);
+        
+          
+        
+        // var_dump($Allow_action);
        
         // echo $current; 
 
         // echo $current;
-        
-        if($current != 'Index/views' && $current != 'Index/Index'){
-            if(!in_array($current,$Allow_action)){
-                // echo 1;
-                $this->error('您没有权限');
-
-            }     
-            
-        }
-        
-        
-
-
 
     }
     
@@ -56,7 +42,7 @@ class CommonController extends Controller{
         // $data['name']='admin';
         // $data['password']=md5(123456);
 
-        $data['password']=md5($data['password']);
+        $data['password']=md5($data['pwd']);
         unset($data['pwd']);
         // var_dump($data);
         $model = M('back_user');
@@ -88,5 +74,8 @@ class CommonController extends Controller{
 
         
     }
+
+    
+
    
 }

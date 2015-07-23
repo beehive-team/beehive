@@ -392,7 +392,7 @@ create table bee_d_replay(
 	r_id int unsigned default 0,
 	u_id int unsigned,
 	foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
-	foreign key (a_id) references bee_diary(id) on update cascade on delete CASCADE
+	foreign key (d_id) references bee_diary(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 
 -- 提醒表

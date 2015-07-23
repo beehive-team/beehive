@@ -5,7 +5,7 @@
 		<empty name="face['image']">
 			<img src="__PUBLIC__/images/default_face.jpg"/>
 		<else />
-			<img src="{$face['image']}"/>
+			<img src="__PUBLIC__{$face['image']}"/>
 		</empty>
 	</div>
 	<div class="user-name f-left">
@@ -27,7 +27,7 @@
 		<li><a href="">广播</a></li>
 		<li><a href="{:U('Album/album')}?p_id={$data.id}">{$data['name']}的相册</a></li>
 		<li><a href="{:U('Diary/diary')}?p_id={$data.id}">{$data['name']}的日记</a></li>
-		<li><a href="">喜欢</a></li>
+		<li><a href="{:U('People/like')}?p_id={$data.id}">{$data['name']}的喜欢</a></li>
 		<li><a href="">蜂蜜</a></li>
 	</ul>
 </div>

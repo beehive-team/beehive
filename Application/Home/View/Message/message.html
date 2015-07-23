@@ -15,6 +15,7 @@
 		<script type="text/javascript">
 			function sub(obj){
 				var msg = $(obj).find('textarea').val();
+				var PUBLIC = "__PUBLIC__";
 				// alert(msg);
 				var u_id = $(obj).find('.u_id').val();
 				var p_id = $(obj).find('.p_id').val();
@@ -31,7 +32,7 @@
 					var image = $('.image').val();
 					$(me).find('.msg').html(data.content);
 					if(image){
-						$(me).find('img').attr('src',image);
+						$(me).find('img').attr('src',PUBLIC+image);
 
 					}else{
 						$(me).find('img').attr('src','/beehive/Public/images/default_face.jpg');
@@ -84,7 +85,7 @@
 							<form onsubmit="return sub(this)">
 								<div class="img-box">
 									<notempty name="me.image">
-										<img src="{$me.image}">
+										<img src="__PUBLIC__{$me.image}">
 									<else />
 										<img src="__PUBLIC__/images/default_face.jpg"/>
 									</notempty>
@@ -115,7 +116,7 @@
 										<div class="me-box">
 											<div class="img-box">
 												<notempty name="me.image">
-													<img src="{$me.image}">
+													<img src="__PUBLIC__{$me.image}">
 												<else />
 													<img src="__PUBLIC__/images/default_face.jpg"/>
 												</notempty>
@@ -131,7 +132,7 @@
 										<div class="other-box">
 											<div class="img-box">
 												<notempty name="other.image">
-													<img src="{$other.image}">
+													<img src="__PUBLIC__{$other.image}">
 												<else />
 													<img src="__PUBLIC__/images/default_face.jpg"/>
 												</notempty>

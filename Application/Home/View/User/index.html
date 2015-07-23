@@ -14,6 +14,8 @@
 
 		<script type="text/javascript">
 			$(function(){
+
+				var PULBIC = "__PUBLIC__";
 				$('.sec-2 ul').bxSlider({
 					auto:true,
 					pager:false,
@@ -112,11 +114,14 @@
 				    	//完成后进行的操作	 
 				    	var img_src = JSON.stringify(result.result);
 				    	//alert(img_src);
+				    	src = img_src = img_src.replace(/"/g,'');
+				    	
+				    	img_src = PUBLIC+img_src;
 				    	$('.upload-box').before('<div class="img-box">')
 				    	     
 				    	var new_div = $('.img-upload div.img-box').last(); 
-				    	$(new_div).append('<img src='+img_src+'/>');
-				    	$(new_div).append('<input type="hidden" name="image_'+i+'"value='+img_src+'>');
+				    	$(new_div).append('<img src='+img_src+'>');
+				    	$(new_div).append('<input type="hidden" name="image_'+i+'"value='+src+'>');
 				    	$(new_div).append('<span><a href="javascript:;"></a></span>');
 				    	img_all.push(img_src);
 				    	i++;
@@ -339,7 +344,7 @@
 															<empty name="vo.image">
 																<img src="__PUBLIC__/images/default_face.jpg">
 															<else/>
-																<img src="{$vo.image}"/>
+																<img src="__PUBLIC__{$vo.image}"/>
 															</empty>
 														</div>
 														<div class="diary info">
@@ -366,7 +371,7 @@
 															<empty name="vo.image">
 																<img src="__PUBLIC__/images/default_face.jpg">
 															<else/>
-																<img src="{$vo.image}"/>
+																<img src="__PUBLIC__{$vo.image}"/>
 															</empty>
 														</div>
 														<div class="album info">

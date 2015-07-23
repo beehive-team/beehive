@@ -305,7 +305,7 @@ class CommonController extends Controller{
 
      //显示动态
     public function getTrend($num,$u_id){
-
+        
        
         if($num==1){
 
@@ -388,7 +388,7 @@ class CommonController extends Controller{
 
             //显示个人动态
             $trend = M('trend');
-            $trend_result = $trend->where($where)->order('time desc')->select();
+            $trend_result = $trend->where("u_id=$u_id")->order('time desc')->select();
             // var_dump($trend_result);
             
          

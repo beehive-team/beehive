@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- START 公用 head -->
+	    {:W('Common/commonHead')}
+	<!-- END 公用 head -->
+	<link rel="stylesheet" href="__PUBLIC__/css/s1.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/fancybox/jquery.fancybox.css" />
+	<script type="text/javascript" src="__PUBLIC__/js/fancybox/jquery.fancybox.js"></script>
+</head>
+<script type="text/javascript">
+	$(function(){
+
+		$('a.saytwo').fancybox({
+            
+        })
+        $('a.wsc').fancybox({
+            
+        })
+        var s_id;
+        var l_id;
+        $('.userful').click(function(){
+        	if(!$(this).hasClass('active')){
+        		s_id = $(this).attr('rel');
+	        	//alert(s_id);
+	        	var that = $(this);
+	        	$.post('__CONTROLLER__/sCommentUseful',{s_id:s_id},function(data){
+	        		//alert(data['hot']);
+	        		$(that).parents('.comment-item').find('.userful-num ').html(data[
+	        			'hot']);      		
+	        	},'json');
+	        	$(that).addClass('active');
+        	}
+        	
+        })
+
+        $('.l_userful').click(function(){
+        	if(!$(this).hasClass('active')){
+        		l_id = $(this).attr('rel');
+        		//alert(l_id);
+        		var that =$(this);
+        		$.post('__CONTROLLER__/lCommentUseful',{l_id:l_id},function(data){
+	        		//alert(data['hot']);
+	        		$(that).parents('.review-short-ft').find('.l_userful-num ').html(data[
+	        			'hot']);      		
+	        	},'json');
+	        	$(that).addClass('active');
+        	}
+        })
+	})
+</script>
+<body>	
+	<!-- START header -->
+	    {:W('Common/allHeader')}
+	    {:W('Common/bookHeader')}	    
+	<!-- END header -->
+	<div id="wrap">
+		<div id="main">	
+			<div id="content">
+				<h1>
+					<span>{$list.name}</span>
+				</h1>
+				<div class="grid clearfix">
+					<div class="article">
+						<div class="indent clearfix">
+							<div class="subjectwrap">
+								<div class="subject">
+									<div class="mainpic">
+										<a href="">
+											<img src="__PUBLIC__/{$list.i_path}148_{$list.iname}" alt="">
+										</a>
+									</div>
+									<div class="info">
+										<span>
+											<span class="pl">书名:</span>
+											<span class="attrs">{$list.name}</span>
+										</span>
+										<br/>
+										<span>
+											<span class="pl">作者:</span>
+											<span class="attrs">{$list.writer}</span>
+										</span>
+										<br>
+										<span>
+											<span class="pl">出版社:</span>
+											<span class="attrs">{$list.publisher}</span>
+										</span>
+										<br>
+										<span class="pl">出版年:</span>
+										<span>{$list.release_t}</span>
+										<br>	
+										<span class="pl">翻译者:</span>
+										<span>{$list.translater}</span>
+										<br>
+										<span>
+											<span class="pl">ISBN:</span>
+											<span class="attrs">{$list.isbn}</span>
+										</span>
+									</div>
+								</div>
+								<div class="interest_sect1">
+									<div class="rating_wrap">
+										
+									</div>
+									<div class="rating_betterthan">
+										此处是书本打星的成绩
+									</div>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<div class="interst_sect_level">
+								<a class="colbutton" href=""><span>想读</span></a>
+								<a class="colbutton" href=""><span>在读</span></a>
+								<a class="colbutton" href=""><span>读过</span></a>
+								<div class="a_stars">
+									评价:
+								</div>
+							</div>
+							<div class="gtleft">
+								<ul>
+									<li>
+										<img src="./short-comment.gif" alt="">
+										<a href="">写短评</a>
+									</li>
+									<li>
+										<img src="./add-review.gif" alt="">
+										<a href="">写书评</a>
+									</li>
+									<li>
+										<img src="./short-comment.gif" alt="">
+										<a href="">分享到</a>
+									</li>
+								</ul>
+								<a class="recomand" href="">推荐</a>
+							</div>
+						</div>
+						<div class="related-info">
+							<h3>{$list.name}的简介  ·  ·  ·  ·  ·  ·</h3>
+							<div class="brief">
+								<p>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$list.brief|subtext=273}
+								</p>
+                                 
+							</div>
+						</div>
+						<div class="related-pic">
+							<h3>作者简介</h3> 
+							<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$list.w_brief|subtext=273}
+							</p>
+						</div>
+						<div class="comments-section">
+							<div class="mod-hd">
+								<a class="saytwo" href="#pop-1">我来说两句</a>
+								<h3 class="shotappraise">{$list.name}的短评 · · · · · ·</h3>		
+							</div>
+							<div class="mod-bd">
+								<div class="tab-hd">
+									<a href="">热门</a>
+									/
+									<a href="">最新</a>
+									/
+									<a href="">我关注的</a>
+								</div>
+								<div class="tab-bd">
+									<foreach name="r2" item="v">
+									<div class="comment-item">
+										<div class="comment-user">									
+											<a class="username" href="">{$v.name}</a>	
+											<a rel="{$v.id}" class="userful" href="javascript:;">有用</a>
+											<span class="userful-num">{$v.hot}</span>						
+										</div>
+										<div class="clearfix"></div>
+										<div class="comment-content">
+											<p>{$v.content}</p>
+										</div>
+									</div>
+									</foreach>
+									<div class="more-shot">
+									>
+									<a href="__CONTROLLER__/allshortComment/id/{$list.id}">更多短评</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="review_section">
+							<div class="mod-hd">
+								<a class="saytwo" href="__CONTROLLER__/longComment/id/{$list.id}">我来评论这部书</a>
+								<h3 class="shotappraise">{$list.name}的书评 · · · · · ·</h3>		
+							</div>
+							<div class="mod-bd">
+							<foreach name="r1" item="vo">
+								<div class="review">
+									<div class="review-hd">
+										<div class="review-hd-title">
+											<a href=><img src="" alt=""></a>
+											<a href="__CONTROLLER__/commentDetail/id/{$vo.id}/bid/{$vo.b_id}">{$vo.title}</a>
+										</div>
+										<div class="review-hd-info">
+											<a class="" href="">{$vo.name}</a>
+											{$vo.time|date="Y-m-d,h:i:s",###}
+											<span class="allstar40" title="推荐"></span>
+										</div>
+									</div>
+									<div class="riview-bd">					
+										<p>{$vo.content|subtext=273}
+										</p>										
+										<div class="review-short-ft">
+											<span>129/133</span>
+											 有用
+											<a href="">73回复</a>
+										</div>
+									</div>
+								</div>
+								</foreach>
+								<div class="more-shot">
+									>
+									<a href="__CONTROLLER__/alllongComment/id/{$list.id}">更多书评</a>
+								</div>
+								
+							</div>
+						</div>
+						<div class="more-shot1">
+							>
+							<a href="">去这部图书的讨论区</a>
+						</div>
+					</div>
+					
+					<div class="aside"> 
+						<div class="aside-pic">
+							<img src="__PUBLIC__/images/sidepic.jpg" alt="">
+						</div>
+
+						<div class="aside-tag">
+							<h3>蜂巢成员常用的标签  ·  ·  ·  ·  ·  ·</h3>
+							<div class="tags-body">
+								<a href="">平凡的世界</a>
+								<a href="">路遥</a>
+								<a href="">励志</a>
+								<a href="">小说</a>
+								<a href="">命运</a>
+								<a href="">中国文学</a>
+							</div>
+						</div>
+						<div class="subject-doulist">
+							<h2>去蜂巢小组讨论这本书</h2>
+							<a href="">入口</a>
+						</div>
+						<div class="subject-doulist">
+							<h3>在哪儿买这本书？</h3>
+							<ul>
+								<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
+								<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
+								<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
+								<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
+								<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
+							</ul>
+						</div>
+						<div class="aside-interests">
+							<h3>谁在看这部图书  ·  ·  ·  ·  ·  ·</h3>
+							<ul>
+								<li>
+									<img style="float:left;" src="./small.jpg" alt="">
+									<div class="others-interest-info">
+										<a href="">欢脱的喵喵</a>
+										<div class=""> 1分钟前 想看 </div>
+									</div>
+								</li>
+								<li>
+									<img style="float:left;" src="./small.jpg" alt="">
+									<div class="others-interest-info">
+										<a href="">欢脱的喵喵</a>
+										<div class=""> 1分钟前 想看 </div>
+									</div>
+								</li>
+								<li>
+									<img style="float:left;" src="./small.jpg" alt="">
+									<div class="others-interest-info">
+										<a href="">欢脱的喵喵</a>
+										<div class=""> 1分钟前 想看 </div>
+									</div>
+								</li>
+							</ul>
+
+							<div class="subject-others-interests-ft">
+								<a href="">11626人看过</a>
+								 / 
+								<a href="">17662人想看</a>
+							</div>
+
+						</div>
+						<div class="aside-pic-two">
+							<img src="__PUBLIC__/images/sidepic1.jpg" alt="">
+						</div>
+					</div>
+					
+					<div class="extra">
+						<img src="__PUBLIC__/images/bigpic.jpg" alt="">
+					</div>
+				</div>
+					<div id="pop-1">
+						<div class="indentpop1">
+							<form class="j a_interest_form movie-sns" method="POST" action="__CONTROLLER__/doshortComment">
+								<input type="hidden" name="b_id" value="{$list.id}">
+								<div class="interest-form-hd">
+									<span class="gact fr">
+									<a onclick="close_dialog()" href="javascript:;">x</a>
+									</span>
+									<h2>添加收藏：写短评</h2>
+								</div>
+								<div class="interest-status" style="float:left;font-size:14px;margin-bottom:15px">
+									<label>
+										<input type="radio" name="statut" value="0">
+									 	想看
+									</label>
+									<label>
+										<input type="radio" name="statut" value="1">
+									 	看过
+									</label>
+								</div>
+								<div class="interest-rating">
+									<span class="j a_stars">
+										<span class="rate_stars">
+											给个评价吧?(可选):  
+											<span id="rating">
+											</span>   
+										</span>
+									</span>
+								</div>
+								<div class="tags-switch">
+									<a id="showtags" href="javascript:void(0)" rel="高级(标签和短评) ▼">缩起 ▲</a>
+								</div>
+								<ul id="advtags" class="interest_form" style="display: inline-block;">
+									<li>标签(多个标签用空格分隔): </li>
+									<li>
+										<input class="inp-tags" type="text" name="tags">
+									</li>
+									<li id="mytags" class="clearfix"></li>
+									<li id="populartags" class="clearfix">
+										<dl>
+											<dt>常用标签:</dt>
+											<dd>
+											<span class="tagbtn gract">橋本愛</span>
+											<span class="tagbtn gract">日本电影</span>
+											<span class="tagbtn gract">桥本爱</span>
+											<span class="tagbtn gract">美食</span>
+											<span class="tagbtn gract">文艺</span>
+											<span class="tagbtn gract">日本</span>
+											<span class="tagbtn gract">2015</span>
+											<span class="tagbtn gract">自然</span>
+											<span class="tagbtn gract">电影</span>
+											<span class="tagbtn gract">日影</span>
+											</dd>
+										</dl>
+									</li>
+									<li class="comment-label">
+										<span id="left_n" class="num">140</span>
+										简短评论:
+									</li>
+									<li>
+										<textarea id="comment" class="comment" maxlength="140" name="content"></textarea>
+									</li>
+									<li class="private">
+										<input id="inp-private" type="checkbox" name="private">
+										<label class="pl" for="inp-private">仅自己可见</label>
+									</li>
+								</ul>
+								<div id="submits" class="interest-form-ft">
+									<div class="sync-setting pl">
+										<label>分享到</label>
+										<label class="share-label share-shuo" for="share-shuo">
+											<input id="share-shuo" type="checkbox" value="douban" name="share-shuo">
+											我的广播
+										</label>
+									</div>
+									<span class="bn-flat">
+										<input type="submit" class="con"  value="保存">
+									</span>
+								</div>
+							</form>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+	<!-- START footer -->
+	    {:W('Common/commonFooter')}	    
+	<!-- END footer -->
+</body>
+</html>

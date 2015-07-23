@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- START 公用 head -->
+	    {:W('Common/commonHead')}
+	<!-- END 公用 head -->
+	<link rel="stylesheet" href="__PUBLIC__/css/moviedetail.css">
+</head>
+<body>
+	<!-- START header -->
+	    {:W('Common/allHeader')}
+	    {:W('Common/bookHeader')}	    
+	<!-- END header -->
+	<div id="wrap">
+		<div id="main">	
+			<div id="content">	
+				<div class="inner">
+					<h1>{$list.title}</h1>	
+					<div class="grid-16-8 clearfix">
+						<div class="article">
+							<div typeof="v:Review">
+								<div class="main">
+									<div class="main-hd">
+										<p>
+											<a href="" onclick="">
+												<span property="v:reviewer">{$list.name}</span>
+											</a>
+											<span class="main-meta" content="2015-04-07" property="v:dtreviewed">{$list.time|date="Y-m-d,h:i:s",###}</span>
+										</p>
+									</div>
+									<div class="main-bd">
+										<div id="link-report">
+											<div class="" property="v:description">
+												{$list.content}
+											</div>
+										</div>
+									</div>
+									<div class="main-ft">
+										<div class="main-panel">
+											<div class="main-panel-useful">
+												<div class="like-box">
+													<a class="like {$diary['like']==1?'active':''}"  rel="diary_{$diary.diaryid}_  00" href="javascript:;"><span></span>喜欢</a>
+												</div>
+											</div>
+										</div>
+										<div id="comments" class="">
+											<div id="6818739" class="comment-item" data-target_kind="1012" data-target_id="7436647" data-cid="6818739">
+												<div class="content report-comment">
+													<div class="author">
+														<span class="">2015-04-07 17:50:51</span>
+														<a class=" " href="">禧月</a>
+														(择善者，固执之)
+													</div>
+													<div class="reply-quote">
+														<span class="short">你的文字很温暖～</span>
+														
+														<span class="pubdate">
+															<a href="">禧月</a>
+														</span>
+													</div>
+													<p class="">你的谢谢～</p>
+													<div class="op-lnks">
+														<a class="lnk-reply" href="">回应</a>
+													</div>
+												</div>
+											</div>
+
+											<div id="6818739" class="comment-item" data-target_kind="1012" data-target_id="7436647" data-cid="6818739">
+												<div class="content report-comment">
+													<div class="author">
+														<span class="">2015-04-07 17:50:51</span>
+														<a class=" " href="">禧月</a>
+														(择善者，固执之)
+													</div>
+													<div class="reply-quote">
+														<span class="short">你的文字很温暖～</span>
+														
+														<span class="pubdate">
+															<a href="">禧月</a>
+														</span>
+													</div>
+													<p class="">你的谢谢～</p>
+													<div class="op-lnks">
+														<a class="lnk-reply" href="">回应</a>
+													</div>
+												</div>
+											</div>
+											
+											<h3> 你的回应  · · · · · · </h3>
+											<div id="add_comment" class="comment-form txd">
+												<form action="add_comment" method="post" name="comment_form">
+													<div class="item">
+														<textarea cols="64" rows="4" name="rv_comment"></textarea>
+														<br>
+													</div>
+													<div class="item">
+														<span class="bn-flat-hot ">
+															<input type="submit" value="加上去">
+														</span>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="aside">
+							<div class="indent">
+								<div class="p1 indent">
+									<p>请尊重创作者的劳动，勿提供下载信息、或转载他人的文章。</p>
+									<p>为了鼓励有益的分享, 少于140字的评论将在短评页面里发表。</p>
+									<p>如果评论涉及电影和小说的结局和关键情节，请勾选“有关键情节透露”。豆瓣将显示提示，以免没有看过的人扫兴。</p>
+								</div>
+								<p class="pl2" style="margin-top:0pt;">
+									>
+									<a href="__CONTROLLER__/detail/id/{$list.id}">去 {$list1.name} 的页面</a>
+								</p>
+							</div>
+							<div class="movie-summary">
+								<div class="movie-pic">
+									<a href="">
+										<img rel="" src="__PUBLIC__{$list1.i_path}148_{$list1.iname}" title="" alt="">
+									</a>
+								</div>
+								<span class="attrs">
+									<p>
+										<span class="pl">导演:</span>
+										{$list1.director}
+									</p>
+									<p>
+										<span class="pl">编剧:</span>
+										{$list1.writer}
+									</p>
+									<p>
+										<span class="pl">类型:</span>
+										<foreach name="list1.fname" item="vo">									
+										{$vo}/
+										</foreach>
+									</p>
+									<p>
+										<span class="pl">片长:</span>
+										{$list1.tlong}分钟
+									</p>
+									<p>
+										<span class="pl">上映时间:</span>
+										{$list1.orelease_t}
+									</p>
+
+								</span>
+							</div>
+						</div>
+					</div>		
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- START footer -->
+	    {:W('Common/commonFooter')} 
+	<!-- END footer -->
+</body>
+</html>

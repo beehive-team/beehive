@@ -26,34 +26,53 @@ class BookController extends Controller {
         $_POST['release_t'] = strtotime($_POST['release_t']);
         $b = M('book');
         $result=$b->add($_POST);
-        if($result){
-            $insertId = $result;
-            //echo $insertId;
-            $this->success('添加成功', U('Book/index'));
+        $insertId=$result;
+        // if($result){
+        //     $insertId = $result;
+        //     //echo $insertId;
+        //     $this->success('添加成功', U('Book/index'));
 
-        }else{
-            $this->error('添加失败');
-        }
-
+        // }else{
+        //     $this->error('添加失败');
+        // }
+        // var_dump($_FILES['file']);EXIT;
         $upload = new \Think\Upload();
         $upload->maxSize = 0;
         $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
         $upload->rootPath  = './Public';
         $upload->savePath  = './Uploads/book/';
-        $info = $upload->upload();
+        $info   =   $upload->uploadOne($_FILES['file']);
+         $info['savepath'];
+
+        //实例化图像类
+        $image = new \Think\Image(); 
+        //拼接图片路径
+        $info['savepath'] = ltrim($info['savepath'],'.');
+        $path = 'Public'.$info['savepath'].$info['savename'];
+        $info['savename'];
+        //打开图像
+        $image->open($path);
+        //echo $info['savepath'].'148_'.$info['savename'];exit;
+        //按照原图的比例生成缩略图并保存 三种size
+        $image->thumb(100, 148,\Think\Image::IMAGE_THUMB_FIXED)->save('Public'.$info['savepath'].'148_'.$info['savename']);
+        //再次打开路径
+        $image->open($path);
+
+        $image->thumb(128, 180,\Think\Image::IMAGE_THUMB_FIXED)->save('Public'.$info['savepath'].'180_'.$info['savename']);
+        $image->open($path);
+        
+        $image->thumb(140, 207,\Think\Image::IMAGE_THUMB_FIXED)->save('Public'.$info['savepath'].'207_'.$info['savename']);
+
         if(!$info){   
             $this->error($upload->getError());
-        }else{   
-            foreach($info as $file){
-                $file['savepath'].$file['savename'];    
-            }
+        }else{//上传成功 获取文件信息   
+            $info['savepath'].$info['savename'];
         }
 
-        $data['name']=$file['savename'];
+        $data['name']=$info['savename'];
         $data['b_id']=$insertId;
         $data['is_cover']='1';
-        $data['i_path']=ltrim($file['savepath'],'.');
-        //var_dump($data);
+        $data['i_path']=ltrim($info['savepath'],'.');
         $b = M('bimage');
         if($b->add($data)){      
           $this->success('成功');
@@ -252,6 +271,95 @@ class BookController extends Controller {
             $this->success('更新成功',U('Book/brief',"id=$id"));
         }else{
             $this->error('更新失败');
+        }
+
+    }
+
+
+    public function longComment(){
+        $b = M('l_r');
+        $count = $b->table('bee_book b,bee_l_r l,bee_user u')->field('b.name,l.*,u.name uname')->where('l.b_id=b.id and l.u_id=u.id')->count();
+        // 实例化分页类 传入总记录数和每页显示的记录数
+        $Page = new \Think\Page($count,5);
+        // 分页显示输出
+        $show = $Page->show();
+        $list = $b->table('bee_book b,bee_l_r l,bee_user u')->field('b.name,l.*,u.name uname')->where('l.b_id=b.id and l.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        //var_dump($list);
+        $this->assign('list',$list);
+
+        $this->display();
+    }
+
+
+
+
+    public function dellongComment($id){
+        //var_dump($id);
+        $b = M('l_r');
+        if($b->delete($id)){
+            $this->success('删除成功',U('Book/longComment'));
+        }else{
+            $this->erroe('删除失败');
+        }
+    }
+
+    public function shortComment(){
+        $b = M('s_r');
+        //查询出符合条件的记录总数
+        $count = $b->table('bee_book b,bee_s_r s,bee_user u')->field('b.name,s.*,u.name uname')->where('s.b_id=b.id and s.u_id=u.id')->count();
+        //var_dump($count);
+
+        // 实例化分页类 传入总记录数和每页显示的记录数
+        $Page = new \Think\Page($count,5);
+        // 分页显示输出
+        $show = $Page->show();
+        $list = $b->table('bee_book b,bee_s_r s,bee_user u')->field('b.name,s.*,u.name uname')->where('s.b_id=b.id and s.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        //var_dump($list);
+        $this->assign('list',$list);
+
+
+        $this->display();
+    } 
+
+
+
+    public function delshortComment($id){
+        //var_dump($id);
+        $b = M('s_r');
+        if($b->delete($id)){
+            $this->success('删除成功',U('Book/shortComment'));
+        }else{
+            $this->erroe('删除失败');
+        }
+    }
+
+    public function dolongshow(){
+        //var_dump($_GET);
+        $id=$_GET['id'];
+        $data['show'] = $_GET['show']==1?0:1;
+        $data['id'] = $_GET['id'];
+        //var_dump($data);
+        $b=M('l_r');
+        if($b->where("id=$id")->save($data)){
+            $this->success('修改成功',U('Book/longComment'));
+        }else{
+            $this->error('修改失败');
+        }
+
+    }
+
+
+    public function doshortshow(){
+        //var_dump($_GET);
+        $id=$_GET['id'];
+        $data['show'] = $_GET['show']==1?0:1;
+        $data['id'] = $_GET['id'];
+        //var_dump($data);
+        $b=M('s_r');
+        if($b->where("id=$id")->save($data)){
+            $this->success('修改成功',U('Book/shortComment'));
+        }else{
+            $this->error('修改失败');
         }
 
     }

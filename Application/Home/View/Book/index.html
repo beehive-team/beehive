@@ -6,18 +6,17 @@
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
 		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
-		<link rel="stylesheet" href="__PUBLIC__/css/bh.css">
 
 		<script type="text/javascript">
 			$(function(){
 				var c_id
 				var i=4;
-				/*c_id='hot';
+				c_id='hot';
 				$.post('__CONTROLLER__/getCata',{c_id:'hot',num:i},function(data){
 					for(var tmp in data){
-						$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</i></p></a></li>');
+						$('#dys').append('<li><a href="__CONTROLLER__/books/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</i></p></a></li>');
 						}
-				},'json')*/
+				},'json')
 
 				$('.slider').bxSlider({
 					auto:true,
@@ -40,11 +39,10 @@
 					i=4;
 					c_id = $(this).attr('rel');
 					$.post('__CONTROLLER__/getCata',{c_id:c_id,num:i},function(data){
-						//alert(data[0]['bname']);
+						//alert(data[0]['mname']);
 						$('#dys').empty();
-
 						for(var tmp in data){
-							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</ i></p></a></li>');
+							$('#dys').append('<li><a href="__CONTROLLER__/books/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</ i></p></a></li>');
 						}
 					},'json')
 				})
@@ -55,7 +53,7 @@
 					$.post('__CONTROLLER__/getCata',{c_id:c_id,num:i},function(data){
 						$('#dys').empty();
 						for(var tmp in data){
-							$('#dys').append('<li><a href="__CONTROLLER__/detail/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</i></p></a></li>');
+							$('#dys').append('<li><a href="__CONTROLLER__/books/id/'+data[tmp]['b_id']+'"><img src=__PUBLIC__'+data[tmp]['i_path']+'207_'+data[tmp]['name']+'><p>'+data[tmp]['bname']+'<i>7.8</i></p></a></li>');
 						}
 											
 					},'json')
@@ -63,6 +61,7 @@
 
 				$('.tip').css('display','none');
 				$('#check').click(function(){
+					// alert('1');
 					if($('#check').is(':checked') && '{$Think.session.home}' == ''){
 						$('.tip').css('display','block');
 						//alert('e');
@@ -75,10 +74,6 @@
 		<!-- END 自定义 head -->
 		<style>
 	
-		.list-box li{
-
-			float:left;
-		}
 		.list-box li[class="title"]{
 			width:313px;
 		}
@@ -114,8 +109,8 @@
 								<ul class="slider">
 									<foreach name="row" item="vo">
 									<li >
-										<a href="">
-											<img src="__PUBLIC__/{$vo.i_path}{$vo.name}"/>
+										<a href="__CONTROLLER__/books/id/{$vo.b_id}">
+											<img src="__PUBLIC__/{$vo.i_path}180_{$vo.name}"/>
 											<p>{$vo.bname}</p>
 											<p>作者:{$vo.writer}</p>
 										</a>
@@ -146,13 +141,13 @@
 										<label><input type="radio" name="sort" value="rank"/>电子书</label>
 									</div>
 									<div class="check f-right">
-										<label><input type="checkbox" name="check" value="seen"/>我没看过的</label>
+										<label><input id="check" type="checkbox" name="check" value="seen"/>我没看过的</label>
 									</div>
 								</div>
 							</form>
 							<div class="tip">
 									<p>注册登录后进入书签查看阅读记录，快快登陆吧！<a href="">登录</a><a href="">注册</a></p>
-								</div>
+							</div>
 							<div class="movies">
 								<ul id="dys">
 									<li>
@@ -164,7 +159,7 @@
 
 								</ul>
 								<div class="ajax-button">
-									<a href="">加载更多</a>
+									<a href="javascript:;">加载更多</a>
 								</div>
 							</div>
 						</div>
@@ -178,7 +173,7 @@
 										<a href="">
 											<div class="img-box f-left"><img src="__PUBLIC__/images/movie4.jpg"/></div>
 											<div class="text-box f-left">
-												<h4>2015热门书籍</h4>
+												<h4>2015年口碑电影</h4>
 												<p>来自<span>heheda</span></p>
 												<p>sss</p>
 											</div>
@@ -188,7 +183,7 @@
 										<a href="">
 											<div class="img-box f-left"><img src="__PUBLIC__/images/movie4.jpg"/></div>
 											<div class="text-box f-left">
-												<h4>2015热门书籍</h4>
+												<h4>2015年口碑电影</h4>
 												<p>来自<span>heheda</span></p>
 												<p>sss</p>
 											</div>
@@ -198,7 +193,7 @@
 										<a href="">
 											<div class="img-box f-left"><img src="__PUBLIC__/images/movie4.jpg"/></div>
 											<div class="text-box f-left">
-												<h4>2015热门书籍</h4>
+												<h4>2015年口碑电影</h4>
 												<p>来自<span>heheda</span></p>
 												<p>sss</p>
 											</div>
@@ -208,7 +203,7 @@
 										<a href="">
 											<div class="img-box f-left"><img src="__PUBLIC__/images/movie4.jpg"/></div>
 											<div class="text-box f-left">
-												<h4>2015热门书籍</h4>
+												<h4>2015年口碑电影</h4>
 												<p>来自<span>heheda</span></p>
 												<p>sss</p>
 											</div>
@@ -219,8 +214,8 @@
 						</div>
 						<div class="section sec-4">
 							<div class="top">
-								<h3>评书人</h3>
-								<a href="">进入书评专区》</a>
+								<h3>最受欢迎的书评</h3>
+								<a href="">更多热门书评》</a>
 							</div>
 							<div class="bottom">
 								<ul>
@@ -228,7 +223,7 @@
 										<div class="img-box f-left"><a href=""><img src="__PUBLIC__/images/movie6.jpg"/></a></div>
 										<div class="text-box f-left">
 											<h5><a href="">标题</a></h5>
-                                            <p><a href="">作者&nbsp;</a>评论&nbsp;<a href="">书名</a><span class=""></span></p>
+                                            <p><a href="">作者&nbsp;</a>评论&nbsp;<a href="">书名</a><span class="allstar40"></span></p>
                                             <p class="detail"> 
                                                 fjdklsfjdlsflsdkjflkjdfslfjdl<a class="all"href="">(全文)</a>
                                             </p> 
@@ -241,163 +236,32 @@
 						<div class="ad">
 							<a href=""><img src="__PUBLIC__/images/ad4.jpg"/></a>
 						</div>
+						<div class="hot">
+                            <h3>热门推荐</h3>
+                            <ul>
+                                <li><a href="">2015年上xxbannian</a></li>                          
+                                <li><a href="">2015年上xxbannian</a></li>                          
+                                <li><a href="">2015年上xxbannian</a></li>                          
+                            </ul> 
+                        </div>
 
+                        <div class="list-box">
+                        	<div class="title">
+                        		<h3>本周口碑榜</h3><a href="">更多榜单》</a>
+                        	</div>
+                            <ul>
+                                <li>1<a href=""> 风快的麦克斯</a></li>
+                                <li>1<a href=""> 风快的麦克斯</a></li>
+                                <li>1<a href=""> 风快的麦克斯</a></li>
+                                <li>1<a href=""> 风快的麦克斯</a></li>
+                                <li>1<a href=""> 风快的麦克斯</a></li>
+                                <li>1<a href=""> 风快的麦克斯</a></li>
+                                <li>1<a href=""> 风快的麦克斯</a></li>
+                                <li>1<a href=""> 风快的麦克斯</a></li>
+                            </ul>
 
+                        </div>
 
-					<div class="section weekly-top">
-					    <div class="hd">
-					        <h2>畅销图书榜</h2>
-					    </div>
-					    <div class="bd">
-					        <ul class="nav-vendor">
-					            <li class="on book-chart-hd" id="jd-book-chart-hd">   
-					                <span>日榜</span>
-					            </li>
-					            <li class="book-chart-hd" id="amazon-book-chart-hd">
-					                <span>周榜</span>
-					            </li>
-					            <li class="book-chart-hd" id="dangdang-book-chart-hd">
-					                <span>月榜</span>
-					            </li>
-					        </ul>
-
-				            <ul class="list list-ranking">
-				                <li class="item">
-				                    <span class="rank-num">1.</span>
-				                    <div class="book-info">
-				                        <a href="" class="name" target="_blank">秘密花园</a>
-				                        <div class="author">[英]乔汉娜·贝斯福/Johanna Basford</div>
-				                    </div>
-				                    <a href="" target="_blank"><span class="buy-button">去购买</span></a>
-				                </li>
-				                
-				                <li class="item">
-				                    <span class="rank-num">2.</span>
-				                    <div class="book-info">
-				                        <a href="" class="name" target="_blank">无声告白</a>
-				                        <div class="author">[美] 伍绮诗</div>
-				                    </div>
-				                    <a href="e" target="_blank"><span class="buy-button">去购买</span></a>
-				                </li>
-				                
-				                <li class="item">
-				                    <span class="rank-num">3.</span>
-				                    <div class="book-info">
-				                        <a href="" class="name" target="_blank">从0到1</a>
-				                        <div class="author">彼得·蒂尔/布莱克·马斯特斯</div>
-				                    </div>
-				                    <a href="" target="_blank"><span class="buy-button">去购买</span></a>
-				                </li>
-				                
-				                <li class="item">
-				                    <span class="rank-num">4.</span>
-				                    <div class="book-info">
-				                        <a href="" class="name" target="_blank">追风筝的人</a>
-				                        <div class="author">[美] 卡勒德·胡赛尼</div>
-				                    </div>
-				                    <a href=""><span class="buy-button">去购买</span></a>
-				                </li>
-				                
-				                <li class="item">
-				                    <span class="rank-num">5.</span>
-				                    <div class="book-info">
-				                        <a href="" class="name" target="_blank">股票投资入门与实战技巧</a>
-				                        <div class="author">王坤</div>
-				                    </div>
-				                    <a href="" target="_blank"><span class="buy-button">去购买</span></a>
-				                </li>
-				                
-				                <li class="item">
-				                    <span class="rank-num">6.</span>
-				                    <div class="book-info">
-				                        <a href="/" class="name" target="_blank">解忧杂货店</a>
-				                        <div class="author">(日)东野圭吾</div>
-				                    </div>
-				                    <a href="" target="_blank"><span class="buy-button">去购买</span></a>
-				                </li>
-				                
-				                <li class="item">
-				                    <span class="rank-num">7.</span>
-				                    <div class="book-info">
-				                        <a href="" class="name" target="_blank">岛上书店</a>
-				                        <div class="author">[美] 加布瑞埃拉·泽文</div>
-				                    </div>
-				                    <a href="" target="_blank"><span class="buy-button">去购买</span></a>
-				                </li>
-				                
-				                <li class="item">
-				                    <span class="rank-num">8.</span>
-				                    <div class="book-info">
-				                        <a href="" class="name" target="_blank">我敢在你怀里孤独</a>
-				                        <div class="author">刘若英</div>
-				                    </div>
-				                    <a href="" target="_blank"><span class="buy-button">去购买</span></a>
-				                </li>
-				                
-				                <li class="item">
-				                    <span class="rank-num">9.</span>
-				                    <div class="book-info">
-				                        <a href="" class="name" target="_blank">花千骨</a>
-				                        <div class="author">果果</div>
-				                    </div>
-				                    <a href="" target="_blank"><span class="buy-button">去购买</span></a>
-				                </li>
-				                
-				                <li class="item">
-				                    <span class="rank-num">10.</span>
-				                    <div class="book-info">
-				                        <a href="" class="name" target="_blank">朝花夕拾</a>
-				                        <div class="author">鲁迅</div>
-				                    </div>
-				                    <a href="" target="_blank"><span class="buy-button">去购买</span></a>
-				                </li>
-				            </ul>
-
-							 <h2 class="jing">
-							    <span class="">蜂巢图书精选</span>
-							      <span class="link-more">
-							        <a class="" href="http://book.douban.com/top250?icn=index-book250-all">更多»</a>
-							      </span>
-							  </h2>
-
-							  <div class="content clearfix s" id="book_rec" data-dstat-areaid="58" data-dstat-mode="click,expose">
-          
-    
-							    <dl>
-							      <dt>
-							        <a onclick="moreurl(this, {from:'top'})" href="">
-							          <img src="db_files/s1020454.jpg" class="m_sub_img">
-							        </a>
-							      </dt>
-							      <dd>
-							        <a onclick="moreurl(this, {from:'top'})" href="">
-							          哭泣的骆驼
-							        </a>
-							        <p class="extra-info">
-							          
-							  
-							        </p>
-							      </dd>
-							    </dl>
-							    
-							    <dl>
-							      <dt>
-							        <a onclick="moreurl(this, {from:'top'})" href="">
-							          <img src="db_files/s1563589.jpg" class="m_sub_img">
-							        </a>
-							      </dt>
-							      <dd>
-							        <a onclick="moreurl(this, {from:'top'})" href="">
-							          长安乱
-							        </a>
-							        <p class="extra-info">
-							          
-							  
-							        </p>
-							      </dd>
-							    </dl>
-
-					   </div>
 					</div>
 				</div>
 			</div>

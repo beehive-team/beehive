@@ -102,6 +102,33 @@
 													</div>
 												</li>
 											</case>
+											<case value="movie">
+
+												<li class="album">
+													
+													<div class="album info">
+														<p><a href="{:U('people/index')}?p_id={$vo.info.u_id}">喜欢{$vo.info.name}</a> </p>
+														<div class="detail">
+															<div class="img-box">
+																<a href="{:U('movie/detail')}?id={$vo.info.id}">
+																	<notempty name="vo.info.photo">
+																		<foreach name="vo.info.photo" item="va" key="key">
+																			<img src="__PUBLIC__/{$va.i_path}/{$va.name}"/>
+																		</foreach>
+																	
+																	</notempty>
+
+																</a>
+															</div>
+															
+															
+														</div>
+														
+													</div>
+												</li>
+										
+											
+											</case>
 										</switch>
 									</foreach>
 								</ul>
@@ -183,15 +210,35 @@
 						
 					
 							<div class="list nodisplay sub-4">
-								
-								<foreach name="like_list" item="vo" key="k">
-									<if condition="$vo.action eq movie">
-									
-										<p>
-											<a href="">4{$vo.name}</a><span>{$vo.time|date="Y-m-d",###}</span>
-										</p>
-									</if>	
-								</foreach>
+								<ul>
+									<foreach name="like_list" item="vo" key="k">
+										<if condition="$vo.action eq movie">
+											<li class="album">
+												
+												<div class="album info">
+													<p><a href="{:U('people/index')}?p_id={$vo.info.u_id}">喜欢{$vo.info.name}</a> </p>
+													<div class="detail">
+														<div class="img-box">
+															<a href="{:U('movie/detail')}?id={$vo.info.id}">
+																<notempty name="vo.info.photo">
+																	<foreach name="vo.info.photo" item="va" key="key">
+																		<img src="__PUBLIC__/{$va.i_path}/{$va.name}"/>
+																	</foreach>
+																
+																</notempty>
+
+															</a>
+														</div>
+														
+														
+													</div>
+													
+												</div>
+											</li>
+										
+										</if>	
+									</foreach>
+								</ul>
 							</div>
 
 							<div class="list nodisplay sub-5">

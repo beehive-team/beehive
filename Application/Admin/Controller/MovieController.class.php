@@ -3,14 +3,15 @@ namespace Admin\Controller;
 use Think\Controller;
 class MovieController extends Controller {
     public function index(){
-      	$m = M('movie');
-        $count = $m->table('bee_movie m,bee_mclassify f')->field('f.name fname,m.*')->where('m.year=f.id')->count();
+      	$arr = $_GET['name'];
+        $m = M('movie');
+        $count = $m->table('bee_movie m,bee_mclassify f')->field('f.name fname,m.*')->where('m.year=f.id and m.name LIKE "%'.$arr.'%"')->count();
         // 实例化分页类 传入总记录数和每页显示的记录数
         $Page = new \Think\Page($count,5);
         // 分页显示输出
         $show = $Page->show();
 
-        $list = $m->table('bee_movie m,bee_mclassify f')->field('f.name fname,m.*')->where('m.year=f.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $list = $m->table('bee_movie m,bee_mclassify f')->field('f.name fname,m.*')->where('m.year=f.id and m.name LIKE "%'.$arr.'%"')->limit($Page->firstRow.','.$Page->listRows)->select();
         //echo $m->getLastsql();
         //var_dump($list);exit;
         for($i=0;$i< count($list);$i++){
@@ -211,11 +212,19 @@ class MovieController extends Controller {
    	}
    	
     public function image(){
+        $arr = $_GET['name'];
         $m = M('movie');
         //查询信息
-        $list = $m->table('bee_movie m,bee_mimage i')->field('i.id,i.name iname,i.i_path,i.is_cover,m.name')->where('m.id=i.m_id')->select();
+        $count = $m->table('bee_movie m,bee_mimage i')->field('i.id,i.name iname,i.i_path,i.is_cover,m.name')->where('m.id=i.m_id and m.name LIKE "%'.$arr.'%"')->count();
+        //var_dump($count);
+        // 实例化分页类 传入总记录数和每页显示的记录数
+        $Page = new \Think\Page($count,4);
+        // 分页显示输出
+        $show = $Page->show();
+        $list = $m->table('bee_movie m,bee_mimage i')->field('i.id,i.name iname,i.i_path,i.is_cover,m.name,m.id mid')->where('m.id=i.m_id and m.name LIKE "%'.$arr.'%"')->limit($Page->firstRow.','.$Page->listRows)->select();
         //var_dump($list);exit;
         $this->assign('list',$list);   
+        $this->assign('page',$show);
     	$this->display();    
    	}
    	public function addImage($id){
@@ -262,6 +271,34 @@ class MovieController extends Controller {
           $this->success('上传成功',U('Movie/addimage',"id=$id"));            
         }
 
+    }
+    public function docover(){
+        $id = $_GET['id'];
+        $mid = $_GET['mid']; 
+        $d['is_cover'] = 1;
+        $data['is_cover'] = 0;
+        $m = M('mimage');
+        $m->where("m_id=$mid")->field('is_cover')->save($data);
+        if($m->where("id=$id")->save($d)){
+            $this->success('设置成功',U('Movie/image'));
+        }else{
+            $this->error('设置失败');
+        }
+    }
+
+    public function delimage(){
+        $id = $_GET['id'];
+        $m = M('mimage');
+        
+        if($m->delete($id)){
+            $this->success('删除成功',U('Movie/image'));
+        }else{
+            $this->error('删除失败');
+        }
+    }
+    //广告
+    public function advert(){
+       $this->display();
     }
   
 
@@ -346,16 +383,21 @@ class MovieController extends Controller {
         }
     }
     public function longComment(){
+        //var_dump($_POST);
+        $arr = $_GET['name'];
+
         $m = M('l_r');
-        $count = $m->table('bee_movie m,bee_l_r l,bee_user u')->field('m.name,l.*,u.name uname')->where('l.m_id=m.id and l.u_id=u.id')->count();
+        $count = $m->table('bee_movie m,bee_l_r l,bee_user u')->field('m.name,l.*,u.name uname')->where('l.m_id=m.id and l.u_id=u.id and m.name LIKE "%'.$arr.'%"')->count();
         // 实例化分页类 传入总记录数和每页显示的记录数
         $Page = new \Think\Page($count,5);
         // 分页显示输出
         $show = $Page->show();
-        $list = $m->table('bee_movie m,bee_l_r l,bee_user u')->field('m.name,l.*,u.name uname')->where('l.m_id=m.id and l.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $list = $m->table('bee_movie m,bee_l_r l,bee_user u')->field('m.name,l.*,u.name uname')->where('l.m_id=m.id and l.u_id=u.id and m.name LIKE "%'.$arr.'%"')->limit($Page->firstRow.','.$Page->listRows)->select();
+        //echo $m->getLastsql();
         //var_dump($list);
         $this->assign('list',$list);
 
+        $this->assign('page',$show);// 赋值分页输出
         $this->display();
     }
 
@@ -382,7 +424,7 @@ class MovieController extends Controller {
         $list = $m->table('bee_movie m,bee_s_r s,bee_user u')->field('m.name,s.*,u.name uname')->where('s.m_id=m.id and s.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
         //var_dump($list);
         $this->assign('list',$list);
-
+        $this->assign('page',$show);// 赋值分页输出
 
         $this->display();
     } 

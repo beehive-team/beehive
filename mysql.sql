@@ -354,7 +354,7 @@ create table bee_s_r(
 	time varchar(13),								-- 时间表
 	m_id int,	
 	statut tinyint default 0,						-- 想看 0 看过  1 
-  	show tinyint default 0                          -- 显示字段  不显示0   显示1											
+  	`show` tinyint default 0                          -- 显示字段  不显示0   显示1											
 )engine=InnoDB default charset=utf8;
 
 -- 电影长评表
@@ -366,8 +366,8 @@ create table bee_l_r(
 	time varchar(13),								-- 时间表
 	m_id int,	
 	title varchar(255),	
-	grade int ,										-- 得分	
-    show tinyint default 0                          -- 显示字段  不显示0   显示1	
+	grade int,										-- 得分	
+    `show` tinyint default 0                          -- 显示字段  不显示0   显示1	
 )engine=InnoDB default charset=utf8;
 
 
@@ -502,4 +502,14 @@ create table bee_l_b(
 	title varchar(255),	
 	grade int,										-- 得分	
     `show` tinyint default 0                          -- 显示字段  不显示0   显示1	
+)engine=InnoDB default charset=utf8;
+
+
+-- 广告表
+create table bee_ad(
+	id int unsigned not null auto_increment primary key,
+	link varchar(255),								-- 	链接名
+	style tinyint,									--  类型
+	i_path varchar(255),							--  图片路径
+	i_name varchar(255)								--  图片名
 )engine=InnoDB default charset=utf8;

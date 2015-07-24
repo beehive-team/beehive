@@ -30,13 +30,13 @@
 			<div id="main">
 				<div class="inner clearfix">
 					<div class="con">
-						<h2>喜欢</h2>
+						<h2>广播</h2>
 						<div class="tab-box">
 							<a rel="1" class="active"href="javascript:;">全部</a>
 							<a rel="2" href="javascript:;">日记</a>
 							<a rel="3" href="javascript:;">相册</a>
-							<a rel="4" href="javascript:;">电影</a>
-							<a rel="5" href="javascript:;">图书</a>
+							<a rel="4" href="javascript:;">说说</a>
+							
 						</div>
 						<div class="info-box">
 							<div class="list nodisplay sub-1">
@@ -102,20 +102,27 @@
 													</div>
 												</li>
 											</case>
-											<case value="movie">
-
+											<case value="say">
 												<li class="album">
-													
+													<div class="face-box "style="display:block">
+														
+														<empty name="vo.info.image">
+															<img src="__PUBLIC__/images/default_face.jpg">
+														<else/>
+															<img src="__PUBLIC__{$vo.info.image}"/>
+														</empty>
+													</div>
 													<div class="album info">
-														<p><a href="{:U('people/index')}?p_id={$vo.info.u_id}">喜欢{$vo.info.name}</a> </p>
+														<p><a href="{:U('people/index')}?p_id={$vo.info.u_id}">{$vo.info.name}</a>的说说: </p>
 														<div class="detail">
 															<div class="img-box">
-																<a href="{:U('movie/detail')}?id={$vo.info.id}">
+																<a href="{:U('album/photoList')}?id={$vo.info.id}&p_id={$vo.info.u_id}">
 																	<notempty name="vo.info.photo">
 																		<foreach name="vo.info.photo" item="va" key="key">
-																			<img src="__PUBLIC__/{$va.i_path}/{$va.name}"/>
+																			<img src="__PUBLIC__/{$va.name}"/>
 																		</foreach>
-																	
+																	<else/>
+																		<p>还没发照片</p>
 																	</notempty>
 
 																</a>
@@ -123,11 +130,11 @@
 															
 															
 														</div>
-														
+														<div class="time">
+															<p>{$vo.info.time|date="Y-m-d H:i:s",###}</p>
+														</div>
 													</div>
 												</li>
-										
-											
 											</case>
 										</switch>
 									</foreach>
@@ -210,21 +217,30 @@
 						
 					
 							<div class="list nodisplay sub-4">
+								
 								<ul>
 									<foreach name="like_list" item="vo" key="k">
-										<if condition="$vo.action eq movie">
+										<if condition="$vo.action eq say">
 											<li class="album">
-												
+												<div class="face-box "style="display:block">
+													
+													<empty name="vo.info.image">
+														<img src="__PUBLIC__/images/default_face.jpg">
+													<else/>
+														<img src="__PUBLIC__{$vo.info.image}"/>
+													</empty>
+												</div>
 												<div class="album info">
-													<p><a href="{:U('people/index')}?p_id={$vo.info.u_id}">喜欢{$vo.info.name}</a> </p>
+													<p><a href="{:U('people/index')}?p_id={$vo.info.u_id}">{$vo.info.name}</a>的说说: </p>
 													<div class="detail">
 														<div class="img-box">
-															<a href="{:U('movie/detail')}?id={$vo.info.id}">
+															<a href="{:U('album/photoList')}?id={$vo.info.id}&p_id={$vo.info.u_id}">
 																<notempty name="vo.info.photo">
 																	<foreach name="vo.info.photo" item="va" key="key">
-																		<img src="__PUBLIC__/{$va.i_path}/{$va.name}"/>
+																		<img src="__PUBLIC__/{$va.name}"/>
 																	</foreach>
-																
+																<else/>
+																	<p>还没发照片</p>
 																</notempty>
 
 															</a>
@@ -232,26 +248,17 @@
 														
 														
 													</div>
-													
+													<div class="time">
+														<p>{$vo.info.time|date="Y-m-d H:i:s",###}</p>
+													</div>
 												</div>
 											</li>
-										
-										</if>	
+										</if>
 									</foreach>
 								</ul>
 							</div>
 
-							<div class="list nodisplay sub-5">
-								
-								<foreach name="like_list" item="vo" key="k">
-									<if condition="$vo.action eq book">
-									
-										<p>
-											<a href="">4{$vo.name}</a><span>{$vo.time|date="Y-m-d",###}</span>
-										</p>
-									</if>	
-								</foreach>
-							</div>
+
 						</div>
 					
 						

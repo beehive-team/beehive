@@ -12,10 +12,10 @@
 			<p>后台管理>电影管理</p>
 		</div>
 
-		<form class="form-inline" role="form" style="margin:18px 62px 22px;">
+		<form action="__CONTROLLER__/index" method="get" class="form-inline" role="form" style="margin:18px 62px 22px;">
 		  <div class="form-group">
 		    <label class="sr-only">电影名</label>
-		  <input type="text" class="form-control"  placeholder="输入电影名进行查询">
+		  <input name="name" type="text" class="form-control"  placeholder="输入电影名进行查询">
 		  </div>
 		  <button type="submit" class="btn btn-default">搜索</button>
 		</form>

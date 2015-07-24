@@ -29,12 +29,12 @@
 				var i=5;
 				$('.ajax-button a').click(function(){
 					i=i+5;
-					alert(i);					
+					//alert(i);					
 						$.post('__CONTROLLER__/moreRanking',{num:i},function(data){
-							alert(data);
+							//alert(data);
 							$('#dys').empty();
 							for(var tmp in data){
-								/*$('#dys').append('<li><div class="img-box f-left"><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src="__PUBLIC__'+data[tmp]['i_path']+data[tmp]['name']+'" /></a></div><div class="text-box f-left "><h5><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'">电影名 {$vo.alias}</a></h5><p>{$vo.orelease_t|date="Y-m-d",###}/{$vo.director}/{$vo.writer} ...</p><p>电影评论得分 <i>{$vo.score}</i><a href="__CONTROLLER__/detail/id/{$vo.m_id}">(去评价)</a></p></div></li>');*/
+								$('#dys').append('<li><div class="img-box f-left"><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src="__PUBLIC__'+data[tmp]['i_path']+data[tmp]['name']+'" width=65px /></a></div><div class="text-box f-left "><h5><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'">电影名 '+data[tmp]['alias']+'</a></h5><p>'+data[tmp]['orelease_t']+'/'+data[tmp]['director']+'/'+data[tmp]['writer']+' ...</p><p>电影评论得分 <i>'+data[tmp]['score']+'</i><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'">(去评价)</a></p></div></li>');
 							}
 												
 						},'json')

@@ -27,6 +27,8 @@
 			<!-- END header -->
 			
 			<div id="main">
+				
+				<if condition="$show eq 0">
 				<div class="section sec-1">
 					<div class="inner"/>
 						<div class="f-left form-box">
@@ -53,6 +55,7 @@
 						</div>
 					</div>
 				</div>
+				</if>
 				<div class="section sec-2">
 					<div class="inner">
 						<ul>
@@ -66,60 +69,40 @@
 						<h2>热点内容 ·······</h2>
 						<div class="img-box">
 							<ul>
-								<li>
-									<a href="">
-										<img src="__PUBLIC__/images/photo1.jpg"/>
-									</a>
-									<a href="">听写和诶插</a><span>86张照片</span>
-								</li>
-								<li>
-									<a href="">
-										<img src="__PUBLIC__/images/photo2.jpg"/>
-							
-									</a>
-									<a href="">听写和诶插</a><span>86张照片</span>
+								<foreach name="album" item="vo">
+									<li>
+										<a href="{:U('album/photolist')}?id={$vo.a_id}">
+											<img src="__PUBLIC__{$vo.path}/{$vo.p_name}"/>
+										</a>
+										<a href="{:U('album/photolist')}?id={$vo.a_id}">{$vo.a_name}</a>
 
-								</li>
-								<li>
-									<a href="">
-										<img src="__PUBLIC__/images/photo3.jpg"/>
-									</a>
-									<a href="">听写和诶插</a><span>86张照片</span>
-
-								</li>
-								<li>
-									<a href="">
-										<img src="__PUBLIC__/images/photo4.jpg"/>
-									</a>
-									<a href="">听写和诶插</a><span>86张照片</span>
-
-								</li>
+									</li>
+								</foreach>
 							</ul>
 						</div>
 						<div class="list-box">
 							<ul>
-								<li class="first"><a href="">题目</a><span>谁谁的日记</span>
-								<p>丙戌年，也即一衣带水的邻国平成十八年间，国境东隅的姑苏城一如两千五百年前建城...</p></li>
-								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
-								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
-								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
-								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
-								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
-								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
-								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
-								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
-								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
-								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
-								<li><a href="">揭秘《权力的游戏》取景地，现实远比魔幻更美</a></li>
+								<foreach name="diary" key="k" item="vo">
+									<if condition="$k eq 0">
+									
+										<li class="first">
+
+											<a href="{:U('diary/diaryDetail')}?id={$vo.d_id}">{$vo.title}</a>
+											<span>{$vo.u_name}</span>
+
+											<p>{$vo.content}</p>
+										</li>
+									</if>
+									
+									<li><a href="{:U('diary/diaryDetail')}?id={$vo.d_id}">{$vo.title}</a></li>
+								</foreach>
 							</ul>
 						</div>
 						<div class="list-box">
 							<ul>
 								<li><img src="__PUBLIC__/images/ad3.jpg"></li>
 
-								<li class="first"><a href="">题目</a><span>谁谁的日记</span><p>丙戌年，也即一衣带水的邻国平成十八年间，国境东隅的姑苏城一如两千五百年前建城...</p></li>
-								<li><a href="">揭秘《权力的f游戏》取景地，现实远比魔幻更美</a></li>
-								<li><a href="">揭秘《权力的游戏》取景地，现实远比魔幻更美</a></li>
+								
 							</ul>
 						</div>
 					</div>
@@ -267,7 +250,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="section sec-6">
+				<!-- <div class="section sec-6">
 					<div class="inner">
 						<div class="f-left list">
 							<h3>小组</h3>
@@ -330,7 +313,7 @@
 							
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<!-- START footer -->

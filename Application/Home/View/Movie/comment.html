@@ -12,12 +12,22 @@
 				var i=5;
 				$('.ajax-button a').click(function(){
 					i=i+5;
-					alert(i);					
+					j=0;
+					//alert(i);					
 						$.post('__CONTROLLER__/moreComment',{num:i},function(data){
 							//alert(data);
 							$('#dys').empty();
+
 							for(var tmp in data){
-								$('#dys').append('<li><div class="img-box f-left"><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src="__PUBLIC__'+data[tmp]['i_path']+data[tmp]['name']+'" width="68px" /></a></div><div class="text-box f-left"><h5><a href="__CONTROLLER__/commentDetail/id/'+data[tmp]['lid']+'/mid/'+data[tmp]['m_id']+'">'+data[tmp]['title']+'</a></h5><p><a href="">作者'+data[tmp]['uname']+'&nbsp;</a><a href="__CONTROLLER__/longComment/id/'+data[tmp]['m_id']+'">去评论&nbsp;'+data[tmp]['mname']+'</a></p><p class="detail">'+data[tmp]['content']+'<a class="all" href="__CONTROLLER__/commentDetail/id/'+data[tmp]['lid']+'/mid/'+data[tmp]['m_id']+'">(全文)</a></p></div></li>');
+								$('#dys').append('<li><div class="img-box f-left"><a href="__CONTROLLER__/detail/id/'+data[tmp]['m_id']+'"><img src="__PUBLIC__'+data[tmp]['i_path']+data[tmp]['name']+'" width="68px" /></a></div><div class="text-box f-left"><h5><a href="__CONTROLLER__/commentDetail/id/'+data[tmp]['lid']+'/mid/'+data[tmp]['m_id']+'">'+data[tmp]['title']+' (全文)</a></h5><p><a href="">作者'+data[tmp]['uname']+'&nbsp;</a><a href="__CONTROLLER__/longComment/id/'+data[tmp]['m_id']+'">去评论&nbsp;'+data[tmp]['mname']+'</a></p><p class="detail">'+data[tmp]['content']+'...<a class="all" href="__CONTROLLER__/commentDetail/id/'+data[tmp]['lid']+'/mid/'+data[tmp]['m_id']+'">(全文)</a></p></div></li>');
+
+								var con = $('.detail').eq(j).html();
+								// alert(con)
+								con = con.substring(0,30);
+								// alert(con)
+								$('#dys li .detail').eq(j).html(con);
+								j++;
+								// alert(j)
 							}
 												
 						},'json')

@@ -493,7 +493,7 @@ class UserController extends CommonController {
 
     public function myLike(){
         $like_list = $this->getLike('all',$this->userId);
-        
+        // var_dump($like_list);
         foreach ($like_list as $key => $value) {
             $id = $like_list[$key]['id'];
             switch ($like_list[$key]['action']) {
@@ -512,7 +512,12 @@ class UserController extends CommonController {
                     $like_list[$key]['info'] = $diary_result;
                     break;
                 case 'movie':
-
+                    $movie = M('movie');
+                    $movie_result=$movie->where("id=$id")->find();
+                    $photo = M('mimage');
+                    $movie_result['photo'] = $photo->where("id=$id")->select();
+                    $like_list[$key]['info']=$movie_result;
+                    // var_dump($movie_result);
                     break;
                 case 'book':
 

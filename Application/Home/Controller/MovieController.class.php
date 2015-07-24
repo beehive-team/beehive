@@ -127,7 +127,7 @@ class MovieController extends CommonController {
         //var_dump($r);
         // echo $this->userId;
 
-        if($this->if($id,'movie',$this->userId,$this->userId)){
+        if($this->ifLike($id,'movie',$this->userId,$this->userId)){
             $like = 1;
 
         }else{
@@ -162,7 +162,9 @@ class MovieController extends CommonController {
         //var_dump($sum);
         $data['score']=floor($sum/$r6*10)/10;
         //根据分数对应相应的打分 $star控制css的类
-        if($data['score']>=1 && $data['score']<=1.5){
+        if($data['score']>=0 && $data['score']<=1){
+            $star = '10';
+        }elseif($data['score']>=1 && $data['score']<=1.5){
             $star = '15';
         }elseif($data['score']>1.5 && $data['score']<=2.0){
             $star = '20';
@@ -452,7 +454,7 @@ class MovieController extends CommonController {
                 ->field('i.*,u.name uname,m.name mname,l.content,l.title,l.id lid,l.u_id')
                 ->where('l.m_id=m.id and l.u_id=u.id and is_cover=1 and l.m_id=i.m_id and l.id='.$r_id)
                 ->find();
-            $res['content']= mb_substr($res['content'], 0,56);
+            // $res['content']= mb_substr($res['content'], 0,56);
             //var_dump($res);
             $arr[] = $res;
 
@@ -465,8 +467,15 @@ class MovieController extends CommonController {
         $i=$_POST['num'];
         $m= M('movie');
         $lis = $m->table('bee_movie m,bee_mimage i')->field('m.alias,m.score,m.director,m.writer,m.name mname,m.orelease_t,i.*')->where('m.id=i.m_id and i.is_cover=1')->order('hot desc')->limit($i)->select();
+
         //var_dump($lis);
-        echo json_encode($lis);
+        foreach($lis as $val){
+            $val['orelease_t'] = date('Y-m-d',$val['orelease_t']);
+            $li[] = $val;
+          
+        }
+        //var_dump($li);
+        echo json_encode($li);
     }
     /*public function addcomment(){
        

@@ -24,7 +24,7 @@
 <div class="link-box">
 	<ul>
 		<li><a class="userInfo" rel="{$u_id}" href="{:U('people/index')}?p_id={$data.id}">{$data['name']}的主页</a></li>
-		<li><a href="">广播</a></li>
+		<li><a href="{:U('People/broadcast')}?p_id={$data.id}">{$data['name']}的广播</a></li>
 		<li><a href="{:U('Album/album')}?p_id={$data.id}">{$data['name']}的相册</a></li>
 		<li><a href="{:U('Diary/diary')}?p_id={$data.id}">{$data['name']}的日记</a></li>
 		<li><a href="{:U('People/like')}?p_id={$data.id}">{$data['name']}的喜欢</a></li>

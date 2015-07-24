@@ -248,6 +248,13 @@ class PeopleController extends CommonController {
                     break;
                 case 'movie':
 
+                    $movie = M('movie');
+                    $movie_result=$movie->where("id=$id")->find();
+                    $photo = M('mimage');
+                    $movie_result['photo'] = $photo->where("id=$id")->select();
+                    $like_list[$key]['info']=$movie_result;
+                    // var_dump($movie_result);
+                 
                     break;
                 case 'book':
 
@@ -261,6 +268,50 @@ class PeopleController extends CommonController {
     }
 
     
+    // 显示他人广播
+    public function broadcast(){
+        $u_id = $_GET['p_id'];
+        $like_list = $this->getTrend('all',$u_id);
 
+        foreach ($like_list as $key => $value) {
+            $id = $like_list[$key]['id'];
+            switch ($like_list[$key]['action']) {
+                case 'album':
+                    $album = M('album');
+                    $album_result = $album->field('a.id,u.id as u_id,u.name,a.time,a.name as a_name,image')->table("bee_user u,bee_album a")->where("a.id=$id and a.u_id=u.id")->find();
+                    $photo = M('photo');
+
+                    $album_result['photo']=$photo->where("a_id=$id")->select();
+                    $like_list[$key]['info']=$album_result;
+
+                    break;
+                
+                case 'diary':
+                    $diary = M('diary');
+                    $diary_result =$diary->field('u.name as u_name,title,image,d.time,content,u.id as u_id,d.id')->table("bee_user u,bee_diary d")->where("u.id=d.u_id and d.id=$id")->find();
+                    $like_list[$key]['info'] = $diary_result;
+
+                    break;
+                case 'say':
+                    $say = M('say');
+                    $say_result = $say->field('s.id,u.id as u_id,u.name,s.time,image')->table("bee_user u,bee_say s")->where("u.id=s.u_id and s.id=$id")->find();
+                    // var_dump($say_result);
+
+                    $image = M('s_i');
+
+                    $say_result['photo']=$image->where("s_id=$id")->select();
+                    // var_dump($say_result);
+                    $like_list[$key]['info']=$say_result;
+                    // var_dump($like_list);
+
+                    break;
+               
+            }
+        }
+        // var_dump($like_list);
+        $this->assign('like_list',$like_list);
+        $this->display();
+
+    }
 
 }

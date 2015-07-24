@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- START 公用 head -->
+		    {:W('Common/commonHead')}
+		<!-- END 公用 head -->
+		<!-- START 自定义 head -->
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload.css">  
+		<link rel="stylesheet" href="__PUBLIC__/js/jQuery-File-Upload-master/css/jquery.fileupload-ui.css"> 
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>  
+		<script src="__PUBLIC__/js/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script> 
+
+		<script type="text/javascript">
+			$(function(){
+				
+			})
+		</script>
+		<!-- END 自定义 head -->
+	</head>
+	<body class="user-page user-like-page">
+		<div id="wrap">
+			<!-- START header -->
+		    {:W('Common/allHeader')}
+		    {:W('Common/userHeader')}
+
+			<!-- END header -->
+			
+			<div id="main">
+				<div class="inner clearfix">
+					<div class="con">
+						<h2>搜索结果</h2>
+						
+						<div class="info-box">
+							<div class="list nodisplay sub-1">
+								<notempty name="movie_list">
+								<h4>相关的电影有</h4>
+								<ul>
+									<foreach name="movie_list" item="vo">
+										
+											<li class="album">
+												
+												<div class="album info">
+													<p><a href="{:U('movie/detail')}?id={$vo.id}">{$vo.mname}</a> </p>
+													<div class="detail">
+														<div class="img-box">
+															<a href="{:U('movie/detail')}?id={$vo.info.id}">
+																
+																		<img src="__PUBLIC__/{$vo.i_path}/{$vo.i_name}"/>
+																
+
+															</a>
+														</div>
+														
+														
+													</div>
+													
+												</div>
+											</li>
+										
+									
+									</foreach>
+								</ul>
+								</notempty>
+							
+								<notempty name="user_list">
+								<h4>相关的用户有</h4>
+								<ul>
+									<foreach name="user_list" item="vo">
+										
+											<li class="album">
+												
+												<div class="album info">
+													<p><a href="{:U('user/index')}?id={$vo.id}">{$vo.name}</a> </p>
+													<div class="detail">
+														<div class="img-box">
+															<a href="{:U('people/index')}?p_id={$vo.id}">
+																	<notempty name="vo.image">
+																		<img src="__PUBLIC__{$vo.image}"/>
+																		<else />
+																		<img src="__PUBLIC__/images/default_face.jpg"/>
+																	</notempty>
+
+															</a>
+														</div>
+														<div class="intro">{$vo.introduce}</div>	
+													</div>
+													
+												</div>
+											</li>
+										
+									
+									</foreach>
+								</ul>
+								</notempty>
+
+								<notempty name="diary_list">
+								<h4>相关的日志有</h4>
+								<ul>
+									<foreach name="diary_list" item="vo">	
+										<li class="diary">
+											<div class="face-box" style="display:block">
+												<empty name="vo.image">
+													<img src="__PUBLIC__/images/default_face.jpg">
+												<else/>
+													<img src="__PUBLIC__{$vo.image}"/>
+												</empty>
+											</div>
+											<div class="diary info">
+												<p><a href="{:U('People/index')}?p_id={$vo.u_id}">{$vo.u_name}</a>的日记: </p>
+												<div class="detail">
+													<a class="title" href="{:U('diary/diaryDetail')}?id={$vo.id}&p_id={$vo.u_id}">
+														{$vo.title}
+													</a>
+													<p>{$vo.content} </p>
+													
+												</div>
+												<div class="time">
+													<p>{$vo.time|date="Y-m-d H:i:s",###}</p>
+												</div>
+											</div>
+										</li>
+									</foreach>
+								</ul>
+								</notempty>
+							</div>
+							
+						</div>
+					
+						
+					</div>
+					
+				
+				</div>
+			</div>
+		</div>
+		<!-- START footer -->
+		    {:W('Common/commonFooter')}
+		<!-- END footer -->
+
+		<script type="text/javascript">
+			$(function(){
+				$('.sub-1').show();
+				$('.tab-box a').click(function(){
+					var index = $(this).attr('rel');
+					var subIndex = '.sub-'+index;
+					$('.list').hide();
+					$(subIndex).show();
+					$('.tab-box a').removeClass('active');
+					$(this).addClass('active');
+				})
+
+			})
+		</script>
+
+	</body>
+</html>

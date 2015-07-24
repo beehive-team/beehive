@@ -194,6 +194,7 @@ class CommonController extends Controller{
                         
                         $like_list[$i]['name']=$album_name['name'];
                     break;
+
                 }
             }
         }else{
@@ -221,6 +222,17 @@ class CommonController extends Controller{
                         $album_name=$album->field('name')->where("id=$album_id")->find();
 
                         $like_list[$i]['name']=$album_name['name'];
+                    break;
+                    case 'movie':
+        
+                        $like_list[$i]['action'] = 'movie';
+                        $movie_id = $like_result[$i]['like_id'];
+                        $like_list[$i]['time']=$like_result[$i]['time'];
+                        $movie= M('movie');
+                        $movie_name=$movie->field('name')->where("id=$movie_id")->find();
+                        $like_list[$i]['id']=$movie_id;
+                        
+                        $like_list[$i]['name']=$movie_name['name'];
                     break;
                 }
             }
@@ -523,6 +535,13 @@ class CommonController extends Controller{
         $data['time'] = $time;
         $m = M('tip');
         $m->add($data);
+    }
+
+    //退出
+    public function out(){
+        // echo 1;
+      unset($_SESSION['home']);
+      $this->success('退出成功',U('Index/index'));
     }
 
 }

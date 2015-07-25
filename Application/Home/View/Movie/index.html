@@ -95,7 +95,7 @@
 										<a href="__CONTROLLER__/detail/id/{$vo.m_id}">
 											<img src="__PUBLIC__/{$vo.i_path}180_{$vo.name}"/>
 											<p>{$vo.mname}</p>
-											<span class="allstar40"></span><i>{$vo.score}</i>
+											<p>评分<i>{$vo.score}</i></p>
 										</a>
 									</li>
 									</foreach>
@@ -192,7 +192,7 @@
 					</div>
 					<div class="f-left sider">
 						<div class="ad">
-							<a href=""><img src="__PUBLIC__/images/ad4.jpg"/></a>
+							<a href="http://{$adlist.link}"><img src="__PUBLIC__{$adlist.i_path}{$adlist.i_name}"/></a>
 						</div>
 						<div class="hot">
                             <h3>热门推荐</h3>
@@ -209,7 +209,7 @@
                         	</div>
                             <ul>
                             	<foreach name="r" item="vo" key="k">
-                                <li>{$k+1}<a href=""> {$vo.name}</a></li>
+                                <li>{$k+1}<a href="__CONTROLLER__/detail/id/{$vo.id}"> {$vo.name}</a></li>
                                	</foreach>
                             </ul>
 

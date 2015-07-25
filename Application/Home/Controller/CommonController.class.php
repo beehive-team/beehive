@@ -544,4 +544,11 @@ class CommonController extends Controller{
       $this->success('退出成功',U('Index/index'));
     }
 
+    public function ad($style){
+        $m = M('ad');
+        $list = $m->where("style=$style")->find();
+        return $list;
+      
+    }
+
 }

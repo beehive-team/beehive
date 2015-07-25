@@ -6,6 +6,26 @@
 	<!-- END 公用 head -->
 	<link rel="stylesheet" href="__PUBLIC__/css/moviedetail.css">
 </head>
+<script type="text/javascript">
+	$(function(){
+        var s_id;
+        var l_id;
+        
+        $('.l_userful').click(function(){
+        	if(!$(this).hasClass('active')){
+        		l_id = $(this).attr('rel');
+        		//alert(l_id);
+        		var that =$(this);
+        		$.post('__CONTROLLER__/lCommentUseful',{l_id:l_id},function(data){
+	        		//alert(data['hot']);
+	        		$(that).parents('.review-short-ft').find('.l_userful-num ').html(data[
+	        			'hot']);      		
+	        	},'json');
+	        	$(that).addClass('active');
+        	}
+        })
+	})
+</script>
 <body>
 	<!-- START header -->
 	    {:W('Common/allHeader')}
@@ -40,9 +60,9 @@
 										<p>{$vo.content|subtext=273}
 										</p>										
 										<div class="review-short-ft">
-											<span>129/133</span>
-											 有用
-											<a href="">73回复</a>
+											<span class="l_userful-num">{$vo.hot}</span>
+											 <a rel="{$vo.id}" class="l_userful" href="javascript:;">有用</a>
+											<a href="__CONTROLLER__/commentDetail/id/{$vo.id}/mid/{$vo.m_id}">回复</a>
 										</div>
 									</div>
 								</div>

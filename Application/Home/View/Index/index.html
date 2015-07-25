@@ -17,6 +17,13 @@
 				});
 			})
 		</script>
+		<style>
+			.last_one li{
+				border-bottom: 1px solid #ddd;
+			    line-height: 40px;
+			    padding-left: 10px;
+			}
+		</style>
 		<!-- END 自定义 head -->
 	</head>
 	<body class="home-page">
@@ -59,8 +66,9 @@
 				<div class="section sec-2">
 					<div class="inner">
 						<ul>
-							<li><a href=""><img src="__PUBLIC__/images/ad1.jpg"></a></li>
-							<li><a href=""><img src="__PUBLIC__/images/ad2.jpg"></a></li>
+							<foreach name="list_a" item="vo">
+							<li><a href="http://{$vo.link}"><img src="__PUBLIC__{$vo.i_path}{$vo.i_name}"></a></li>
+							</foreach>
 						</ul>
 					</div>
 				</div>
@@ -176,77 +184,41 @@
 						<div class="f-left list">
 							<h3>电影</h3>
 							<ul>
-								<li><a href="">选电影</a></li>
-								<li><a href="">排行榜</a></li>
-								<li><a href="">分类</a></li>
-								<li><a href="">影评</a></li>
+								<li><a href="__MODULE__/Movie/index">电影首页</a></li>
+								<li><a href="__MODULE__/Movie/chose">选电影</a></li>
+								<li><a href="__MODULE__/Movie/ranking">排行榜</a></li>
+								<li><a href="__MODULE__/Movie/comment">影评</a></li>
 							</ul>
 						</div>
 						<div class="f-left new">
-							<h4>正在热映 ·······</h4><a href="">（更多）</a>
+							<h4>正在热映 ·······</h4>
 							<ul>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/movie1.jpg"/></a>
+								<foreach name="row" item="vo">
+									<li>
+										<div class="pic">
+											<a href="__MODULE__/Movie/detail/id/{$vo.mid}"><img src="__PUBLIC__{$vo.i_path}{$vo.name}"/></a>
 
-									</div>
-									<p><a href="">新手</a></p>
-									<span class=""></span><i>7.9</i>
+										</div>
+										<p><a href="">{$vo.mname}</a></p>
+											<p>评分 <i>{$vo.score}</i></p>
 
-								</li>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/movie1.jpg"/></a>
-									</div>
-									<p><a href="">新手</a></p>
-									<span class=""></span><i>7.9</i>
-
-								</li>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/movie1.jpg"/></a>
-									</div>
-									<p><a href="">新手</a></p>
-									<span class=""></span><i>7.9</i>
-
-								</li>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/movie1.jpg"/></a>
-									</div>
-									<p><a href="">新手</a></p>
-									<span class=""></span><i>7.9</i>
-
-								</li>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/movie1.jpg"/></a>
-									</div>
-									<p><a href="">新手</a></p>
-									<span class="allstar15"></span><i>7.9</i>
-
-								</li>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/movie1.jpg"/></a>
-									</div>
-									<p><a href="">新手</a></p>
-									<span class=""></span><i>7.9</i>
-
-								</li>
+									</li>
+								</foreach>
 							</ul>
 						</div>
 						<div class="f-left right">
-							<h4>影片分类 ·······</h4><a href="">（更多）</a>
+							<!-- <h4>影片分类 ·······</h4><a href="">（更多）</a>
 								<div class="classify">
 									<a href="">小说</a>
 									<a href="">随笔</a>
-								</div>
-							<h4>近期热门 ·······</h4><a href="">（更多）</a>
-								<ul>
-									<li>1. <a href="">疯狂的麦克斯</a></li>
-								</ul>
-							</ul>
+								</div> -->
+							<h4>近期热门 ·······</h4><a href="__MODULE__/Movie/index">（更多）</a>
+							<ul class="last_one">
+                            	<foreach name="r" item="vo" key="k">
+                                <li>{$k+1}<a href="__MODULE__/Movie/detail/id/{$vo.id}"> {$vo.name}</a></li>
+                               	</foreach>
+                        	</ul>
+							
 						</div>
 					</div>
 				</div>

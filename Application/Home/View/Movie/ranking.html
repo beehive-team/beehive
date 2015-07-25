@@ -109,7 +109,7 @@
 							
 						</div> -->
 						<div class="ad">
-							<a href=""><img src="__PUBLIC__/images/ad4.jpg"/></a>
+							<a href="http://{$adlist.link}"><img src="__PUBLIC__{$adlist.i_path}{$adlist.i_name}"/></a>
 						</div>
                         <div class="list-box">
                         	<div class="title">
@@ -118,7 +118,7 @@
                         	</div>
                             <ul>
                               	<foreach name="r" item="vo" key="k">
-                                <li>{$k+1}<a href=""> {$vo.name}</a></li>
+                                <li>{$k+1}<a href="__CONTROLLER__/detail/id/{$vo.id}"> {$vo.name}</a></li>
                               	</foreach>
                             </ul>
 

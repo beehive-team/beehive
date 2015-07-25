@@ -6,6 +6,27 @@
 	<!-- END 公用 head -->
 	<link rel="stylesheet" href="__PUBLIC__/css/moviedetail.css">
 </head>
+<script type="text/javascript">
+	$(function(){
+
+        var s_id;
+        var l_id;
+        $('.userful').click(function(){
+        	if(!$(this).hasClass('active')){
+        		s_id = $(this).attr('rel');
+	        	//alert(s_id);
+	        	var that = $(this);
+	        	$.post('__CONTROLLER__/sCommentUseful',{s_id:s_id},function(data){
+	        		//alert(data['hot']);
+	        		$(that).parents('.comment-item').find('.userful-num ').html(data[
+	        			'hot']);      		
+	        	},'json');
+	        	$(that).addClass('active');
+        	}
+        	
+        })
+	})
+</script>
 <body>
 	<!-- START header -->
 	    {:W('Common/allHeader')}
@@ -19,7 +40,7 @@
 					<div class="grid-16-8 clearfix">
 						<div class="comments-section fl">
 							<div class="mod-hd">
-								<a class="saytwo" href="#pop-1">我来说两句</a>		
+								<!-- <a class="saytwo" href="#pop-1">我来说两句</a> -->		
 							</div>
 							<div class="mod-bd">
 								<div class="tab-hd">
@@ -34,8 +55,8 @@
 									<div class="comment-item">
 										<div class="comment-user">									
 											<a class="username" href="">{$v.name}</a>	
-											<a class="userful" href="">有用</a>
-											<span class="userful-num">30</span>						
+											<a rel="{$v.id}" class="userful" href="javascript:;">有用</a>
+											<span class="userful-num">{$v.hot}</span>						
 										</div>
 										<div class="clearfix"></div>
 										<div class="comment-content">

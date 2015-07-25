@@ -2,6 +2,11 @@
 namespace Home\Controller;
 class MovieController extends CommonController {
     public function index(){
+        //查询显示广告
+        $adlist = $this->ad(0);
+        $this->assign('adlist',$adlist);
+        
+
         //实例化分类表
         $m = M('mclassify');
         $list=$m->where("path='0,1,'")->select();
@@ -42,7 +47,11 @@ class MovieController extends CommonController {
         $this->display();
     }
     public function chose(){
-         //实例化分类表
+        //查询显示广告
+        $adlist = $this->ad(0);
+        $this->assign('adlist',$adlist);
+
+        //实例化分类表
         $m = M('mclassify');
         $list=$m->where("path='0,1,'")->select();
         //var_dump($list);
@@ -56,6 +65,10 @@ class MovieController extends CommonController {
     	$this->display();
     }
     public function ranking(){
+        //查询显示广告
+        $adlist = $this->ad(0);
+        $this->assign('adlist',$adlist);
+
         //电影热度查询
         $m= M('movie');
         $lis = $m->table('bee_movie m,bee_mimage i')->field('m.alias,m.score,m.director,m.writer,m.name mname,m.orelease_t,i.*')->where('m.id=i.m_id and i.is_cover=1')->order('hot desc')->limit(5)->select();
@@ -70,6 +83,10 @@ class MovieController extends CommonController {
     	$this->display();
     }
     public function comment(){
+        //查询显示广告
+        $adlist = $this->ad(0);
+        $this->assign('adlist',$adlist);
+
         //最受欢迎的影评
         $m1=M('l_r');
         $r1 = $m1->table('bee_l_r')->order('hot desc')->limit(5)->select();
@@ -88,6 +105,13 @@ class MovieController extends CommonController {
     	$this->display();
     }
     public function detail(){        
+        //查询显示广告
+        $adlist = $this->ad(0);
+        $this->assign('adlist',$adlist);
+
+        $adblist = $this->ad(1);
+        $this->assign('adblist',$adblist);
+
         //获取电影id
         $id=$_GET['id'];
         $m = M('movie');
@@ -232,7 +256,7 @@ class MovieController extends CommonController {
     public function longComment(){
         //接收影片ID
         $id = $_GET['id'];
-         $m = M('movie');
+        $m = M('movie');
         //进行多表联合查询
         $list = $m->table('bee_movie m,bee_mimage i,bee_mclassify f,bee_m_c c')
                 ->field('m.*,i.name iname,i.m_id imid,i.i_path,i.is_cover,f.id fid,f.name fname,c.m_id cmid,c.c_id')

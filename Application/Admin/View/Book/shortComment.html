@@ -12,10 +12,10 @@
 			<p>后台管理>图书短评</p>
 		</div>
 
-		<form class="form-inline" role="form" style="margin:18px 62px 22px;">
+		<form action="__CONTROLLER__/longComment" method="get" class="form-inline" role="form" style="margin:18px 62px 22px;">
 		  <div class="form-group">
 		    <label class="sr-only">图书名</label>
-		  <input type="text" class="form-control"  placeholder="输入图书名进行查询">
+		  <input type="text" name="name" class="form-control"  placeholder="输入图书名进行查询">
 		  </div>
 		  <button type="submit" class="btn btn-default">搜索</button>
 		</form>

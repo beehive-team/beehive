@@ -483,10 +483,10 @@ body > #wrap {height: auto; min-height: 100%;}
 	text-align: center;
 }
 .home-page .section .tags li{
-	width: 290px;
+	
 }
 .home-page .section .tags li {
-	padding-bottom: 14px;
+	
 	border-bottom: 1px solid #ddd;
 }
 .home-page .section .tags li a{

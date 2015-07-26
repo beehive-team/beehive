@@ -78,7 +78,7 @@ h1{
  }
 .aside{
  	width: 310px;
- 	height: 1460px;
+ 	height: 1060px;
  	float: right;
  }
 .extra{
@@ -131,7 +131,6 @@ h1{
     line-height: 18px;
     width: 155px;
     height: 146px;
-    background-color: #eee;
 }
 .rating_self {
     line-height: 0;

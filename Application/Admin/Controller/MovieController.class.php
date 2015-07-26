@@ -407,16 +407,17 @@ class MovieController extends CommonController {
     }
      
     public function shortComment(){
+        $arr = $_GET['name'];
         $m = M('s_r');
         //查询出符合条件的记录总数
-        $count = $m->table('bee_movie m,bee_s_r s,bee_user u')->field('m.name,s.*,u.name uname')->where('s.m_id=m.id and s.u_id=u.id')->count();
+        $count = $m->table('bee_movie m,bee_s_r s,bee_user u')->field('m.name,s.*,u.name uname')->where('s.m_id=m.id and s.u_id=u.id and m.name LIKE "%'.$arr.'%"')->count();
         //var_dump($count);
 
         // 实例化分页类 传入总记录数和每页显示的记录数
         $Page = new \Think\Page($count,5);
         // 分页显示输出
         $show = $Page->show();
-        $list = $m->table('bee_movie m,bee_s_r s,bee_user u')->field('m.name,s.*,u.name uname')->where('s.m_id=m.id and s.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $list = $m->table('bee_movie m,bee_s_r s,bee_user u')->field('m.name,s.*,u.name uname')->where('s.m_id=m.id and s.u_id=u.id and m.name LIKE "%'.$arr.'%"')->limit($Page->firstRow.','.$Page->listRows)->select();
         //var_dump($list);
         $this->assign('list',$list);
         $this->assign('page',$show);// 赋值分页输出

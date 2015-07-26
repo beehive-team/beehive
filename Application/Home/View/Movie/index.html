@@ -150,7 +150,7 @@
 								<ul class="big-slider">
 									<foreach name="arr" item="vo">
 									<li>
-										<a href="">
+										<a href="__CONTROLLER__/detail/id/{$vo.m_id}">
 											<div class="img-box f-left"><img src="__PUBLIC__{$vo.i_path}{$vo.name}" height="240px"/></div>
 											<div class="text-box f-left">
 												<h4>2015年口碑电影</h4>
@@ -172,14 +172,14 @@
 								<a href="">新片影评》</a>
 							</div>
 							<div class="bottom">
-								<ul=
+								<ul>
 									<foreach name="arr" item="vo">
 									<li>
-										<div class="img-box f-left"><a href=""><img src="__PUBLIC__{$vo.i_path}148_{$vo.name}" width="68px" /></a></div>
+										<div class="img-box f-left"><a href="__CONTROLLER__/detail/id/{$vo.m_id}"><img src="__PUBLIC__{$vo.i_path}148_{$vo.name}" width="68px" /></a></div>
 										<div class="text-box f-left">
-											<h5><a href="">{$vo.title}</a></h5>
+											<h5><a href="__CONTROLLER__/commentDetail/id/{$vo.lid}/mid/{$vo.m_id}">{$vo.title}</a></h5>
                                             <p><a href="">作者 {$vo.uname}&nbsp;</a> 
-                                            <a href="">去评论&nbsp;{$vo.mname}</a></p>
+                                            <a href="__CONTROLLER__/detail/id/{$vo.m_id}">去评论&nbsp;{$vo.mname}</a></p>
                                             <p class="detail"> 
                                                 {$vo.content|subtext=28}<a class="all" href="__CONTROLLER__/commentDetail/id/{$vo.lid}/mid/{$vo.m_id}">(全文)</a>
                                             </p> 

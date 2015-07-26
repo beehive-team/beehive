@@ -3,9 +3,10 @@ namespace Admin\Controller;
 use Think\Controller;
 class BookController extends CommonController {
     public function index(){
+      $arr = $_GET['name'];
       $b = M('book');
 
-      $list = $b->select();
+      $list = $b->where('name LIKE "%'.$arr.'%"')->select();
 
       $list[0]['release_t'] = date('Y-m-d',$list[0]['release_t']);
       //var_dump($list);
@@ -277,13 +278,14 @@ class BookController extends CommonController {
 
 
     public function longComment(){
+        $arr = $_GET['name'];
         $b = M('l_b');
-        $count = $b->table('bee_book b,bee_l_b l,bee_user u')->field('b.name,l.*,u.name uname')->where('l.b_id=b.id and l.u_id=u.id')->count();
+        $count = $b->table('bee_book b,bee_l_b l,bee_user u')->field('b.name,l.*,u.name uname')->where('l.b_id=b.id and l.u_id=u.id and b.name LIKE "%'.$arr.'%"')->count();
         // 实例化分页类 传入总记录数和每页显示的记录数
         $Page = new \Think\Page($count,5);
         // 分页显示输出
         $show = $Page->show();
-        $list = $b->table('bee_book b,bee_l_b l,bee_user u')->field('b.name,l.*,u.name uname')->where('l.b_id=b.id and l.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $list = $b->table('bee_book b,bee_l_b l,bee_user u')->field('b.name,l.*,u.name uname')->where('l.b_id=b.id and l.u_id=u.id and b.name LIKE "%'.$arr.'%"')->limit($Page->firstRow.','.$Page->listRows)->select();
         //var_dump($list);
         $this->assign('list',$list);
 
@@ -304,16 +306,17 @@ class BookController extends CommonController {
     }
 
     public function shortComment(){
+        $arr = $_GET['name'];
         $b = M('s_b');
         //查询出符合条件的记录总数
-        $count = $b->table('bee_book b,bee_s_b s,bee_user u')->field('b.name,s.*,u.name uname')->where('s.b_id=b.id and s.u_id=u.id')->count();
+        $count = $b->table('bee_book b,bee_s_b s,bee_user u')->field('b.name,s.*,u.name uname')->where('s.b_id=b.id and s.u_id=u.id and b.name LIKE "%'.$arr.'%"')->count();
         //var_dump($count);
 
         // 实例化分页类 传入总记录数和每页显示的记录数
         $Page = new \Think\Page($count,5);
         // 分页显示输出
         $show = $Page->show();
-        $list = $b->table('bee_book b,bee_s_b s,bee_user u')->field('b.name,s.*,u.name uname')->where('s.b_id=b.id and s.u_id=u.id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $list = $b->table('bee_book b,bee_s_b s,bee_user u')->field('b.name,s.*,u.name uname')->where('s.b_id=b.id and s.u_id=u.id and b.name LIKE "%'.$arr.'%"')->limit($Page->firstRow.','.$Page->listRows)->select();
         //var_dump($list);
         $this->assign('list',$list);
 

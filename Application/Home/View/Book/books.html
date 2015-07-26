@@ -4,6 +4,7 @@
 	<!-- START 公用 head -->
 	    {:W('Common/commonHead')}
 	<!-- END 公用 head -->
+	<link rel="stylesheet" href="__PUBLIC__/css/moviedetail.css">
 	<link rel="stylesheet" href="__PUBLIC__/css/s1.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/fancybox/jquery.fancybox.css" />
 	<script type="text/javascript" src="__PUBLIC__/js/fancybox/jquery.fancybox.js"></script>
@@ -106,11 +107,11 @@
 											<span content="10.0" property="v:best"></span>
 											</p>
 											<p style="height:18px;margin:5px 0;font-size:12px;">
-											 	(
-													<a href="collections">
+											 	(图书评分分布
+													<!-- <a href="collections">
 													<span property="v:votes">{$data.count}</span>
 													人评价
-													</a>
+													</a> -->
 												)
 											</p>
 											<span class="stars5 starstop" title="力荐"></span>
@@ -135,7 +136,7 @@
 											<br>
 										</div>
 										<div class="rating_betterthan">
-											图书评分
+											
 										</div>
 									</div>
 								</div>
@@ -144,11 +145,11 @@
 									<div class="like-box">
 										<a class="like {$like==1?'active':''}"  rel="book_{$list.id}_{$u_id}" href="javascript:;"><span></span>喜欢</a>
 									</div>
-							<div class="gtleft">
+							<div class="gtleft" style="margin-top:35px">
 								<ul>
 									<li>
 										<img src="./short-comment.gif" alt="">
-										<a href="#pop-1">写短评</a>
+										<a class="wsc" href="#pop-1">写短评</a>
 									</li>
 									<li>
 										<img src="./add-review.gif" alt="">
@@ -171,11 +172,11 @@
                                  
 							</div>
 						</div>
-						<div class="related-pic">
+						<!-- <div class="related-pic">
 							<h3>作者简介</h3> 
 							<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$list.w_brief|subtext=273}
 							</p>
-						</div>
+						</div> -->
 						<div class="comments-section">
 							<div class="mod-hd">
 								<a class="saytwo" href="#pop-1">我来说两句</a>
@@ -241,7 +242,7 @@
 									</div>
 								</div>
 								</foreach>
-								<div class="more-shot">
+								<div class="more-shot" style="margin-top:40px">
 									>
 									<a href="__CONTROLLER__/alllongComment/id/{$list.id}">更多书评条</a>
 								</div>
@@ -256,7 +257,9 @@
 					
 					<div class="aside"> 
 						<div class="aside-pic">
-							<img src="__PUBLIC__/images/sidepic.jpg" alt="">
+							<a href="http://{$alist['0'].link}">
+								<img src="__PUBLIC__{$alist['0'].i_path}{$alist['0'].i_name}" alt="">
+							</a>
 						</div>
 
 						<div class="aside-tag">
@@ -272,18 +275,18 @@
 						</div>
 						<div class="subject-doulist">
 							<h2>去蜂巢小组讨论这本书</h2>
-							<a href="">入口</a>
+							<!-- <a href="">入口</a> -->
 						</div>
-						<div class="subject-doulist">
-							<h3>在哪儿买这本书？</h3>
-							<ul>
-								<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
-								<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
-								<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
-								<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
-								<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
-							</ul>
-						</div>
+					<!-- 	<div class="subject-doulist">
+						<h3>在哪儿买这本书？</h3>
+						<ul>
+							<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
+							<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
+							<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
+							<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
+							<li><a href="">严重收藏癖患者的网盘资源清单，病友进！！！</a></li>
+						</ul>
+					</div> -->
 						<div class="aside-interests">
 							<h3>谁在看这部图书  ·  ·  ·  ·  ·  ·</h3>
 							<ul>
@@ -291,29 +294,29 @@
 									<img style="float:left;" src="./small.jpg" alt="">
 									<div class="others-interest-info">
 										<a href="">欢脱的喵喵</a>
-										<div class=""> 1分钟前 想看 </div>
+										<div class=""> 2015-07-25 想看 </div>
 									</div>
 								</li>
 								<li>
 									<img style="float:left;" src="./small.jpg" alt="">
 									<div class="others-interest-info">
-										<a href="">欢脱的喵喵</a>
-										<div class=""> 1分钟前 想看 </div>
+										<a href="">会飞的鱼</a>
+										<div class=""> 2015-07-20 想看 </div>
 									</div>
 								</li>
 								<li>
 									<img style="float:left;" src="./small.jpg" alt="">
 									<div class="others-interest-info">
-										<a href="">欢脱的喵喵</a>
-										<div class=""> 1分钟前 想看 </div>
+										<a href="">世界末日</a>
+										<div class=""> 2015-07-24 想看 </div>
 									</div>
 								</li>
 							</ul>
 
 							<div class="subject-others-interests-ft">
-								<a href="">11626人看过</a>
+								<a href="">6人看过</a>
 								 / 
-								<a href="">17662人想看</a>
+								<a href="">5人想看</a>
 							</div>
 
 						</div>
@@ -368,16 +371,16 @@
 										<dl>
 											<dt>常用标签:</dt>
 											<dd>
-											<span class="tagbtn gract">橋本愛</span>
-											<span class="tagbtn gract">日本电影</span>
-											<span class="tagbtn gract">桥本爱</span>
+											<span class="tagbtn gract">精彩</span>
+											<span class="tagbtn gract">外国电影</span>
+											<span class="tagbtn gract">浪漫</span>
 											<span class="tagbtn gract">美食</span>
 											<span class="tagbtn gract">文艺</span>
-											<span class="tagbtn gract">日本</span>
+											<span class="tagbtn gract">动作</span>
 											<span class="tagbtn gract">2015</span>
 											<span class="tagbtn gract">自然</span>
 											<span class="tagbtn gract">电影</span>
-											<span class="tagbtn gract">日影</span>
+											<span class="tagbtn gract">奇幻</span>
 											</dd>
 										</dl>
 									</li>
@@ -390,7 +393,7 @@
 									</li>
 									<li class="private">
 										<input id="inp-private" type="checkbox" name="private">
-										<label class="pl" for="inp-private">仅自己可见</label>
+										<label class="pl" for="inp-private"></label>
 									</li>
 								</ul>
 								<div id="submits" class="interest-form-ft">

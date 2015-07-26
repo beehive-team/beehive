@@ -10,7 +10,7 @@ class IndexController extends CommonController {
         //根据评分查询
         $b = M('book');
         $r1 = $b->field('id,name,score,release_t')->order('score desc')->limit(7)->select();
-        var_dump($r1);
+        //var_dump($r1);
         $this->assign('r1',$r1);
 
 

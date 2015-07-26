@@ -70,20 +70,32 @@ class BookController extends CommonController {
     }
 
     public function ranking(){
+        //查询显示广告
+        $adlist = $this->ad(0);
+        $this->assign('adlist',$adlist);
         //电影热度查询
         $b= M('book');
         $lis = $b->table('bee_book b,bee_bimage i')->field('b.score,b.writer,b.publisher,b.name bname,b.release_t,i.*')->where('b.id=i.b_id and i.is_cover=1')->order('hot desc')->limit(5)->select();
-        var_dump($lis);
+        //var_dump($lis);
         $this->assign('lis',$lis);
 
         //根据评分查询
         $b = M('book');
         $r = $b->field('id,name,score,release_t')->order('score desc')->limit(7)->select();
-        var_dump($r);
+        //var_dump($r);
         $this->assign('r',$r);
         $this->display();
     }
     public function books(){        
+        //查询显示广告
+        $a = M('ad');
+        $alist = $a->where("style=0")->select();
+        //var_dump($alist);
+        $this->assign('alist',$alist);
+
+        $adblist = $this->ad(1);
+        $this->assign('adblist',$adblist);
+
         //获取电影id
         $id=$_GET['id'];
         //echo $id;exit;
@@ -149,6 +161,10 @@ class BookController extends CommonController {
     }
 
     public function longComment(){
+         //判断登录
+        if(empty($_SESSION['home']['user_id'])){
+            $this->error('请先登录',U('Common/login'));
+        }
         //接收影片ID
         $id = $_GET['id'];
          $b = M('book');
@@ -210,6 +226,11 @@ class BookController extends CommonController {
     }
 
     public function dosortComment(){
+        //判断登录
+        if(empty($_SESSION['home']['user_id'])){
+            $this->error('请先登录',U('Common/login'));
+        }
+
         $id=$_POST['b_id'];
         // echo $id;exit;
         $_POST['u_id']=$_SESSION['home']['user_id'];
@@ -343,6 +364,11 @@ class BookController extends CommonController {
 
 
     public function doshortComment(){
+         //判断登录
+        if(empty($_SESSION['home']['user_id'])){
+            $this->error('请先登录',U('Common/login'));
+        }
+        
         $id=$_POST['b_id'];
         $_POST['u_id']=$_SESSION['home']['user_id'];
         $_POST['time']=time();
@@ -387,7 +413,11 @@ class BookController extends CommonController {
     }
 
     public function addcomment(){
-        var_dump($_POST);
+        //判断登录
+        if(empty($_SESSION['home']['user_id'])){
+            $this->error('请先登录',U('Common/login'));
+        }
+        //var_dump($_POST);
         $_POST['time']=time();
         $b = M('b_replay');
         if($b->add($_POST)){
@@ -412,10 +442,14 @@ class BookController extends CommonController {
     }
 
     public function comment(){
+        //查询显示广告
+        $adlist = $this->ad(0);
+        $this->assign('adlist',$adlist);
+
         //最受欢迎的影评
         $b1=M('l_b');
         $r1 = $b1->table('bee_l_b')->order('hot desc')->limit(5)->select();
-        echo $b1->getLastSql();
+        //echo $b1->getLastSql();
         $arr = array();
         foreach ($r1 as $key => $value) {
             $r_id =$r1[$key]['id'];

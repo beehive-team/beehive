@@ -239,8 +239,14 @@
 									<div class="review">
 										<div class="review-hd">
 											<div class="review-hd-title">
-												<a href=><img src="" alt=""></a>
-												<a href="__CONTROLLER__/commentDetail/id/{$vo.id}/mid/{$vo.m_id}">{$vo.title}</a>
+												<if condition="empty($vo['image'])" >
+												<a class="fl" href=><img src="__PUBLIC__/images/default_face.jpg" width="36px" alt=""></a>
+												<else />
+												<a class="fl" href=><img src="__PUBLIC__{$vo.image}" width="36px" alt=""></a>
+												</if>
+												<div class="fl">
+													<a href="__CONTROLLER__/commentDetail/id/{$vo.id}/mid/{$vo.m_id}">{$vo.title}</a>
+												</div>
 											</div>
 											<div class="review-hd-info">
 												<a class="" href="">{$vo.name}</a>
@@ -271,8 +277,8 @@
 						
 						<div class="aside"> 
 							<div class="aside-pic">
-								<a href="http://{$adlist.link}">
-									<img src="__PUBLIC__{$adlist.i_path}{$adlist.i_name}" alt="">
+								<a href="http://{$alist['0'].link}">
+									<img src="__PUBLIC__{$alist['0'].i_path}{$alist['0'].i_name}" alt="">
 								</a>
 							</div>
 
@@ -282,9 +288,9 @@
 									<a href="">电影</a>
 									<a href="">自然</a>
 									<a href="">文艺</a>
-									<a href="">橘本爱</a>
-									<a href="">日本</a>
-									<a href="">日本电影</a>
+									<a href="">精彩</a>
+									<a href="">外国</a>
+									<a href="">爱情</a>
 								</div>
 							</div>
 							<div class="subject-doulist">
@@ -300,7 +306,11 @@
 								<ul>
 									<foreach name="r3" item="vo">
 									<li>
-										<img style="float:left;" src="./small.jpg" alt="">
+										<if condition="empty($vo['image'])" >
+										<img style="float:left;" src="__PUBLIC__/images/default_face.jpg" width="48px" alt="">
+										<else />
+										<img style="float:left;" src="__PUBLIC__{$vo.image}" width="48px" alt="">
+										</if>
 										<div class="others-interest-info">
 											<a href="">{$vo.name}</a>
 											<div class=""> {$vo.time|date="Y-m-d",###} 想看 </div>
@@ -318,7 +328,9 @@
 
 							</div>
 							<div class="aside-pic-two">
-								<img src="__PUBLIC__/images/sidepic1.jpg" alt="">
+								<a href="http://{$alist['1'].link}">
+								<img src="__PUBLIC__{$alist['1'].i_path}{$alist['1'].i_name}" alt="">
+								</a>							
 							</div>
 						</div>
 						
@@ -369,18 +381,18 @@
 									<li id="mytags" class="clearfix"></li>
 									<li id="populartags" class="clearfix">
 										<dl>
-											<dt>常用标签:</dt>
+											<dt>参考标签:</dt>
 											<dd>
-											<span class="tagbtn gract">橋本愛</span>
-											<span class="tagbtn gract">日本电影</span>
-											<span class="tagbtn gract">桥本爱</span>
+											<span class="tagbtn gract">精彩</span>
+											<span class="tagbtn gract">外国电影</span>
+											<span class="tagbtn gract">浪漫</span>
 											<span class="tagbtn gract">美食</span>
 											<span class="tagbtn gract">文艺</span>
-											<span class="tagbtn gract">日本</span>
+											<span class="tagbtn gract">动作</span>
 											<span class="tagbtn gract">2015</span>
 											<span class="tagbtn gract">自然</span>
 											<span class="tagbtn gract">电影</span>
-											<span class="tagbtn gract">日影</span>
+											<span class="tagbtn gract">奇幻</span>
 											</dd>
 										</dl>
 									</li>

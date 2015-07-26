@@ -5,6 +5,8 @@
 	    {:W('Common/commonHead')}
 	<!-- END 公用 head -->
 	<link rel="stylesheet" href="__PUBLIC__/css/moviedetail.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/fancybox/jquery.fancybox.css" />
+	<script type="text/javascript" src="__PUBLIC__/js/fancybox/jquery.fancybox.js"></script>
 </head>
 <body>
 	<!-- START header -->
@@ -44,52 +46,31 @@
 											</div>
 										</div>
 										<div id="comments" class="">
+											<foreach name="list2" item="vo">
 											<div id="6818739" class="comment-item" data-target_kind="1012" data-target_id="7436647" data-cid="6818739">
 												<div class="content report-comment">
 													<div class="author">
-														<span class="">2015-04-07 17:50:51</span>
-														<a class=" " href="">禧月</a>
-														(择善者，固执之)
-													</div>
-													<div class="reply-quote">
-														<span class="short">你的文字很温暖～</span>
+														<span class="">{$vo.time|date="Y-m-d,h:i:s",###}</span>
+														<a class=" " href="">{$vo.uname}</a>
 														
-														<span class="pubdate">
-															<a href="">禧月</a>
-														</span>
 													</div>
-													<p class="">你的谢谢～</p>
-													<div class="op-lnks">
-														<a class="lnk-reply" href="">回应</a>
-													</div>
-												</div>
-											</div>
+													<div id = "{$vo.id}" class="reply-quote">
 
-											<div id="6818739" class="comment-item" data-target_kind="1012" data-target_id="7436647" data-cid="6818739">
-												<div class="content report-comment">
-													<div class="author">
-														<span class="">2015-04-07 17:50:51</span>
-														<a class=" " href="">禧月</a>
-														(择善者，固执之)
 													</div>
-													<div class="reply-quote">
-														<span class="short">你的文字很温暖～</span>
+													<p class="">{$vo.content}</p>
+													<div class="op-lnks">													
+														<button  class = "{$vo.id}">回应</button>
 														
-														<span class="pubdate">
-															<a href="">禧月</a>
-														</span>
-													</div>
-													<p class="">你的谢谢～</p>
-													<div class="op-lnks">
-														<a class="lnk-reply" href="">回应</a>
 													</div>
 												</div>
 											</div>
-											
+											</foreach>
+											<input type = "hidden" id="bt">
+
 											<h3> 你的回应  · · · · · · </h3>
 											<div id="add_comment" class="comment-form txd">
 												<form action="__CONTROLLER__/addcomment" method="post" name="comment_form">
-													<input type="hidden" name="r_id" value="{$list.id}">
+													<input type="hidden" name="l_id" value="{$list.id}">
 													<input type="hidden" name="u_id" value="{$list.u_id}">
 													<input type="hidden" name="m_id" value="{$list.m_id}">
 													<div class="item">
@@ -163,5 +144,6 @@
 	<!-- START footer -->
 	    {:W('Common/commonFooter')} 
 	<!-- END footer -->
+
 </body>
 </html>

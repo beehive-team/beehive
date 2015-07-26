@@ -42,7 +42,7 @@
 	            <td>{$vo.title}</td>	           	           	            
 	            <td>{$vo.hot}</td>
 	            <td>{$vo.grade}</td>
-	            <td><a class="btn btn-primary" href="">查看</a></td>
+	            <td><a class="btn btn-primary" target="_blank" href="__APP__/Home/movie/commentDetail/id/{$vo.id}/mid/{$vo.m_id}">查看</a></td>
 				<td><a class="btn btn-success" href="__CONTROLLER__/dolongshow/id/{$vo.id}/show/{$vo.show}">{$vo['show']==0?否:是}</a></td>  
 				<td>									
 					<a class="btn btn-danger" href="__CONTROLLER__/dellongComment/id/{$vo.id}">删除</a>

@@ -301,7 +301,7 @@ class MovieController extends CommonController {
                  ->field('u.name,l.*')
                  ->where('l.show=1 and u.id=l.u_id and l.id='.$id)
                  ->find();
-        var_dump($list);
+        //var_dump($list);
         $this->assign('list',$list);
 
         $mid = $_GET['mid'];
@@ -326,6 +326,17 @@ class MovieController extends CommonController {
         //var_dump($list1[0]);
         $this->assign('list1',$list1[0]);
         $this->assign('u_id',$this->userId);
+
+        $id = $_GET['id'];
+        $m = M('m_replay');
+        $list2 =$m->table('bee_user u,bee_m_replay r,bee_l_r l')
+        ->field('r.*,u.name uname')
+        ->where("r.u_id=u.id and r.l_id=l.id and r_id=0 and  l.id=".$id)
+        ->order('time')
+        ->select();
+        //echo $m->getLastSql();
+        var_dump($list2);
+        $this->assign('list2',$list2);
 
         $this->display();
     }
@@ -501,17 +512,18 @@ class MovieController extends CommonController {
         //var_dump($li);
         echo json_encode($li);
     }
-    /*public function addcomment(){
-       
+    
+    public function addcomment(){
         $_POST['time']=time();
-        var_dump($_POST['time']=time());
-        var_dump($_POST);
-
+        //当前登录用户的id
+        $_POST['u_id'] = $_SESSION['home']['user_id'];
+        //var_dump($_POST);exit;
         $m = M('m_replay');
-       if($m->add($_POST)){
+        if($m->add($_POST)){
             $this->success('评论成功');
-       }else{
+        }else{
             $this->error('评论失败');
-       }
-    }*/
+        }
+    }
+
 }

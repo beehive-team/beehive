@@ -98,33 +98,61 @@
 										</span>
 									</div>
 								</div>
-								<div class="interest_sect1">
-									<div class="rating_wrap">
-										
-									</div>
-									<div class="rating_betterthan">
-										此处是书本打星的成绩
+									<div class="interest_sect1">
+										<div class="rating_wrap">
+											<p class="rating_self clearfix" >
+											<span class="fl bigstar{$data.star}"></span>
+											<strong class="fl rating_num" property="v:average">{$data.score}</strong>
+											<span content="10.0" property="v:best"></span>
+											</p>
+											<p style="height:18px;margin:5px 0;font-size:12px;">
+											 	(
+													<a href="collections">
+													<span property="v:votes">{$data.count}</span>
+													人评价
+													</a>
+												)
+											</p>
+											<span class="stars5 starstop" title="力荐"></span>
+											<div class="power" style="width:60px"></div>
+											54.8%
+											<br>
+											<span class="stars4 starstop" title="推荐"></span>
+											<div class="power" style="width:35px"></div>
+											32.0%
+											<br>
+											<span class="stars3 starstop" title="还行"></span>
+											<div class="power" style="width:11px"></div>
+											10.3%
+											<br>
+											<span class="stars2 starstop" title="较差"></span>
+											<div class="power" style="width:1px"></div>
+											1.4%
+											<br>
+											<span class="stars1 starstop" title="很差"></span>
+											<div class="power" style="width:1px"></div>
+											1.5%
+											<br>
+										</div>
+										<div class="rating_betterthan">
+											图书评分
+										</div>
 									</div>
 								</div>
-							</div>
 							<div class="clearfix"></div>
-							<div class="interst_sect_level">
-								<a class="colbutton" href=""><span>想读</span></a>
-								<a class="colbutton" href=""><span>在读</span></a>
-								<a class="colbutton" href=""><span>读过</span></a>
-								<div class="a_stars">
-									评价:
-								</div>
-							</div>
+								<div class="clearfix"></div>
+									<div class="like-box">
+										<a class="like {$like==1?'active':''}"  rel="book_{$list.id}_{$u_id}" href="javascript:;"><span></span>喜欢</a>
+									</div>
 							<div class="gtleft">
 								<ul>
 									<li>
 										<img src="./short-comment.gif" alt="">
-										<a href="">写短评</a>
+										<a href="#pop-1">写短评</a>
 									</li>
 									<li>
 										<img src="./add-review.gif" alt="">
-										<a href="">写书评</a>
+										<a href="__CONTROLLER__/longComment/id/{$list.id}">写书评</a>
 									</li>
 									<li>
 										<img src="./short-comment.gif" alt="">

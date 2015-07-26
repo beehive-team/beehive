@@ -7,7 +7,47 @@
 		<!-- END 公用 head -->
 		<!-- START 自定义 head -->
 		<script type="text/javascript" src="__PUBLIC__/js/jquery.bxslider.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var i=5;
+				$('.ajax-button a').click(function(){
+					i=i+5;
+					j=0;
+					//alert(i);					
+						$.post('__CONTROLLER__/moreComment',{num:i},function(data){
+							//alert(data);
+							$('#dys').empty();
 
+							for(var tmp in data){
+								$('#dys').append('<li><div class="img-box f-left"><a href="__CONTROLLER__/books/id/'+data[tmp]['b_id']+'"><img src="__PUBLIC__'+data[tmp]['i_path']+data[tmp]['name']+'" width="68px" /></a></div><div class="text-box f-left"><h5><a href="__CONTROLLER__/commentDetail/id/'+data[tmp]['lid']+'/bid/'+data[tmp]['b_id']+'">'+data[tmp]['title']+' (全文)</a></h5><p><a href="">作者'+data[tmp]['uname']+'&nbsp;</a><a href="__CONTROLLER__/longComment/id/'+data[tmp]['b_id']+'">去评论&nbsp;'+data[tmp]['bname']+'</a></p><p class="detail">'+data[tmp]['content']+'...<a class="all" href="__CONTROLLER__/commentDetail/id/'+data[tmp]['lid']+'/bid/'+data[tmp]['b_id']+'">(全文)</a></p></div></li>');
+
+								var con = $('.detail').eq(j).html();
+								// alert(con)
+								con = con.substring(0,30);
+								// alert(con)
+								$('#dys li .detail').eq(j).html(con);
+								j++;
+								// alert(j)
+							}
+												
+						},'json')
+				})
+			})
+		</script>
+		
+		<style type="text/css">
+			.ajax-button a {
+			    background-color: #f7f7f7;
+			    color: #a11715;
+			    display: block;
+			    font-size: 14px;
+			    height: 40px;
+			    text-align: center;
+			    width: 582px;
+			    line-height: 40px;
+			    margin-bottom: 5px;
+			}
+		</style>
 		<!-- END 自定义 head -->
 	</head>
 	<body class="movie-page movie-comment-page">
@@ -24,28 +64,34 @@
 					<div class="f-left con">
 						<div class="section sec-4">
 							<div class="top">
-								<h3>最受欢迎的影评</h3>
-								<a href="">更多热门影评》</a>
-								<a href="">新片影评》</a>
+								<h3>最受欢迎的书评</h3>
+								<a href="">更多热门书评》</a>
 							</div>
 							<div class="bottom">
-								<ul>
+								<ul id="dys">
+									<foreach name="arr" item="vo">
 									<li>
-										<div class="img-box f-left"><a href=""><img src="__PUBLIC__/images/movie6.jpg"/></a></div>
+										<div class="img-box f-left"><a href="__CONTROLLER__/books/id/{$vo.b_id}"><img src="__PUBLIC__{$vo.i_path}148_{$vo.name}" width="68px" /></a></div>
 										<div class="text-box f-left">
-											<h5><a href="">标题</a><a class="icon"href="javascript:;">下拉</a></h5>
-                                            <p><a href="">作者&nbsp;</a>评论&nbsp;<a href="">电影名</a><span class="allstar40"></span></p>
+											<h5><a href="__CONTROLLER__/commentDetail/id/{$vo.lid}/bid/{$vo.b_id}">{$vo.title}</a></h5>
+                                            <p><a href="">作者 {$vo.uname}&nbsp;</a> 
+                                            <a href="__CONTROLLER__/longComment/id/{$vo.b_id}">去评论&nbsp;{$vo.bname}</a></p>
                                             <p class="detail"> 
-                                                fjdklsfjdlsflsdkjflkjdfslfjdl<a class="all"href="">(35个回应)</a>
+                                                {$vo.content|subtext=28}<a class="all" href="__CONTROLLER__/commentDetail/id/{$vo.lid}/bid/{$vo.b_id}">(全文)</a>
                                             </p> 
 										</div>
 									</li>
-								</ul> </div>
+									</foreach>
+								</ul>
+								<div class="ajax-button">
+									<a href="javascript:;">加载更多</a>
+								</div> 
+							</div>
 						</div>
 					</div>
 					<div class="f-left sider">
 						<div class="ad">
-							<a href=""><img src="__PUBLIC__/images/ad4.jpg"/></a>
+							<a href="http://{$adlist.link}"><img src="__PUBLIC__{$adlist.i_path}{$adlist.i_name}"/></a>
 						</div>
 
 

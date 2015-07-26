@@ -6,6 +6,26 @@
 	<!-- END 公用 head -->
 	<link rel="stylesheet" href="__PUBLIC__/css/moviedetail.css">
 </head>
+<script type="text/javascript">
+	$(function(){
+        var s_id;
+        var l_id;
+        
+        $('.l_userful').click(function(){
+        	if(!$(this).hasClass('active')){
+        		l_id = $(this).attr('rel');
+        		//alert(l_id);
+        		var that =$(this);
+        		$.post('__CONTROLLER__/lCommentUseful',{l_id:l_id},function(data){
+	        		//alert(data['hot']);
+	        		$(that).parents('.review-short-ft').find('.l_userful-num ').html(data[
+	        			'hot']);      		
+	        	},'json');
+	        	$(that).addClass('active');
+        	}
+        })
+	})
+</script>
 <body>
 	<!-- START header -->
 	    {:W('Common/allHeader')}
@@ -33,6 +53,7 @@
 										<div class="review-hd-info">
 											<a class="" href="">{$vo.name}</a>
 											{$vo.time|date="Y-m-d,h:i:s",###}
+											<span class="allstar40" title="推荐"></span>
 										</div>
 									</div>
 									<div class="riview-bd">					
@@ -74,26 +95,24 @@
 								</div>
 								<span class="attrs">
 									<p>
-										<span class="pl">导演:</span>
-										{$list1.director}
+										<span class="pl">书名:</span>
+										{$list1.name}
 									</p>
 									<p>
-										<span class="pl">编剧:</span>
+										<span class="pl">作者:</span>
 										{$list1.writer}
 									</p>
 									<p>
-										<span class="pl">类型:</span>
-										<foreach name="list1.fname" item="vo">									
-										{$vo}/
-										</foreach>
+										<span class="pl">出版社:</span>
+										{$list1.publisher}
 									</p>
 									<p>
-										<span class="pl">片长:</span>
-										{$list1.tlong}分钟
+										<span class="pl">ISBN:</span>
+										{$list1.isbn}
 									</p>
 									<p>
-										<span class="pl">上映时间:</span>
-										{$list1.orelease_t}
+										<span class="pl">出版时间:</span>
+										{$list1.release_t}
 									</p>
 
 								</span>

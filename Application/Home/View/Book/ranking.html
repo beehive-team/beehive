@@ -25,8 +25,36 @@
 					pager:true,
 					controls:true,
 				});
+
+				var i=5;
+				$('.ajax-button a').click(function(){
+					i=i+5;
+					//alert(i);					
+						$.post('__CONTROLLER__/moreRanking',{num:i},function(data){
+							//alert(data);
+							$('#dys').empty();
+							for(var tmp in data){
+								$('#dys').append('<li><div class="img-box f-left"><a href="__CONTROLLER__/books/id/'+data[tmp]['b_id']+'"><img src="__PUBLIC__'+data[tmp]['i_path']+data[tmp]['name']+'" width=65px /></a></div><div class="text-box f-left "><h5><a href="__CONTROLLER__/books/id/'+data[tmp]['b_id']+'">电影名 '+data[tmp]['alias']+'</a></h5><p>'+data[tmp]['release_t']+'/'+data[tmp]['name']+'/'+data[tmp]['writer']+' ...</p><p>电影评论得分 <i>'+data[tmp]['score']+'</i><a href="__CONTROLLER__/books/id/'+data[tmp]['b_id']+'">(去评价)</a></p></div></li>');
+							}
+												
+						},'json')
+				})
 			})
 		</script>
+
+		<style type="text/css">
+			.ajax-button a {
+			    background-color: #f7f7f7;
+			    color: #a11715;
+			    display: block;
+			    font-size: 14px;
+			    height: 40px;
+			    text-align: center;
+			    width: 582px;
+			    line-height: 40px;
+			    margin-bottom: 5px;
+			}
+		</style>
 		<!-- END 自定义 head -->
 	</head>
 	<body class="movie-page movie-ranking-page">
@@ -44,60 +72,60 @@
 					<div class="f-left con">
 
 
-
 						<div class="section sec-4">
 							<div class="top">
-								<h2>豆瓣电影排行榜</h2>
-								<h3>豆瓣新片榜 · · · · · · </h3>
+								<h2>蜂巢图书排行榜</h2>
+								<h3>蜂巢热门榜 · · · · · · </h3>
 							</div>
 							<div class="bottom">
-								<ul>
+								<ul id="dys">
+									<foreach name="lis" item="vo">
 									<li>
-										<div class="img-box f-left"><a href=""><img src="__PUBLIC__/images/movie6.jpg"/></a></div>
-										<div class="text-box f-left">
-											<h5><a href="">电影名</a></h5>
-                                            <p>2015-05-15(美国) / 2015-05-14(澳大利亚) / 汤姆·哈迪 / 查理兹·塞隆 / 尼古拉斯·霍尔特 / 休·基斯-拜恩 / 乔什·赫尔曼 / 内森·琼斯 / 佐伊·克罗维兹 / 罗茜·汉丁顿-惠特莉 / 丽莉·克亚芙 / 阿比·丽 / 考特尼·伊顿 / 安格斯·桑普森 / 理查德·卡特...</p>
-                                            <p><span class="allstar40"></span> <i>4.7</i>(5968人评价)</p>
+										<div class="img-box f-left"><a href="__CONTROLLER__/books/id/{$vo.b_id}"><img src="__PUBLIC__{$vo.i_path}{$vo.name}" width="65px" /></a></div>
+										<div class="text-box f-left ">
+											<h5><a href="__CONTROLLER__/books/id/{$vo.b_id}">书名 {$vo.bname}</a></h5>
+                                            <p>{$vo.release_t|date="Y-m-d",###}/{$vo.bname}/{$vo.writer} ...</p>
+                                            <p>电影评论得分 <i>{$vo.score}</i><a href="__CONTROLLER__/detail/id/{$vo.b_id}">(去评价)</a></p>
                                          </div>
 									</li>
-								</ul> </div>
+									</foreach>
+								</ul>
+								<div class="ajax-button">
+									<a href="javascript:;">加载更多</a>
+								</div> 
+							</div>
 						</div>
 					</div>
 					<div class="f-left sider">
 
-						<div class="classify-ranking">
+						<!-- <div class="classify-ranking">
 							<h4>分类排行榜 ·······</h4>
 								<div class="classify">
 									
 									<a href="">小说</a>
 									<a href="">随笔</a>
 								</div>
-
+						
 							
-						</div>
+						</div> -->
 						<div class="ad">
-							<a href=""><img src="__PUBLIC__/images/ad4.jpg"/></a>
+							<a href="http://{$adlist.link}"><img src="__PUBLIC__{$adlist.i_path}{$adlist.i_name}"/></a>
 						</div>
                         <div class="list-box">
                         	<div class="title">
-                        		<h3>本周口碑榜 ·······</h3>
-                        		<h5>6月28日 - 7月5日</h5>
+                        		<h3>电影口碑榜 ·······</h3>
+                        		<h5></h5>
                         	</div>
                             <ul>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
-                                <li>1<a href=""> 风快的麦克斯</a></li>
+                              	<foreach name="r" item="vo" key="k">
+                                <li>{$k+1}<a href="__CONTROLLER__/detail/id/{$vo.id}"> {$vo.name}</a></li>
+                              	</foreach>
                             </ul>
 
                         </div>
-                        <div class="top250">
+                        <!-- <div class="top250">
                         	<div class="title">
-                        		<h3>豆瓣电影TOP250</h3>
+                        		<h3>蜂巢电影TOP250</h3>
                         		<a href="">全部</a>
                         	</div>
                             <ul>
@@ -113,7 +141,7 @@
                                 	<a href=""><img src="__PUBLIC__/images/movie6.jpg"/></a>
                                 	<p><a href="">出门的世界</a></p>
                                 </li>
-								<li>
+                        								<li>
                                 	<a href=""><img src="__PUBLIC__/images/movie6.jpg"/></a>
                                 	<p><a href="">出门的世界</a></p>
                                 </li>
@@ -122,8 +150,8 @@
                                 	<p><a href="">出门的世界</a></p>
                                 </li>
                             </ul>
-
-                        </div>
+                        
+                        </div> -->
 					</div>
 				</div>
 			</div>

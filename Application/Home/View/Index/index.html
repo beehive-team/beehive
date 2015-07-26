@@ -22,6 +22,7 @@
 				border-bottom: 1px solid #ddd;
 			    line-height: 40px;
 			    padding-left: 10px;
+			 
 			}
 		</style>
 		<!-- END 自定义 head -->
@@ -120,61 +121,41 @@
 						<div class="f-left list">
 							<h3>读书</h3>
 							<ul>
-								<li><a href="">分类浏览</a></li>
-								<li><a href="">作者</a></li>
-								<li><a href="">书评</a></li>
-								<li><a href="">购书单</a></li>
+								<li><a href="__MODULE__/Book/index">图书首页</a></li>
+								<li><a href="__MODULE__/Book/chose">选图书</a></li>
+								<li><a href="__MODULE__/Book/ranking">排行榜</a></li>
+								<li><a href="__MODULE__/Book/comment">书评</a></li>
 							</ul>
 						</div>
 						<div class="f-left new">
-							<h4>新书速递 ·······</h4><a href="">（更多）</a>
+							<h4>新书速递 ·······</h4>
 							<ul>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/book1.jpg"/></a>
-									</div>
-									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
-								</li>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/book1.jpg"/></a>
-									</div>
-									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
-								</li>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/book1.jpg"/></a>
-									</div>
-									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
-								</li>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/book1.jpg"/></a>
-									</div>
-									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
-								</li>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/book1.jpg"/></a>
-									</div>
-									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
-								</li>
-								<li>
-									<div class="pic">
-										<a href=""><img src="__PUBLIC__/images/book1.jpg"/></a>
-									</div>
-									<p><a href="">新手</a></p><p>[美〕雷蒙德 ...</p>
-								</li>
+								<foreach name="row1" item="vo">
+									<li>
+										<div class="pic">
+											<a href="__MODULE__/Book/books/id/{$vo.bid}"><img src="__PUBLIC__{$vo.i_path}{$vo.name}"/></a>
+
+										</div>
+										<p><a href="">{$vo.bname}</a></p>
+											<p>评分 <i>{$vo.score}</i></p>
+
+									</li>
+								</foreach>
 							</ul>
 						</div>
 						<div class="f-left tags">
 							<h4>热门标签 ·······</h4><a href="">（更多）</a>
-							<ul>
-								<li>
+							<ul class="last_one">							
+								<!-- <li>
 									<span>[文学]</span>
 									<a href="">小说</a>
 									<a href="">随笔</a>
-								</li>
+								
+								</li> -->
+								<foreach name="r1" item="vo" key="k">
+                                <li>{$k+1}<a href="__MODULE__/Book/books/id/{$vo.id}"> {$vo.name}</a></li>
+                               	</foreach>
+
 							</ul>
 						</div>
 					</div>

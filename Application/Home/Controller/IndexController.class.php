@@ -2,6 +2,18 @@
 namespace Home\Controller;
 class IndexController extends CommonController {
     public function index(){
+        //图书部分遍历
+        $b = M('book');
+        $row1 = $b->table('bee_book b,bee_bimage i')->field('b.id bid,b.name bname,b.score,i.*')->where('b.id=i.b_id and b.release_t and is_cover=1')->select();
+        //var_dump($row1);
+        $this->assign('row1',$row1);
+        //根据评分查询
+        $b = M('book');
+        $r1 = $b->field('id,name,score,release_t')->order('score desc')->limit(7)->select();
+        var_dump($r1);
+        $this->assign('r1',$r1);
+
+
         //电影部分遍历
         $m = M('movie');
         $row = $m->table('bee_movie m,bee_mimage i')->field('m.id mid,m.name mname,m.score,i.*')->where('m.id=i.m_id and m.crelease_t>1411056000 and is_cover=1')->select();

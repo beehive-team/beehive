@@ -106,8 +106,10 @@ class MovieController extends CommonController {
     }
     public function detail(){        
         //查询显示广告
-        $adlist = $this->ad(0);
-        $this->assign('adlist',$adlist);
+        $a = M('ad');
+        $alist = $a->where("style=0")->select();
+        //var_dump($alist);
+        $this->assign('alist',$alist);
 
         $adblist = $this->ad(1);
         $this->assign('adblist',$adblist);
@@ -166,7 +168,7 @@ class MovieController extends CommonController {
 
         $m3=M('l_r');
         $r1 = $m3->table('bee_user u,bee_l_r l')
-                ->field('u.name,l.*')
+                ->field('u.name,u.image,l.*')
                 ->where('l.show=1 and u.id=l.u_id and l.m_id='.$id)
                 ->limit(5)
                 ->select();
@@ -244,7 +246,7 @@ class MovieController extends CommonController {
         $this->assign('r5',$r5);       
         //查询想看的用户名字 时间
         $r3 = $m4->table('bee_user u,bee_s_r s')
-                 ->field('u.name,s.time')
+                 ->field('u.name,u.image,s.time')
                  ->where('s.show=1 and statut=0 and u.id=s.u_id and s.m_id='.$id)
                  ->group('u_id')->limit(3)
                  ->select();       
@@ -254,6 +256,11 @@ class MovieController extends CommonController {
     }
     //用户发表长评论
     public function longComment(){
+        //判断登录
+        if(empty($_SESSION['home']['user_id'])){
+            $this->error('请先登录',U('Common/login'));
+        }
+
         //接收影片ID
         $id = $_GET['id'];
         $m = M('movie');
@@ -277,6 +284,11 @@ class MovieController extends CommonController {
         //var_dump($list[0]);
         $this->assign('list',$list[0]);
 
+        $a = $_SESSION['home']['user_id'];
+        $m2 = M('user');
+        $row = $m2->where("id=$a")->find();
+        //var_dump($row);
+        $this->assign('row',$row);
         $this->display();
     }
     public function dolongComment(){
@@ -335,7 +347,7 @@ class MovieController extends CommonController {
         ->order('time')
         ->select();
         //echo $m->getLastSql();
-        var_dump($list2);
+        //var_dump($list2);
         $this->assign('list2',$list2);
 
         $this->display();
@@ -377,6 +389,11 @@ class MovieController extends CommonController {
     }
 
     public function doshortComment(){
+        //判断登录
+        if(empty($_SESSION['home']['user_id'])){
+            $this->error('请先登录',U('Common/login'));
+        }
+
         $id=$_POST['m_id'];
         $_POST['u_id']=$_SESSION['home']['user_id'];
         $_POST['time']=time();
@@ -514,6 +531,11 @@ class MovieController extends CommonController {
     }
     
     public function addcomment(){
+        //判断登录
+        if(empty($_SESSION['home']['user_id'])){
+            $this->error('请先登录',U('Common/login'));
+        }
+
         $_POST['time']=time();
         //当前登录用户的id
         $_POST['u_id'] = $_SESSION['home']['user_id'];

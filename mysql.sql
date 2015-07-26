@@ -513,3 +513,16 @@ create table bee_ad(
 	i_path varchar(255),							--  图片路径
 	i_name varchar(255)								--  图片名
 )engine=InnoDB default charset=utf8;
+
+-- 电影回应表
+create table bee_m_replay(
+	id int unsigned not null auto_increment primary key,
+	content text not null,
+	time varchar(13),
+	m_id int unsigned,
+	r_id int unsigned default 0,
+	u_id int unsigned,
+    l_id int unsigned
+    foreign key (u_id) references bee_user(id) on update cascade on delete CASCADE,
+	foreign key (m_id) references bee_movie(id) on update cascade on delete CASCADE
+)engine=InnoDB default charset=utf8;

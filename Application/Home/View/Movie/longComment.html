@@ -55,7 +55,11 @@
 										</tr>
 										<tr>
 											<td align="center" valign="top">
-												<img src="__PUBLIC__/images/small.jpg">
+												<if condition="empty($row['image'])" >
+												<img src="__PUBLIC__/images/default_face.jpg" width="48px">
+												<else />
+												<img src="__PUBLIC__{$row.image}" width="48px">
+												</if>
 											</td>
 											<td>
 												<textarea class="" style="width:448px;height:337px" name="content"></textarea>

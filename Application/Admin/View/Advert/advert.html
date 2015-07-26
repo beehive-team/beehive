@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+	<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap-theme.min.css">	
+</head>
+<body>
+	<div class="hvc">
+		<p>后台管理>广告管理</p>
+	</div>
+	<form action="__CONTROLLER__/addadvert" method="post" enctype="multipart/form-data" class="form-inline" role="form" style="margin:18px 145px 22px;">
+	  	<div class="form-group" style="width:30%">
+		    <label class="sr-only">电影名</label>
+		  	<input name="link" type="text"  class="form-control"  placeholder="输入图片链接">
+	  	</div>
+      	<select name="style" class="form-control" style="width:12%;">
+		  	<option value="">请选择...</option>
+		  	<option  value="0">小尺寸</option>
+		  	<option  value="1">大尺寸</option>	  	
+		</select>
+		<button style="float:right;margin-right:80px;"  type="submit" class="btn btn-default">添加</button>
+		<div style="float:right">
+		    <div style="float:left">图片</div>
+		    <div class="col-sm-10">
+		      	<input name="file" type="file" >
+		    </div>
+		</div>  		
+	</form>
+
+	<table class="table table-hover" style="width:75%;margin:10px auto;">
+            <tr>
+                <th>编号</th>
+                <th>图片</th>
+                <th>链接地址</th>
+                <th>尺寸</th>
+                <th>操作</th>				
+			</tr>
+
+			<foreach name="list" item="vo">
+            <tr>
+	            <td>{$vo.id}</td>
+	            <td><img src="__PUBLIC__{$vo.i_path}{$vo.i_name}" width="180px" class="img-responsive" alt="Responsive image"></td>
+	            <td>{$vo.link}</td>
+	            <td>{$vo.style}</td>            
+				<td>	
+					<a class="btn btn-primary" href="__CONTROLLER__/deladvert/id/{$vo.id}">删除</a> 				
+				</td>
+            </tr>
+           </foreach>
+           
+        </table>
+</body>
+</html>

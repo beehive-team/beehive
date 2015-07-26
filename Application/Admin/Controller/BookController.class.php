@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-class BookController extends Controller {
+class BookController extends CommonController {
     public function index(){
       $b = M('book');
 

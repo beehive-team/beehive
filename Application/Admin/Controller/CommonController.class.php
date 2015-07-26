@@ -12,13 +12,15 @@ class CommonController extends Controller{
             
             $this->p_id = $_SESSION['admin']['p_id'];
             // var_dump($_SESSION);
-            // $model =M('ac_po');
-            // $result = $model->field('a_name,c_name')->where("p_id=$this->p_id")->select();
+           // echo $this->p_id;
+            $model =M('ac_po');
+            $result = $model->field('a_name,c_name')->where("p_id=$this->p_id")->select();
 
             foreach ($result as $key => $value) {
                 $Allow_action[] = $result[$key]['c_name'].'/'.$result[$key]['a_name']; 
             }
             // var_dump($Allow_action);
+            // var_dump($current);
             if(in_array($current,$Allow_action)){
                 $this->redirect('对不起 您没有权限');
             }
@@ -53,6 +55,8 @@ class CommonController extends Controller{
             $id  =$r['id'];
             $m = M('u_p');
             $info = $m->where("u_id=$id")->find();
+            var_dump($info);
+            
             $_SESSION['admin']['p_id']=$info['p_id'];
 
             $this->success('登录成功',U('index/views'));
@@ -75,6 +79,13 @@ class CommonController extends Controller{
         
     }
 
+
+    public function out(){
+        unset($_SESSION['admin']);
+        
+        // $this->display('index/index');
+        exit('<script>top.location.href="'.U('index/index').'"</script>');
+    }
     
 
    

@@ -175,7 +175,6 @@ class UserController extends CommonController{
         
         $r[] =explode(',', $re[$key]);
       }
-      // var_dump($r);
       foreach ($r as $key => $value) {
         if($r[$key][0]==''){
           unset($r[$key]);
@@ -211,7 +210,7 @@ class UserController extends CommonController{
         $data['password']=md5($data['password']);
         var_dump($_POST);
         var_dump($data);
-        exit;
+        
         $m = M('back_user');
         if($m->add($data)){
             $this->success('添加成功');

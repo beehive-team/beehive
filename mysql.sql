@@ -69,7 +69,7 @@ create table bee_mimage(
 	name varchar(255),               -- 电影图片名
 	m_id int unsigned,               -- 电影id
 	is_cover tinyint default 0,      -- 封面
-	i_path varchar(255),			 --	图片路径
+	i_path varchar(255),			 
 	foreign key (m_id) references bee_movie(id) on update cascade on delete CASCADE
 )engine=InnoDB default charset=utf8;
 

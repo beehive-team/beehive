@@ -38,12 +38,12 @@ class UserController extends CommonController {
         $friend_sql = $friend->field('f_id')->where("u_id=$this->userId")->buildSql();
 
 
-        $diary_list = $diary->field('d.id,u.name,title,content,d.time,image,u_id')->table('bee_diary d,bee_user u')->where("d.time<$time AND d.time>$yesterday and d.u_id=u.id and browse<1 and u.id in $friend_sql")->order('hot desc')->group('d.id')->limit($start,$length)->select();
+        $diary_list = $diary->field('d.id,u.name,title,content,d.time,image,u_id')->table('bee_diary d,bee_user u')->where("d.u_id=u.id and browse<1 and u.id in $friend_sql")->order('hot desc')->group('d.id')->limit($start,$length)->select();
     	// echo $diary->getLastsql();
         // var_dump($diary_list);
         $album = M('album');
 
-        $album_list = $album->field('a.id,u.name as u_name,a.name,des,u_id,a.time,image')->table('bee_album a,bee_user u')->where("a.time<$time AND a.time>$yesterday and a.u_id=u.id and browse<1 and u.id in $friend_sql")->order('hot desc')->group('a.id')->limit($start,$length)->select();
+        $album_list = $album->field('a.id,u.name as u_name,a.name,des,u_id,a.time,image')->table('bee_album a,bee_user u')->where("a.u_id=u.id and browse<1 and u.id in $friend_sql")->order('hot desc')->group('a.id')->limit($start,$length)->select();
         // var_dump($album_list);
         // echo $album->getLastsql();
 
@@ -547,12 +547,12 @@ class UserController extends CommonController {
         $time = $this->time;
         $yesterday=strtotime('yesterday');
 
-        $diary_list = $diary->field('d.id,u.name,title,content,d.time,image,u_id')->table('bee_diary d,bee_user u')->where("d.time<$time AND d.time>$yesterday and d.u_id=u.id and browse<1")->order('hot desc')->group('d.id')->limit($start,$length)->select();
+        $diary_list = $diary->field('d.id,u.name,title,content,d.time,image,u_id')->table('bee_diary d,bee_user u')->where("d.u_id=u.id and browse<1")->order('hot desc')->group('d.id')->limit($start,$length)->select();
         // echo $diary->getLastsql();
         // var_dump($diary_list);
         $album = M('album');
 
-        $album_list = $album->field('a.id,u.name as u_name,a.name,des,u_id,a.time,hot,image')->table('bee_album a,bee_user u')->where("a.time<$time AND a.time>$yesterday and a.u_id=u.id and browse<1")->order('hot desc')->group('a.id')->limit($start,$length)->select();
+        $album_list = $album->field('a.id,u.name as u_name,a.name,des,u_id,a.time,hot,image')->table('bee_album a,bee_user u')->where("a.u_id=u.id and browse<1")->order('hot desc')->group('a.id')->limit($start,$length)->select();
         // var_dump($album_list);
         // echo $album->getLastsql();
 

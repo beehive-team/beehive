@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-class MovieController extends Controller {
+class MovieController extends CommonController {
     public function index(){
       	$arr = $_GET['name'];
         $m = M('movie');

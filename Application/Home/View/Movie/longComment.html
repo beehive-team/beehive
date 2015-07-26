@@ -1,132 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<!-- START 公用 head -->
-	    {:W('Common/commonHead')}
-	<!-- END 公用 head -->
-	<link rel="stylesheet" href="__PUBLIC__/css/moviedetail.css">
-</head>
-<body>
-	<!-- START header -->
-	    {:W('Common/allHeader')}
-	    {:W('Common/movieHeader')}	    
-	<!-- END header -->
-	<div id="wrap">
-		<div id="main">	
-			<div id="content">	
-				<div class="inner">
-					<h1>评论 {$list.name}</h1>	
-					<div class="grid-16-8 clearfix">
-						<div class="article">
-							<form id="lzform" action="__CONTROLLER__/dolongComment" name="lzform" method="POST">
-								<input type="hidden" name="m_id" value="{$list.id}">
-								<table align="center">
-									<tbody>
-										<tr>
-											<td class="pl2" align="center" width="75">标题: </td>
-											<td>
-											<input class="input_basic" type="text" value="" style="width:450px" maxlength="100" size="50" name="title">
-											</td>
-										</tr>
-										<tr>
-											<td class="p12" height="35" align="center">评价:</td>				
-											<td>
-												<label>
-													<input type="radio" value="1" name="grade">
-													很差
-												</label>
-												<label>
-													<input type="radio" value="2" name="grade">
-													较差
-												</label>
-												<label>
-													<input type="radio" value="3" name="grade">
-													还行
-												</label>
-												<label>
-													<input type="radio" value="4" name="grade">
-													推荐
-												</label>
-												<label>
-													<input type="radio" value="5" name="grade">
-													力荐
-												</label>
-											</td>
-										</tr>
-										<tr>
-											<td align="center" valign="top">
-												<img src="__PUBLIC__/images/small.jpg">
-											</td>
-											<td>
-												<textarea class="" style="width:448px;height:337px" name="content"></textarea>
-											</td>
-										</tr>
-										<tr>
-											<td></td>
-											<td>
-												<br>
-												<input type="submit" value="好了，添加评论">
-												<a href="__CONTROLLER__/detail/id/{$list.id}">> 取消</a>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</form>
-						</div>
-						
-						<div class="aside">
-							<div class="indent">
-								<div class="p1 indent">
-									<p>请尊重创作者的劳动，勿提供下载信息、或转载他人的文章。</p>
-									<p>为了鼓励有益的分享, 少于140字的评论将在短评页面里发表。</p>
-									<p>如果评论涉及电影和小说的结局和关键情节，请勾选“有关键情节透露”。豆瓣将显示提示，以免没有看过的人扫兴。</p>
-								</div>
-								<p class="pl2" style="margin-top:0pt;">
-									>
-									<a href="__CONTROLLER__/detail/id/{$list.id}">去 {$list.name} 的页面</a>
-								</p>
-							</div>
-							<div class="movie-summary">
-								<div class="movie-pic">
-									<a href="">
-										<img rel="" src="__PUBLIC__{$list.i_path}148_{$list.iname}" title="" alt="">
-									</a>
-								</div>
-								<span class="attrs">
-									<p>
-										<span class="pl">导演:</span>
-										{$list.director}
-									</p>
-									<p>
-										<span class="pl">编剧:</span>
-										{$list.writer}
-									</p>
-									<p>
-										<span class="pl">类型:</span>
-										<foreach name="list.fname" item="vo">									
-										{$vo}/
-										</foreach>
-									</p>
-									<p>
-										<span class="pl">片长:</span>
-										{$list.tlong}分钟
-									</p>
-									<p>
-										<span class="pl">上映时间:</span>
-										{$list.orelease_t}
-									</p>
-
-								</span>
-							</div>
-						</div>
-					</div>		
-				</div>
-
-			</div>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/CSS/bootstraps/css/bootstrap-theme.min.css">
+		<title>电影列表</title>
+	</head>
+	<body>
+		<div class="hvc">
+			<p>后台管理>电影长评</p>
 		</div>
-	</div>
-	<!-- START footer -->
-	    {:W('Common/commonFooter')} 
-	<!-- END footer -->
-</body>
+
+		<form class="form-inline" role="form" style="margin:18px 62px 22px;">
+		  <div class="form-group">
+		    <label class="sr-only">电影名</label>
+		  <input type="text" class="form-control"  placeholder="输入电影名进行查询">
+		  </div>
+		  <button type="submit" class="btn btn-default">搜索</button>
+		</form>
+		<table class="table table-bordered" style="width:89%;margin:10px auto;">
+            <tr>
+                <th>编号</th>
+                <th>电影名</th>
+                <th>用户名</th>
+                <th>评论时间</th>
+                <th>标题</th>    				         				
+				<th>评论热度</th>
+				<th>影片打分</th>
+				<th>内容</th>
+				<th>显示</th>
+				<th>操作</th>
+			</tr>
+
+			<foreach name="list" item="vo">
+            <tr>
+	            <td>{$vo.id}</td>
+	            <td>{$vo.name}</td>
+	            <td>{$vo.uname}</td>
+	            <td>{$vo.time|date="Y-m-d",###}</td>
+	            <td>{$vo.title}</td>	           	           	            
+	            <td>{$vo.hot}</td>
+	            <td>{$vo.grade}</td>
+	            <td><a class="btn btn-primary" href="">查看</a></td>
+				<td><a class="btn btn-success" href="__CONTROLLER__/dolongshow/id/{$vo.id}/show/{$vo.show}">{$vo['show']==0?否:是}</a></td>  
+				<td>									
+					<a class="btn btn-danger" href="__CONTROLLER__/dellongComment/id/{$vo.id}">删除</a>
+				</td>
+            </tr>
+           </foreach>
+        </table>
+        <div id="pager" style="margin-left:60px;">
+        <!-- {$page} -->
+        </div>
+	</body>
 </html>

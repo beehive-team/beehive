@@ -43,6 +43,9 @@ class IndexController extends CommonController {
         $diary = M('diary');
         $diary_result = $diary->field('d.title,d.id as d_id,u.name as u_name,content')->table('bee_diary d,bee_user u')->where("u.id=d.u_id")->order("hot desc")->select();
         $album_result = array_slice($album_result, 0,4);
+        foreach( $diary_result as $key=>$value){
+            $diary_result[$key]['content']=strip_tags($diary_result[$key]['content']);
+        }
         $diary_result = array_slice($diary_result, 0,8);
         $this->assign('show',$show);
         // var_dump($album_result);

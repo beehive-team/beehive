@@ -99,11 +99,12 @@
 											<a href="{:U('diary/diaryDetail')}?id={$vo.d_id}">{$vo.title}</a>
 											<span>{$vo.u_name}</span>
 
-											<p>{$vo.content}</p>
+											<p>{$vo.content|subtext="40"}</p>
 										</li>
 									</if>
-									
+									<if condition="$k neq 0">
 									<li><a href="{:U('diary/diaryDetail')}?id={$vo.d_id}">{$vo.title}</a></li>
+									</if>
 								</foreach>
 							</ul>
 						</div>

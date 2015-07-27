@@ -56,7 +56,7 @@
 											<li>
 												<a href="{:U('Diary/diaryDetail')}?id={$vo.diaryid}&p_id={$vo.u_id}">{$vo.title}</a>
 												<p class="time">{$vo.time|date="Y-m-d H:i:s",###}</p>
-												<p class="border">{$vo.content}</p>
+												<p class="border">{$vo.content|subtext="40"}</p>
 											</li>
 										</foreach>
 									</ul>

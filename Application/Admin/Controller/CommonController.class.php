@@ -7,6 +7,7 @@ class CommonController extends Controller{
     protected $relation;
     public function _initialize(){
         $current = CONTROLLER_NAME.'/'.ACTION_NAME;
+
         if(!empty($_SESSION['admin'])){
             $this->userId = $_SESSION['admin']['u_id'];
             
@@ -23,6 +24,8 @@ class CommonController extends Controller{
             // var_dump($current);
             if(in_array($current,$Allow_action)){
                 $this->redirect('对不起 您没有权限');
+            }else{
+                // echo 1;
             }
         }
         
@@ -55,7 +58,7 @@ class CommonController extends Controller{
             $id  =$r['id'];
             $m = M('u_p');
             $info = $m->where("u_id=$id")->find();
-            var_dump($info);
+            //var_dump($info);
             
             $_SESSION['admin']['p_id']=$info['p_id'];
 

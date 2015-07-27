@@ -165,6 +165,7 @@ class UserController extends CommonController {
         }
 
         $user = M('user');
+        // echo $this->userId;
         $userInfo = $user->where("id=$this->userId")->find();
         // echo $user->getLastsql();
         // var_dump($userInfo);
@@ -442,7 +443,7 @@ class UserController extends CommonController {
                     $data['id'] = $result[$key]['do_id'];
                     $diary = M('diary');
                     $diary_info = $diary->where($data)->find();
-                    echo $diary->getLastsql();
+                    // echo $diary->getLastsql();
                     $result[$key]['info']=$diary_info;
                     break;
                 case 'follow':

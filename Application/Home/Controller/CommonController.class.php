@@ -88,7 +88,7 @@ class CommonController extends Controller{
     
     public function doreg(){
         //var_dump($_POST);
-        $data = $_POST;
+         $data = $_POST;
         
         array_pop($data);
         array_pop($data);
@@ -109,11 +109,11 @@ class CommonController extends Controller{
         if($result = $model->add()){
             $_SESSION['home']['name']=$data['name'];
             $_SESSION['home']['user_id']= $result;
-
             $this->success('注册成功',U('Home/User/index'));
         }else{
             $this->error('注册失败');
         }
+
         
 
 

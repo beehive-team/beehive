@@ -92,7 +92,7 @@
 							</div>
 							<div class="writer-box">
 								<notempty name="diary.user.image">
-									<img src="{$diary.user.image}" / >
+									<img src="__PUBLIC__{$diary.user.image}" / >
 
 								<else />
 									<img src="__PUBLIC__/images/default_face.jpg"/>
@@ -142,7 +142,7 @@
 																<empty name="vo.image">
 																	<img src="__PUBLIC__/images/default_face.jpg"/>
 																<else/>
-																	<img src="{$vo.image}">
+																	<img src="__PUBLIC__{$vo.image}">
 																</empty>
 															</div>
 															<div class="title"><p>{$vo.name} &nbsp;&nbsp;{$vo.time|date="Y-m-d H:i:s",###}</p></div>

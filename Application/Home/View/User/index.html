@@ -160,8 +160,9 @@
 								if(data[i]['action']=='album'){
 									var obj = $('li.album').eq(0).clone(true);
 									$('.info-box ul').append(obj);
+									var face_src = PUBLIC+data[i]['image'];
 									if(data[i]['image']){
-										$(obj).find('.face-box img').attr('src',data[i]['image'])
+										$(obj).find('.face-box img').attr('src',face_src)
 									}else{
 										$(obj).find('.face-box img').attr('src',PUBLIC+'/images/default_face.jpg');
 
@@ -196,8 +197,9 @@
 									var obj = $('li.diary').eq(0).clone(true);
 									$('.info-box ul').append(obj);
 									$(obj).find('.face-box img').attr('src',data[i]['image'])
+									var face_src = PUBLIC+data[i]['image'];
 									if(data[i]['image']){
-										$(obj).find('.face-box img').attr('src',data[i]['image'])
+										$(obj).find('.face-box img').attr('src',face_src)
 									}else{
 										$(obj).find('.face-box img').attr('src',PUBLIC+'/images/default_face.jpg');
 
